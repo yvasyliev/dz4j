@@ -8,12 +8,12 @@ import io.github.yvasyliev.deezer.service.DeezerService;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
-public abstract class ObjectServicePagingMethod<T extends Pageable, S extends DeezerService> extends ServicePagingMethod<T, S> {
+public abstract class AbstractObjectServicePagingMethod<T extends Pageable, S extends DeezerService> extends AbstractServicePagingMethod<T, S> {
     @Expose(serialize = false)
     @SerializedName(value = OBJECT_ID)
     protected final long objectId;
 
-    public ObjectServicePagingMethod(Gson gson, S deezerService, long objectId) {
+    public AbstractObjectServicePagingMethod(Gson gson, S deezerService, long objectId) {
         super(gson, deezerService);
         this.objectId = objectId;
     }

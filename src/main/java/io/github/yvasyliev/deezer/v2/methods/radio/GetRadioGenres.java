@@ -4,12 +4,12 @@ import com.google.gson.Gson;
 import io.github.yvasyliev.deezer.objects.Genre;
 import io.github.yvasyliev.deezer.service.RadioService;
 import io.github.yvasyliev.deezer.v2.methods.PagingMethod;
-import io.github.yvasyliev.deezer.v2.methods.ServicePagingMethod;
+import io.github.yvasyliev.deezer.v2.methods.AbstractServicePagingMethod;
 import io.github.yvasyliev.deezer.v2.objects.Page;
 
 import java.util.concurrent.CompletableFuture;
 
-public class GetRadioGenres extends ServicePagingMethod<Genre, RadioService> {
+public class GetRadioGenres extends AbstractServicePagingMethod<Genre, RadioService> {
     public GetRadioGenres(Gson gson, RadioService radioService) {
         super(gson, radioService);
     }

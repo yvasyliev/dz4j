@@ -4,12 +4,12 @@ import com.google.gson.Gson;
 import io.github.yvasyliev.deezer.objects.Genre;
 import io.github.yvasyliev.deezer.service.GenreService;
 import io.github.yvasyliev.deezer.v2.methods.PagingMethod;
-import io.github.yvasyliev.deezer.v2.methods.ServicePagingMethod;
+import io.github.yvasyliev.deezer.v2.methods.AbstractServicePagingMethod;
 import io.github.yvasyliev.deezer.v2.objects.Page;
 
 import java.util.concurrent.CompletableFuture;
 
-public class GetGenres extends ServicePagingMethod<Genre, GenreService> {
+public class GetGenres extends AbstractServicePagingMethod<Genre, GenreService> {
     public GetGenres(Gson gson, GenreService genreService) {
         super(gson, genreService);
     }

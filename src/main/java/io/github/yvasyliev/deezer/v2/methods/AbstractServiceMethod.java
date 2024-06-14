@@ -6,6 +6,6 @@ import lombok.EqualsAndHashCode;
 
 @AllArgsConstructor
 @EqualsAndHashCode
-public abstract class ServiceMethod<T, S extends DeezerService> implements Method<T> {
+public abstract class AbstractServiceMethod<T, S extends DeezerService> implements Method<T> {
     protected final S deezerService;
 }

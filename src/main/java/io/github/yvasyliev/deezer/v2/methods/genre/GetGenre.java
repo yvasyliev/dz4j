@@ -2,11 +2,11 @@ package io.github.yvasyliev.deezer.v2.methods.genre;
 
 import io.github.yvasyliev.deezer.objects.Genre;
 import io.github.yvasyliev.deezer.service.GenreService;
-import io.github.yvasyliev.deezer.v2.methods.ObjectServiceMethod;
+import io.github.yvasyliev.deezer.v2.methods.AbstractObjectServiceMethod;
 
 import java.util.concurrent.CompletableFuture;
 
-public class GetGenre extends ObjectServiceMethod<Genre, GenreService> {
+public class GetGenre extends AbstractObjectServiceMethod<Genre, GenreService> {
     public GetGenre(GenreService genreService, long genreId) {
         super(genreService, genreId);
     }

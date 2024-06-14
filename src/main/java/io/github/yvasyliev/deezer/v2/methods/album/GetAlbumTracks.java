@@ -4,12 +4,12 @@ import com.google.gson.Gson;
 import io.github.yvasyliev.deezer.objects.Track;
 import io.github.yvasyliev.deezer.service.AlbumService;
 import io.github.yvasyliev.deezer.v2.methods.PagingMethod;
-import io.github.yvasyliev.deezer.v2.methods.ObjectServicePagingMethod;
+import io.github.yvasyliev.deezer.v2.methods.AbstractObjectServicePagingMethod;
 import io.github.yvasyliev.deezer.v2.objects.Page;
 
 import java.util.concurrent.CompletableFuture;
 
-public class GetAlbumTracks extends ObjectServicePagingMethod<Track, AlbumService> {
+public class GetAlbumTracks extends AbstractObjectServicePagingMethod<Track, AlbumService> {
     public GetAlbumTracks(Gson gson, AlbumService albumService, long albumId) {
         super(gson, albumService, albumId);
     }

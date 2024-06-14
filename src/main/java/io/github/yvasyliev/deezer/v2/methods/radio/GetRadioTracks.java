@@ -3,13 +3,13 @@ package io.github.yvasyliev.deezer.v2.methods.radio;
 import com.google.gson.Gson;
 import io.github.yvasyliev.deezer.objects.Track;
 import io.github.yvasyliev.deezer.service.RadioService;
-import io.github.yvasyliev.deezer.v2.methods.ObjectServicePagingMethod;
+import io.github.yvasyliev.deezer.v2.methods.AbstractObjectServicePagingMethod;
 import io.github.yvasyliev.deezer.v2.methods.PagingMethod;
 import io.github.yvasyliev.deezer.v2.objects.Page;
 
 import java.util.concurrent.CompletableFuture;
 
-public class GetRadioTracks extends ObjectServicePagingMethod<Track, RadioService> {
+public class GetRadioTracks extends AbstractObjectServicePagingMethod<Track, RadioService> {
     public GetRadioTracks(Gson gson, RadioService radioService, long radioId) {
         super(gson, radioService, radioId);
     }

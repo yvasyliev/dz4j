@@ -6,12 +6,12 @@ import io.github.yvasyliev.deezer.service.DeezerService;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
-public abstract class ObjectServiceMethod<T, S extends DeezerService> extends ServiceMethod<T, S> {
+public abstract class AbstractObjectServiceMethod<T, S extends DeezerService> extends AbstractServiceMethod<T, S> {
     @Expose
     @SerializedName(value = OBJECT_ID)
     protected final long objectId;
 
-    public ObjectServiceMethod(S deezerService, long objectId) {
+    public AbstractObjectServiceMethod(S deezerService, long objectId) {
         super(deezerService);
         this.objectId = objectId;
     }

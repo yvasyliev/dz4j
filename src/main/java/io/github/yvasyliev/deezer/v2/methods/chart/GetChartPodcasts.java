@@ -4,12 +4,12 @@ import com.google.gson.Gson;
 import io.github.yvasyliev.deezer.objects.Podcast;
 import io.github.yvasyliev.deezer.service.ChartService;
 import io.github.yvasyliev.deezer.v2.methods.PagingMethod;
-import io.github.yvasyliev.deezer.v2.methods.ObjectServicePagingMethod;
+import io.github.yvasyliev.deezer.v2.methods.AbstractObjectServicePagingMethod;
 import io.github.yvasyliev.deezer.v2.objects.Page;
 
 import java.util.concurrent.CompletableFuture;
 
-public class GetChartPodcasts extends ObjectServicePagingMethod<Podcast, ChartService> {
+public class GetChartPodcasts extends AbstractObjectServicePagingMethod<Podcast, ChartService> {
     public GetChartPodcasts(Gson gson, ChartService chartService, long chartId) {
         super(gson, chartService, chartId);
     }

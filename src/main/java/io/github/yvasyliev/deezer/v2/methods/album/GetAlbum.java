@@ -2,11 +2,11 @@ package io.github.yvasyliev.deezer.v2.methods.album;
 
 import io.github.yvasyliev.deezer.objects.Album;
 import io.github.yvasyliev.deezer.service.AlbumService;
-import io.github.yvasyliev.deezer.v2.methods.ObjectServiceMethod;
+import io.github.yvasyliev.deezer.v2.methods.AbstractObjectServiceMethod;
 
 import java.util.concurrent.CompletableFuture;
 
-public class GetAlbum extends ObjectServiceMethod<Album, AlbumService> {
+public class GetAlbum extends AbstractObjectServiceMethod<Album, AlbumService> {
     public GetAlbum(AlbumService albumService, long albumId) {
         super(albumService, albumId);
     }

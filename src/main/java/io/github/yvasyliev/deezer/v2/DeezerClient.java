@@ -2,6 +2,7 @@ package io.github.yvasyliev.deezer.v2;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.ToNumberPolicy;
 import feign.AsyncFeign;
 import feign.Logger;
@@ -35,7 +36,6 @@ import io.github.yvasyliev.deezer.v2.json.creators.AbstractPagingMethodCreator;
 import io.github.yvasyliev.deezer.v2.json.creators.AdvancedSearchMethodCreator;
 import io.github.yvasyliev.deezer.v2.json.creators.PagingMethodCreator;
 import io.github.yvasyliev.deezer.v2.json.creators.SearchMethodCreator;
-import io.github.yvasyliev.deezer.v2.json.deserializers.AbstractMethodDeserializer;
 import io.github.yvasyliev.deezer.v2.json.deserializers.AdvancedSearchMethodDeserializer;
 import io.github.yvasyliev.deezer.v2.json.deserializers.MethodDeserializer;
 import io.github.yvasyliev.deezer.v2.logger.DeezerLogger;
@@ -100,6 +100,7 @@ import io.github.yvasyliev.deezer.v2.objects.Page;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Setter;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -107,6 +108,7 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Setter
 public class DeezerClient {
     private static final String API_HOST = "https://api.deezer.com";
     private final Gson gson;
@@ -137,8 +139,7 @@ public class DeezerClient {
             Function<AsyncFeign.AsyncBuilder<Object>, AsyncFeign.AsyncBuilder<Object>> asyncFeignBuilderCreator,
             String accessToken
     ) {
-
-        AbstractMethodDeserializer<Method<?>> methodDeserializer = MethodDeserializer
+        JsonDeserializer<Method<?>> methodDeserializer = MethodDeserializer
                 .builder()
                 .classMap("/album/(\\d+)/fans", GetAlbumFans.class)
                 .classMap("/album/(\\d+)/tracks", GetAlbumTracks.class)
@@ -177,7 +178,7 @@ public class DeezerClient {
                 .classMap(SearchService.SEARCH_USER, SearchUser.class)
                 .build();
 
-        AbstractMethodDeserializer<AdvancedSearchMethod<?>> advancedSearchMethodDeserializer = AdvancedSearchMethodDeserializer
+        JsonDeserializer<AdvancedSearchMethod<?>> advancedSearchMethodDeserializer = AdvancedSearchMethodDeserializer
                 .builder()
                 .classMap(SearchService.SEARCH, AdvancedSearch.class)
                 .classMap(SearchService.SEARCH_ALBUM, AdvancedSearchAlbum.class)

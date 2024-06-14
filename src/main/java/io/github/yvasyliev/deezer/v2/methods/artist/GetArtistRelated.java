@@ -4,12 +4,12 @@ import com.google.gson.Gson;
 import io.github.yvasyliev.deezer.objects.Artist;
 import io.github.yvasyliev.deezer.service.ArtistService;
 import io.github.yvasyliev.deezer.v2.methods.PagingMethod;
-import io.github.yvasyliev.deezer.v2.methods.ObjectServicePagingMethod;
+import io.github.yvasyliev.deezer.v2.methods.AbstractObjectServicePagingMethod;
 import io.github.yvasyliev.deezer.v2.objects.Page;
 
 import java.util.concurrent.CompletableFuture;
 
-public class GetArtistRelated extends ObjectServicePagingMethod<Artist, ArtistService> {
+public class GetArtistRelated extends AbstractObjectServicePagingMethod<Artist, ArtistService> {
     public GetArtistRelated(Gson gson, ArtistService artistService, long artistId) {
         super(gson, artistService, artistId);
     }

@@ -2,11 +2,11 @@ package io.github.yvasyliev.deezer.v2.methods.infos;
 
 import io.github.yvasyliev.deezer.objects.Infos;
 import io.github.yvasyliev.deezer.service.InfosService;
-import io.github.yvasyliev.deezer.v2.methods.ServiceMethod;
+import io.github.yvasyliev.deezer.v2.methods.AbstractServiceMethod;
 
 import java.util.concurrent.CompletableFuture;
 
-public class GetInfos extends ServiceMethod<Infos, InfosService> {
+public class GetInfos extends AbstractServiceMethod<Infos, InfosService> {
     public GetInfos(InfosService infosService) {
         super(infosService);
     }
