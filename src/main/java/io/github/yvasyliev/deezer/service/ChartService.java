@@ -6,10 +6,11 @@ import feign.RequestLine;
 import io.github.yvasyliev.deezer.objects.Album;
 import io.github.yvasyliev.deezer.objects.Artist;
 import io.github.yvasyliev.deezer.objects.Chart;
-import io.github.yvasyliev.deezer.objects.Page;
 import io.github.yvasyliev.deezer.objects.Playlist;
 import io.github.yvasyliev.deezer.objects.Podcast;
 import io.github.yvasyliev.deezer.objects.Track;
+import io.github.yvasyliev.deezer.v2.methods.PagingMethod;
+import io.github.yvasyliev.deezer.v2.objects.Page;
 
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -30,38 +31,38 @@ public interface ChartService extends DeezerService {
     CompletableFuture<Chart> getChartAsync();
 
     @RequestLine(GET + CHART_ID)
-    Chart getChartById(@Param("chartId") long chartId);
+    Chart getChart(@Param("chartId") long chartId);
 
     @RequestLine(GET + CHART_ID)
-    CompletableFuture<Chart> getChartByIdAsync(@Param("chartId") long chartId);
+    CompletableFuture<Chart> getChartAsync(@Param("chartId") long chartId);
 
     @RequestLine(GET + CHART_ALBUMS)
-    Page<Album> getChartAlbums(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
+    Page<Album, PagingMethod<Album>> getChartAlbums(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + CHART_ALBUMS)
-    CompletableFuture<Page<Album>> getChartAlbumsAsync(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<Album, PagingMethod<Album>>> getChartAlbumsAsync(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + CHART_ARTISTS)
-    Page<Artist> getChartArtists(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
+    Page<Artist, PagingMethod<Artist>> getChartArtists(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + CHART_ARTISTS)
-    CompletableFuture<Page<Artist>> getChartArtistsAsync(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<Artist, PagingMethod<Artist>>> getChartArtistsAsync(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + CHART_PLAYLISTS)
-    Page<Playlist> getChartPlaylists(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
+    Page<Playlist, PagingMethod<Playlist>> getChartPlaylists(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + CHART_PLAYLISTS)
-    CompletableFuture<Page<Playlist>> getChartPlaylistsAsync(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<Playlist, PagingMethod<Playlist>>> getChartPlaylistsAsync(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + CHART_PODCASTS)
-    Page<Podcast> getChartPodcasts(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
+    Page<Podcast, PagingMethod<Podcast>> getChartPodcasts(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + CHART_PODCASTS)
-    CompletableFuture<Page<Podcast>> getChartPodcastsAsync(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<Podcast, PagingMethod<Podcast>>> getChartPodcastsAsync(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + CHART_TRACKS)
-    Page<Track> getChartTracks(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
+    Page<Track, PagingMethod<Track>> getChartTracks(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + CHART_TRACKS)
-    CompletableFuture<Page<Track>> getChartTracksAsync(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<Track, PagingMethod<Track>>> getChartTracksAsync(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
 }

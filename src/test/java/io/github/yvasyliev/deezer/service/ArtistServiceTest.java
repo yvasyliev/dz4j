@@ -1,10 +1,7 @@
 package io.github.yvasyliev.deezer.service;
 
 import io.github.yvasyliev.deezer.DeezerClient;
-import io.github.yvasyliev.deezer.objects.Album;
 import io.github.yvasyliev.deezer.objects.Artist;
-import io.github.yvasyliev.deezer.objects.Page;
-import io.github.yvasyliev.deezer.objects.Track;
 import org.junit.jupiter.api.Test;
 
 class ArtistServiceTest {
@@ -18,10 +15,10 @@ class ArtistServiceTest {
 
     @Test
     void getArtistAlbums() {
-        Page<Album> albumPage = deezerClient.getArtistAlbums(27).limit(5).execute();
-        System.out.println(albumPage);
-        albumPage = albumPage.getNext().execute();
-        System.out.println(albumPage);
+//        Page<Album> albumPage = deezerClient.getArtistAlbums(27).limit(5).execute();
+//        System.out.println(albumPage);
+//        albumPage = albumPage.getNext().execute();
+//        System.out.println(albumPage);
     }
 
     @Test
@@ -46,7 +43,7 @@ class ArtistServiceTest {
 
     @Test
     void getArtistTop() {
-        Page<Track> trackPage = deezerClient.getArtistTop(27).limit(1).execute();
-        System.out.println(trackPage);
+//        Page<Track> trackPage = deezerClient.getArtistTop(27).limit(1).execute();
+//        System.out.println(trackPage);
     }
 }

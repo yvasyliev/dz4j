@@ -6,7 +6,8 @@ import feign.RequestLine;
 import io.github.yvasyliev.deezer.objects.Album;
 import io.github.yvasyliev.deezer.objects.Chart;
 import io.github.yvasyliev.deezer.objects.Editorial;
-import io.github.yvasyliev.deezer.objects.Page;
+import io.github.yvasyliev.deezer.v2.methods.PagingMethod;
+import io.github.yvasyliev.deezer.v2.objects.Page;
 
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -25,10 +26,10 @@ public interface EditorialService extends DeezerService {
     CompletableFuture<Editorial> getEditorialAsync(@Param("editorialId") long editorialId);
 
     @RequestLine(GET + EDITORIALS)
-    Page<Editorial> getAllEditorials(@QueryMap Map<String, Object> queryParams);
+    Page<Editorial, PagingMethod<Editorial>> getEditorials(@QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + EDITORIALS)
-    CompletableFuture<Page<Editorial>> getAllEditorialsAsync(@QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<Editorial, PagingMethod<Editorial>>> getEditorialsAsync(@QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + EDITORIAL_CHARTS)
     Chart getEditorialCharts(@Param("editorialId") long editorialId);
@@ -37,14 +38,14 @@ public interface EditorialService extends DeezerService {
     CompletableFuture<Chart> getEditorialChartsAsync(@Param("editorialId") long editorialId);
 
     @RequestLine(GET + EDITORIAL_RELEASES)
-    Page<Album> getEditorialReleases(@Param("editorialId") long editorialId, @QueryMap Map<String, Object> queryParams);
+    Page<Album, PagingMethod<Album>> getEditorialReleases(@Param("editorialId") long editorialId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + EDITORIAL_RELEASES)
-    CompletableFuture<Page<Album>> getEditorialReleasesAsync(@Param("editorialId") long editorialId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<Album, PagingMethod<Album>>> getEditorialReleasesAsync(@Param("editorialId") long editorialId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + EDITORIAL_SELECTION)
-    Page<Album> getEditorialSelection(@Param("editorialId") long editorialId, @QueryMap Map<String, Object> queryParams);
+    Page<Album, PagingMethod<Album>> getEditorialSelection(@Param("editorialId") long editorialId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + EDITORIAL_SELECTION)
-    CompletableFuture<Page<Album>> getEditorialSelectionAsync(@Param("editorialId") long editorialId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<Album, PagingMethod<Album>>> getEditorialSelectionAsync(@Param("editorialId") long editorialId, @QueryMap Map<String, Object> queryParams);
 }
