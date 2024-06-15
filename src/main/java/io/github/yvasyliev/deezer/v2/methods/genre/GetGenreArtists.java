@@ -1,6 +1,8 @@
 package io.github.yvasyliev.deezer.v2.methods.genre;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import io.github.yvasyliev.deezer.objects.Artist;
 import io.github.yvasyliev.deezer.service.GenreService;
 import io.github.yvasyliev.deezer.v2.methods.AbstractObjectServicePagingMethod;
@@ -10,6 +12,17 @@ import io.github.yvasyliev.deezer.v2.objects.Page;
 import java.util.concurrent.CompletableFuture;
 
 public class GetGenreArtists extends AbstractObjectServicePagingMethod<Artist, GenreService> {
+    @Expose(serialize = false)
+    @SerializedName(OBJECT_ID)
+    protected final long objectId;
+    protected final GenreService deezerService;
+    @Expose
+    @SerializedName(INDEX)
+    private Integer index;
+    @Expose
+    @SerializedName(LIMIT)
+    private Integer limit;
+
     public GetGenreArtists(Gson gson, GenreService genreService, long genreId) {
         super(gson, genreService, genreId);
     }

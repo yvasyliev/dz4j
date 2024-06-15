@@ -1,28 +1,29 @@
 package io.github.yvasyliev.deezer.v2.methods.artist;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import io.github.yvasyliev.deezer.objects.Artist;
 import io.github.yvasyliev.deezer.service.ArtistService;
-import io.github.yvasyliev.deezer.v2.methods.AbstractObjectServiceMethod;
+import io.github.yvasyliev.deezer.v2.methods.AbstractDzMethod;
+import lombok.RequiredArgsConstructor;
 
 import java.util.concurrent.CompletableFuture;
 
-public class GetArtist extends AbstractObjectServiceMethod<Artist, ArtistService> {
-    public GetArtist(ArtistService artistService, long artistId) {
-        super(artistService, artistId);
-    }
+@RequiredArgsConstructor
+public class GetArtist extends AbstractDzMethod<Artist> {
+    private final ArtistService artistService;
 
-    @Override
-    public Artist execute() {
-        return deezerService.getArtist(objectId);
-    }
+    @Expose
+    @SerializedName(OBJECT_ID)
+    protected final long artistId;
 
     @Override
     public CompletableFuture<Artist> executeAsync() {
-        return deezerService.getArtistAsync(objectId);
+        return artistService.getArtistAsync(artistId);
     }
 
     @Override
     public String toString() {
-        return "/artist/" + objectId;
+        return "/artist/" + artistId;
     }
 }

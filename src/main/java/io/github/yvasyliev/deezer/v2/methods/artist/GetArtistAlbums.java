@@ -1,31 +1,51 @@
 package io.github.yvasyliev.deezer.v2.methods.artist;
 
-import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import io.github.yvasyliev.deezer.factories.QueryParamsFactory;
 import io.github.yvasyliev.deezer.objects.Album;
 import io.github.yvasyliev.deezer.service.ArtistService;
-import io.github.yvasyliev.deezer.v2.methods.PagingMethod;
-import io.github.yvasyliev.deezer.v2.methods.AbstractObjectServicePagingMethod;
+import io.github.yvasyliev.deezer.v2.methods.AbstractDzMethod;
 import io.github.yvasyliev.deezer.v2.objects.Page;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-public class GetArtistAlbums extends AbstractObjectServicePagingMethod<Album, ArtistService> {
-    public GetArtistAlbums(Gson gson, ArtistService artistService, long artistId) {
-        super(gson, artistService, artistId);
+@RequiredArgsConstructor
+@Setter
+@Accessors(fluent = true)
+public class GetArtistAlbums extends AbstractDzMethod<Page<Album, GetArtistAlbums>> {
+    private final ArtistService artistService;
+
+    private final QueryParamsFactory queryParamsFactory;
+
+    @Expose(serialize = false)
+    @SerializedName(OBJECT_ID)
+    protected final long artistId;
+
+    @Expose
+    @SerializedName(INDEX)
+    private Integer index;
+
+    @Expose
+    @SerializedName(LIMIT)
+    private Integer limit;
+
+    @Override
+    public CompletableFuture<Page<Album, GetArtistAlbums>> executeAsync() {
+        return artistService.getArtistAlbumsAsync(artistId, getQueryParams());
     }
 
     @Override
-    public Page<Album, PagingMethod<Album>> execute() {
-        return deezerService.getArtistAlbums(objectId, getQueryParams());
-    }
-
-    @Override
-    public CompletableFuture<Page<Album, PagingMethod<Album>>> executeAsync() {
-        return deezerService.getArtistAlbumsAsync(objectId, getQueryParams());
+    protected Map<String, Object> getQueryParams() {
+        return queryParamsFactory.getQueryParams(this);
     }
 
     @Override
     public String toString() {
-        return "/artist/" + objectId + "/albums" + getQueryParams();
+        return "/artist/" + artistId + "/albums" + getQueryParams();
     }
 }

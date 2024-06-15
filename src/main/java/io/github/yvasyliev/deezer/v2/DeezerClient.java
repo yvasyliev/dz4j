@@ -7,6 +7,8 @@ import com.google.gson.ToNumberPolicy;
 import feign.AsyncFeign;
 import feign.Logger;
 import feign.gson.GsonDecoder;
+import io.github.yvasyliev.deezer.factories.GsonQueryParamsFactory;
+import io.github.yvasyliev.deezer.factories.QueryParamsFactory;
 import io.github.yvasyliev.deezer.json.deserializers.DurationDeserializer;
 import io.github.yvasyliev.deezer.json.deserializers.LocalDateDeserializer;
 import io.github.yvasyliev.deezer.objects.Album;
@@ -39,6 +41,7 @@ import io.github.yvasyliev.deezer.v2.json.creators.SearchMethodCreator;
 import io.github.yvasyliev.deezer.v2.json.deserializers.AdvancedSearchMethodDeserializer;
 import io.github.yvasyliev.deezer.v2.json.deserializers.MethodDeserializer;
 import io.github.yvasyliev.deezer.v2.logger.DeezerLogger;
+import io.github.yvasyliev.deezer.v2.methods.AbstractDzMethod;
 import io.github.yvasyliev.deezer.v2.methods.AdvancedSearchMethod;
 import io.github.yvasyliev.deezer.v2.methods.Method;
 import io.github.yvasyliev.deezer.v2.methods.PagingMethod;
@@ -111,7 +114,8 @@ import java.util.stream.Stream;
 @Setter
 public class DeezerClient {
     private static final String API_HOST = "https://api.deezer.com";
-    private final Gson gson;
+    private final Gson gson; //TODO: remove
+    private final QueryParamsFactory queryParamsFactory;
     private final AlbumService albumService;
     private final ArtistService artistService;
     private final ChartService chartService;
@@ -139,7 +143,7 @@ public class DeezerClient {
             Function<AsyncFeign.AsyncBuilder<Object>, AsyncFeign.AsyncBuilder<Object>> asyncFeignBuilderCreator,
             String accessToken
     ) {
-        JsonDeserializer<Method<?>> methodDeserializer = MethodDeserializer
+        JsonDeserializer<AbstractDzMethod<?>> methodDeserializer = MethodDeserializer
                 .builder()
                 .classMap("/album/(\\d+)/fans", GetAlbumFans.class)
                 .classMap("/album/(\\d+)/tracks", GetAlbumTracks.class)
@@ -299,6 +303,7 @@ public class DeezerClient {
 
         return new DeezerClient(
                 gson,
+                new GsonQueryParamsFactory(gson),
                 albumService,
                 artistService,
                 chartService,
@@ -313,24 +318,24 @@ public class DeezerClient {
         );
     }
 
-    public Method<Album> getAlbum(long albumId) {
+    public GetAlbum getAlbum(long albumId) {
         return new GetAlbum(albumService, albumId);
     }
 
-    public PagingMethod<User> getAlbumFans(long albumId) {
-        return new GetAlbumFans(gson, albumService, albumId);
+    public GetAlbumFans getAlbumFans(long albumId) {
+        return new GetAlbumFans(albumService, queryParamsFactory, albumId);
     }
 
-    public PagingMethod<Track> getAlbumTracks(long albumId) {
-        return new GetAlbumTracks(gson, albumService, albumId);
+    public GetAlbumTracks getAlbumTracks(long albumId) {
+        return new GetAlbumTracks(albumService, queryParamsFactory, albumId);
     }
 
-    public Method<Artist> getArtist(long artistId) {
+    public GetArtist getArtist(long artistId) {
         return new GetArtist(artistService, artistId);
     }
 
-    public PagingMethod<Album> getArtistAlbums(long artistId) {
-        return new GetArtistAlbums(gson, artistService, artistId);
+    public GetArtistAlbums getArtistAlbums(long artistId) {
+        return new GetArtistAlbums(artistService, queryParamsFactory, artistId);
     }
 
     public PagingMethod<User> getArtistFans(long artistId) {

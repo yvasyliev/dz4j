@@ -1,22 +1,23 @@
-package io.github.yvasyliev.deezer.v2.methods;
+package io.github.yvasyliev.deezer.factories;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.lang.reflect.Type;
 import java.util.Map;
 
-@AllArgsConstructor
-public abstract class AbstractQueryMethod<T> implements Method<T> {
+@RequiredArgsConstructor
+public class GsonQueryParamsFactory implements QueryParamsFactory {
     private static final Type QUERY_PARAMS_TYPE = new TypeToken<Map<String, Object>>() {
     }.getType();
 
     private final Gson gson;
 
-    protected Map<String, Object> getQueryParams() {
+    @Override
+    public Map<String, Object> getQueryParams(Object src) {
         return gson.fromJson(
-                gson.toJsonTree(this),
+                gson.toJsonTree(src),
                 QUERY_PARAMS_TYPE
         );
     }

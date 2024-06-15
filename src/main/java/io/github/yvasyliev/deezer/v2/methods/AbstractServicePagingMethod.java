@@ -5,7 +5,6 @@ import io.github.yvasyliev.deezer.objects.Pageable;
 import io.github.yvasyliev.deezer.service.DeezerService;
 
 public abstract class AbstractServicePagingMethod<T extends Pageable, S extends DeezerService> extends PagingMethod<T> {
-    protected final S deezerService;
 
     public AbstractServicePagingMethod(Gson gson, S deezerService) {
         super(gson);

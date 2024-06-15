@@ -22,6 +22,12 @@ public abstract class AbstractSearchMethod<T extends Pageable, M extends Abstrac
     @Expose
     @SerializedName("order")
     private Order order;
+    @Expose
+    @SerializedName(INDEX)
+    private Integer index;
+    @Expose
+    @SerializedName(LIMIT)
+    private Integer limit;
 
     public AbstractSearchMethod(Gson gson, SearchService searchService) {
         super(gson);

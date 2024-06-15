@@ -1,31 +1,51 @@
 package io.github.yvasyliev.deezer.v2.methods.artist;
 
-import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import io.github.yvasyliev.deezer.factories.QueryParamsFactory;
 import io.github.yvasyliev.deezer.objects.Playlist;
 import io.github.yvasyliev.deezer.service.ArtistService;
-import io.github.yvasyliev.deezer.v2.methods.PagingMethod;
-import io.github.yvasyliev.deezer.v2.methods.AbstractObjectServicePagingMethod;
+import io.github.yvasyliev.deezer.v2.methods.AbstractDzMethod;
 import io.github.yvasyliev.deezer.v2.objects.Page;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-public class GetArtistPlaylists extends AbstractObjectServicePagingMethod<Playlist, ArtistService> {
-    public GetArtistPlaylists(Gson gson, ArtistService artistService, long artistId) {
-        super(gson, artistService, artistId);
+@RequiredArgsConstructor
+@Setter
+@Accessors(fluent = true)
+public class GetArtistPlaylists extends AbstractDzMethod<Page<Playlist, GetArtistPlaylists>> {
+    private final ArtistService artistService;
+
+    private final QueryParamsFactory queryParamsFactory;
+
+    @Expose(serialize = false)
+    @SerializedName(OBJECT_ID)
+    protected final long artistId;
+
+    @Expose
+    @SerializedName(INDEX)
+    private Integer index;
+
+    @Expose
+    @SerializedName(LIMIT)
+    private Integer limit;
+
+    @Override
+    public CompletableFuture<Page<Playlist, GetArtistPlaylists>> executeAsync() {
+        return artistService.getArtistPlaylistsAsync(artistId, getQueryParams());
     }
 
     @Override
-    public Page<Playlist, PagingMethod<Playlist>> execute() {
-        return deezerService.getArtistPlaylists(objectId, getQueryParams());
-    }
-
-    @Override
-    public CompletableFuture<Page<Playlist, PagingMethod<Playlist>>> executeAsync() {
-        return deezerService.getArtistPlaylistsAsync(objectId, getQueryParams());
+    protected Map<String, Object> getQueryParams() {
+        return queryParamsFactory.getQueryParams(this);
     }
 
     @Override
     public String toString() {
-        return "/artist/" + objectId + "/playlists" + getQueryParams();
+        return "/artist/" + artistId + "/playlists" + getQueryParams();
     }
 }

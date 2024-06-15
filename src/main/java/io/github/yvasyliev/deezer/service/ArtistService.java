@@ -8,7 +8,12 @@ import io.github.yvasyliev.deezer.objects.Artist;
 import io.github.yvasyliev.deezer.objects.Playlist;
 import io.github.yvasyliev.deezer.objects.Track;
 import io.github.yvasyliev.deezer.objects.User;
-import io.github.yvasyliev.deezer.v2.methods.PagingMethod;
+import io.github.yvasyliev.deezer.v2.methods.artist.GetArtistAlbums;
+import io.github.yvasyliev.deezer.v2.methods.artist.GetArtistFans;
+import io.github.yvasyliev.deezer.v2.methods.artist.GetArtistPlaylists;
+import io.github.yvasyliev.deezer.v2.methods.artist.GetArtistRadio;
+import io.github.yvasyliev.deezer.v2.methods.artist.GetArtistRelated;
+import io.github.yvasyliev.deezer.v2.methods.artist.GetArtistTop;
 import io.github.yvasyliev.deezer.v2.objects.Page;
 
 import java.util.Map;
@@ -24,44 +29,23 @@ public interface ArtistService extends DeezerService {
     String ARTIST_TOP = "/artist/{artistId}/top";
 
     @RequestLine(GET + ARTIST)
-    Artist getArtist(@Param("artistId") long artistId);
-
-    @RequestLine(GET + ARTIST)
     CompletableFuture<Artist> getArtistAsync(@Param("artistId") long artistId);
 
     @RequestLine(GET + ARTIST_ALBUMS)
-    Page<Album, PagingMethod<Album>> getArtistAlbums(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
-
-    @RequestLine(GET + ARTIST_ALBUMS)
-    CompletableFuture<Page<Album, PagingMethod<Album>>> getArtistAlbumsAsync(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<Album, GetArtistAlbums>> getArtistAlbumsAsync(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + ARTIST_FANS)
-    Page<User, PagingMethod<User>> getArtistFans(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
-
-    @RequestLine(GET + ARTIST_FANS)
-    CompletableFuture<Page<User, PagingMethod<User>>> getArtistFansAsync(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<User, GetArtistFans>> getArtistFansAsync(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + ARTIST_PLAYLISTS)
-    Page<Playlist, PagingMethod<Playlist>> getArtistPlaylists(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
-
-    @RequestLine(GET + ARTIST_PLAYLISTS)
-    CompletableFuture<Page<Playlist, PagingMethod<Playlist>>> getArtistPlaylistsAsync(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<Playlist, GetArtistPlaylists>> getArtistPlaylistsAsync(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + ARTIST_RADIO)
-    Page<Track, PagingMethod<Track>> getArtistRadio(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
-
-    @RequestLine(GET + ARTIST_RADIO)
-    CompletableFuture<Page<Track, PagingMethod<Track>>> getArtistRadioAsync(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<Track, GetArtistRadio>> getArtistRadioAsync(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + ARTIST_RELATED)
-    Page<Artist, PagingMethod<Artist>> getArtistRelated(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
-
-    @RequestLine(GET + ARTIST_RELATED)
-    CompletableFuture<Page<Artist, PagingMethod<Artist>>> getArtistRelatedAsync(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<Artist, GetArtistRelated>> getArtistRelatedAsync(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + ARTIST_TOP)
-    Page<Track, PagingMethod<Track>> getArtistTop(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
-
-    @RequestLine(GET + ARTIST_TOP)
-    CompletableFuture<Page<Track, PagingMethod<Track>>> getArtistTopAsync(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<Track, GetArtistTop>> getArtistTopAsync(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
 }
