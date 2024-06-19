@@ -9,7 +9,7 @@ import io.github.yvasyliev.deezer.objects.Chart;
 import io.github.yvasyliev.deezer.objects.Playlist;
 import io.github.yvasyliev.deezer.objects.Podcast;
 import io.github.yvasyliev.deezer.objects.Track;
-import io.github.yvasyliev.deezer.v2.methods.PagingMethod;
+import io.github.yvasyliev.deezer.v2.methods.DzPagingMethod;
 import io.github.yvasyliev.deezer.v2.objects.Page;
 
 import java.util.Map;
@@ -25,44 +25,23 @@ public interface ChartService extends DeezerService {
     String CHART_TRACKS = "/chart/{chartId}/tracks";
 
     @RequestLine(GET + CHART)
-    Chart getChart();
-
-    @RequestLine(GET + CHART)
     CompletableFuture<Chart> getChartAsync();
-
-    @RequestLine(GET + CHART_ID)
-    Chart getChart(@Param("chartId") long chartId);
 
     @RequestLine(GET + CHART_ID)
     CompletableFuture<Chart> getChartAsync(@Param("chartId") long chartId);
 
     @RequestLine(GET + CHART_ALBUMS)
-    Page<Album, PagingMethod<Album>> getChartAlbums(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
-
-    @RequestLine(GET + CHART_ALBUMS)
-    CompletableFuture<Page<Album, PagingMethod<Album>>> getChartAlbumsAsync(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<Album, DzPagingMethod<Album>>> getChartAlbumsAsync(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + CHART_ARTISTS)
-    Page<Artist, PagingMethod<Artist>> getChartArtists(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
-
-    @RequestLine(GET + CHART_ARTISTS)
-    CompletableFuture<Page<Artist, PagingMethod<Artist>>> getChartArtistsAsync(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<Artist, DzPagingMethod<Artist>>> getChartArtistsAsync(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + CHART_PLAYLISTS)
-    Page<Playlist, PagingMethod<Playlist>> getChartPlaylists(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
-
-    @RequestLine(GET + CHART_PLAYLISTS)
-    CompletableFuture<Page<Playlist, PagingMethod<Playlist>>> getChartPlaylistsAsync(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<Playlist, DzPagingMethod<Playlist>>> getChartPlaylistsAsync(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + CHART_PODCASTS)
-    Page<Podcast, PagingMethod<Podcast>> getChartPodcasts(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
-
-    @RequestLine(GET + CHART_PODCASTS)
-    CompletableFuture<Page<Podcast, PagingMethod<Podcast>>> getChartPodcastsAsync(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<Podcast, DzPagingMethod<Podcast>>> getChartPodcastsAsync(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + CHART_TRACKS)
-    Page<Track, PagingMethod<Track>> getChartTracks(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
-
-    @RequestLine(GET + CHART_TRACKS)
-    CompletableFuture<Page<Track, PagingMethod<Track>>> getChartTracksAsync(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<Track, DzPagingMethod<Track>>> getChartTracksAsync(@Param("chartId") long chartId, @QueryMap Map<String, Object> queryParams);
 }

@@ -1,39 +1,21 @@
 package io.github.yvasyliev.deezer.v2.methods.chart;
 
 import com.google.gson.Gson;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import io.github.yvasyliev.deezer.objects.Playlist;
 import io.github.yvasyliev.deezer.service.ChartService;
-import io.github.yvasyliev.deezer.v2.methods.PagingMethod;
-import io.github.yvasyliev.deezer.v2.methods.AbstractObjectServicePagingMethod;
+import io.github.yvasyliev.deezer.v2.methods.AbstractDzPagingIdMethod;
+import io.github.yvasyliev.deezer.v2.methods.DzPagingMethod;
 import io.github.yvasyliev.deezer.v2.objects.Page;
 
 import java.util.concurrent.CompletableFuture;
 
-public class GetChartPlaylists extends AbstractObjectServicePagingMethod<Playlist, ChartService> {
-    @Expose(serialize = false)
-    @SerializedName(OBJECT_ID)
-    protected final long objectId;
-    protected final ChartService deezerService;
-    @Expose
-    @SerializedName(INDEX)
-    private Integer index;
-    @Expose
-    @SerializedName(LIMIT)
-    private Integer limit;
-
-    public GetChartPlaylists(Gson gson, ChartService chartService, long chartId) {
-        super(gson, chartService, chartId);
+public class GetChartPlaylists extends AbstractDzPagingIdMethod<Playlist, ChartService> {
+    public GetChartPlaylists(ChartService chartService, Gson gson, long chartId) {
+        super(chartService, gson, chartId);
     }
 
     @Override
-    public Page<Playlist, PagingMethod<Playlist>> execute() {
-        return deezerService.getChartPlaylists(objectId, getQueryParams());
-    }
-
-    @Override
-    public CompletableFuture<Page<Playlist, PagingMethod<Playlist>>> executeAsync() {
+    public CompletableFuture<Page<Playlist, DzPagingMethod<Playlist>>> executeAsync() {
         return deezerService.getChartPlaylistsAsync(objectId, getQueryParams());
     }
 

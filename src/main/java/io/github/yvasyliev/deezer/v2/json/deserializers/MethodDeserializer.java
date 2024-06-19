@@ -3,7 +3,7 @@ package io.github.yvasyliev.deezer.v2.json.deserializers;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import io.github.yvasyliev.deezer.v2.methods.AbstractDzMethod;
+import io.github.yvasyliev.deezer.v2.methods.AbstractDzPagingMethod;
 import io.github.yvasyliev.deezer.v2.methods.Method;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -17,10 +17,10 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class MethodDeserializer extends AbstractMethodDeserializer<Method<?>> {
-    private final Map<Pattern, Class<? extends AbstractDzMethod<?>>> classMap;
+    private final Map<Pattern, Class<? extends AbstractDzPagingMethod<?>>> classMap;
 
     @Builder
-    public static MethodDeserializer create(@Singular("classMap") Map<String, Class<? extends AbstractDzMethod<?>>> classMap) {
+    public static MethodDeserializer create(@Singular("classMap") Map<String, Class<? extends AbstractDzPagingMethod<?>>> classMap) {
         return classMap
                 .entrySet()
                 .stream()
@@ -35,7 +35,7 @@ public class MethodDeserializer extends AbstractMethodDeserializer<Method<?>> {
 
     @Override
     public Method<?> deserialize(JsonDeserializationContext context, String path, JsonObject queryParams) throws JsonParseException {
-        for (Map.Entry<Pattern, Class<? extends AbstractDzMethod<?>>> classEntry : classMap.entrySet()) {
+        for (Map.Entry<Pattern, Class<? extends AbstractDzPagingMethod<?>>> classEntry : classMap.entrySet()) {
             Matcher matcher = classEntry.getKey().matcher(path);
             if (matcher.matches()) {
                 if (matcher.groupCount() > 0) {

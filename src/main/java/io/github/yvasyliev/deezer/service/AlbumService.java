@@ -6,8 +6,7 @@ import feign.RequestLine;
 import io.github.yvasyliev.deezer.objects.Album;
 import io.github.yvasyliev.deezer.objects.Track;
 import io.github.yvasyliev.deezer.objects.User;
-import io.github.yvasyliev.deezer.v2.methods.album.GetAlbumFans;
-import io.github.yvasyliev.deezer.v2.methods.album.GetAlbumTracks;
+import io.github.yvasyliev.deezer.v2.methods.DzPagingMethod;
 import io.github.yvasyliev.deezer.v2.objects.Page;
 
 import java.util.Map;
@@ -22,8 +21,8 @@ public interface AlbumService extends DeezerService {
     CompletableFuture<Album> getAlbumAsync(@Param("albumId") long albumId);
 
     @RequestLine(GET + ALBUM_FANS)
-    CompletableFuture<Page<User, GetAlbumFans>> getAlbumFansAsync(@Param("albumId") long albumId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<User, DzPagingMethod<User>>> getAlbumFansAsync(@Param("albumId") long albumId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + ALBUM_TRACKS)
-    CompletableFuture<Page<Track, GetAlbumTracks>> getAlbumTracksAsync(@Param("albumId") long albumId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<Track, DzPagingMethod<Track>>> getAlbumTracksAsync(@Param("albumId") long albumId, @QueryMap Map<String, Object> queryParams);
 }

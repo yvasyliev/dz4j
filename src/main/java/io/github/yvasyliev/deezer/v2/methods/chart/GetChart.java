@@ -2,18 +2,13 @@ package io.github.yvasyliev.deezer.v2.methods.chart;
 
 import io.github.yvasyliev.deezer.objects.Chart;
 import io.github.yvasyliev.deezer.service.ChartService;
-import io.github.yvasyliev.deezer.v2.methods.AbstractServiceMethod;
+import io.github.yvasyliev.deezer.v2.methods.AbstractDzMethod;
 
 import java.util.concurrent.CompletableFuture;
 
-public class GetChart extends AbstractServiceMethod<Chart, ChartService> {
+public class GetChart extends AbstractDzMethod<Chart, ChartService> {
     public GetChart(ChartService chartService) {
         super(chartService);
-    }
-
-    @Override
-    public Chart execute() {
-        return deezerService.getChart();
     }
 
     @Override

@@ -1,25 +1,20 @@
 package io.github.yvasyliev.deezer.v2.methods;
 
-import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import io.github.yvasyliev.deezer.objects.Pageable;
+import io.github.yvasyliev.deezer.service.ArtistService;
 import io.github.yvasyliev.deezer.service.SearchService;
 import io.github.yvasyliev.deezer.v2.json.adapters.DurationAdapter;
-import io.github.yvasyliev.deezer.v2.json.adapters.QAdapter;
 import io.github.yvasyliev.deezer.v2.json.adapters.SearchStringAdapter;
 import lombok.Setter;
 
 import java.time.Duration;
 
 public abstract class AdvancedSearchMethod<T extends Pageable> extends AbstractSearchMethod<T, AdvancedSearchMethod<T>> {
-    @Expose
-    @SerializedName("q")
-    @JsonAdapter(QAdapter.class)
-    private final Q q = new Q();
 
-    public AdvancedSearchMethod(Gson gson, SearchService searchService) {
+    public AdvancedSearchMethod(ArtistService gson, SearchService searchService) {
         super(gson, searchService);
     }
 

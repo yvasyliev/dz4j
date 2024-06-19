@@ -3,23 +3,19 @@ package io.github.yvasyliev.deezer.v2.methods.search;
 import com.google.gson.Gson;
 import io.github.yvasyliev.deezer.objects.Artist;
 import io.github.yvasyliev.deezer.service.SearchService;
-import io.github.yvasyliev.deezer.v2.methods.AdvancedSearchMethod;
+import io.github.yvasyliev.deezer.v2.methods.AbstractDzAdvancedSearchMethod;
+import io.github.yvasyliev.deezer.v2.methods.DzAdvancedSearchMethod;
 import io.github.yvasyliev.deezer.v2.objects.Page;
 
 import java.util.concurrent.CompletableFuture;
 
-public class AdvancedSearchArtist extends AdvancedSearchMethod<Artist> {
-    public AdvancedSearchArtist(Gson gson, SearchService searchService) {
-        super(gson, searchService);
+public class AdvancedSearchArtist extends AbstractDzAdvancedSearchMethod<Artist> {
+    public AdvancedSearchArtist(SearchService searchService, Gson gson) {
+        super(searchService, gson);
     }
 
     @Override
-    public Page<Artist, AdvancedSearchMethod<Artist>> execute() {
-        return searchService.advancedSearchArtist(getQueryParams());
-    }
-
-    @Override
-    public CompletableFuture<Page<Artist, AdvancedSearchMethod<Artist>>> executeAsync() {
+    public CompletableFuture<Page<Artist, DzAdvancedSearchMethod<Artist>>> executeAsync() {
         return searchService.advancedSearchArtistAsync(getQueryParams());
     }
 

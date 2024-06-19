@@ -1,36 +1,21 @@
 package io.github.yvasyliev.deezer.v2.methods.radio;
 
 import com.google.gson.Gson;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import io.github.yvasyliev.deezer.objects.Radio;
 import io.github.yvasyliev.deezer.service.RadioService;
-import io.github.yvasyliev.deezer.v2.methods.PagingMethod;
-import io.github.yvasyliev.deezer.v2.methods.AbstractServicePagingMethod;
+import io.github.yvasyliev.deezer.v2.methods.AbstractDzPagingMethod;
+import io.github.yvasyliev.deezer.v2.methods.DzPagingMethod;
 import io.github.yvasyliev.deezer.v2.objects.Page;
 
 import java.util.concurrent.CompletableFuture;
 
-public class GetRadios extends AbstractServicePagingMethod<Radio, RadioService> {
-    protected final RadioService deezerService;
-    @Expose
-    @SerializedName(INDEX)
-    private Integer index;
-    @Expose
-    @SerializedName(LIMIT)
-    private Integer limit;
-
-    public GetRadios(Gson gson, RadioService radioService) {
-        super(gson, radioService);
+public class GetRadios extends AbstractDzPagingMethod<Radio, RadioService> {
+    public GetRadios(RadioService deezerService, Gson gson) {
+        super(deezerService, gson);
     }
 
     @Override
-    public Page<Radio, PagingMethod<Radio>> execute() {
-        return deezerService.getRadios(getQueryParams());
-    }
-
-    @Override
-    public CompletableFuture<Page<Radio, PagingMethod<Radio>>> executeAsync() {
+    public CompletableFuture<Page<Radio, DzPagingMethod<Radio>>> executeAsync() {
         return deezerService.getRadiosAsync(getQueryParams());
     }
 

@@ -9,8 +9,5 @@ public interface OptionsService extends DeezerService {
     String OPTIONS = "/options";
 
     @RequestLine(GET + OPTIONS)
-    Options getOptions();
-
-    @RequestLine(GET + OPTIONS)
     CompletableFuture<Options> getOptionsAsync();
 }

@@ -1,21 +1,9 @@
 package io.github.yvasyliev.deezer.v2.methods;
 
-import java.util.Collections;
-import java.util.Map;
-import java.util.concurrent.CompletableFuture;
+import io.github.yvasyliev.deezer.service.DeezerService;
+import lombok.RequiredArgsConstructor;
 
-public abstract class AbstractDzMethod<T> {
-    protected static final String OBJECT_ID = "objectId";
-    protected static final String INDEX = "index";
-    protected static final String LIMIT = "limit";
-
-    public abstract CompletableFuture<T> executeAsync();
-
-    public T execute() {
-        return executeAsync().join();
-    }
-
-    protected Map<String, Object> getQueryParams() {
-        return Collections.emptyMap();
-    }
+@RequiredArgsConstructor
+public abstract class AbstractDzMethod<T, S extends DeezerService> implements DzMethod<T> {
+    protected final S deezerService; //TODO: rename to dzService
 }

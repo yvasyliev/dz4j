@@ -11,7 +11,6 @@ import io.github.yvasyliev.deezer.factories.GsonQueryParamsFactory;
 import io.github.yvasyliev.deezer.factories.QueryParamsFactory;
 import io.github.yvasyliev.deezer.json.deserializers.DurationDeserializer;
 import io.github.yvasyliev.deezer.json.deserializers.LocalDateDeserializer;
-import io.github.yvasyliev.deezer.objects.Album;
 import io.github.yvasyliev.deezer.objects.Artist;
 import io.github.yvasyliev.deezer.objects.Chart;
 import io.github.yvasyliev.deezer.objects.Editorial;
@@ -19,7 +18,6 @@ import io.github.yvasyliev.deezer.objects.Genre;
 import io.github.yvasyliev.deezer.objects.Infos;
 import io.github.yvasyliev.deezer.objects.Options;
 import io.github.yvasyliev.deezer.objects.Playlist;
-import io.github.yvasyliev.deezer.objects.Podcast;
 import io.github.yvasyliev.deezer.objects.Radio;
 import io.github.yvasyliev.deezer.objects.SearchHistory;
 import io.github.yvasyliev.deezer.objects.Track;
@@ -41,7 +39,7 @@ import io.github.yvasyliev.deezer.v2.json.creators.SearchMethodCreator;
 import io.github.yvasyliev.deezer.v2.json.deserializers.AdvancedSearchMethodDeserializer;
 import io.github.yvasyliev.deezer.v2.json.deserializers.MethodDeserializer;
 import io.github.yvasyliev.deezer.v2.logger.DeezerLogger;
-import io.github.yvasyliev.deezer.v2.methods.AbstractDzMethod;
+import io.github.yvasyliev.deezer.v2.methods.AbstractDzPagingMethod;
 import io.github.yvasyliev.deezer.v2.methods.AdvancedSearchMethod;
 import io.github.yvasyliev.deezer.v2.methods.Method;
 import io.github.yvasyliev.deezer.v2.methods.PagingMethod;
@@ -91,7 +89,6 @@ import io.github.yvasyliev.deezer.v2.methods.search.AdvancedSearchPlaylist;
 import io.github.yvasyliev.deezer.v2.methods.search.AdvancedSearchRadio;
 import io.github.yvasyliev.deezer.v2.methods.search.AdvancedSearchTrack;
 import io.github.yvasyliev.deezer.v2.methods.search.AdvancedSearchUser;
-import io.github.yvasyliev.deezer.v2.methods.search.GetSearchHistory;
 import io.github.yvasyliev.deezer.v2.methods.search.Search;
 import io.github.yvasyliev.deezer.v2.methods.search.SearchAlbum;
 import io.github.yvasyliev.deezer.v2.methods.search.SearchArtist;
@@ -114,7 +111,7 @@ import java.util.stream.Stream;
 @Setter
 public class DeezerClient {
     private static final String API_HOST = "https://api.deezer.com";
-    private final Gson gson; //TODO: remove
+    private final ArtistService gson; //TODO: remove
     private final QueryParamsFactory queryParamsFactory;
     private final AlbumService albumService;
     private final ArtistService artistService;
@@ -143,7 +140,7 @@ public class DeezerClient {
             Function<AsyncFeign.AsyncBuilder<Object>, AsyncFeign.AsyncBuilder<Object>> asyncFeignBuilderCreator,
             String accessToken
     ) {
-        JsonDeserializer<AbstractDzMethod<?>> methodDeserializer = MethodDeserializer
+        JsonDeserializer<AbstractDzPagingMethod<?>> methodDeserializer = MethodDeserializer
                 .builder()
                 .classMap("/album/(\\d+)/fans", GetAlbumFans.class)
                 .classMap("/album/(\\d+)/tracks", GetAlbumTracks.class)
@@ -338,23 +335,23 @@ public class DeezerClient {
         return new GetArtistAlbums(artistService, queryParamsFactory, artistId);
     }
 
-    public PagingMethod<User> getArtistFans(long artistId) {
+    public GetArtistFans getArtistFans(long artistId) {
         return new GetArtistFans(gson, artistService, artistId);
     }
 
-    public PagingMethod<Playlist> getArtistPlaylists(long artistId) {
+    public GetArtistPlaylists getArtistPlaylists(long artistId) {
         return new GetArtistPlaylists(gson, artistService, artistId);
     }
 
-    public PagingMethod<Track> getArtistRadio(long artistId) {
+    public GetArtistRadio getArtistRadio(long artistId) {
         return new GetArtistRadio(gson, artistService, artistId);
     }
 
-    public PagingMethod<Artist> getArtistRelated(long artistId) {
+    public GetArtistRelated getArtistRelated(long artistId) {
         return new GetArtistRelated(gson, artistService, artistId);
     }
 
-    public PagingMethod<Track> getArtistTop(long artistId) {
+    public GetArtistRadio getArtistTop(long artistId) {
         return new GetArtistRadio(gson, artistService, artistId);
     }
 
@@ -367,23 +364,23 @@ public class DeezerClient {
         return new GetChartById(chartService, chartId);
     }
 
-    public PagingMethod<Album> getChartAlbums(long chartId) {
+    public GetChartAlbums getChartAlbums(long chartId) {
         return new GetChartAlbums(gson, chartService, chartId);
     }
 
-    public PagingMethod<Artist> getChartArtist(long chartId) {
+    public GetChartArtists getChartArtist(long chartId) {
         return new GetChartArtists(gson, chartService, chartId);
     }
 
-    public PagingMethod<Playlist> getChartPlaylists(long chartId) {
+    public GetChartPlaylists getChartPlaylists(long chartId) {
         return new GetChartPlaylists(gson, chartService, chartId);
     }
 
-    public PagingMethod<Podcast> getChartPodcasts(long chartId) {
+    public GetChartPodcasts getChartPodcasts(long chartId) {
         return new GetChartPodcasts(gson, chartService, chartId);
     }
 
-    public PagingMethod<Track> getChartTracks(long chartId) {
+    public GetChartTracks getChartTracks(long chartId) {
         return new GetChartTracks(gson, chartService, chartId);
     }
 
@@ -391,7 +388,7 @@ public class DeezerClient {
         return new GetEditorial(editorialService, editorialId);
     }
 
-    public PagingMethod<Editorial> getEditorials() {
+    public GetEditorials getEditorials() {
         return new GetEditorials(gson, editorialService);
     }
 
@@ -399,11 +396,11 @@ public class DeezerClient {
         return new GetEditorialCharts(editorialService, editorialId);
     }
 
-    public PagingMethod<Album> getEditorialReleases(long editorialId) {
+    public GetEditorialReleases getEditorialReleases(long editorialId) {
         return new GetEditorialReleases(gson, editorialService, editorialId);
     }
 
-    public PagingMethod<Album> getEditorialSelection(long editorialId) {
+    public GetEditorialSelection getEditorialSelection(long editorialId) {
         return new GetEditorialSelection(gson, editorialService, editorialId);
     }
 
@@ -411,15 +408,15 @@ public class DeezerClient {
         return new GetGenre(genreService, genreId);
     }
 
-    public PagingMethod<Genre> getGenres() {
+    public GetGenres getGenres() {
         return new GetGenres(gson, genreService);
     }
 
-    public PagingMethod<Artist> getGenreArtists(long genreId) {
+    public GetGenreArtists getGenreArtists(long genreId) {
         return new GetGenreArtists(gson, genreService, genreId);
     }
 
-    public PagingMethod<Radio> getGenreRadios(long genreId) {
+    public GetGenreRadios getGenreRadios(long genreId) {
         return new GetGenreRadios(gson, genreService, genreId);
     }
 
@@ -435,15 +432,15 @@ public class DeezerClient {
         return new GetPlaylist(playlistService, playlistId);
     }
 
-    public PagingMethod<User> getPlaylistFans(long playlistId) {
+    public GetPlaylistFans getPlaylistFans(long playlistId) {
         return new GetPlaylistFans(gson, playlistService, playlistId);
     }
 
-    public PagingMethod<Track> getPlaylistRadio(long playlistId) {
+    public GetPlaylistRadio getPlaylistRadio(long playlistId) {
         return new GetPlaylistRadio(gson, playlistService, playlistId);
     }
 
-    public PagingMethod<Track> getPlaylistTracks(long playlistId) {
+    public GetPlaylistTracks getPlaylistTracks(long playlistId) {
         return new GetPlaylistTracks(gson, playlistService, playlistId);
     }
 
@@ -451,31 +448,31 @@ public class DeezerClient {
         return new GetRadio(radioService, radioId);
     }
 
-    public PagingMethod<Radio> getRadios() {
+    public GetRadios getRadios() {
         return new GetRadios(gson, radioService);
     }
 
-    public PagingMethod<Genre> getRadioGenres() {
+    public GetRadioGenres getRadioGenres() {
         return new GetRadioGenres(gson, radioService);
     }
 
-    public PagingMethod<Radio> getRadioLists() {
+    public GetRadioLists getRadioLists() {
         return new GetRadioLists(gson, radioService);
     }
 
-    public PagingMethod<Radio> getRadioTop() {
+    public GetRadioTop getRadioTop() {
         return new GetRadioTop(gson, radioService);
     }
 
-    public PagingMethod<Track> getRadioTracks(long radioId) {
+    public GetRadioTracks getRadioTracks(long radioId) {
         return new GetRadioTracks(gson, radioService, radioId);
     }
 
-    public AdvancedSearchMethod<Track> search() {
+    public AdvancedSearch search() {
         return new AdvancedSearch(gson, searchService);
     }
 
-    public AdvancedSearchMethod<Album> searchAlbums() {
+    public AdvancedSearchAlbum searchAlbums() {
         return new AdvancedSearchAlbum(gson, searchService);
     }
 
@@ -499,7 +496,7 @@ public class DeezerClient {
         return new AdvancedSearchUser(gson, searchService);
     }
 
-    public SearchMethod<Track> search(String q) {
+    public Search search(String q) {
         return new Search(gson, searchService, q);
     }
 
@@ -507,27 +504,27 @@ public class DeezerClient {
         return new GetSearchHistory(gson, searchService, accessToken);
     }
 
-    public SearchMethod<Album> searchAlbums(String q) {
+    public SearchAlbum searchAlbums(String q) {
         return new SearchAlbum(gson, searchService, q);
     }
 
-    public SearchMethod<Artist> searchArtist(String q) {
+    public SearchArtist searchArtist(String q) {
         return new SearchArtist(gson, searchService, q);
     }
 
-    public SearchMethod<Playlist> searchPlaylist(String q) {
+    public SearchPlaylist searchPlaylist(String q) {
         return new SearchPlaylist(gson, searchService, q);
     }
 
-    public SearchMethod<Radio> searchRadio(String q) {
+    public SearchRadio searchRadio(String q) {
         return new SearchRadio(gson, searchService, q);
     }
 
-    public SearchMethod<Track> searchTrack(String q) {
+    public SearchTrack searchTrack(String q) {
         return new SearchTrack(gson, searchService, q);
     }
 
-    public SearchMethod<User> searchUser(String q) {
+    public SearchUser searchUser(String q) {
         return new SearchUser(gson, searchService, q);
     }
 

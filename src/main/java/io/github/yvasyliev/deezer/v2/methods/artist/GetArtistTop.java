@@ -1,51 +1,26 @@
 package io.github.yvasyliev.deezer.v2.methods.artist;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-import io.github.yvasyliev.deezer.factories.QueryParamsFactory;
+import com.google.gson.Gson;
 import io.github.yvasyliev.deezer.objects.Track;
 import io.github.yvasyliev.deezer.service.ArtistService;
-import io.github.yvasyliev.deezer.v2.methods.AbstractDzMethod;
+import io.github.yvasyliev.deezer.v2.methods.AbstractDzPagingIdMethod;
+import io.github.yvasyliev.deezer.v2.methods.DzPagingMethod;
 import io.github.yvasyliev.deezer.v2.objects.Page;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-@RequiredArgsConstructor
-@Setter
-@Accessors(fluent = true)
-public class GetArtistTop extends AbstractDzMethod<Page<Track, GetArtistTop>> {
-    protected final ArtistService artistService;
-
-    private final QueryParamsFactory queryParamsFactory;
-
-    @Expose(serialize = false)
-    @SerializedName(OBJECT_ID)
-    protected final long artistId;
-
-    @Expose
-    @SerializedName(INDEX)
-    private Integer index;
-
-    @Expose
-    @SerializedName(LIMIT)
-    private Integer limit;
-
-    @Override
-    public CompletableFuture<Page<Track, GetArtistTop>> executeAsync() {
-        return artistService.getArtistTopAsync(artistId, getQueryParams());
+public class GetArtistTop extends AbstractDzPagingIdMethod<Track, ArtistService> {
+    public GetArtistTop(ArtistService artistService, Gson gson, long albumId) {
+        super(artistService, gson, albumId);
     }
 
     @Override
-    protected Map<String, Object> getQueryParams() {
-        return queryParamsFactory.getQueryParams(this);
+    public CompletableFuture<Page<Track, DzPagingMethod<Track>>> executeAsync() {
+        return deezerService.getArtistTopAsync(objectId, getQueryParams());
     }
 
     @Override
     public String toString() {
-        return "/artist/" + artistId + "/top" + getQueryParams();
+        return "/artist/" + objectId + "/top" + getQueryParams();
     }
 }

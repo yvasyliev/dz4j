@@ -9,8 +9,5 @@ public interface InfosService extends DeezerService {
     String INFOS = "/infos";
 
     @RequestLine(GET + INFOS)
-    Infos getInfos();
-
-    @RequestLine(GET + INFOS)
     CompletableFuture<Infos> getInfosAsync();
 }

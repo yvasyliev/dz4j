@@ -1,7 +1,7 @@
 package io.github.yvasyliev.deezer.v2.methods;
 
-import com.google.gson.Gson;
 import io.github.yvasyliev.deezer.objects.Pageable;
+import io.github.yvasyliev.deezer.service.ArtistService;
 import io.github.yvasyliev.deezer.v2.objects.Page;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -10,7 +10,7 @@ import lombok.ToString;
 @ToString
 public abstract class AbstractPagingMethod<T extends Pageable, M extends AbstractPagingMethod<T, M>> extends AbstractQueryMethod<Page<T, M>> {
 
-    public AbstractPagingMethod(Gson gson) {
+    public AbstractPagingMethod(ArtistService gson) {
         super(gson);
     }
 

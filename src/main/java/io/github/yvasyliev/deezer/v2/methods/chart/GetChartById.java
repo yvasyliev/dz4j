@@ -1,25 +1,14 @@
 package io.github.yvasyliev.deezer.v2.methods.chart;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import io.github.yvasyliev.deezer.objects.Chart;
 import io.github.yvasyliev.deezer.service.ChartService;
-import io.github.yvasyliev.deezer.v2.methods.AbstractObjectServiceMethod;
+import io.github.yvasyliev.deezer.v2.methods.AbstractDzIdMethod;
 
 import java.util.concurrent.CompletableFuture;
 
-public class GetChartById extends AbstractObjectServiceMethod<Chart, ChartService> {
-    @Expose
-    @SerializedName(OBJECT_ID)
-    protected final long objectId;
-
+public class GetChartById extends AbstractDzIdMethod<Chart, ChartService> {
     public GetChartById(ChartService chartService, long chartId) {
         super(chartService, chartId);
-    }
-
-    @Override
-    public Chart execute() {
-        return deezerService.getChart(objectId);
     }
 
     @Override

@@ -1,51 +1,26 @@
 package io.github.yvasyliev.deezer.v2.methods.album;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-import io.github.yvasyliev.deezer.factories.QueryParamsFactory;
+import com.google.gson.Gson;
 import io.github.yvasyliev.deezer.objects.Track;
 import io.github.yvasyliev.deezer.service.AlbumService;
-import io.github.yvasyliev.deezer.v2.methods.AbstractDzMethod;
+import io.github.yvasyliev.deezer.v2.methods.AbstractDzPagingIdMethod;
+import io.github.yvasyliev.deezer.v2.methods.DzPagingMethod;
 import io.github.yvasyliev.deezer.v2.objects.Page;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-@RequiredArgsConstructor
-@Setter
-@Accessors(fluent = true)
-public class GetAlbumTracks extends AbstractDzMethod<Page<Track, GetAlbumTracks>> {
-    private final AlbumService albumService;
-
-    private final QueryParamsFactory queryParamsFactory;
-
-    @Expose(serialize = false)
-    @SerializedName(OBJECT_ID)
-    private final long albumId;
-
-    @Expose
-    @SerializedName(INDEX)
-    private Integer index;
-
-    @Expose
-    @SerializedName(LIMIT)
-    private Integer limit;
-
-    @Override
-    public CompletableFuture<Page<Track, GetAlbumTracks>> executeAsync() {
-        return albumService.getAlbumTracksAsync(albumId, getQueryParams());
+public class GetAlbumTracks extends AbstractDzPagingIdMethod<Track, AlbumService> {
+    public GetAlbumTracks(AlbumService albumService, Gson gson, long albumId) {
+        super(albumService, gson, albumId);
     }
 
     @Override
-    protected Map<String, Object> getQueryParams() {
-        return queryParamsFactory.getQueryParams(this);
+    public CompletableFuture<Page<Track, DzPagingMethod<Track>>> executeAsync() {
+        return deezerService.getAlbumTracksAsync(objectId, getQueryParams());
     }
 
     @Override
     public String toString() {
-        return "/album/" + albumId + "/tracks" + getQueryParams();
+        return "/album/" + objectId + "/tracks" + getQueryParams();
     }
 }

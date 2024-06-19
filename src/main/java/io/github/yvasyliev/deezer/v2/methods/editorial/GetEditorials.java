@@ -1,36 +1,21 @@
 package io.github.yvasyliev.deezer.v2.methods.editorial;
 
 import com.google.gson.Gson;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import io.github.yvasyliev.deezer.objects.Editorial;
 import io.github.yvasyliev.deezer.service.EditorialService;
-import io.github.yvasyliev.deezer.v2.methods.PagingMethod;
-import io.github.yvasyliev.deezer.v2.methods.AbstractServicePagingMethod;
+import io.github.yvasyliev.deezer.v2.methods.AbstractDzPagingMethod;
+import io.github.yvasyliev.deezer.v2.methods.DzPagingMethod;
 import io.github.yvasyliev.deezer.v2.objects.Page;
 
 import java.util.concurrent.CompletableFuture;
 
-public class GetEditorials extends AbstractServicePagingMethod<Editorial, EditorialService> {
-    protected final EditorialService deezerService;
-    @Expose
-    @SerializedName(INDEX)
-    private Integer index;
-    @Expose
-    @SerializedName(LIMIT)
-    private Integer limit;
-
-    public GetEditorials(Gson gson, EditorialService editorialService) {
-        super(gson, editorialService);
+public class GetEditorials extends AbstractDzPagingMethod<Editorial, EditorialService> {
+    public GetEditorials(EditorialService editorialService, Gson gson) {
+        super(editorialService, gson);
     }
 
     @Override
-    public Page<Editorial, PagingMethod<Editorial>> execute() {
-        return deezerService.getEditorials(getQueryParams());
-    }
-
-    @Override
-    public CompletableFuture<Page<Editorial, PagingMethod<Editorial>>> executeAsync() {
+    public CompletableFuture<Page<Editorial, DzPagingMethod<Editorial>>> executeAsync() {
         return deezerService.getEditorialsAsync(getQueryParams());
     }
 

@@ -1,51 +1,26 @@
 package io.github.yvasyliev.deezer.v2.methods.artist;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-import io.github.yvasyliev.deezer.factories.QueryParamsFactory;
+import com.google.gson.Gson;
 import io.github.yvasyliev.deezer.objects.User;
 import io.github.yvasyliev.deezer.service.ArtistService;
-import io.github.yvasyliev.deezer.v2.methods.AbstractDzMethod;
+import io.github.yvasyliev.deezer.v2.methods.AbstractDzPagingIdMethod;
+import io.github.yvasyliev.deezer.v2.methods.DzPagingMethod;
 import io.github.yvasyliev.deezer.v2.objects.Page;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-@RequiredArgsConstructor
-@Setter
-@Accessors(fluent = true)
-public class GetArtistFans extends AbstractDzMethod<Page<User, GetArtistFans>> {
-    private final ArtistService artistService;
-
-    private final QueryParamsFactory queryParamsFactory;
-
-    @Expose(serialize = false)
-    @SerializedName(OBJECT_ID)
-    protected final long artistId;
-
-    @Expose
-    @SerializedName(INDEX)
-    private Integer index;
-
-    @Expose
-    @SerializedName(LIMIT)
-    private Integer limit;
-
-    @Override
-    public CompletableFuture<Page<User, GetArtistFans>> executeAsync() {
-        return artistService.getArtistFansAsync(artistId, getQueryParams());
+public class GetArtistFans extends AbstractDzPagingIdMethod<User, ArtistService> {
+    public GetArtistFans(ArtistService artistService, Gson gson, long albumId) {
+        super(artistService, gson, albumId);
     }
 
     @Override
-    protected Map<String, Object> getQueryParams() {
-        return queryParamsFactory.getQueryParams(this);
+    public CompletableFuture<Page<User, DzPagingMethod<User>>> executeAsync() {
+        return deezerService.getArtistFansAsync(objectId, getQueryParams());
     }
 
     @Override
     public String toString() {
-        return "/artist/" + artistId + "/fans" + getQueryParams();
+        return "/artist/" + objectId + "/fans" + getQueryParams();
     }
 }

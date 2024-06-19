@@ -8,12 +8,7 @@ import io.github.yvasyliev.deezer.objects.Artist;
 import io.github.yvasyliev.deezer.objects.Playlist;
 import io.github.yvasyliev.deezer.objects.Track;
 import io.github.yvasyliev.deezer.objects.User;
-import io.github.yvasyliev.deezer.v2.methods.artist.GetArtistAlbums;
-import io.github.yvasyliev.deezer.v2.methods.artist.GetArtistFans;
-import io.github.yvasyliev.deezer.v2.methods.artist.GetArtistPlaylists;
-import io.github.yvasyliev.deezer.v2.methods.artist.GetArtistRadio;
-import io.github.yvasyliev.deezer.v2.methods.artist.GetArtistRelated;
-import io.github.yvasyliev.deezer.v2.methods.artist.GetArtistTop;
+import io.github.yvasyliev.deezer.v2.methods.DzPagingMethod;
 import io.github.yvasyliev.deezer.v2.objects.Page;
 
 import java.util.Map;
@@ -32,20 +27,20 @@ public interface ArtistService extends DeezerService {
     CompletableFuture<Artist> getArtistAsync(@Param("artistId") long artistId);
 
     @RequestLine(GET + ARTIST_ALBUMS)
-    CompletableFuture<Page<Album, GetArtistAlbums>> getArtistAlbumsAsync(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<Album, DzPagingMethod<Album>>> getArtistAlbumsAsync(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + ARTIST_FANS)
-    CompletableFuture<Page<User, GetArtistFans>> getArtistFansAsync(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<User, DzPagingMethod<User>>> getArtistFansAsync(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + ARTIST_PLAYLISTS)
-    CompletableFuture<Page<Playlist, GetArtistPlaylists>> getArtistPlaylistsAsync(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<Playlist, DzPagingMethod<Playlist>>> getArtistPlaylistsAsync(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + ARTIST_RADIO)
-    CompletableFuture<Page<Track, GetArtistRadio>> getArtistRadioAsync(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<Track, DzPagingMethod<Track>>> getArtistRadioAsync(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + ARTIST_RELATED)
-    CompletableFuture<Page<Artist, GetArtistRelated>> getArtistRelatedAsync(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<Artist, DzPagingMethod<Artist>>> getArtistRelatedAsync(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
 
     @RequestLine(GET + ARTIST_TOP)
-    CompletableFuture<Page<Track, GetArtistTop>> getArtistTopAsync(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
+    CompletableFuture<Page<Track, DzPagingMethod<Track>>> getArtistTopAsync(@Param("artistId") long artistId, @QueryMap Map<String, Object> queryParams);
 }
