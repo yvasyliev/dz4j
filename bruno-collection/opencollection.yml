@@ -38,6 +38,7 @@ extensions:
   ignore:
     - node_modules
     - .git
+    - assets
   presets:
     request:
       type: http
