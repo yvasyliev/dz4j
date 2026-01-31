@@ -1,0 +1,39 @@
+info:
+  name: get-access-token
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{oauth-host}}/oauth/access_token.php?app_id={{app-id}}&secret={{secret}}&code={{?Code}}&output=json"
+  params:
+    - name: app_id
+      value: "{{app-id}}"
+      type: query
+    - name: secret
+      value: "{{secret}}"
+      type: query
+    - name: code
+      value: "{{?Code}}"
+      type: query
+    - name: output
+      value: json
+      type: query
+  auth: inherit
+
+runtime:
+  actions:
+    - type: set-variable
+      phase: after-response
+      selector:
+        expression: res.body.access_token
+        method: jsonq
+      variable:
+        name: access-token
+        scope: runtime
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

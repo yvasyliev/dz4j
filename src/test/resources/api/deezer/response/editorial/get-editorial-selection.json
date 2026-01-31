@@ -1,0 +1,26 @@
+{
+  "data": [
+    {
+      "id": 811196001,
+      "title": "Collision Drive (Remastered)",
+      "cover": "https://api.deezer.com/album/811196001/image",
+      "cover_small": "https://cdn-images.dzcdn.net/images/cover/f24800f1aa99ca140c23871c9f2a5c03/56x56-000000-80-0-0.jpg",
+      "cover_medium": "https://cdn-images.dzcdn.net/images/cover/f24800f1aa99ca140c23871c9f2a5c03/250x250-000000-80-0-0.jpg",
+      "cover_big": "https://cdn-images.dzcdn.net/images/cover/f24800f1aa99ca140c23871c9f2a5c03/500x500-000000-80-0-0.jpg",
+      "cover_xl": "https://cdn-images.dzcdn.net/images/cover/f24800f1aa99ca140c23871c9f2a5c03/1000x1000-000000-80-0-0.jpg",
+      "md5_image": "f24800f1aa99ca140c23871c9f2a5c03",
+      "genre_id": 152,
+      "record_type": "album",
+      "tracklist": "https://api.deezer.com/album/811196001/tracks",
+      "explicit_lyrics": false,
+      "artist": {
+        "id": 242251,
+        "name": "Alan Vega",
+        "link": "https://www.deezer.com/artist/242251",
+        "tracklist": "https://api.deezer.com/artist/242251/top?limit=50",
+        "type": "artist"
+      },
+      "type": "album"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "data": [
+    {
+      "id": 2498605981,
+      "readable": true,
+      "title": "You Slept On Me",
+      "title_short": "You Slept On Me",
+      "title_version": "",
+      "duration": 251,
+      "rank": 310783,
+      "explicit_lyrics": false,
+      "explicit_content_lyrics": 0,
+      "explicit_content_cover": 2,
+      "preview": "https://cdnt-preview.dzcdn.net/api/1/1/e/d/e/0/eded0367f9005b8411d88b71b76c245e.mp3?hdnea=exp=1769112617~acl=/api/1/1/e/d/e/0/eded0367f9005b8411d88b71b76c245e.mp3*~data=user_id=0,application_id=42~hmac=86818451df83d8269f2e24b6aba6d3cdda38ea2f23814892e9709af3eded851e",
+      "md5_image": "aaf6df8b9d737583800dc0b399dcc1d8",
+      "artist": {
+        "id": 5587890,
+        "name": "Allie X",
+        "picture": "https://api.deezer.com/artist/5587890/image",
+        "picture_small": "https://cdn-images.dzcdn.net/images/artist/a9930a572b350ac62c6578bbef58f9b6/56x56-000000-80-0-0.jpg",
+        "picture_medium": "https://cdn-images.dzcdn.net/images/artist/a9930a572b350ac62c6578bbef58f9b6/250x250-000000-80-0-0.jpg",
+        "picture_big": "https://cdn-images.dzcdn.net/images/artist/a9930a572b350ac62c6578bbef58f9b6/500x500-000000-80-0-0.jpg",
+        "picture_xl": "https://cdn-images.dzcdn.net/images/artist/a9930a572b350ac62c6578bbef58f9b6/1000x1000-000000-80-0-0.jpg",
+        "tracklist": "https://api.deezer.com/artist/5587890/top?limit=50",
+        "type": "artist"
+      },
+      "album": {
+        "id": 500138701,
+        "title": "Girl With No Face",
+        "cover": "https://api.deezer.com/album/500138701/image",
+        "cover_small": "https://cdn-images.dzcdn.net/images/cover/aaf6df8b9d737583800dc0b399dcc1d8/56x56-000000-80-0-0.jpg",
+        "cover_medium": "https://cdn-images.dzcdn.net/images/cover/aaf6df8b9d737583800dc0b399dcc1d8/250x250-000000-80-0-0.jpg",
+        "cover_big": "https://cdn-images.dzcdn.net/images/cover/aaf6df8b9d737583800dc0b399dcc1d8/500x500-000000-80-0-0.jpg",
+        "cover_xl": "https://cdn-images.dzcdn.net/images/cover/aaf6df8b9d737583800dc0b399dcc1d8/1000x1000-000000-80-0-0.jpg",
+        "md5_image": "aaf6df8b9d737583800dc0b399dcc1d8",
+        "tracklist": "https://api.deezer.com/album/500138701/tracks",
+        "type": "album"
+      },
+      "type": "track"
+    }
+  ]
+}

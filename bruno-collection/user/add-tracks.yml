@@ -1,0 +1,22 @@
+info:
+  name: add-tracks
+  type: http
+  seq: 7
+
+http:
+  method: POST
+  url: "{{api-host}}/user/me/tracks"
+  body:
+    type: form-urlencoded
+    data:
+      - name: access_token
+        value: "{{access-token}}"
+      - name: track_ids
+        value: "{{track-id}}"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

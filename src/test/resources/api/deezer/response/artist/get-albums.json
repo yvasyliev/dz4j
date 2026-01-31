@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "id": 823547171,
+      "title": "Happiness Is Going To Get You",
+      "link": "https://www.deezer.com/album/823547171",
+      "cover": "https://api.deezer.com/album/823547171/image",
+      "cover_small": "https://cdn-images.dzcdn.net/images/cover/a330071b767d0051397cd7770341a87a/56x56-000000-80-0-0.jpg",
+      "cover_medium": "https://cdn-images.dzcdn.net/images/cover/a330071b767d0051397cd7770341a87a/250x250-000000-80-0-0.jpg",
+      "cover_big": "https://cdn-images.dzcdn.net/images/cover/a330071b767d0051397cd7770341a87a/500x500-000000-80-0-0.jpg",
+      "cover_xl": "https://cdn-images.dzcdn.net/images/cover/a330071b767d0051397cd7770341a87a/1000x1000-000000-80-0-0.jpg",
+      "md5_image": "a330071b767d0051397cd7770341a87a",
+      "genre_id": 85,
+      "fans": 496,
+      "release_date": "2025-11-07",
+      "record_type": "album",
+      "tracklist": "https://api.deezer.com/album/823547171/tracks",
+      "explicit_lyrics": true,
+      "type": "album"
+    }
+  ],
+  "total": 64,
+  "next": "https://api.deezer.com/artist/5587890/albums?limit=1&index=1"
+}

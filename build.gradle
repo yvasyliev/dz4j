@@ -1,0 +1,44 @@
+plugins {
+    id 'java-library'
+    id 'io.freefair.lombok' version '9.1.0'
+}
+
+group = 'io.github.yvasyliev.deezer'
+version = '3.0.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation platform('io.github.openfeign:feign-bom:13.6')
+    implementation platform('tools.jackson:jackson-bom:3.0.3')
+
+    api 'io.github.openfeign:feign-core'
+    api 'io.github.openfeign:feign-form'
+    api 'tools.jackson.core:jackson-databind'
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation platform('org.slf4j:slf4j-bom:2.0.17') //TODO: remove
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'io.github.openfeign:feign-slf4j' //TODO: remove
+    testImplementation 'org.slf4j:slf4j-simple' //TODO: remove
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+    // Set slf4j-simple default log level to DEBUG for tests so log.debug(...) is printed
+    systemProperty 'org.slf4j.simpleLogger.defaultLogLevel', 'debug'
+    // Ensure stdout/stderr emitted by tests is shown in Gradle output
+    testLogging {
+        showStandardStreams = true
+    }
+}

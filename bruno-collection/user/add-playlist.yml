@@ -1,0 +1,22 @@
+info:
+  name: add-playlist
+  type: http
+  seq: 4
+
+http:
+  method: POST
+  url: "{{api-host}}/user/me/playlists"
+  body:
+    type: form-urlencoded
+    data:
+      - name: access_token
+        value: "{{access-token}}"
+      - name: playlist_id
+        value: "{{playlist-id}}"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

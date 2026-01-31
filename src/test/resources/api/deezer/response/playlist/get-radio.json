@@ -1,0 +1,50 @@
+{
+  "data": [
+    {
+      "id": 1807705517,
+      "readable": true,
+      "title": "All That She Wants - InVersions 90s",
+      "title_short": "All That She Wants - InVersions 90s",
+      "title_version": "",
+      "isrc": "GBAHT2200942",
+      "link": "https://www.deezer.com/track/1807705517",
+      "duration": 147,
+      "rank": 518099,
+      "explicit_lyrics": false,
+      "explicit_content_lyrics": 0,
+      "explicit_content_cover": 2,
+      "preview": "https://cdnt-preview.dzcdn.net/api/1/1/3/b/f/0/3bf05da7573e7ad98d8c1d0abc91a9ae.mp3?hdnea=exp=1769110531~acl=/api/1/1/3/b/f/0/3bf05da7573e7ad98d8c1d0abc91a9ae.mp3*~data=user_id=0,application_id=42~hmac=c5dd92885004810a3d23187c119f684c05cf725afa657e25826a3b3066edf987",
+      "md5_image": "332da0d09cc40bfff771b7ec2112b5a4",
+      "time_add": 1658181600,
+      "artist": {
+        "id": 6594942,
+        "name": "Priya Ragu",
+        "link": "https://www.deezer.com/artist/6594942",
+        "picture": "https://api.deezer.com/artist/6594942/image",
+        "picture_small": "https://cdn-images.dzcdn.net/images/artist/6d3e72bce9a2094045f24571476c0f0e/56x56-000000-80-0-0.jpg",
+        "picture_medium": "https://cdn-images.dzcdn.net/images/artist/6d3e72bce9a2094045f24571476c0f0e/250x250-000000-80-0-0.jpg",
+        "picture_big": "https://cdn-images.dzcdn.net/images/artist/6d3e72bce9a2094045f24571476c0f0e/500x500-000000-80-0-0.jpg",
+        "picture_xl": "https://cdn-images.dzcdn.net/images/artist/6d3e72bce9a2094045f24571476c0f0e/1000x1000-000000-80-0-0.jpg",
+        "tracklist": "https://api.deezer.com/artist/6594942/top?limit=50",
+        "type": "artist"
+      },
+      "album": {
+        "id": 331432397,
+        "title": "All That She Wants - InVersions 90s",
+        "upc": "5054197213342",
+        "cover": "https://api.deezer.com/album/331432397/image",
+        "cover_small": "https://cdn-images.dzcdn.net/images/cover/332da0d09cc40bfff771b7ec2112b5a4/56x56-000000-80-0-0.jpg",
+        "cover_medium": "https://cdn-images.dzcdn.net/images/cover/332da0d09cc40bfff771b7ec2112b5a4/250x250-000000-80-0-0.jpg",
+        "cover_big": "https://cdn-images.dzcdn.net/images/cover/332da0d09cc40bfff771b7ec2112b5a4/500x500-000000-80-0-0.jpg",
+        "cover_xl": "https://cdn-images.dzcdn.net/images/cover/332da0d09cc40bfff771b7ec2112b5a4/1000x1000-000000-80-0-0.jpg",
+        "md5_image": "332da0d09cc40bfff771b7ec2112b5a4",
+        "tracklist": "https://api.deezer.com/album/331432397/tracks",
+        "type": "album"
+      },
+      "type": "track"
+    }
+  ],
+  "checksum": "5fce7a155945396a90e8107582188a88",
+  "total": 16,
+  "next": "https://api.deezer.com/playlist/10517702202/tracks?limit=1&offset=0&index=1"
+}

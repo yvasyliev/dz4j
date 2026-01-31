@@ -1,0 +1,31 @@
+{
+  "data": [
+    {
+      "id": 10805667442,
+      "title": "hyperpop",
+      "public": true,
+      "link": "https://www.deezer.com/playlist/10805667442",
+      "picture": "https://api.deezer.com/playlist/10805667442/image",
+      "picture_small": "https://cdn-images.dzcdn.net/images/playlist/88ba046848b9673a3a5af8be72186838/56x56-000000-80-0-0.jpg",
+      "picture_medium": "https://cdn-images.dzcdn.net/images/playlist/88ba046848b9673a3a5af8be72186838/250x250-000000-80-0-0.jpg",
+      "picture_big": "https://cdn-images.dzcdn.net/images/playlist/88ba046848b9673a3a5af8be72186838/500x500-000000-80-0-0.jpg",
+      "picture_xl": "https://cdn-images.dzcdn.net/images/playlist/88ba046848b9673a3a5af8be72186838/1000x1000-000000-80-0-0.jpg",
+      "checksum": "56a9d2d8c020c32dd66c8996bd7583bb",
+      "tracklist": "https://api.deezer.com/playlist/10805667442/tracks",
+      "creation_date": "2022-10-21 16:51:54",
+      "add_date": "2022-11-07 19:43:43",
+      "mod_date": "2024-01-25 18:06:36",
+      "md5_image": "88ba046848b9673a3a5af8be72186838",
+      "picture_type": "playlist",
+      "user": {
+        "id": 753543485,
+        "name": "Georges - Deezer Alternative Editor",
+        "tracklist": "https://api.deezer.com/user/753543485/flow",
+        "type": "user"
+      },
+      "type": "playlist"
+    }
+  ],
+  "total": 26,
+  "next": "https://api.deezer.com/artist/5587890/playlists?limit=1&index=1"
+}

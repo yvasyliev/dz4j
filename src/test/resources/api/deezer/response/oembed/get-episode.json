@@ -1,0 +1,18 @@
+{
+  "version": "1.0",
+  "type": "rich",
+  "cache_age": 86400,
+  "provider_name": "Deezer",
+  "provider_url": "https://www.deezer.com",
+  "entity": "episode",
+  "id": 605632582,
+  "url": "https://www.deezer.com/en/episode/605632582",
+  "author_name": "Duolingo Spanish Podcast",
+  "title": "Duolingo Spanish Podcast podcast - 22/02/2024 | Deezer",
+  "thumbnail_url": "https://cdn-images.dzcdn.net/images/talk/b9f8a5b4142fc5fdec91bbc1cb248b2c/1000x1000.jpg",
+  "thumbnail_width": 1000,
+  "thumbnail_height": 1000,
+  "width": 420,
+  "height": 420,
+  "html": "<iframe id=\"deezer-widget\" src=\"https://widget.deezer.com/widget/dark/episode/605632582?app_id=457142&autoplay=false&radius=true&tracklist=true\" width=\"420\" height=\"420\" allowtransparency=\"true\" allowfullscreen=\"true\" allow=\"encrypted-media\"></iframe>"
+}

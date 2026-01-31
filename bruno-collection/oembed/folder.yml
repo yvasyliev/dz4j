@@ -1,0 +1,10 @@
+info:
+  name: oembed
+  type: folder
+  seq: 1
+
+request:
+  auth: inherit
+  variables:
+    - name: show-id
+      value: "1447162"

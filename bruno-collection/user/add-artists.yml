@@ -1,0 +1,22 @@
+info:
+  name: add-artists
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{api-host}}/user/me/artists"
+  body:
+    type: form-urlencoded
+    data:
+      - name: access_token
+        value: "{{access-token}}"
+      - name: artist_ids
+        value: "{{artist-id}}"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

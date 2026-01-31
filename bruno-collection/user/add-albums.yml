@@ -1,0 +1,33 @@
+info:
+  name: add-albums
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{api-host}}/user/me/albums"
+  body:
+    type: form-urlencoded
+    data:
+      - name: access_token
+        value: "{{access-token}}"
+      - name: album_ids
+        value: "{{album-id}}"
+  auth: inherit
+
+runtime:
+  actions:
+    - type: set-variable
+      phase: after-response
+      selector:
+        expression: res.body.id
+        method: jsonq
+      variable:
+        name: playlist-id
+        scope: runtime
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

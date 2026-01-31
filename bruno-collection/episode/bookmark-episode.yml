@@ -1,0 +1,26 @@
+info:
+  name: bookmark-episode
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{api-host}}/episode/{{episode-id}}/bookmark"
+  params:
+    - name: ""
+      value: ""
+      type: query
+  body:
+    type: form-urlencoded
+    data:
+      - name: access_token
+        value: "{{access-token}}"
+      - name: index
+        value: "0"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

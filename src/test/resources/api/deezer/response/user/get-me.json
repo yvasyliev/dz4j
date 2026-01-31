@@ -1,0 +1,28 @@
+{
+  "id": 8095775161,
+  "name": "John",
+  "lastname": "Doe",
+  "firstname": "John",
+  "email": "john.doe@mail.com",
+  "status": 2,
+  "birthday": "0000-00-00",
+  "inscription_date": "2018-04-03",
+  "gender": "",
+  "link": "https://www.deezer.com/profile/8095775161",
+  "picture": "https://api.deezer.com/user/8095775161/image",
+  "picture_small": "https://cdn-images.dzcdn.net/images/user/0pb4vlkj5ebdlzfxih2yj3x3tpdodfe8/56x56-000000-80-0-0.jpg",
+  "picture_medium": "https://cdn-images.dzcdn.net/images/user/0pb4vlkj5ebdlzfxih2yj3x3tpdodfe8/250x250-000000-80-0-0.jpg",
+  "picture_big": "https://cdn-images.dzcdn.net/images/user/0pb4vlkj5ebdlzfxih2yj3x3tpdodfe8/500x500-000000-80-0-0.jpg",
+  "picture_xl": "https://cdn-images.dzcdn.net/images/user/0pb4vlkj5ebdlzfxih2yj3x3tpdodfe8/1000x1000-000000-80-0-0.jpg",
+  "country": "US",
+  "lang": "en",
+  "is_kid": false,
+  "explicit_content_level": "explicit_display",
+  "explicit_content_levels_available": [
+    "explicit_display",
+    "explicit_no_recommendation",
+    "explicit_hide"
+  ],
+  "tracklist": "https://api.deezer.com/user/8095775161/flow",
+  "type": "user"
+}

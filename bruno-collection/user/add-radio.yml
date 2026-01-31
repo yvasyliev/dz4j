@@ -1,0 +1,22 @@
+info:
+  name: add-radio
+  type: http
+  seq: 6
+
+http:
+  method: POST
+  url: "{{api-host}}/user/me/radios"
+  body:
+    type: form-urlencoded
+    data:
+      - name: access_token
+        value: "{{access-token}}"
+      - name: radio_id
+        value: "6"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

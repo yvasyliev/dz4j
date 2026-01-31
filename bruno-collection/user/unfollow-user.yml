@@ -1,0 +1,33 @@
+info:
+  name: unfollow-user
+  type: http
+  seq: 40
+
+http:
+  method: DELETE
+  url: "{{api-host}}/user/me/followings?access_token={{access-token}}&user_id={{user-id}}"
+  params:
+    - name: access_token
+      value: "{{access-token}}"
+      type: query
+    - name: user_id
+      value: "{{user-id}}"
+      type: query
+  auth: inherit
+
+runtime:
+  actions:
+    - type: set-variable
+      phase: after-response
+      selector:
+        expression: res.body.id
+        method: jsonq
+      variable:
+        name: playlist-id
+        scope: runtime
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

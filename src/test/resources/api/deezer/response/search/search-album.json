@@ -1,0 +1,35 @@
+{
+  "data": [
+    {
+      "id": 641646351,
+      "title": "The Death of Slim Shady (Coup De Grâce): Expanded Mourner’s Edition",
+      "link": "https://www.deezer.com/album/641646351",
+      "cover": "https://api.deezer.com/album/641646351/image",
+      "cover_small": "https://cdn-images.dzcdn.net/images/cover/95c08f630c379d8f3ff8e58a2d47569f/56x56-000000-80-0-0.jpg",
+      "cover_medium": "https://cdn-images.dzcdn.net/images/cover/95c08f630c379d8f3ff8e58a2d47569f/250x250-000000-80-0-0.jpg",
+      "cover_big": "https://cdn-images.dzcdn.net/images/cover/95c08f630c379d8f3ff8e58a2d47569f/500x500-000000-80-0-0.jpg",
+      "cover_xl": "https://cdn-images.dzcdn.net/images/cover/95c08f630c379d8f3ff8e58a2d47569f/1000x1000-000000-80-0-0.jpg",
+      "md5_image": "95c08f630c379d8f3ff8e58a2d47569f",
+      "genre_id": 116,
+      "nb_tracks": 23,
+      "record_type": "album",
+      "tracklist": "https://api.deezer.com/album/641646351/tracks",
+      "explicit_lyrics": true,
+      "artist": {
+        "id": 13,
+        "name": "Eminem",
+        "link": "https://www.deezer.com/artist/13",
+        "picture": "https://api.deezer.com/artist/13/image",
+        "picture_small": "https://cdn-images.dzcdn.net/images/artist/0f30bbd33a680030054af004d698d6ac/56x56-000000-80-0-0.jpg",
+        "picture_medium": "https://cdn-images.dzcdn.net/images/artist/0f30bbd33a680030054af004d698d6ac/250x250-000000-80-0-0.jpg",
+        "picture_big": "https://cdn-images.dzcdn.net/images/artist/0f30bbd33a680030054af004d698d6ac/500x500-000000-80-0-0.jpg",
+        "picture_xl": "https://cdn-images.dzcdn.net/images/artist/0f30bbd33a680030054af004d698d6ac/1000x1000-000000-80-0-0.jpg",
+        "tracklist": "https://api.deezer.com/artist/13/top?limit=50",
+        "type": "artist"
+      },
+      "type": "album"
+    }
+  ],
+  "total": 86,
+  "next": "https://api.deezer.com/search/album?q=eminem&strinct=on&order=DURATION_DESC&limit=1&index=1"
+}

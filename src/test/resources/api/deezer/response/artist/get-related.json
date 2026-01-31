@@ -1,0 +1,21 @@
+{
+  "data": [
+    {
+      "id": 74357,
+      "name": "Marina",
+      "link": "https://www.deezer.com/artist/74357",
+      "picture": "https://api.deezer.com/artist/74357/image",
+      "picture_small": "https://cdn-images.dzcdn.net/images/artist/a2d0e12d5e8b9cf9f489db3b64c20533/56x56-000000-80-0-0.jpg",
+      "picture_medium": "https://cdn-images.dzcdn.net/images/artist/a2d0e12d5e8b9cf9f489db3b64c20533/250x250-000000-80-0-0.jpg",
+      "picture_big": "https://cdn-images.dzcdn.net/images/artist/a2d0e12d5e8b9cf9f489db3b64c20533/500x500-000000-80-0-0.jpg",
+      "picture_xl": "https://cdn-images.dzcdn.net/images/artist/a2d0e12d5e8b9cf9f489db3b64c20533/1000x1000-000000-80-0-0.jpg",
+      "nb_album": 63,
+      "nb_fan": 483731,
+      "radio": true,
+      "tracklist": "https://api.deezer.com/artist/74357/top?limit=50",
+      "type": "artist"
+    }
+  ],
+  "total": 20,
+  "next": "https://api.deezer.com/artist/5587890/related?limit=1&index=1"
+}

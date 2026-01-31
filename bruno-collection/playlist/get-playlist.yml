@@ -1,0 +1,15 @@
+info:
+  name: get-playlist
+  type: http
+  seq: 5
+
+http:
+  method: GET
+  url: "{{api-host}}/playlist/{{playlist-id}}"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

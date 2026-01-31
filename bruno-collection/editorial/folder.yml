@@ -1,0 +1,10 @@
+info:
+  name: editorial
+  type: folder
+  seq: 1
+
+request:
+  auth: inherit
+  variables:
+    - name: editorial-id
+      value: "152"

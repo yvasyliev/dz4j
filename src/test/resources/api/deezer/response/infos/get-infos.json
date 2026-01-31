@@ -1,0 +1,46 @@
+{
+  "country_iso": "UA",
+  "country": "Ukraine",
+  "open": true,
+  "pop": "fr",
+  "upload_token": "dyq9m5jxfh2bgh966v2npj2kevcdw6pw",
+  "upload_token_lifetime": 14400,
+  "user_token": "9g32brpz8rpbg0axz8hzu4ezqxyd754j10d2pjbiv2rmwafa1pvv50y2tfa43ngg8t8f5ngzexy4u2bv1y78aur3i3rr28bajrbbp8fitnteyipvz4u7x34p",
+  "hosts": {
+    "stream": "http://cdn-proxy-{0}.dzcdn.net/mobile/1/",
+    "images": "http://cdn-images.dzcdn.net/images"
+  },
+  "ads": {
+    "audio": {
+      "default": {
+        "start": 1,
+        "interval": 3,
+        "unit": "track"
+      }
+    },
+    "display": {
+      "interstitial": {
+        "start": 900,
+        "interval": 900,
+        "unit": "sec"
+      }
+    },
+    "big_native_ads_home": {
+      "iphone": {
+        "enabled": false
+      },
+      "ipad": {
+        "enabled": false
+      },
+      "android": {
+        "enabled": false
+      },
+      "android_tablet": {
+        "enabled": false
+      }
+    }
+  },
+  "has_podcasts": true,
+  "offers": [],
+  "lyrics_available": false
+}

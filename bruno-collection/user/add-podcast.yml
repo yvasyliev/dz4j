@@ -1,0 +1,22 @@
+info:
+  name: add-podcast
+  type: http
+  seq: 5
+
+http:
+  method: POST
+  url: "{{api-host}}/user/me/podcasts"
+  body:
+    type: form-urlencoded
+    data:
+      - name: access_token
+        value: "{{access-token}}"
+      - name: podcast_id
+        value: "{{podcast-id}}"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

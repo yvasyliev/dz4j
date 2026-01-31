@@ -1,0 +1,31 @@
+{
+  "data": [
+    {
+      "id": 1362526495,
+      "title": "Top Ukraine",
+      "public": true,
+      "nb_tracks": 100,
+      "link": "https://www.deezer.com/playlist/1362526495",
+      "picture": "https://api.deezer.com/playlist/1362526495/image",
+      "picture_small": "https://cdn-images.dzcdn.net/images/playlist/e65455b9110190bf0c0840b0bf8cb4d8/56x56-000000-80-0-0.jpg",
+      "picture_medium": "https://cdn-images.dzcdn.net/images/playlist/e65455b9110190bf0c0840b0bf8cb4d8/250x250-000000-80-0-0.jpg",
+      "picture_big": "https://cdn-images.dzcdn.net/images/playlist/e65455b9110190bf0c0840b0bf8cb4d8/500x500-000000-80-0-0.jpg",
+      "picture_xl": "https://cdn-images.dzcdn.net/images/playlist/e65455b9110190bf0c0840b0bf8cb4d8/1000x1000-000000-80-0-0.jpg",
+      "checksum": "f28f585ceb21498326f355c2319a239b",
+      "tracklist": "https://api.deezer.com/playlist/1362526495/tracks",
+      "creation_date": "2015-09-03 18:57:44",
+      "add_date": "0000-00-00 00:00:00",
+      "mod_date": "0000-00-00 00:00:00",
+      "md5_image": "e65455b9110190bf0c0840b0bf8cb4d8",
+      "picture_type": "playlist",
+      "user": {
+        "id": 637006841,
+        "name": "Deezer Charts",
+        "tracklist": "https://api.deezer.com/user/637006841/flow",
+        "type": "user"
+      },
+      "type": "playlist"
+    }
+  ],
+  "total": 1
+}

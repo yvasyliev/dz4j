@@ -1,0 +1,19 @@
+info:
+  name: get-track-chart
+  type: http
+  seq: 33
+
+http:
+  method: GET
+  url: "{{api-host}}/user/me/charts/tracks?access_token={{access-token}}"
+  params:
+    - name: access_token
+      value: "{{access-token}}"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

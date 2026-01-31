@@ -1,0 +1,33 @@
+info:
+  name: remove-track
+  type: http
+  seq: 39
+
+http:
+  method: DELETE
+  url: "{{api-host}}/user/me/tracks?access_token={{access-token}}&track_id={{track-id}}"
+  params:
+    - name: access_token
+      value: "{{access-token}}"
+      type: query
+    - name: track_id
+      value: "{{track-id}}"
+      type: query
+  auth: inherit
+
+runtime:
+  actions:
+    - type: set-variable
+      phase: after-response
+      selector:
+        expression: res.body.id
+        method: jsonq
+      variable:
+        name: playlist-id
+        scope: runtime
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

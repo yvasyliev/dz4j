@@ -1,0 +1,30 @@
+info:
+  name: get-infos
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{api-host}}/infos?access_token={{access-token}}"
+  params:
+    - name: access_token
+      value: "{{access-token}}"
+      type: query
+  auth: inherit
+
+runtime:
+  actions:
+    - type: set-variable
+      phase: after-response
+      selector:
+        expression: res.body.upload_token
+        method: jsonq
+      variable:
+        name: upload-token
+        scope: runtime
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

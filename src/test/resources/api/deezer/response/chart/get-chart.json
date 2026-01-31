@@ -1,0 +1,152 @@
+{
+  "tracks": {
+    "data": [
+      {
+        "id": 1899060227,
+        "title": "End of Beginning",
+        "title_short": "End of Beginning",
+        "title_version": "",
+        "link": "https://www.deezer.com/track/1899060227",
+        "duration": 159,
+        "rank": 999711,
+        "explicit_lyrics": false,
+        "explicit_content_lyrics": 0,
+        "explicit_content_cover": 0,
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/8/d/3/0/8d3e2d737a96e28902c7edca8b18e1f7.mp3?hdnea=exp=1769422337~acl=/api/1/1/8/d/3/0/8d3e2d737a96e28902c7edca8b18e1f7.mp3*~data=user_id=0,application_id=42~hmac=928f57a799875068fd955cf6f1355f814b64c781af9743b3116f44cafaf22b26",
+        "md5_image": "f13749b2a226afa7f5f866ce2f4d3015",
+        "position": 1,
+        "artist": {
+          "id": 70227002,
+          "name": "Djo",
+          "link": "https://www.deezer.com/artist/70227002",
+          "picture": "https://api.deezer.com/artist/70227002/image",
+          "picture_small": "https://cdn-images.dzcdn.net/images/artist/5e6a9578769a59e0a9857b80e626e7d8/56x56-000000-80-0-0.jpg",
+          "picture_medium": "https://cdn-images.dzcdn.net/images/artist/5e6a9578769a59e0a9857b80e626e7d8/250x250-000000-80-0-0.jpg",
+          "picture_big": "https://cdn-images.dzcdn.net/images/artist/5e6a9578769a59e0a9857b80e626e7d8/500x500-000000-80-0-0.jpg",
+          "picture_xl": "https://cdn-images.dzcdn.net/images/artist/5e6a9578769a59e0a9857b80e626e7d8/1000x1000-000000-80-0-0.jpg",
+          "radio": true,
+          "tracklist": "https://api.deezer.com/artist/70227002/top?limit=50",
+          "type": "artist"
+        },
+        "album": {
+          "id": 353216957,
+          "title": "DECIDE",
+          "cover": "https://api.deezer.com/album/353216957/image",
+          "cover_small": "https://cdn-images.dzcdn.net/images/cover/f13749b2a226afa7f5f866ce2f4d3015/56x56-000000-80-0-0.jpg",
+          "cover_medium": "https://cdn-images.dzcdn.net/images/cover/f13749b2a226afa7f5f866ce2f4d3015/250x250-000000-80-0-0.jpg",
+          "cover_big": "https://cdn-images.dzcdn.net/images/cover/f13749b2a226afa7f5f866ce2f4d3015/500x500-000000-80-0-0.jpg",
+          "cover_xl": "https://cdn-images.dzcdn.net/images/cover/f13749b2a226afa7f5f866ce2f4d3015/1000x1000-000000-80-0-0.jpg",
+          "md5_image": "f13749b2a226afa7f5f866ce2f4d3015",
+          "tracklist": "https://api.deezer.com/album/353216957/tracks",
+          "type": "album"
+        },
+        "type": "track"
+      }
+    ],
+    "total": 1
+  },
+  "albums": {
+    "data": [
+      {
+        "id": 902129562,
+        "title": "Megadeth",
+        "link": "https://www.deezer.com/album/902129562",
+        "cover": "https://api.deezer.com/album/902129562/image",
+        "cover_small": "https://cdn-images.dzcdn.net/images/cover/fbcd14353a18c1f7c98ed750b1ff2e2e/56x56-000000-80-0-0.jpg",
+        "cover_medium": "https://cdn-images.dzcdn.net/images/cover/fbcd14353a18c1f7c98ed750b1ff2e2e/250x250-000000-80-0-0.jpg",
+        "cover_big": "https://cdn-images.dzcdn.net/images/cover/fbcd14353a18c1f7c98ed750b1ff2e2e/500x500-000000-80-0-0.jpg",
+        "cover_xl": "https://cdn-images.dzcdn.net/images/cover/fbcd14353a18c1f7c98ed750b1ff2e2e/1000x1000-000000-80-0-0.jpg",
+        "md5_image": "fbcd14353a18c1f7c98ed750b1ff2e2e",
+        "record_type": "album",
+        "tracklist": "https://api.deezer.com/album/902129562/tracks",
+        "explicit_lyrics": false,
+        "position": 1,
+        "artist": {
+          "id": 3487,
+          "name": "Megadeth",
+          "link": "https://www.deezer.com/artist/3487",
+          "picture": "https://api.deezer.com/artist/3487/image",
+          "picture_small": "https://cdn-images.dzcdn.net/images/artist/cff12b4ef973a62d886d69bf056941ec/56x56-000000-80-0-0.jpg",
+          "picture_medium": "https://cdn-images.dzcdn.net/images/artist/cff12b4ef973a62d886d69bf056941ec/250x250-000000-80-0-0.jpg",
+          "picture_big": "https://cdn-images.dzcdn.net/images/artist/cff12b4ef973a62d886d69bf056941ec/500x500-000000-80-0-0.jpg",
+          "picture_xl": "https://cdn-images.dzcdn.net/images/artist/cff12b4ef973a62d886d69bf056941ec/1000x1000-000000-80-0-0.jpg",
+          "radio": true,
+          "tracklist": "https://api.deezer.com/artist/3487/top?limit=50",
+          "type": "artist"
+        },
+        "type": "album"
+      }
+    ],
+    "total": 1
+  },
+  "artists": {
+    "data": [
+      {
+        "id": 92,
+        "name": "Linkin Park",
+        "link": "https://www.deezer.com/artist/92",
+        "picture": "https://api.deezer.com/artist/92/image",
+        "picture_small": "https://cdn-images.dzcdn.net/images/artist/4886905210739af3438990897bad3a98/56x56-000000-80-0-0.jpg",
+        "picture_medium": "https://cdn-images.dzcdn.net/images/artist/4886905210739af3438990897bad3a98/250x250-000000-80-0-0.jpg",
+        "picture_big": "https://cdn-images.dzcdn.net/images/artist/4886905210739af3438990897bad3a98/500x500-000000-80-0-0.jpg",
+        "picture_xl": "https://cdn-images.dzcdn.net/images/artist/4886905210739af3438990897bad3a98/1000x1000-000000-80-0-0.jpg",
+        "radio": true,
+        "tracklist": "https://api.deezer.com/artist/92/top?limit=50",
+        "position": 1,
+        "type": "artist"
+      }
+    ],
+    "total": 1
+  },
+  "playlists": {
+    "data": [
+      {
+        "id": 1362526495,
+        "title": "Top Ukraine",
+        "public": true,
+        "nb_tracks": 100,
+        "link": "https://www.deezer.com/playlist/1362526495",
+        "picture": "https://api.deezer.com/playlist/1362526495/image",
+        "picture_small": "https://cdn-images.dzcdn.net/images/playlist/e65455b9110190bf0c0840b0bf8cb4d8/56x56-000000-80-0-0.jpg",
+        "picture_medium": "https://cdn-images.dzcdn.net/images/playlist/e65455b9110190bf0c0840b0bf8cb4d8/250x250-000000-80-0-0.jpg",
+        "picture_big": "https://cdn-images.dzcdn.net/images/playlist/e65455b9110190bf0c0840b0bf8cb4d8/500x500-000000-80-0-0.jpg",
+        "picture_xl": "https://cdn-images.dzcdn.net/images/playlist/e65455b9110190bf0c0840b0bf8cb4d8/1000x1000-000000-80-0-0.jpg",
+        "checksum": "f28f585ceb21498326f355c2319a239b",
+        "tracklist": "https://api.deezer.com/playlist/1362526495/tracks",
+        "creation_date": "2015-09-03 18:57:44",
+        "add_date": "0000-00-00 00:00:00",
+        "mod_date": "0000-00-00 00:00:00",
+        "md5_image": "e65455b9110190bf0c0840b0bf8cb4d8",
+        "picture_type": "playlist",
+        "user": {
+          "id": 637006841,
+          "name": "Deezer Charts",
+          "tracklist": "https://api.deezer.com/user/637006841/flow",
+          "type": "user"
+        },
+        "type": "playlist"
+      }
+    ],
+    "total": 1
+  },
+  "podcasts": {
+    "data": [
+      {
+        "id": 2167342,
+        "title": "Deutschtrainer | Audios | DW Learn German",
+        "description": "Learn everyday vocabulary and expressions and also improve your pronunciation.",
+        "available": true,
+        "fans": 670,
+        "link": "https://www.deezer.com/show/2167342",
+        "share": "https://www.deezer.com/show/2167342?utm_source=deezer&utm_content=show-2167342&utm_term=0_1769421437&utm_medium=web",
+        "picture": "https://cdn-images.dzcdn.net/images/talk/54ba4e597d89b064cfdc0061fbf34933/180x180-000000-80-0-0.jpg",
+        "picture_small": "https://cdn-images.dzcdn.net/images/talk/54ba4e597d89b064cfdc0061fbf34933/56x56-000000-80-0-0.jpg",
+        "picture_medium": "https://cdn-images.dzcdn.net/images/talk/54ba4e597d89b064cfdc0061fbf34933/250x250-000000-80-0-0.jpg",
+        "picture_big": "https://cdn-images.dzcdn.net/images/talk/54ba4e597d89b064cfdc0061fbf34933/500x500-000000-80-0-0.jpg",
+        "picture_xl": "https://cdn-images.dzcdn.net/images/talk/54ba4e597d89b064cfdc0061fbf34933/1000x1000-000000-80-0-0.jpg",
+        "type": "podcast"
+      }
+    ],
+    "total": 1
+  }
+}

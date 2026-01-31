@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "id": 2167342,
+      "title": "Deutschtrainer | Audios | DW Learn German",
+      "description": "Learn everyday vocabulary and expressions and also improve your pronunciation.",
+      "available": true,
+      "fans": 670,
+      "link": "https://www.deezer.com/show/2167342",
+      "share": "https://www.deezer.com/show/2167342?utm_source=deezer&utm_content=show-2167342&utm_term=0_1769421937&utm_medium=web",
+      "picture": "https://cdn-images.dzcdn.net/images/talk/54ba4e597d89b064cfdc0061fbf34933/180x180-000000-80-0-0.jpg",
+      "picture_small": "https://cdn-images.dzcdn.net/images/talk/54ba4e597d89b064cfdc0061fbf34933/56x56-000000-80-0-0.jpg",
+      "picture_medium": "https://cdn-images.dzcdn.net/images/talk/54ba4e597d89b064cfdc0061fbf34933/250x250-000000-80-0-0.jpg",
+      "picture_big": "https://cdn-images.dzcdn.net/images/talk/54ba4e597d89b064cfdc0061fbf34933/500x500-000000-80-0-0.jpg",
+      "picture_xl": "https://cdn-images.dzcdn.net/images/talk/54ba4e597d89b064cfdc0061fbf34933/1000x1000-000000-80-0-0.jpg",
+      "type": "podcast"
+    }
+  ],
+  "total": 1
+}

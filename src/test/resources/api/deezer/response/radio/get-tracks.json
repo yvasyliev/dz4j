@@ -1,0 +1,84 @@
+{
+  "data": [
+    {
+      "id": 6461422,
+      "readable": false,
+      "title": "Cavalier",
+      "title_short": "Cavalier",
+      "title_version": "",
+      "link": "https://www.deezer.com/track/6461422",
+      "duration": 222,
+      "rank": 10,
+      "explicit_lyrics": false,
+      "explicit_content_lyrics": 2,
+      "explicit_content_cover": 2,
+      "preview": "",
+      "alternative": {
+        "id": 2515287961,
+        "readable": true,
+        "title": "Cavalier",
+        "title_short": "Cavalier",
+        "title_version": "",
+        "link": "https://www.deezer.com/track/2515287961",
+        "duration": 253,
+        "rank": 10065,
+        "explicit_lyrics": false,
+        "explicit_content_lyrics": 0,
+        "explicit_content_cover": 2,
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/e/b/d/0/ebde03e69a91abd356398c0de5410cc2.mp3?hdnea=exp=1769599567~acl=/api/1/1/e/b/d/0/ebde03e69a91abd356398c0de5410cc2.mp3*~data=user_id=0,application_id=42~hmac=9a82ab62a7cad44010a09e95f0195499535873d68a3ded5d2715f1d16755941d",
+        "md5_image": "06721a0e6baf972e442798675e65a815",
+        "artist": {
+          "id": 308892,
+          "name": "Silver Columns",
+          "link": "https://www.deezer.com/artist/308892",
+          "picture": "https://api.deezer.com/artist/308892/image",
+          "picture_small": "https://cdn-images.dzcdn.net/images/artist/06721a0e6baf972e442798675e65a815/56x56-000000-80-0-0.jpg",
+          "picture_medium": "https://cdn-images.dzcdn.net/images/artist/06721a0e6baf972e442798675e65a815/250x250-000000-80-0-0.jpg",
+          "picture_big": "https://cdn-images.dzcdn.net/images/artist/06721a0e6baf972e442798675e65a815/500x500-000000-80-0-0.jpg",
+          "picture_xl": "https://cdn-images.dzcdn.net/images/artist/06721a0e6baf972e442798675e65a815/1000x1000-000000-80-0-0.jpg",
+          "tracklist": "https://api.deezer.com/artist/308892/top?limit=50",
+          "type": "artist"
+        },
+        "album": {
+          "id": 504959861,
+          "title": "Yes and Dance",
+          "cover": "https://api.deezer.com/album/504959861/image",
+          "cover_small": "https://cdn-images.dzcdn.net/images/cover/06721a0e6baf972e442798675e65a815/56x56-000000-80-0-0.jpg",
+          "cover_medium": "https://cdn-images.dzcdn.net/images/cover/06721a0e6baf972e442798675e65a815/250x250-000000-80-0-0.jpg",
+          "cover_big": "https://cdn-images.dzcdn.net/images/cover/06721a0e6baf972e442798675e65a815/500x500-000000-80-0-0.jpg",
+          "cover_xl": "https://cdn-images.dzcdn.net/images/cover/06721a0e6baf972e442798675e65a815/1000x1000-000000-80-0-0.jpg",
+          "md5_image": "06721a0e6baf972e442798675e65a815",
+          "tracklist": "https://api.deezer.com/album/504959861/tracks",
+          "type": "album"
+        },
+        "type": "track"
+      },
+      "md5_image": "c7e02fdea79f571c2e1e072d5e261446",
+      "artist": {
+        "id": 308892,
+        "name": "Silver Columns",
+        "link": "https://www.deezer.com/artist/308892",
+        "picture": "https://api.deezer.com/artist/308892/image",
+        "picture_small": "https://cdn-images.dzcdn.net/images/artist/06721a0e6baf972e442798675e65a815/56x56-000000-80-0-0.jpg",
+        "picture_medium": "https://cdn-images.dzcdn.net/images/artist/06721a0e6baf972e442798675e65a815/250x250-000000-80-0-0.jpg",
+        "picture_big": "https://cdn-images.dzcdn.net/images/artist/06721a0e6baf972e442798675e65a815/500x500-000000-80-0-0.jpg",
+        "picture_xl": "https://cdn-images.dzcdn.net/images/artist/06721a0e6baf972e442798675e65a815/1000x1000-000000-80-0-0.jpg",
+        "tracklist": "https://api.deezer.com/artist/308892/top?limit=50",
+        "type": "artist"
+      },
+      "album": {
+        "id": 595242,
+        "title": "Cavalier",
+        "cover": "https://api.deezer.com/album/595242/image",
+        "cover_small": "https://cdn-images.dzcdn.net/images/cover/c7e02fdea79f571c2e1e072d5e261446/56x56-000000-80-0-0.jpg",
+        "cover_medium": "https://cdn-images.dzcdn.net/images/cover/c7e02fdea79f571c2e1e072d5e261446/250x250-000000-80-0-0.jpg",
+        "cover_big": "https://cdn-images.dzcdn.net/images/cover/c7e02fdea79f571c2e1e072d5e261446/500x500-000000-80-0-0.jpg",
+        "cover_xl": "https://cdn-images.dzcdn.net/images/cover/c7e02fdea79f571c2e1e072d5e261446/1000x1000-000000-80-0-0.jpg",
+        "md5_image": "c7e02fdea79f571c2e1e072d5e261446",
+        "tracklist": "https://api.deezer.com/album/595242/tracks",
+        "type": "album"
+      },
+      "type": "track"
+    }
+  ]
+}

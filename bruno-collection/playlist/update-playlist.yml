@@ -1,0 +1,28 @@
+info:
+  name: update-playlist
+  type: http
+  seq: 10
+
+http:
+  method: POST
+  url: "{{api-host}}/playlist/{{user-playlist-id}}"
+  body:
+    type: form-urlencoded
+    data:
+      - name: access_token
+        value: "{{access-token}}"
+      - name: title
+        value: Updated playlist title
+      - name: description
+        value: An updated playlist description via Deezer API
+      - name: public
+        value: "true"
+      - name: collaborative
+        value: "true"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
