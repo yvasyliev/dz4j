@@ -1,7 +1,7 @@
 info:
-  name: delete-artist
+  name: remove-artist
   type: http
-  seq: 10
+  seq: 37
 
 http:
   method: DELETE

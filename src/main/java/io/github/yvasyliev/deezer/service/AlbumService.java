@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
 @Headers("Accept: application/json")
 public interface AlbumService {
     /**
-     * Return album.
+     * Returns an album.
      *
      * @param albumId album ID
      * @return album
@@ -22,7 +22,7 @@ public interface AlbumService {
     CompletableFuture<Album> getAlbum(@Param("albumId") long albumId);
 
     /**
-     * Return a list of album's fans.
+     * Returns a list of album's fans.
      *
      * @param albumId album ID
      * @param index   the offset of the first object
@@ -37,7 +37,7 @@ public interface AlbumService {
     );
 
     /**
-     * Return a list of album's tracks.
+     * Returns a list of album's tracks.
      *
      * @param albumId album ID
      * @param index   the offset of the first object

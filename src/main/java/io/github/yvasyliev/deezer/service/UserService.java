@@ -5,6 +5,11 @@ import feign.Param;
 import feign.RequestLine;
 import io.github.yvasyliev.deezer.annotation.Experimental;
 import io.github.yvasyliev.deezer.feign.ListExpander;
+import io.github.yvasyliev.deezer.model.Album;
+import io.github.yvasyliev.deezer.model.Artist;
+import io.github.yvasyliev.deezer.model.Page;
+import io.github.yvasyliev.deezer.model.Playlist;
+import io.github.yvasyliev.deezer.model.Track;
 
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
@@ -41,7 +46,7 @@ public interface UserService {
     CompletableFuture<Boolean> addArtists(
             @Param("userId") String userId,
             @Param("access_token") String accessToken,
-            @Param(value = "artists", expander = ListExpander.class) @Experimental Collection<Long> artistIds
+            @Param(value = "artist_ids", expander = ListExpander.class) @Experimental Collection<Long> artistIds
     );
 
     /**
@@ -87,7 +92,7 @@ public interface UserService {
      */
     @RequestLine("POST /user/{userId}/playlists")
     @Headers("Content-Type: application/x-www-form-urlencoded")
-    CompletableFuture<Boolean> createPlaylist(
+    CompletableFuture<Playlist> createPlaylist(
             @Param("userId") String userId,
             @Param("access_token") String accessToken,
             @Param("title") String title,
@@ -107,7 +112,7 @@ public interface UserService {
     CompletableFuture<Boolean> addPlaylists(
             @Param("userId") String userId,
             @Param("access_token") String accessToken,
-            @Param(value = "playlists", expander = ListExpander.class) Collection<Long> playlistIds
+            @Param(value = "playlist_ids", expander = ListExpander.class) Collection<Long> playlistIds
     );
 
     /**
@@ -155,6 +160,153 @@ public interface UserService {
     CompletableFuture<Boolean> addTracks(
             @Param("userId") String userId,
             @Param("access_token") String accessToken,
-            @Param(value = "tracks", expander = ListExpander.class) Collection<Long> trackIds
+            @Param(value = "track_ids", expander = ListExpander.class) Collection<Long> trackIds
+    );
+
+    /**
+     * Removes an album from the user's library
+     *
+     * @param userId      user ID
+     * @param accessToken Deezer access token with {@code manage_library} and {@code delete_library} permission
+     * @param albumId     the id of the album to delete
+     * @return {@code true} if the album was deleted successfully
+     */
+    @RequestLine("DELETE /user/{userId}/albums?access_token={accessToken}&album_id={albumId}")
+    CompletableFuture<Boolean> removeAlbum(
+            @Param("userId") String userId,
+            @Param("accessToken") String accessToken,
+            @Param("albumId") long albumId
+    );
+
+    /**
+     * Returns a list of the user's top albums.
+     *
+     * @param userId      user ID
+     * @param accessToken Deezer access token
+     * @param index       index of the first item to return
+     * @param limit       maximum number of items to return
+     * @return a page of albums
+     */
+    @RequestLine("GET /user/{userId}/charts/albums?access_token={accessToken}&index={index}&limit={limit}")
+    CompletableFuture<Page<Album>> getAlbumChart(
+            @Param("userId") String userId,
+            @Param("accessToken") String accessToken,
+            @Param("index") Integer index,
+            @Param("limit") Integer limit
+    );
+
+    /**
+     * Returns a list of albums recommendations.
+     *
+     * @param userId      user ID
+     * @param accessToken Deezer access token
+     * @param index       index of the first item to return
+     * @param limit       maximum number of items to return
+     * @return a page of album recommendations
+     */
+    @RequestLine("GET /user/{userId}/recommendations/albums?access_token={accessToken}&index={index}&limit={limit}")
+    CompletableFuture<Page<Album>> getAlbumRecommendations(
+            @Param("userId") String userId,
+            @Param("accessToken") String accessToken,
+            @Param("index") Integer index,
+            @Param("limit") Integer limit
+    );
+
+    /**
+     * Returns a list of the user's favorite albums.
+     *
+     * @param userId      user ID
+     * @param accessToken Deezer access token
+     * @param index       index of the first item to return
+     * @param limit       maximum number of items to return
+     * @return a page of albums
+     */
+    @RequestLine("GET /user/{userId}/albums?access_token={accessToken}&index={index}&limit={limit}")
+    CompletableFuture<Page<Album>> getUserAlbums(
+            @Param("userId") String userId,
+            @Param("accessToken") String accessToken,
+            @Param("index") Integer index,
+            @Param("limit") Integer limit
+    );
+
+    /**
+     * Returns a list of the user's top artists.
+     *
+     * @param userId      user ID
+     * @param accessToken Deezer access token
+     * @param index       index of the first item to return
+     * @param limit       maximum number of items to return
+     * @return a page of artists
+     */
+    @RequestLine("GET /user/{userId}/charts/artists?access_token={accessToken}&index={index}&limit={limit}")
+    CompletableFuture<Page<Artist>> getArtistChart(
+            @Param("userId") String userId,
+            @Param("accessToken") String accessToken,
+            @Param("index") Integer index,
+            @Param("limit") Integer limit
+    );
+
+    /**
+     * Returns a list of artists recommendations.
+     *
+     * @param userId      user ID
+     * @param accessToken Deezer access token
+     * @param index       index of the first item to return
+     * @param limit       maximum number of items to return
+     * @return a page of artist recommendations
+     */
+    @RequestLine("GET /user/{userId}/recommendations/artists?access_token={accessToken}&index={index}&limit={limit}")
+    CompletableFuture<Page<Artist>> getArtistRecommendations(
+            @Param("userId") String userId,
+            @Param("accessToken") String accessToken,
+            @Param("index") Integer index,
+            @Param("limit") Integer limit
+    );
+
+    /**
+     * Returns a list of the user's favorite artists.
+     *
+     * @param userId      user ID
+     * @param accessToken Deezer access token
+     * @param index       index of the first item to return
+     * @param limit       maximum number of items to return
+     * @return a page of artists
+     */
+    @RequestLine("GET /user/{userId}/artists?access_token={accessToken}&index={index}&limit={limit}")
+    CompletableFuture<Page<Artist>> getArtists(
+            @Param("userId") String userId,
+            @Param("accessToken") String accessToken,
+            @Param("index") Integer index,
+            @Param("limit") Integer limit
+    );
+
+    /**
+     * Returns a list of the user's top tracks.
+     *
+     * @param userId      user ID
+     * @param accessToken Deezer access token
+     * @param index       index of the first item to return
+     * @param limit       maximum number of items to return
+     * @return a page of tracks
+     */
+    @RequestLine("GET /user/{userId}/charts?access_token={accessToken}&index={index}&limit={limit}")
+    CompletableFuture<Page<Track>> getChart(
+            @Param("userId") String userId,
+            @Param("accessToken") String accessToken,
+            @Param("index") Integer index,
+            @Param("limit") Integer limit
+    );
+
+    /**
+     * Returns a list of user's flow tracks.
+     *
+     * @param userId      user ID
+     * @param accessToken Deezer access token
+     * @return a page of tracks in the user's flow
+     */
+    @RequestLine("GET /user/{userId}/flow?access_token={accessToken}")
+    CompletableFuture<Page<Track>> getFlow(
+            @Param("userId") String userId,
+            @Param("accessToken") String accessToken
     );
 }

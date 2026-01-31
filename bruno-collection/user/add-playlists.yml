@@ -1,5 +1,5 @@
 info:
-  name: add-playlist
+  name: add-playlists
   type: http
   seq: 4
 
@@ -11,7 +11,7 @@ http:
     data:
       - name: access_token
         value: "{{access-token}}"
-      - name: playlist_id
+      - name: playlist_ids
         value: "{{playlist-id}}"
   auth: inherit
 

@@ -1,7 +1,7 @@
 info:
   name: remove-playlist
   type: http
-  seq: 36
+  seq: 38
 
 http:
   method: DELETE
