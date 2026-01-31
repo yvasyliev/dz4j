@@ -18,13 +18,8 @@ http:
       - name: file
         type: file
         value:
-          - C:\Users\Yevhen\Downloads\stan-bonke-LIjUr3B9IXE-unsplash.jpg
+          - ..\assets\stan-bonke-LIjUr3B9IXE-unsplash.jpg
   auth: inherit
-
-runtime:
-  variables:
-    - name: user-playlist-id
-      value: "14856994723"
 
 settings:
   encodeUrl: true
