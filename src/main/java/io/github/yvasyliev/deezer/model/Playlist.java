@@ -1,9 +1,11 @@
 package io.github.yvasyliev.deezer.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.github.yvasyliev.deezer.annotation.Experimental;
 
 import java.net.URL;
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -28,6 +30,12 @@ import java.util.List;
  * @param pictureBig       the url of the playlist's cover in size big.
  * @param pictureXl        the url of the playlist's cover in size xl.
  * @param checksum         the checksum for the track list
+ * @param tracklist        API url to access the playlist's tracks
+ * @param creationDate     the date when the playlist was created
+ * @param addDate          the date when the playlist was added
+ * @param modDate          the date when the playlist was last modified
+ * @param md5Image         the MD5 hash of the playlist's cover image
+ * @param pictureType      the type of the playlist's cover image
  * @param creator          {@link User} object containing: {@code id}, {@code name}
  * @param tracks           list of {@link Track}
  */
@@ -50,6 +58,28 @@ public record Playlist(
         @JsonProperty("picture_big") URL pictureBig,
         @JsonProperty("picture_xl") URL pictureXl,
         @JsonProperty("checksum") String checksum,
+        @Experimental @JsonProperty("tracklist") URL tracklist,
+        @Experimental @JsonProperty("creation_date") LocalDateTime creationDate,
+        @Experimental @JsonProperty("add_date") LocalDateTime addDate,
+        @Experimental @JsonProperty("mod_date") LocalDateTime modDate,
+        @Experimental @JsonProperty("md5_image") String md5Image,
+        @Experimental @JsonProperty("picture_type") PictureType pictureType,
         @JsonProperty("creator") User creator,
         @JsonProperty("tracks") List<Track> tracks
-) {}
+) {
+    /**
+     * Type of the picture.
+     */
+    @Experimental
+    public enum PictureType {
+        /**
+         * Cover picture type.
+         */
+        @JsonProperty("cover") COVER,
+
+        /**
+         * Playlist picture type.
+         */
+        @JsonProperty("playlist") PLAYLIST
+    }
+}

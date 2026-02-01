@@ -1,7 +1,7 @@
 info:
   name: remove-podcasts
   type: http
-  seq: 39
+  seq: 40
 
 http:
   method: DELETE

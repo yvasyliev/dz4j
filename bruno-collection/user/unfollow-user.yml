@@ -1,7 +1,7 @@
 info:
   name: unfollow-user
   type: http
-  seq: 42
+  seq: 43
 
 http:
   method: DELETE

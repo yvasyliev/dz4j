@@ -1,7 +1,7 @@
 info:
-  name: get-me
+  name: get-user
   type: http
-  seq: 23
+  seq: 36
 
 http:
   method: GET

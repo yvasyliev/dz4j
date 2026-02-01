@@ -1,7 +1,7 @@
 info:
   name: remove-album
   type: http
-  seq: 36
+  seq: 37
 
 http:
   method: DELETE

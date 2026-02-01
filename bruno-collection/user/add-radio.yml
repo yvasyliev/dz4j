@@ -12,7 +12,7 @@ http:
       - name: access_token
         value: "{{access-token}}"
       - name: radio_id
-        value: "6"
+        value: "{{radio-id}}"
   auth: inherit
 
 settings:

@@ -24,7 +24,7 @@ request:
     - name: podcast-id
       value: "1447162"
     - name: radio-id
-      value: "6"
+      value: "38305"
     - name: genre-id
       value: "152"
     - name: album-id

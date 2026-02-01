@@ -5,10 +5,16 @@ info:
 
 http:
   method: GET
-  url: "{{api-host}}/user/me/recommendations/releases?access_token={{access-token}}"
+  url: "{{api-host}}/user/me/recommendations/releases?access_token={{access-token}}&index=0&limit=1"
   params:
     - name: access_token
       value: "{{access-token}}"
+      type: query
+    - name: index
+      value: "0"
+      type: query
+    - name: limit
+      value: "1"
       type: query
   auth: inherit
 

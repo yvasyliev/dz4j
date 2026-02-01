@@ -1,7 +1,7 @@
 info:
   name: remove-radio
   type: http
-  seq: 40
+  seq: 41
 
 http:
   method: DELETE
