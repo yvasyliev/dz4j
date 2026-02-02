@@ -1,10 +1,10 @@
 package io.github.yvasyliev.deezer.service;
 
+import feign.CollectionFormat;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 import io.github.yvasyliev.deezer.annotation.Experimental;
-import io.github.yvasyliev.deezer.feign.ListExpander;
 import io.github.yvasyliev.deezer.model.Album;
 import io.github.yvasyliev.deezer.model.Artist;
 import io.github.yvasyliev.deezer.model.NotificationResult;
@@ -30,12 +30,12 @@ public interface UserService {
      * @param albumIds    collection of album IDs to add
      * @return {@code true} if the albums were added successfully
      */
-    @RequestLine("POST /user/{userId}/albums")
+    @RequestLine(value = "POST /user/{userId}/albums", collectionFormat = CollectionFormat.CSV)
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addAlbums(
             @Param("userId") String userId,
             @Param("access_token") String accessToken,
-            @Param(value = "album_ids", expander = ListExpander.class) @Experimental Collection<Long> albumIds
+            @Param("album_ids") @Experimental Collection<Long> albumIds
     );
 
     /**
@@ -46,12 +46,12 @@ public interface UserService {
      * @param artistIds   collection of artist IDs to add
      * @return {@code true} if the artists were added successfully
      */
-    @RequestLine("POST /user/{userId}/artists")
+    @RequestLine(value = "POST /user/{userId}/artists", collectionFormat = CollectionFormat.CSV)
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addArtists(
             @Param("userId") String userId,
             @Param("access_token") String accessToken,
-            @Param(value = "artist_ids", expander = ListExpander.class) @Experimental Collection<Long> artistIds
+            @Param("artist_ids") @Experimental Collection<Long> artistIds
     );
 
     /**
@@ -78,12 +78,12 @@ public interface UserService {
      * @param playlistIds collection of playlist IDs to add
      * @return {@code true} if the playlists were added successfully
      */
-    @RequestLine("POST /user/{userId}/playlists")
+    @RequestLine(value = "POST /user/{userId}/playlists", collectionFormat = CollectionFormat.CSV)
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addPlaylists(
             @Param("userId") String userId,
             @Param("access_token") String accessToken,
-            @Param(value = "playlist_ids", expander = ListExpander.class) Collection<Long> playlistIds
+            @Param("playlist_ids") Collection<Long> playlistIds
     );
 
     /**
@@ -126,12 +126,12 @@ public interface UserService {
      * @param trackIds    collection of track IDs to add
      * @return {@code true} if the tracks were added successfully
      */
-    @RequestLine("POST /user/{userId}/tracks")
+    @RequestLine(value = "POST /user/{userId}/tracks", collectionFormat = CollectionFormat.CSV)
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addTracks(
             @Param("userId") String userId,
             @Param("access_token") String accessToken,
-            @Param(value = "track_ids", expander = ListExpander.class) Collection<Long> trackIds
+            @Param("track_ids") Collection<Long> trackIds
     );
 
     /**

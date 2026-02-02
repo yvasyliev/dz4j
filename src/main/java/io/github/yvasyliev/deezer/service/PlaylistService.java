@@ -1,10 +1,10 @@
 package io.github.yvasyliev.deezer.service;
 
+import feign.CollectionFormat;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 import io.github.yvasyliev.deezer.annotation.Experimental;
-import io.github.yvasyliev.deezer.feign.ListExpander;
 import io.github.yvasyliev.deezer.model.Page;
 import io.github.yvasyliev.deezer.model.Playlist;
 import io.github.yvasyliev.deezer.model.Track;
@@ -25,12 +25,12 @@ public interface PlaylistService {
      * @param trackIds    collection of track IDs to add
      * @return {@code true} if the tracks were added successfully
      */
-    @RequestLine("POST /playlist/{playlistId}/tracks") //TODO: CollectionFormat
+    @RequestLine(value = "POST /playlist/{playlistId}/tracks", collectionFormat = CollectionFormat.CSV)
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addTracks(
             @Param("playlistId") long playlistId,
             @Param("access_token") String accessToken,
-            @Param(value = "songs", expander = ListExpander.class) Collection<Long> trackIds
+            @Param("songs") Collection<Long> trackIds
     );
 
     /**
@@ -54,11 +54,14 @@ public interface PlaylistService {
      * @param trackIds    collection of track IDs to delete
      * @return {@code true} if the tracks were deleted successfully
      */
-    @RequestLine("DELETE /playlist/{playlistId}/tracks?access_token={accessToken}&songs={songs}")
+    @RequestLine(
+            value = "DELETE /playlist/{playlistId}/tracks?access_token={accessToken}&songs={songs}",
+            collectionFormat = CollectionFormat.CSV
+    )
     CompletableFuture<Boolean> deleteTracks(
             @Param("playlistId") long playlistId,
             @Param("accessToken") String accessToken,
-            @Param(value = "songs", expander = ListExpander.class) Collection<Long> trackIds
+            @Param("songs") Collection<Long> trackIds
     );
 
     /**
@@ -93,8 +96,7 @@ public interface PlaylistService {
      * @param limit      the maximum number of objects to return
      * @return list of recommendation tracks for the playlist
      */
-    @RequestLine("GET /playlist/{playlistId}/radio?index={index}&limit={limit}")
-    //TODO: Deserializer
+    @RequestLine("GET /playlist/{playlistId}/radio?index={index}&limit={limit}")//TODO: Deserializer
     CompletableFuture<Optional<Page<Track>>> getRadio(
             @Param("playlistId") long playlistId,
             @Param("index") Integer index,
@@ -138,12 +140,12 @@ public interface PlaylistService {
      * @param trackIds    list of track IDs in the desired order
      * @return {@code true} if the tracks were ordered successfully
      */
-    @RequestLine("POST /playlist/{playlistId}/tracks")
+    @RequestLine(value = "POST /playlist/{playlistId}/tracks", collectionFormat = CollectionFormat.CSV)
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> orderTracks(
             @Param("playlistId") long playlistId,
             @Param("access_token") String accessToken,
-            @Param(value = "order", expander = ListExpander.class) List<Long> trackIds
+            @Param("order") List<Long> trackIds
     );
 
     /**

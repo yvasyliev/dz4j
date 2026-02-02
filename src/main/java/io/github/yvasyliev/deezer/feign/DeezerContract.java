@@ -13,8 +13,6 @@ import java.util.Optional;
 public class DeezerContract extends Contract.Default {
     private final Map<Class<? extends Param.Expander>, Param.Expander> expanders;
 
-
-
     @Override
     protected MethodMetadata parseAndValidateMetadata(Class<?> targetType, Method method) {
         var methodMetadata = super.parseAndValidateMetadata(targetType, method);
