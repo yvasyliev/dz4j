@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: "{{api-host}}/search/playlist?limit=1&index=0&q=eminem&strinct=on&order=DURATION_DESC"
+  url: "{{api-host}}/search/playlist?limit=1&index=0&q=eminem&strict=on&order=DURATION_DESC"
   params:
     - name: limit
       value: "1"
@@ -16,7 +16,7 @@ http:
     - name: q
       value: eminem
       type: query
-    - name: strinct
+    - name: strict
       value: on
       type: query
     - name: order
