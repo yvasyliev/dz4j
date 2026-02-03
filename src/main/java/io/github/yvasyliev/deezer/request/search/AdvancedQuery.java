@@ -1,4 +1,4 @@
-package io.github.yvasyliev.deezer.model;
+package io.github.yvasyliev.deezer.request.search;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;

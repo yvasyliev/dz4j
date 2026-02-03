@@ -7,10 +7,10 @@ import io.github.yvasyliev.deezer.feign.QueryExpander;
 import io.github.yvasyliev.deezer.feign.StrictExpander;
 import io.github.yvasyliev.deezer.model.Album;
 import io.github.yvasyliev.deezer.model.Artist;
-import io.github.yvasyliev.deezer.model.Order;
+import io.github.yvasyliev.deezer.request.search.Order;
 import io.github.yvasyliev.deezer.model.Page;
 import io.github.yvasyliev.deezer.model.Playlist;
-import io.github.yvasyliev.deezer.model.Query;
+import io.github.yvasyliev.deezer.request.search.Query;
 import io.github.yvasyliev.deezer.model.Track;
 import io.github.yvasyliev.deezer.model.User;
 
