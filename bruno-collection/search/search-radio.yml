@@ -5,10 +5,10 @@ info:
 
 http:
   method: GET
-  url: "{{api-host}}/search/radio?q=eminem&strict=on&order=DURATION_DESC&limit=1&index=0"
+  url: "{{api-host}}/search/radio?q=pop&strict=on&order=DURATION_DESC&limit=1&index=0"
   params:
     - name: q
-      value: eminem
+      value: pop
       type: query
     - name: strict
       value: on

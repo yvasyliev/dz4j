@@ -3,10 +3,11 @@ package io.github.yvasyliev.deezer.exception;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
+import lombok.ToString;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = DeezerResponseException.class, name = "Exception"),
+        @JsonSubTypes.Type(value = DeezerApiResponseException.class, name = "Exception"),
         @JsonSubTypes.Type(value = OAuthException.class, name = "OAuthException"),
         @JsonSubTypes.Type(value = ParameterException.class, name = "ParameterException"),
         @JsonSubTypes.Type(value = MissingParameterException.class, name = "MissingParameterException"),
@@ -18,6 +19,7 @@ import lombok.Getter;
         ),
 })
 @Getter
+@ToString(callSuper = true)
 public abstract class DeezerApiException extends DeezerException {
     protected static final String MESSAGE = "message";
     protected static final String CODE = "code";

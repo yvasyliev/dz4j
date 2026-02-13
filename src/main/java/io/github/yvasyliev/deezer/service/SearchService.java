@@ -76,8 +76,6 @@ public interface SearchService {
             @Param("limit") Integer limit
     );
 
-    //TODO: search history & search radio
-
     /**
      * Searches for playlists matching the given query.
      *
