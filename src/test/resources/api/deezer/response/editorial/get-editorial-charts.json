@@ -1,0 +1,152 @@
+{
+  "tracks": {
+    "data": [
+      {
+        "id": 1899060227,
+        "title": "End of Beginning",
+        "title_short": "End of Beginning",
+        "title_version": "",
+        "link": "https://www.deezer.com/track/1899060227",
+        "duration": 159,
+        "rank": 999711,
+        "explicit_lyrics": false,
+        "explicit_content_lyrics": 0,
+        "explicit_content_cover": 0,
+        "preview": "https://cdnt-preview.dzcdn.net/api/1/1/8/d/3/0/8d3e2d737a96e28902c7edca8b18e1f7.mp3?hdnea=exp=1771017036~acl=/api/1/1/8/d/3/0/8d3e2d737a96e28902c7edca8b18e1f7.mp3*~data=user_id=0,application_id=42~hmac=12c18af593fb6b2e67da5c8731392a3622f1a9805bcbff11d4023655b4d9e84d",
+        "md5_image": "f13749b2a226afa7f5f866ce2f4d3015",
+        "position": 2,
+        "artist": {
+          "id": 70227002,
+          "name": "Djo",
+          "link": "https://www.deezer.com/artist/70227002",
+          "picture": "https://api.deezer.com/artist/70227002/image",
+          "picture_small": "https://cdn-images.dzcdn.net/images/artist/5e6a9578769a59e0a9857b80e626e7d8/56x56-000000-80-0-0.jpg",
+          "picture_medium": "https://cdn-images.dzcdn.net/images/artist/5e6a9578769a59e0a9857b80e626e7d8/250x250-000000-80-0-0.jpg",
+          "picture_big": "https://cdn-images.dzcdn.net/images/artist/5e6a9578769a59e0a9857b80e626e7d8/500x500-000000-80-0-0.jpg",
+          "picture_xl": "https://cdn-images.dzcdn.net/images/artist/5e6a9578769a59e0a9857b80e626e7d8/1000x1000-000000-80-0-0.jpg",
+          "radio": true,
+          "tracklist": "https://api.deezer.com/artist/70227002/top?limit=50",
+          "type": "artist"
+        },
+        "album": {
+          "id": 353216957,
+          "title": "DECIDE",
+          "cover": "https://api.deezer.com/album/353216957/image",
+          "cover_small": "https://cdn-images.dzcdn.net/images/cover/f13749b2a226afa7f5f866ce2f4d3015/56x56-000000-80-0-0.jpg",
+          "cover_medium": "https://cdn-images.dzcdn.net/images/cover/f13749b2a226afa7f5f866ce2f4d3015/250x250-000000-80-0-0.jpg",
+          "cover_big": "https://cdn-images.dzcdn.net/images/cover/f13749b2a226afa7f5f866ce2f4d3015/500x500-000000-80-0-0.jpg",
+          "cover_xl": "https://cdn-images.dzcdn.net/images/cover/f13749b2a226afa7f5f866ce2f4d3015/1000x1000-000000-80-0-0.jpg",
+          "md5_image": "f13749b2a226afa7f5f866ce2f4d3015",
+          "tracklist": "https://api.deezer.com/album/353216957/tracks",
+          "type": "album"
+        },
+        "type": "track"
+      }
+    ],
+    "total": 1
+  },
+  "albums": {
+    "data": [
+      {
+        "id": 348424227,
+        "title": "RUNNERS HIGH",
+        "link": "https://www.deezer.com/album/348424227",
+        "cover": "https://api.deezer.com/album/348424227/image",
+        "cover_small": "https://cdn-images.dzcdn.net/images/cover/7ea206a68875899d74ff18753d78cddb/56x56-000000-80-0-0.jpg",
+        "cover_medium": "https://cdn-images.dzcdn.net/images/cover/7ea206a68875899d74ff18753d78cddb/250x250-000000-80-0-0.jpg",
+        "cover_big": "https://cdn-images.dzcdn.net/images/cover/7ea206a68875899d74ff18753d78cddb/500x500-000000-80-0-0.jpg",
+        "cover_xl": "https://cdn-images.dzcdn.net/images/cover/7ea206a68875899d74ff18753d78cddb/1000x1000-000000-80-0-0.jpg",
+        "md5_image": "7ea206a68875899d74ff18753d78cddb",
+        "record_type": "album",
+        "tracklist": "https://api.deezer.com/album/348424227/tracks",
+        "explicit_lyrics": false,
+        "position": 2,
+        "artist": {
+          "id": 1178,
+          "name": "The Pillows",
+          "link": "https://www.deezer.com/artist/1178",
+          "picture": "https://api.deezer.com/artist/1178/image",
+          "picture_small": "https://cdn-images.dzcdn.net/images/artist/261911a1161e80959375db2321222d51/56x56-000000-80-0-0.jpg",
+          "picture_medium": "https://cdn-images.dzcdn.net/images/artist/261911a1161e80959375db2321222d51/250x250-000000-80-0-0.jpg",
+          "picture_big": "https://cdn-images.dzcdn.net/images/artist/261911a1161e80959375db2321222d51/500x500-000000-80-0-0.jpg",
+          "picture_xl": "https://cdn-images.dzcdn.net/images/artist/261911a1161e80959375db2321222d51/1000x1000-000000-80-0-0.jpg",
+          "radio": true,
+          "tracklist": "https://api.deezer.com/artist/1178/top?limit=50",
+          "type": "artist"
+        },
+        "type": "album"
+      }
+    ],
+    "total": 1
+  },
+  "artists": {
+    "data": [
+      {
+        "id": 92,
+        "name": "Linkin Park",
+        "link": "https://www.deezer.com/artist/92",
+        "picture": "https://api.deezer.com/artist/92/image",
+        "picture_small": "https://cdn-images.dzcdn.net/images/artist/4886905210739af3438990897bad3a98/56x56-000000-80-0-0.jpg",
+        "picture_medium": "https://cdn-images.dzcdn.net/images/artist/4886905210739af3438990897bad3a98/250x250-000000-80-0-0.jpg",
+        "picture_big": "https://cdn-images.dzcdn.net/images/artist/4886905210739af3438990897bad3a98/500x500-000000-80-0-0.jpg",
+        "picture_xl": "https://cdn-images.dzcdn.net/images/artist/4886905210739af3438990897bad3a98/1000x1000-000000-80-0-0.jpg",
+        "radio": true,
+        "tracklist": "https://api.deezer.com/artist/92/top?limit=50",
+        "position": 2,
+        "type": "artist"
+      }
+    ],
+    "total": 1
+  },
+  "playlists": {
+    "data": [
+      {
+        "id": 1370794195,
+        "title": "mainstream",
+        "public": true,
+        "nb_tracks": 81,
+        "link": "https://www.deezer.com/playlist/1370794195",
+        "picture": "https://api.deezer.com/playlist/1370794195/image",
+        "picture_small": "https://cdn-images.dzcdn.net/images/playlist/6b40d202ccf34514b15487f9f136ad4e/56x56-000000-80-0-0.jpg",
+        "picture_medium": "https://cdn-images.dzcdn.net/images/playlist/6b40d202ccf34514b15487f9f136ad4e/250x250-000000-80-0-0.jpg",
+        "picture_big": "https://cdn-images.dzcdn.net/images/playlist/6b40d202ccf34514b15487f9f136ad4e/500x500-000000-80-0-0.jpg",
+        "picture_xl": "https://cdn-images.dzcdn.net/images/playlist/6b40d202ccf34514b15487f9f136ad4e/1000x1000-000000-80-0-0.jpg",
+        "checksum": "7bbc40b3345b46e0791fd15f14e12411",
+        "tracklist": "https://api.deezer.com/playlist/1370794195/tracks",
+        "creation_date": "2015-09-10 18:49:19",
+        "add_date": "0000-00-00 00:00:00",
+        "mod_date": "0000-00-00 00:00:00",
+        "md5_image": "6b40d202ccf34514b15487f9f136ad4e",
+        "picture_type": "playlist",
+        "user": {
+          "id": 753566875,
+          "name": "Rod - Deezer Rock Editor",
+          "tracklist": "https://api.deezer.com/user/753566875/flow",
+          "type": "user"
+        },
+        "type": "playlist"
+      }
+    ],
+    "total": 1
+  },
+  "podcasts": {
+    "data": [
+      {
+        "id": 2167342,
+        "title": "Deutschtrainer | Audios | DW Learn German",
+        "description": "Learn everyday vocabulary and expressions and also improve your pronunciation.",
+        "available": true,
+        "fans": 674,
+        "link": "https://www.deezer.com/show/2167342",
+        "share": "https://www.deezer.com/show/2167342?utm_source=deezer&utm_content=show-2167342&utm_term=0_1771016407&utm_medium=web",
+        "picture": "https://cdn-images.dzcdn.net/images/talk/54ba4e597d89b064cfdc0061fbf34933/180x180-000000-80-0-0.jpg",
+        "picture_small": "https://cdn-images.dzcdn.net/images/talk/54ba4e597d89b064cfdc0061fbf34933/56x56-000000-80-0-0.jpg",
+        "picture_medium": "https://cdn-images.dzcdn.net/images/talk/54ba4e597d89b064cfdc0061fbf34933/250x250-000000-80-0-0.jpg",
+        "picture_big": "https://cdn-images.dzcdn.net/images/talk/54ba4e597d89b064cfdc0061fbf34933/500x500-000000-80-0-0.jpg",
+        "picture_xl": "https://cdn-images.dzcdn.net/images/talk/54ba4e597d89b064cfdc0061fbf34933/1000x1000-000000-80-0-0.jpg",
+        "type": "podcast"
+      }
+    ],
+    "total": 1
+  }
+}

@@ -5,6 +5,3 @@ info:
 
 request:
   auth: inherit
-  variables:
-    - name: editorial-id
-      value: "152"

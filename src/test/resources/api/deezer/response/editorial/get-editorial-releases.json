@@ -1,0 +1,25 @@
+{
+  "data": [
+    {
+      "id": 823528111,
+      "title": "A.R.S.O.N.",
+      "cover": "https://api.deezer.com/album/823528111/image",
+      "cover_small": "https://cdn-images.dzcdn.net/images/cover/218a8b79e7ed0118c67487bb50c9416f/56x56-000000-80-0-0.jpg",
+      "cover_medium": "https://cdn-images.dzcdn.net/images/cover/218a8b79e7ed0118c67487bb50c9416f/250x250-000000-80-0-0.jpg",
+      "cover_big": "https://cdn-images.dzcdn.net/images/cover/218a8b79e7ed0118c67487bb50c9416f/500x500-000000-80-0-0.jpg",
+      "cover_xl": "https://cdn-images.dzcdn.net/images/cover/218a8b79e7ed0118c67487bb50c9416f/1000x1000-000000-80-0-0.jpg",
+      "md5_image": "218a8b79e7ed0118c67487bb50c9416f",
+      "release_date": "2026-02-13",
+      "tracklist": "https://api.deezer.com/album/823528111/tracks",
+      "artist": {
+        "id": 1288,
+        "name": "Story Of The Year",
+        "tracklist": "https://api.deezer.com/artist/1288/top?limit=50",
+        "type": "artist"
+      },
+      "type": "album"
+    }
+  ],
+  "total": 117,
+  "next": "https://api.deezer.com/editorial/152/releases?limit=1&index=1"
+}

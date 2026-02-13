@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: "{{api-host}}/editorial/{{editorial-id}}"
+  url: "{{api-host}}/editorial/{{genre-id}}"
   auth: inherit
 
 settings:
