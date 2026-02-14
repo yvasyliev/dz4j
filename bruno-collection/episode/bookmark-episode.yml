@@ -15,7 +15,7 @@ http:
     data:
       - name: access_token
         value: "{{access-token}}"
-      - name: index
+      - name: offset
         value: "0"
   auth: inherit
 

@@ -10,13 +10,6 @@ http:
     - name: access_token
       value: "{{access-token}}"
       type: query
-  body:
-    type: form-urlencoded
-    data:
-      - name: access_token
-        value: "{{access-token}}"
-      - name: index
-        value: "0"
   auth: inherit
 
 settings:
