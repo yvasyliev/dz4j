@@ -12,6 +12,7 @@ public enum ErrorCode {
     ITEMS_LIMIT_EXCEEDED(100),
     PERMISSION(200),
     TOKEN_INVALID(300),
+    @Experimental NOT_FOUND(404),
     PARAMETER(500),
     PARAMETER_MISSING(501),
     QUERY_INVALID(600),
