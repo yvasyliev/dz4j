@@ -1,11 +1,11 @@
 info:
-  name: get-radios
+  name: get-radio
   type: http
-  seq: 4
+  seq: 3
 
 http:
   method: GET
-  url: "{{api-host}}/radio"
+  url: "{{api-host}}/radio/{{radio-id}}"
   auth: inherit
 
 settings:
