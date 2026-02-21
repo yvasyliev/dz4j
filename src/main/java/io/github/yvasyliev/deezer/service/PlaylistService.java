@@ -5,6 +5,8 @@ import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 import io.github.yvasyliev.deezer.annotation.Experimental;
+import io.github.yvasyliev.deezer.feign.AccessTokenExpander;
+import io.github.yvasyliev.deezer.model.AccessToken;
 import io.github.yvasyliev.deezer.model.Page;
 import io.github.yvasyliev.deezer.model.Playlist;
 import io.github.yvasyliev.deezer.model.Track;
@@ -29,7 +31,7 @@ public interface PlaylistService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addTracks(
             @Param("playlistId") long playlistId,
-            @Param("access_token") String accessToken,
+            @Param(value = "access_token", expander = AccessTokenExpander.class) AccessToken accessToken,
             @Param("songs") Collection<Long> trackIds
     );
 
@@ -43,7 +45,7 @@ public interface PlaylistService {
     @RequestLine("DELETE /playlist/{playlistId}?access_token={accessToken}")
     CompletableFuture<Boolean> deletePlaylist(
             @Param("playlistId") long playlistId,
-            @Param("accessToken") String accessToken
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) AccessToken accessToken
     );
 
     /**
@@ -60,7 +62,7 @@ public interface PlaylistService {
     )
     CompletableFuture<Boolean> deleteTracks(
             @Param("playlistId") long playlistId,
-            @Param("accessToken") String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) AccessToken accessToken,
             @Param("songs") Collection<Long> trackIds
     );
 
@@ -129,7 +131,7 @@ public interface PlaylistService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> markAsSeen(
             @Param("playlistId") long playlistId,
-            @Param("access_token") String accessToken
+            @Param(value = "access_token", expander = AccessTokenExpander.class) AccessToken accessToken
     );
 
     /**
@@ -144,7 +146,7 @@ public interface PlaylistService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> orderTracks(
             @Param("playlistId") long playlistId,
-            @Param("access_token") String accessToken,
+            @Param(value = "access_token", expander = AccessTokenExpander.class) AccessToken accessToken,
             @Param("order") List<Long> trackIds
     );
 
@@ -163,7 +165,7 @@ public interface PlaylistService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> updatePlaylist(
             @Param("playlistId") long playlistId,
-            @Param("access_token") String accessToken,
+            @Param(value = "access_token", expander = AccessTokenExpander.class) AccessToken accessToken,
             @Param("title") @Experimental String title,
             @Param("description") @Experimental String description,
             @Param("public") @Experimental Boolean isPublic,

@@ -3,6 +3,8 @@ package io.github.yvasyliev.deezer.service;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
+import io.github.yvasyliev.deezer.feign.AccessTokenExpander;
+import io.github.yvasyliev.deezer.model.AccessToken;
 import io.github.yvasyliev.deezer.model.Track;
 
 import java.util.concurrent.CompletableFuture;
@@ -32,7 +34,7 @@ public interface TrackService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> updateTrack(
             @Param("trackId") long trackId,
-            @Param("access_token") String accessToken,
+            @Param(value = "access_token", expander = AccessTokenExpander.class) AccessToken accessToken,
             @Param("title") String title,
             @Param("artist") String artist,
             @Param("album") String album

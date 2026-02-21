@@ -4,6 +4,8 @@ import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 import feign.form.FormData;
+import io.github.yvasyliev.deezer.feign.AccessTokenExpander;
+import io.github.yvasyliev.deezer.model.AccessToken;
 
 import java.io.File;
 import java.util.concurrent.CompletableFuture;
@@ -22,7 +24,7 @@ public interface UploaderService {
     @Headers("Content-Type: multipart/form-data")
     CompletableFuture<Boolean> uploadPlaylistCover(
             @Param("playlistId") long playlistId,
-            @Param("access_token") String accessToken,
+            @Param(value = "access_token", expander = AccessTokenExpander.class) AccessToken accessToken,
             @Param("upload_token") String uploadToken,
             @Param("file") File cover
     );
@@ -39,7 +41,7 @@ public interface UploaderService {
     @Headers("Content-Type: multipart/form-data")
     CompletableFuture<Boolean> uploadPlaylistCover(
             @Param("playlistId") long playlistId,
-            @Param("access_token") String accessToken,
+            @Param(value = "access_token", expander = AccessTokenExpander.class) AccessToken accessToken,
             @Param("upload_token") String uploadToken,
             @Param("file") FormData cover
     );

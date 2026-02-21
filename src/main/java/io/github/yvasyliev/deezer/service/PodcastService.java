@@ -3,6 +3,8 @@ package io.github.yvasyliev.deezer.service;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
+import io.github.yvasyliev.deezer.feign.AccessTokenExpander;
+import io.github.yvasyliev.deezer.model.AccessToken;
 import io.github.yvasyliev.deezer.model.Episode;
 import io.github.yvasyliev.deezer.model.Page;
 import io.github.yvasyliev.deezer.model.Podcast;
@@ -21,7 +23,7 @@ public interface PodcastService {
     @RequestLine("GET /podcast/{podcastId}/episodes?access_token={accessToken}")
     CompletableFuture<Page<Episode>> getEpisodes(
             @Param("podcastId") long podcastId,
-            @Param("accessToken") String accessToken
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) AccessToken accessToken
     );
 
     /**
@@ -32,5 +34,8 @@ public interface PodcastService {
      * @return a podcast
      */
     @RequestLine("GET /podcast/{podcastId}?access_token={accessToken}")
-    CompletableFuture<Podcast> getPodcast(@Param("podcastId") long podcastId, @Param("accessToken") String accessToken);
+    CompletableFuture<Podcast> getPodcast(
+            @Param("podcastId") long podcastId,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) AccessToken accessToken
+    );
 }

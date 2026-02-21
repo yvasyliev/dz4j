@@ -3,6 +3,8 @@ package io.github.yvasyliev.deezer.service;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
+import io.github.yvasyliev.deezer.feign.AccessTokenExpander;
+import io.github.yvasyliev.deezer.model.AccessToken;
 import io.github.yvasyliev.deezer.model.BookmarkResponse;
 import io.github.yvasyliev.deezer.model.Episode;
 
@@ -22,7 +24,7 @@ public interface EpisodeService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<BookmarkResponse> bookmarkEpisode(
             @Param("episodeId") long episodeId,
-            @Param("access_token") String accessToken,
+            @Param(value = "access_token", expander = AccessTokenExpander.class) AccessToken accessToken,
             @Param("offset") int offset
     );
 
@@ -34,7 +36,10 @@ public interface EpisodeService {
      * @return an episode
      */
     @RequestLine("GET /episode/{episodeId}?access_token={accessToken}")
-    CompletableFuture<Episode> getEpisode(@Param("episodeId") long episodeId, @Param("accessToken") String accessToken);
+    CompletableFuture<Episode> getEpisode(
+            @Param("episodeId") long episodeId,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) AccessToken accessToken
+    );
 
     /**
      * Unbookmarks an episode.
@@ -46,6 +51,6 @@ public interface EpisodeService {
     @RequestLine("DELETE /episode/{episodeId}/bookmark?access_token={accessToken}")
     CompletableFuture<BookmarkResponse> unbookmarkEpisode(
             @Param("episodeId") long episodeId,
-            @Param("accessToken") String accessToken
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) AccessToken accessToken
     );
 }

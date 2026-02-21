@@ -1,5 +1,6 @@
 package io.github.yvasyliev.deezer.request.playlist;
 
+import io.github.yvasyliev.deezer.model.AccessToken;
 import io.github.yvasyliev.deezer.request.AbstractDeezerRequest;
 import io.github.yvasyliev.deezer.service.PlaylistService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
 public class UpdatePlaylistRequest extends AbstractDeezerRequest<Boolean> {
     private final PlaylistService playlistService;
     private final long playlistId;
-    private final String accessToken;
+    private final AccessToken accessToken;
     private String title;
     private String description;
     private Boolean isPublic;
