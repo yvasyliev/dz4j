@@ -9,4 +9,8 @@ import java.time.Instant;
 public record AccessToken(
         @JsonProperty("access_token") String token,
         @JsonProperty("expires") @JsonDeserialize(converter = ExpiresConverter.class) Instant expiresAt
-) {}
+) {
+    public boolean isExpired() {
+        return expiresAt != null && Instant.now().isAfter(expiresAt);
+    }
+}
