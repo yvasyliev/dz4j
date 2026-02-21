@@ -8,6 +8,7 @@ import io.github.yvasyliev.deezer.model.Artist;
 import io.github.yvasyliev.deezer.model.Page;
 import io.github.yvasyliev.deezer.model.Playlist;
 import io.github.yvasyliev.deezer.model.Track;
+import io.github.yvasyliev.deezer.model.User;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -46,7 +47,7 @@ public interface ArtistService {
      * @return list of artist's fans
      */
     @RequestLine("GET /artist/{artistId}/fans?index={index}&limit={limit}")
-    CompletableFuture<Page<Artist>> getFans(
+    CompletableFuture<Page<User>> getFans(
             @Param("artistId") long artistId,
             @Param("index") Integer index,
             @Param("limit") Integer limit

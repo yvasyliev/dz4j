@@ -3,9 +3,9 @@ package io.github.yvasyliev.deezer.factory;
 import io.github.yvasyliev.deezer.model.Album;
 import io.github.yvasyliev.deezer.model.Track;
 import io.github.yvasyliev.deezer.model.User;
-import io.github.yvasyliev.deezer.request.DeezerPagingRequest;
 import io.github.yvasyliev.deezer.request.DeezerRequest;
-import io.github.yvasyliev.deezer.request.SimpleDeezerRequest;
+import io.github.yvasyliev.deezer.request.GetByIdDeezerRequest;
+import io.github.yvasyliev.deezer.request.GetByIdPagingDeezerRequest;
 import io.github.yvasyliev.deezer.service.AlbumService;
 import lombok.RequiredArgsConstructor;
 
@@ -22,8 +22,8 @@ public class AlbumRequestFactory {
      * @param albumId album ID
      * @return album
      */
-    public DeezerRequest<Album> getAlbum(int albumId) {
-        return new SimpleDeezerRequest<>(() -> albumService.getAlbum(albumId));
+    public DeezerRequest<Album> getAlbum(long albumId) {
+        return new GetByIdDeezerRequest<>(albumId, albumService::getAlbum);
     }
 
     /**
@@ -32,8 +32,8 @@ public class AlbumRequestFactory {
      * @param albumId album ID
      * @return list of album's fans
      */
-    public DeezerPagingRequest<User> getAlbumFans(int albumId) {
-        return new DeezerPagingRequest<>((index, limit) -> albumService.getAlbumFans(albumId, index, limit));
+    public GetByIdPagingDeezerRequest<User> getAlbumFans(long albumId) {
+        return new GetByIdPagingDeezerRequest<>(albumId, albumService::getAlbumFans);
     }
 
     /**
@@ -42,7 +42,7 @@ public class AlbumRequestFactory {
      * @param albumId album ID
      * @return list of album's tracks
      */
-    public DeezerPagingRequest<Track> getAlbumTracks(int albumId) {
-        return new DeezerPagingRequest<>((index, limit) -> albumService.getAlbumTracks(albumId, index, limit));
+    public GetByIdPagingDeezerRequest<Track> getAlbumTracks(long albumId) {
+        return new GetByIdPagingDeezerRequest<>(albumId, albumService::getAlbumTracks);
     }
 }

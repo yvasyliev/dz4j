@@ -2,7 +2,6 @@ package io.github.yvasyliev.deezer.feign;
 
 import feign.Param;
 import io.github.yvasyliev.deezer.request.search.AdvancedQuery;
-import io.github.yvasyliev.deezer.request.search.Query;
 import io.github.yvasyliev.deezer.request.search.SimpleQuery;
 import lombok.RequiredArgsConstructor;
 import tools.jackson.core.type.TypeReference;
@@ -13,10 +12,6 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class QueryExpander implements Param.Expander {
-    private static final String MESSAGE_TEMPLATE = "%s expects %s type, but got: %%s".formatted(
-            QueryExpander.class.getSimpleName(),
-            Query.class.getName()
-    );
     private static final TypeReference<Map<String, String>> QUERY_MAP_TYPE = new TypeReference<>() {};
     private final JsonMapper jsonMapper;
 
@@ -30,7 +25,7 @@ public class QueryExpander implements Param.Expander {
             return expand(query);
         }
 
-        throw new IllegalArgumentException(MESSAGE_TEMPLATE.formatted(value.getClass()));
+        return null;
     }
 
     private String expand(AdvancedQuery query) {
