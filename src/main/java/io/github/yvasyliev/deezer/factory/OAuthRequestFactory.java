@@ -22,8 +22,20 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OAuthRequestFactory {
     private static final String LOGIN_URL_TEMPLATE = "%s/oauth/auth.php?app_id=%d&redirect_uri=%s&perms=%s";
-    private final URL authHost;
     private final OAuthService oAuthService;
+    private final URL authHost;
+
+    /**
+     * Exchanges the authorization code for an access token.
+     *
+     * @param appId  the application ID
+     * @param secret the application secret
+     * @param code   the authorization code received from the login flow
+     * @return an access token request
+     */
+    public DeezerRequest<AccessToken> getAccessToken(int appId, String secret, String code) {
+        return new SimpleDeezerRequest<>(() -> oAuthService.getAccessTokenAsync(appId, secret, code));
+    }
 
     /**
      * Generates the login URL for the OAuth flow.
@@ -49,17 +61,5 @@ public class OAuthRequestFactory {
         } catch (MalformedURLException e) {
             throw new DeezerException("Failed to generate login URL", e);
         }
-    }
-
-    /**
-     * Exchanges the authorization code for an access token.
-     *
-     * @param appId  the application ID
-     * @param secret the application secret
-     * @param code   the authorization code received from the login flow
-     * @return an access token request
-     */
-    public DeezerRequest<AccessToken> getAccessToken(int appId, String secret, String code) {
-        return new SimpleDeezerRequest<>(() -> oAuthService.getAccessTokenAsync(appId, secret, code));
     }
 }
