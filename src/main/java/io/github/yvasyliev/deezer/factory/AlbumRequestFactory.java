@@ -1,6 +1,7 @@
 package io.github.yvasyliev.deezer.factory;
 
 import io.github.yvasyliev.deezer.model.Album;
+import io.github.yvasyliev.deezer.model.Page;
 import io.github.yvasyliev.deezer.model.Track;
 import io.github.yvasyliev.deezer.model.User;
 import io.github.yvasyliev.deezer.request.DeezerRequest;
@@ -33,7 +34,7 @@ public class AlbumRequestFactory {
      * @param albumId album ID
      * @return list of album's fans
      */
-    public PagingDeezerRequest<User> getAlbumFans(long albumId) {
+    public PagingDeezerRequest<Page<User>> getAlbumFans(long albumId) {
         return new GetByIdPagingDeezerRequest<>(albumId, albumService::getAlbumFans);
     }
 
@@ -43,7 +44,7 @@ public class AlbumRequestFactory {
      * @param albumId album ID
      * @return list of album's tracks
      */
-    public PagingDeezerRequest<Track> getAlbumTracks(long albumId) {
+    public PagingDeezerRequest<Page<Track>> getAlbumTracks(long albumId) {
         return new GetByIdPagingDeezerRequest<>(albumId, albumService::getAlbumTracks);
     }
 }

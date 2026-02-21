@@ -1,6 +1,5 @@
 package io.github.yvasyliev.deezer.request;
 
-import io.github.yvasyliev.deezer.model.Page;
 import io.github.yvasyliev.deezer.util.TriFunction;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -11,14 +10,14 @@ import java.util.concurrent.CompletableFuture;
 @RequiredArgsConstructor
 @Setter(onMethod_ = @Override)
 @Accessors(fluent = true)
-public class GetByIdPagingDeezerRequest<T> extends AbstractDeezerRequest<Page<T>> implements PagingDeezerRequest<T> {
+public class GetByIdPagingDeezerRequest<T> extends AbstractDeezerRequest<T> implements PagingDeezerRequest<T> {
     private final long objectId;
-    private final TriFunction<Long, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod;
+    private final TriFunction<Long, Integer, Integer, CompletableFuture<T>> asyncMethod;
     private Integer index;
     private Integer limit;
 
     @Override
-    protected CompletableFuture<Page<T>> doExecuteAsync() {
+    protected CompletableFuture<T> doExecuteAsync() {
         return asyncMethod.apply(objectId, index, limit);
     }
 }
