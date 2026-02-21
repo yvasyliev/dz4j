@@ -8,4 +8,8 @@ public class DeezerException extends RuntimeException {
     public DeezerException(Throwable cause) {
         super(cause);
     }
+
+    public DeezerException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }
