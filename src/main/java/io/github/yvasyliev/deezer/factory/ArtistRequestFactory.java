@@ -8,6 +8,7 @@ import io.github.yvasyliev.deezer.model.User;
 import io.github.yvasyliev.deezer.request.DeezerRequest;
 import io.github.yvasyliev.deezer.request.GetByIdDeezerRequest;
 import io.github.yvasyliev.deezer.request.GetByIdPagingDeezerRequest;
+import io.github.yvasyliev.deezer.request.PagingDeezerRequest;
 import io.github.yvasyliev.deezer.service.ArtistService;
 import lombok.RequiredArgsConstructor;
 
@@ -24,7 +25,7 @@ public class ArtistRequestFactory {
      * @param artistId artist ID
      * @return list of artist's albums
      */
-    public GetByIdPagingDeezerRequest<Album> getAlbums(long artistId) {
+    public PagingDeezerRequest<Album> getAlbums(long artistId) {
         return new GetByIdPagingDeezerRequest<>(artistId, artistService::getAlbums);
     }
 
@@ -44,7 +45,7 @@ public class ArtistRequestFactory {
      * @param artistId artist ID
      * @return list of artist's fans
      */
-    public GetByIdPagingDeezerRequest<User> getFans(long artistId) {
+    public PagingDeezerRequest<User> getFans(long artistId) {
         return new GetByIdPagingDeezerRequest<>(artistId, artistService::getFans);
     }
 
@@ -54,7 +55,7 @@ public class ArtistRequestFactory {
      * @param artistId artist ID
      * @return list of artist's playlists
      */
-    public GetByIdPagingDeezerRequest<Playlist> getPlaylists(long artistId) {
+    public PagingDeezerRequest<Playlist> getPlaylists(long artistId) {
         return new GetByIdPagingDeezerRequest<>(artistId, artistService::getPlaylists);
     }
 
@@ -64,7 +65,7 @@ public class ArtistRequestFactory {
      * @param artistId artist ID
      * @return list of tracks
      */
-    public GetByIdPagingDeezerRequest<Track> getRadio(long artistId) {
+    public PagingDeezerRequest<Track> getRadio(long artistId) {
         return new GetByIdPagingDeezerRequest<>(artistId, artistService::getRadio);
     }
 
@@ -74,7 +75,7 @@ public class ArtistRequestFactory {
      * @param artistId artist ID
      * @return list of related artists
      */
-    public GetByIdPagingDeezerRequest<Artist> getRelated(long artistId) {
+    public PagingDeezerRequest<Artist> getRelated(long artistId) {
         return new GetByIdPagingDeezerRequest<>(artistId, artistService::getRelated);
     }
 
@@ -84,7 +85,7 @@ public class ArtistRequestFactory {
      * @param artistId artist ID
      * @return list of artist's top tracks
      */
-    public GetByIdPagingDeezerRequest<Track> getTop(long artistId) {
+    public PagingDeezerRequest<Track> getTop(long artistId) {
         return new GetByIdPagingDeezerRequest<>(artistId, artistService::getTop);
     }
 }

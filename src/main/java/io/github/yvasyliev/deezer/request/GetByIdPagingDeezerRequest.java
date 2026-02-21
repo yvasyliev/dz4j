@@ -9,9 +9,9 @@ import lombok.experimental.Accessors;
 import java.util.concurrent.CompletableFuture;
 
 @RequiredArgsConstructor
-@Setter
+@Setter(onMethod_ = @Override)
 @Accessors(fluent = true)
-public class GetByIdPagingDeezerRequest<T> extends AbstractDeezerRequest<Page<T>> {
+public class GetByIdPagingDeezerRequest<T> extends AbstractDeezerRequest<Page<T>> implements PagingDeezerRequest<T> {
     private final long objectId;
     private final TriFunction<Long, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod;
     private Integer index;

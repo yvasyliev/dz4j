@@ -6,6 +6,7 @@ import io.github.yvasyliev.deezer.model.User;
 import io.github.yvasyliev.deezer.request.DeezerRequest;
 import io.github.yvasyliev.deezer.request.GetByIdDeezerRequest;
 import io.github.yvasyliev.deezer.request.GetByIdPagingDeezerRequest;
+import io.github.yvasyliev.deezer.request.PagingDeezerRequest;
 import io.github.yvasyliev.deezer.service.AlbumService;
 import lombok.RequiredArgsConstructor;
 
@@ -32,7 +33,7 @@ public class AlbumRequestFactory {
      * @param albumId album ID
      * @return list of album's fans
      */
-    public GetByIdPagingDeezerRequest<User> getAlbumFans(long albumId) {
+    public PagingDeezerRequest<User> getAlbumFans(long albumId) {
         return new GetByIdPagingDeezerRequest<>(albumId, albumService::getAlbumFans);
     }
 
@@ -42,7 +43,7 @@ public class AlbumRequestFactory {
      * @param albumId album ID
      * @return list of album's tracks
      */
-    public GetByIdPagingDeezerRequest<Track> getAlbumTracks(long albumId) {
+    public PagingDeezerRequest<Track> getAlbumTracks(long albumId) {
         return new GetByIdPagingDeezerRequest<>(albumId, albumService::getAlbumTracks);
     }
 }
