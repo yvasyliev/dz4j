@@ -7,11 +7,11 @@ import java.util.function.Function;
 
 @RequiredArgsConstructor
 public class GetByIdDeezerRequest<T> extends AbstractDeezerRequest<T> {
-    private final long objectId;
+    private final long id;
     private final Function<Long, CompletableFuture<T>> asyncMethod;
 
     @Override
     protected CompletableFuture<T> doExecuteAsync() {
-        return asyncMethod.apply(objectId);
+        return asyncMethod.apply(id);
     }
 }

@@ -11,13 +11,13 @@ import java.util.concurrent.CompletableFuture;
 @Setter(onMethod_ = @Override)
 @Accessors(fluent = true)
 public class GetByIdPagingDeezerRequest<T> extends AbstractDeezerRequest<T> implements PagingDeezerRequest<T> {
-    private final long objectId;
+    private final long id;
     private final TriFunction<Long, Integer, Integer, CompletableFuture<T>> asyncMethod;
     private Integer index;
     private Integer limit;
 
     @Override
     protected CompletableFuture<T> doExecuteAsync() {
-        return asyncMethod.apply(objectId, index, limit);
+        return asyncMethod.apply(id, index, limit);
     }
 }
