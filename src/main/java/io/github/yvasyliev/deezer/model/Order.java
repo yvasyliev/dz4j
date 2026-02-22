@@ -1,4 +1,4 @@
-package io.github.yvasyliev.deezer.request.search;
+package io.github.yvasyliev.deezer.model;
 
 /**
  * Enumeration of possible orderings for search results.

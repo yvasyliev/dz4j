@@ -1,3 +1,3 @@
-package io.github.yvasyliev.deezer.request.search;
+package io.github.yvasyliev.deezer.model;
 
 public record SimpleQuery(String query) implements Query {}

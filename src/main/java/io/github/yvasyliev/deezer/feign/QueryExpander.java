@@ -1,8 +1,8 @@
 package io.github.yvasyliev.deezer.feign;
 
 import feign.Param;
-import io.github.yvasyliev.deezer.request.search.AdvancedQuery;
-import io.github.yvasyliev.deezer.request.search.SimpleQuery;
+import io.github.yvasyliev.deezer.model.AdvancedQuery;
+import io.github.yvasyliev.deezer.model.SimpleQuery;
 import lombok.RequiredArgsConstructor;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.json.JsonMapper;
