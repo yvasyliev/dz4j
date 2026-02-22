@@ -19,30 +19,30 @@ public class AlbumRequestFactory {
     private final AlbumService albumService;
 
     /**
-     * Returns an album.
+     * Creates a request to get an album.
      *
      * @param albumId album ID
-     * @return album
+     * @return request to get an album
      */
     public DeezerRequest<Album> getAlbum(long albumId) {
         return new GetByIdDeezerRequest<>(albumId, albumService::getAlbum);
     }
 
     /**
-     * Returns a list of album's fans.
+     * Creates a request to get a list of album's fans.
      *
      * @param albumId album ID
-     * @return list of album's fans
+     * @return request to get a list of album's fans
      */
     public PagingDeezerRequest<Page<User>> getAlbumFans(long albumId) {
         return new GetByIdPagingDeezerRequest<>(albumId, albumService::getAlbumFans);
     }
 
     /**
-     * Returns a list of album's tracks.
+     * Creates a request to get a list of album's tracks.
      *
      * @param albumId album ID
-     * @return list of album's tracks
+     * @return request to get a list of album's tracks
      */
     public PagingDeezerRequest<Page<Track>> getAlbumTracks(long albumId) {
         return new GetByIdPagingDeezerRequest<>(albumId, albumService::getAlbumTracks);

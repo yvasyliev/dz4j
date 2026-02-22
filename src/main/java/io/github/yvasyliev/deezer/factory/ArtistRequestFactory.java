@@ -21,70 +21,70 @@ public class ArtistRequestFactory {
     private final ArtistService artistService;
 
     /**
-     * Returns a list of artist's albums.
+     * Creates a request to get a list of artist's albums.
      *
      * @param artistId artist ID
-     * @return list of artist's albums
+     * @return request to get a list of artist's albums
      */
     public PagingDeezerRequest<Page<Album>> getAlbums(long artistId) {
         return new GetByIdPagingDeezerRequest<>(artistId, artistService::getAlbums);
     }
 
     /**
-     * Returns an artist.
+     * Creates a request to get an artist.
      *
      * @param artistId artist ID
-     * @return artist
+     * @return request to get an artist
      */
     public DeezerRequest<Artist> getArtist(long artistId) {
         return new GetByIdDeezerRequest<>(artistId, artistService::getArtist);
     }
 
     /**
-     * Returns a list of artist's fans.
+     * Creates a request to get a list of artist's fans.
      *
      * @param artistId artist ID
-     * @return list of artist's fans
+     * @return request to get a list of artist's fans
      */
     public PagingDeezerRequest<Page<User>> getFans(long artistId) {
         return new GetByIdPagingDeezerRequest<>(artistId, artistService::getFans);
     }
 
     /**
-     * Returns a list of artist's playlists.
+     * Creates a request to get a list of artist's playlists.
      *
      * @param artistId artist ID
-     * @return list of artist's playlists
+     * @return request to get a list of artist's playlists
      */
     public PagingDeezerRequest<Page<Playlist>> getPlaylists(long artistId) {
         return new GetByIdPagingDeezerRequest<>(artistId, artistService::getPlaylists);
     }
 
     /**
-     * Returns a list of tracks.
+     * Creates a request to get a list of tracks.
      *
      * @param artistId artist ID
-     * @return list of tracks
+     * @return request to get a list of tracks
      */
     public PagingDeezerRequest<Page<Track>> getRadio(long artistId) {
         return new GetByIdPagingDeezerRequest<>(artistId, artistService::getRadio);
     }
 
     /**
-     * Returns a list of related artists.
+     * Creates a request to get a list of related artists.
      *
      * @param artistId artist ID
-     * @return list of related artists
+     * @return request to get a list of related artists
      */
     public PagingDeezerRequest<Page<Artist>> getRelated(long artistId) {
         return new GetByIdPagingDeezerRequest<>(artistId, artistService::getRelated);
     }
 
     /**
-     * Returns a list of artist's top tracks.
+     * Creates a request to get a list of artist's top tracks.
      *
      * @param artistId artist ID
-     * @return list of artist's top tracks
+     * @return request to get a list of artist's top tracks
      */
     public PagingDeezerRequest<Page<Track>> getTop(long artistId) {
         return new GetByIdPagingDeezerRequest<>(artistId, artistService::getTop);

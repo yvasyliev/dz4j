@@ -21,17 +21,17 @@ import java.util.stream.Collectors;
  */
 @RequiredArgsConstructor
 public class OAuthRequestFactory {
-    private static final String LOGIN_URL_TEMPLATE = "%s/oauth/auth.php?app_id=%d&redirect_uri=%s&perms=%s";
+    private static final String LOGIN_URL_TEMPLATE =
+            "https://connect.deezer.com/oauth/auth.php?app_id=%d&redirect_uri=%s&perms=%s";
     private final OAuthService oAuthService;
-    private final URL authHost;
 
     /**
-     * Exchanges the authorization code for an access token.
+     * Creates a request to exchange an authorization code for an access token.
      *
      * @param appId  the application ID
      * @param secret the application secret
-     * @param code   the authorization code received from the login flow
-     * @return an access token request
+     * @param code   the authorization code received from the OAuth flow
+     * @return request to exchange an authorization code for an access token
      */
     public DeezerRequest<AccessToken> getAccessToken(int appId, String secret, String code) {
         return new SimpleDeezerRequest<>(() -> oAuthService.getAccessTokenAsync(appId, secret, code));
@@ -48,15 +48,14 @@ public class OAuthRequestFactory {
      */
     public URL getLoginUrl(int appId, String redirectUri, Collection<Permission> permissions)
             throws DeezerException {
-        try {
-            var perms = permissions.stream().map(Permission::getValue).collect(Collectors.joining(","));
-            var loginUrl = LOGIN_URL_TEMPLATE.formatted(
-                    authHost,
-                    appId,
-                    URLEncoder.encode(redirectUri, StandardCharsets.UTF_8),
-                    URLEncoder.encode(perms, StandardCharsets.UTF_8)
-            );
+        var perms = permissions.stream().map(Permission::getValue).collect(Collectors.joining(","));
+        var loginUrl = LOGIN_URL_TEMPLATE.formatted(
+                appId,
+                URLEncoder.encode(redirectUri, StandardCharsets.UTF_8),
+                URLEncoder.encode(perms, StandardCharsets.UTF_8)
+        );
 
+        try {
             return URI.create(loginUrl).toURL();
         } catch (MalformedURLException e) {
             throw new DeezerException("Failed to generate login URL", e);
