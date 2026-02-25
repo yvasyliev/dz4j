@@ -10,7 +10,10 @@ import io.github.yvasyliev.deezer.model.Track;
 import io.github.yvasyliev.deezer.request.GetByIdPagingDeezerRequest;
 import io.github.yvasyliev.deezer.request.PagingDeezerRequest;
 import io.github.yvasyliev.deezer.service.ChartService;
+import io.github.yvasyliev.deezer.util.TriFunction;
 import lombok.RequiredArgsConstructor;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Factory for creating requests related to charts.
@@ -26,7 +29,7 @@ public class ChartRequestFactory {
      * @return request to get a list of top albums in the specified genre
      */
     public PagingDeezerRequest<Page<Album>> getAlbumsChart(long genreId) {
-        return new GetByIdPagingDeezerRequest<>(genreId, chartService::getAlbumsChart);
+        return createPagingDeezerRequest(genreId, chartService::getAlbumsChart);
     }
 
     /**
@@ -36,7 +39,7 @@ public class ChartRequestFactory {
      * @return request to get a list of top artists in the specified genre
      */
     public PagingDeezerRequest<Page<Artist>> getArtistsChart(long genreId) {
-        return new GetByIdPagingDeezerRequest<>(genreId, chartService::getArtistsChart);
+        return createPagingDeezerRequest(genreId, chartService::getArtistsChart);
     }
 
     /**
@@ -46,7 +49,7 @@ public class ChartRequestFactory {
      * @return request to get the overall chart for the specified genre
      */
     public PagingDeezerRequest<Chart> getChart(long genreId) {
-        return new GetByIdPagingDeezerRequest<>(genreId, chartService::getChart);
+        return createPagingDeezerRequest(genreId, chartService::getChart);
     }
 
     /**
@@ -56,7 +59,7 @@ public class ChartRequestFactory {
      * @return request to get a list of top playlists in the specified genre
      */
     public PagingDeezerRequest<Page<Playlist>> getPlaylistsChart(long genreId) {
-        return new GetByIdPagingDeezerRequest<>(genreId, chartService::getPlaylistsChart);
+        return createPagingDeezerRequest(genreId, chartService::getPlaylistsChart);
     }
 
     /**
@@ -66,7 +69,7 @@ public class ChartRequestFactory {
      * @return request to get a list of top podcasts in the specified genre
      */
     public PagingDeezerRequest<Page<Podcast>> getPodcastsChart(long genreId) {
-        return new GetByIdPagingDeezerRequest<>(genreId, chartService::getPodcastsChart);
+        return createPagingDeezerRequest(genreId, chartService::getPodcastsChart);
     }
 
     /**
@@ -76,6 +79,13 @@ public class ChartRequestFactory {
      * @return request to get a list of top tracks in the specified genre
      */
     public PagingDeezerRequest<Page<Track>> getTracksChart(long genreId) {
-        return new GetByIdPagingDeezerRequest<>(genreId, chartService::getTracksChart);
+        return createPagingDeezerRequest(genreId, chartService::getTracksChart);
+    }
+
+    private <T> PagingDeezerRequest<T> createPagingDeezerRequest(
+            long artistId,
+            TriFunction<Long, Integer, Integer, CompletableFuture<T>> asyncMethod
+    ) {
+        return new GetByIdPagingDeezerRequest<>(artistId, asyncMethod);
     }
 }

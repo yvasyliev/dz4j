@@ -9,7 +9,10 @@ import io.github.yvasyliev.deezer.request.GetByIdDeezerRequest;
 import io.github.yvasyliev.deezer.request.GetByIdPagingDeezerRequest;
 import io.github.yvasyliev.deezer.request.PagingDeezerRequest;
 import io.github.yvasyliev.deezer.service.AlbumService;
+import io.github.yvasyliev.deezer.util.TriFunction;
 import lombok.RequiredArgsConstructor;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Factory for creating requests related to albums.
@@ -35,7 +38,7 @@ public class AlbumRequestFactory {
      * @return request to get a list of album's fans
      */
     public PagingDeezerRequest<Page<User>> getAlbumFans(long albumId) {
-        return new GetByIdPagingDeezerRequest<>(albumId, albumService::getAlbumFans);
+        return createPagingDeezerRequest(albumId, albumService::getAlbumFans);
     }
 
     /**
@@ -45,6 +48,13 @@ public class AlbumRequestFactory {
      * @return request to get a list of album's tracks
      */
     public PagingDeezerRequest<Page<Track>> getAlbumTracks(long albumId) {
-        return new GetByIdPagingDeezerRequest<>(albumId, albumService::getAlbumTracks);
+        return createPagingDeezerRequest(albumId, albumService::getAlbumTracks);
+    }
+
+    private <T> PagingDeezerRequest<Page<T>> createPagingDeezerRequest(
+            long albumId,
+            TriFunction<Long, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod
+    ) {
+        return new GetByIdPagingDeezerRequest<>(albumId, asyncMethod);
     }
 }

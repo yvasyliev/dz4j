@@ -13,7 +13,6 @@ import io.github.yvasyliev.deezer.model.Track;
 import io.github.yvasyliev.deezer.model.User;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -147,7 +146,7 @@ public interface PlaylistService {
     CompletableFuture<Boolean> orderTracks(
             @Param("playlistId") long playlistId,
             @Param(value = "access_token", expander = AccessTokenExpander.class) AccessToken accessToken,
-            @Param("order") List<Long> trackIds
+            @Param("order") Collection<Long> trackIds
     );
 
     /**

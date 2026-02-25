@@ -18,12 +18,14 @@ import io.github.yvasyliev.deezer.request.GetByUserIdPagingDeezerRequest;
 import io.github.yvasyliev.deezer.request.PagingDeezerRequest;
 import io.github.yvasyliev.deezer.request.SimpleDeezerRequest;
 import io.github.yvasyliev.deezer.service.UserService;
+import io.github.yvasyliev.deezer.util.QuadFunction;
 import io.github.yvasyliev.deezer.util.TriFunction;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.BiFunction;
 
 @RequiredArgsConstructor
 public class UserRequestFactory {
@@ -76,7 +78,7 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> addAlbums(String userId, Collection<Long> albumIds) {
-        return createUserDeezerRequest(userId, albumIds, userService::addAlbums);
+        return createDeezerRequest(userId, albumIds, userService::addAlbums);
     }
 
     //endregion
@@ -126,7 +128,7 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> addArtists(String userId, Collection<Long> artistIds) {
-        return createUserDeezerRequest(userId, artistIds, userService::addArtists);
+        return createDeezerRequest(userId, artistIds, userService::addArtists);
     }
 
     //endregion
@@ -155,7 +157,7 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<NotificationResult> addNotification(String userId, String message) {
-        return createUserDeezerRequest(userId, message, userService::addNotification);
+        return createDeezerRequest(userId, message, userService::addNotification);
     }
 
     //endregion
@@ -205,7 +207,7 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> addPlaylists(String userId, Collection<Long> playlistIds) {
-        return createUserDeezerRequest(userId, playlistIds, userService::addPlaylists);
+        return createDeezerRequest(userId, playlistIds, userService::addPlaylists);
     }
 
     //endregion
@@ -234,7 +236,7 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> addPodcast(String userId, long podcastId) {
-        return createUserDeezerRequest(userId, podcastId, userService::addPodcast);
+        return createDeezerRequest(userId, podcastId, userService::addPodcast);
     }
 
     //endregion
@@ -263,7 +265,7 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> addRadio(String userId, long radioId) {
-        return createUserDeezerRequest(userId, radioId, userService::addRadio);
+        return createDeezerRequest(userId, radioId, userService::addRadio);
     }
 
     //endregion
@@ -313,7 +315,7 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> addTracks(String userId, Collection<Long> trackIds) {
-        return createUserDeezerRequest(userId, trackIds, userService::addTracks);
+        return createDeezerRequest(userId, trackIds, userService::addTracks);
     }
 
     //endregion
@@ -371,7 +373,7 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> followUser(String userId, long followeeId) {
-        return createUserDeezerRequest(userId, followeeId, userService::followUser);
+        return createDeezerRequest(userId, followeeId, userService::followUser);
     }
 
     //endregion
@@ -398,7 +400,7 @@ public class UserRequestFactory {
     }
 
     private PagingDeezerRequest<Page<Album>> getAlbumChart(String userId) {
-        return new GetByUserIdPagingDeezerRequest<>(userId, authorizationContext, userService::getAlbumChart);
+        return createPagingDeezerRequest(userId, userService::getAlbumChart);
     }
 
     //endregion
@@ -425,7 +427,7 @@ public class UserRequestFactory {
     }
 
     private PagingDeezerRequest<Page<Album>> getAlbumRecommendations(String userId) {
-        return new GetByUserIdPagingDeezerRequest<>(userId, authorizationContext, userService::getAlbumRecommendations);
+        return createPagingDeezerRequest(userId, userService::getAlbumRecommendations);
     }
 
     //endregion
@@ -452,7 +454,7 @@ public class UserRequestFactory {
     }
 
     private PagingDeezerRequest<Page<Artist>> getArtistChart(String userId) {
-        return new GetByUserIdPagingDeezerRequest<>(userId, authorizationContext, userService::getArtistChart);
+        return createPagingDeezerRequest(userId, userService::getArtistChart);
     }
 
     //endregion
@@ -479,7 +481,7 @@ public class UserRequestFactory {
     }
 
     private PagingDeezerRequest<Page<Artist>> getArtistRecommendations(String userId) {
-        return new GetByUserIdPagingDeezerRequest<>(userId, authorizationContext, userService::getArtistRecommendations);
+        return createPagingDeezerRequest(userId, userService::getArtistRecommendations);
     }
 
     //endregion
@@ -506,7 +508,7 @@ public class UserRequestFactory {
     }
 
     private PagingDeezerRequest<Page<Artist>> getArtists(String userId) {
-        return new GetByUserIdPagingDeezerRequest<>(userId, authorizationContext, userService::getArtists);
+        return createPagingDeezerRequest(userId, userService::getArtists);
     }
 
     //endregion
@@ -533,7 +535,7 @@ public class UserRequestFactory {
     }
 
     private PagingDeezerRequest<Page<Track>> getChart(String userId) {
-        return new GetByUserIdPagingDeezerRequest<>(userId, authorizationContext, userService::getChart);
+        return createPagingDeezerRequest(userId, userService::getChart);
     }
 
     //endregion
@@ -545,7 +547,7 @@ public class UserRequestFactory {
      *
      * @return a request that, when executed, will return a list of user's flow tracks
      */
-    public SimpleDeezerRequest<Page<Track>> getFlow() {
+    public DeezerRequest<Page<Track>> getFlow() {
         return getFlow(ME);
     }
 
@@ -555,15 +557,12 @@ public class UserRequestFactory {
      * @param userId the user ID
      * @return a request that, when executed, will return a list of user's flow tracks
      */
-    public SimpleDeezerRequest<Page<Track>> getFlow(long userId) {
+    public DeezerRequest<Page<Track>> getFlow(long userId) {
         return getFlow(String.valueOf(userId));
     }
 
-    private SimpleDeezerRequest<Page<Track>> getFlow(String userId) {
-        return new SimpleDeezerRequest<>(() -> userService.getFlow(
-                userId,
-                authorizationContext.getAccessTokenProvider().getAccessToken()
-        ));
+    private DeezerRequest<Page<Track>> getFlow(String userId) {
+        return createDeezerRequest(userId, userService::getFlow);
     }
 
     //endregion
@@ -590,7 +589,7 @@ public class UserRequestFactory {
     }
 
     private PagingDeezerRequest<Page<User>> getFollowers(String userId) {
-        return new GetByUserIdPagingDeezerRequest<>(userId, authorizationContext, userService::getFollowers);
+        return createPagingDeezerRequest(userId, userService::getFollowers);
     }
 
     //endregion
@@ -617,7 +616,7 @@ public class UserRequestFactory {
     }
 
     private PagingDeezerRequest<Page<User>> getFollowings(String userId) {
-        return new GetByUserIdPagingDeezerRequest<>(userId, authorizationContext, userService::getFollowings);
+        return createPagingDeezerRequest(userId, userService::getFollowings);
     }
 
     //endregion
@@ -644,7 +643,7 @@ public class UserRequestFactory {
     }
 
     private PagingDeezerRequest<Page<Track>> getHistory(String userId) {
-        return new GetByUserIdPagingDeezerRequest<>(userId, authorizationContext, userService::getHistory);
+        return createPagingDeezerRequest(userId, userService::getHistory);
     }
 
     //endregion
@@ -656,7 +655,7 @@ public class UserRequestFactory {
      *
      * @return a request that, when executed, will return the user's options
      */
-    public SimpleDeezerRequest<Options> getOptions() {
+    public DeezerRequest<Options> getOptions() {
         return getOptions(ME);
     }
 
@@ -666,15 +665,12 @@ public class UserRequestFactory {
      * @param userId the user ID
      * @return a request that, when executed, will return the user's options
      */
-    public SimpleDeezerRequest<Options> getOptions(long userId) {
+    public DeezerRequest<Options> getOptions(long userId) {
         return getOptions(String.valueOf(userId));
     }
 
-    private SimpleDeezerRequest<Options> getOptions(String userId) {
-        return new SimpleDeezerRequest<>(() -> userService.getOptions(
-                userId,
-                authorizationContext.getAccessTokenProvider().getAccessToken()
-        ));
+    private DeezerRequest<Options> getOptions(String userId) {
+        return createDeezerRequest(userId, userService::getOptions);
     }
 
     //endregion
@@ -686,7 +682,7 @@ public class UserRequestFactory {
      *
      * @return a request that, when executed, will return the user's permissions
      */
-    public SimpleDeezerRequest<Permissions> getPermissions() {
+    public DeezerRequest<Permissions> getPermissions() {
         return getPermissions(ME);
     }
 
@@ -696,15 +692,12 @@ public class UserRequestFactory {
      * @param userId the user ID
      * @return a request that, when executed, will return the user's permissions
      */
-    public SimpleDeezerRequest<Permissions> getPermissions(long userId) {
+    public DeezerRequest<Permissions> getPermissions(long userId) {
         return getPermissions(String.valueOf(userId));
     }
 
-    private SimpleDeezerRequest<Permissions> getPermissions(String userId) {
-        return new SimpleDeezerRequest<>(() -> userService.getPermissions(
-                userId,
-                authorizationContext.getAccessTokenProvider().getAccessToken()
-        ));
+    private DeezerRequest<Permissions> getPermissions(String userId) {
+        return createDeezerRequest(userId, userService::getPermissions);
     }
 
     //endregion
@@ -731,7 +724,7 @@ public class UserRequestFactory {
     }
 
     private PagingDeezerRequest<Page<Track>> getPersonalSongs(String userId) {
-        return new GetByUserIdPagingDeezerRequest<>(userId, authorizationContext, userService::getPersonalSongs);
+        return createPagingDeezerRequest(userId, userService::getPersonalSongs);
     }
 
     //endregion
@@ -758,7 +751,7 @@ public class UserRequestFactory {
     }
 
     private PagingDeezerRequest<Page<Playlist>> getPlaylistChart(String userId) {
-        return new GetByUserIdPagingDeezerRequest<>(userId, authorizationContext, userService::getPlaylistChart);
+        return createPagingDeezerRequest(userId, userService::getPlaylistChart);
     }
 
     //endregion
@@ -785,7 +778,7 @@ public class UserRequestFactory {
     }
 
     private PagingDeezerRequest<Page<Playlist>> getPlaylistRecommendations(String userId) {
-        return new GetByUserIdPagingDeezerRequest<>(userId, authorizationContext, userService::getPlaylistRecommendations);
+        return createPagingDeezerRequest(userId, userService::getPlaylistRecommendations);
     }
 
     //endregion
@@ -812,7 +805,7 @@ public class UserRequestFactory {
     }
 
     private PagingDeezerRequest<Page<Playlist>> getPlaylists(String userId) {
-        return new GetByUserIdPagingDeezerRequest<>(userId, authorizationContext, userService::getPlaylists);
+        return createPagingDeezerRequest(userId, userService::getPlaylists);
     }
 
     //endregion
@@ -839,7 +832,7 @@ public class UserRequestFactory {
     }
 
     private PagingDeezerRequest<Page<Radio>> getRadioRecommendations(String userId) {
-        return new GetByUserIdPagingDeezerRequest<>(userId, authorizationContext, userService::getRadioRecommendations);
+        return createPagingDeezerRequest(userId, userService::getRadioRecommendations);
     }
 
     //endregion
@@ -866,7 +859,7 @@ public class UserRequestFactory {
     }
 
     private PagingDeezerRequest<Page<Radio>> getRadios(String userId) {
-        return new GetByUserIdPagingDeezerRequest<>(userId, authorizationContext, userService::getRadios);
+        return createPagingDeezerRequest(userId, userService::getRadios);
     }
 
     //endregion
@@ -893,7 +886,7 @@ public class UserRequestFactory {
     }
 
     private PagingDeezerRequest<Page<Album>> getReleaseRecommendations(String userId) {
-        return new GetByUserIdPagingDeezerRequest<>(userId, authorizationContext, userService::getReleaseRecommendations);
+        return createPagingDeezerRequest(userId, userService::getReleaseRecommendations);
     }
 
     //endregion
@@ -920,7 +913,7 @@ public class UserRequestFactory {
     }
 
     private PagingDeezerRequest<Page<Track>> getTrackChart(String userId) {
-        return new GetByUserIdPagingDeezerRequest<>(userId, authorizationContext, userService::getTrackChart);
+        return createPagingDeezerRequest(userId, userService::getTrackChart);
     }
 
     //endregion
@@ -932,7 +925,7 @@ public class UserRequestFactory {
      *
      * @return a request that, when executed, will return a list of track recommendations
      */
-    public SimpleDeezerRequest<Page<Track>> getTrackRecommendations() {
+    public DeezerRequest<Page<Track>> getTrackRecommendations() {
         return getTrackRecommendations(ME);
     }
 
@@ -942,15 +935,12 @@ public class UserRequestFactory {
      * @param userId the user ID
      * @return a request that, when executed, will return a list of track recommendations
      */
-    public SimpleDeezerRequest<Page<Track>> getTrackRecommendations(long userId) {
+    public DeezerRequest<Page<Track>> getTrackRecommendations(long userId) {
         return getTrackRecommendations(String.valueOf(userId));
     }
 
-    private SimpleDeezerRequest<Page<Track>> getTrackRecommendations(String userId) {
-        return new SimpleDeezerRequest<>(() -> userService.getTrackRecommendations(
-                userId,
-                authorizationContext.getAccessTokenProvider().getAccessToken()
-        ));
+    private DeezerRequest<Page<Track>> getTrackRecommendations(String userId) {
+        return createDeezerRequest(userId, userService::getTrackRecommendations);
     }
 
     //endregion
@@ -977,7 +967,7 @@ public class UserRequestFactory {
     }
 
     private PagingDeezerRequest<Page<Track>> getTracks(String userId) {
-        return new GetByUserIdPagingDeezerRequest<>(userId, authorizationContext, userService::getTracks);
+        return createPagingDeezerRequest(userId, userService::getTracks);
     }
 
     //endregion
@@ -989,7 +979,7 @@ public class UserRequestFactory {
      *
      * @return a request that, when executed, will return the user information
      */
-    public SimpleDeezerRequest<User> getUser() {
+    public DeezerRequest<User> getUser() {
         return getUser(ME);
     }
 
@@ -999,15 +989,12 @@ public class UserRequestFactory {
      * @param userId the user ID
      * @return a request that, when executed, will return the user information
      */
-    public SimpleDeezerRequest<User> getUser(long userId) {
+    public DeezerRequest<User> getUser(long userId) {
         return getUser(String.valueOf(userId));
     }
 
-    private SimpleDeezerRequest<User> getUser(String userId) {
-        return new SimpleDeezerRequest<>(() -> userService.getUser(
-                userId,
-                authorizationContext.getAccessTokenProvider().getAccessToken()
-        ));
+    private DeezerRequest<User> getUser(String userId) {
+        return createDeezerRequest(userId, userService::getUser);
     }
 
     //endregion
@@ -1034,7 +1021,7 @@ public class UserRequestFactory {
     }
 
     private PagingDeezerRequest<Page<Album>> getUserAlbums(String userId) {
-        return new GetByUserIdPagingDeezerRequest<>(userId, authorizationContext, userService::getUserAlbums);
+        return createPagingDeezerRequest(userId, userService::getUserAlbums);
     }
 
     //endregion
@@ -1063,7 +1050,7 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> removeAlbum(String userId, long albumId) {
-        return createUserDeezerRequest(userId, albumId, userService::removeAlbum);
+        return createDeezerRequest(userId, albumId, userService::removeAlbum);
     }
 
     //endregion
@@ -1092,7 +1079,7 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> removeArtist(String userId, long artistId) {
-        return createUserDeezerRequest(userId, artistId, userService::removeArtist);
+        return createDeezerRequest(userId, artistId, userService::removeArtist);
     }
 
     //endregion
@@ -1121,7 +1108,7 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> removePlaylist(String userId, long playlistId) {
-        return createUserDeezerRequest(userId, playlistId, userService::removePlaylist);
+        return createDeezerRequest(userId, playlistId, userService::removePlaylist);
     }
 
     //endregion
@@ -1150,7 +1137,7 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> removePodcast(String userId, long podcastId) {
-        return createUserDeezerRequest(userId, podcastId, userService::removePodcast);
+        return createDeezerRequest(userId, podcastId, userService::removePodcast);
     }
 
     //endregion
@@ -1179,7 +1166,7 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> removeRadio(String userId, long radioId) {
-        return createUserDeezerRequest(userId, radioId, userService::removeRadio);
+        return createDeezerRequest(userId, radioId, userService::removeRadio);
     }
 
     //endregion
@@ -1208,7 +1195,7 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> removeTrack(String userId, long trackId) {
-        return createUserDeezerRequest(userId, trackId, userService::removeTrack);
+        return createDeezerRequest(userId, trackId, userService::removeTrack);
     }
 
     //endregion
@@ -1237,20 +1224,36 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> unfollowUser(String userId, long followeeId) {
-        return createUserDeezerRequest(userId, followeeId, userService::unfollowUser);
+        return createDeezerRequest(userId, followeeId, userService::unfollowUser);
     }
 
     //endregion
 
-    private <T, R> DeezerRequest<R> createUserDeezerRequest(
+    private <T> DeezerRequest<T> createDeezerRequest(
+            String userId,
+            BiFunction<String, AccessToken, CompletableFuture<T>> asyncMethod
+    ) {
+        return new SimpleDeezerRequest<>(() -> asyncMethod.apply(
+                userId,
+                authorizationContext.getAccessTokenProvider().getAccessToken()
+        ));
+    }
+
+    private <T, R> DeezerRequest<R> createDeezerRequest(
             String userId,
             T argument,
             TriFunction<String, AccessToken, T, CompletableFuture<R>> asyncMethod
     ) {
-        return new SimpleDeezerRequest<>(() -> asyncMethod.apply(
+        return createDeezerRequest(
                 userId,
-                authorizationContext.getAccessTokenProvider().getAccessToken(),
-                argument
-        ));
+                (id, accessToken) -> asyncMethod.apply(id, accessToken, argument)
+        );
+    }
+
+    private <T> PagingDeezerRequest<Page<T>> createPagingDeezerRequest(
+            String userId,
+            QuadFunction<String, AccessToken, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod
+    ) {
+        return new GetByUserIdPagingDeezerRequest<>(userId, authorizationContext, asyncMethod);
     }
 }
