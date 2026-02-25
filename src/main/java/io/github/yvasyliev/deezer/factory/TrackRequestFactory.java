@@ -33,6 +33,6 @@ public class TrackRequestFactory {
      * @return request to update a track
      */
     public UpdateTrackDeezerRequest updateTrack(long trackId) {
-        return new UpdateTrackDeezerRequest(trackId, authorizationContext.getAccessTokenProvider(), trackService);
+        return new UpdateTrackDeezerRequest(trackId, authorizationContext, trackService);
     }
 }

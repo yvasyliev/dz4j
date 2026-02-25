@@ -1,7 +1,8 @@
 package io.github.yvasyliev.deezer.request;
 
 import io.github.yvasyliev.deezer.authorization.AuthorizationContext;
-import io.github.yvasyliev.deezer.service.TrackService;
+import io.github.yvasyliev.deezer.model.Playlist;
+import io.github.yvasyliev.deezer.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -11,22 +12,20 @@ import java.util.concurrent.CompletableFuture;
 @RequiredArgsConstructor
 @Setter
 @Accessors(fluent = true)
-public class UpdateTrackDeezerRequest extends AbstractDeezerRequest<Boolean> {
-    private final long trackId;
+public class CreatePlaylistDeezerRequest extends AbstractDeezerRequest<Playlist> {
+    private final String userId;
     private final AuthorizationContext authorizationContext;
-    private final TrackService trackService;
-    private String title;
-    private String artist;
-    private String album;
+    private final String title;
+    private final UserService userService;
+    private String description;
 
     @Override
-    protected CompletableFuture<Boolean> doExecuteAsync() {
-        return trackService.updateTrack(
-                trackId,
+    protected CompletableFuture<Playlist> doExecuteAsync() {
+        return userService.createPlaylist(
+                userId,
                 authorizationContext.getAccessTokenProvider().getAccessToken(),
                 title,
-                artist,
-                album
+                description
         );
     }
 }

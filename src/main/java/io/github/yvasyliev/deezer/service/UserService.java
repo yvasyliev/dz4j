@@ -32,7 +32,7 @@ public interface UserService {
      * @param albumIds    collection of album IDs to add
      * @return {@code true} if the albums were added successfully
      */
-    @RequestLine(value = "POST /user/{userId}/albums", collectionFormat = CollectionFormat.CSV)
+    @RequestLine(value = "POST /user/{userId}/albums", collectionFormat = CollectionFormat.CSV) //TODO: regex
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addAlbums(
             @Param("userId") String userId,
@@ -167,7 +167,7 @@ public interface UserService {
     CompletableFuture<Boolean> followUser(
             @Param("userId") String userId,
             @Param(value = "access_token", expander = AccessTokenExpander.class) AccessToken accessToken,
-            @Param("user_id") String followeeId
+            @Param("user_id") long followeeId
     );
 
     /**
@@ -660,6 +660,6 @@ public interface UserService {
     CompletableFuture<Boolean> unfollowUser(
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) AccessToken accessToken,
-            @Param("followeeId") String followeeId
+            @Param("followeeId") long followeeId
     );
 }
