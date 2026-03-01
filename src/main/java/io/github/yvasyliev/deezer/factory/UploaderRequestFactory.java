@@ -1,0 +1,58 @@
+package io.github.yvasyliev.deezer.factory;
+
+import feign.form.FormData;
+import io.github.yvasyliev.deezer.authorization.TokenManager;
+import io.github.yvasyliev.deezer.model.AccessToken;
+import io.github.yvasyliev.deezer.model.Infos;
+import io.github.yvasyliev.deezer.request.DeezerRequest;
+import io.github.yvasyliev.deezer.request.SimpleDeezerRequest;
+import io.github.yvasyliev.deezer.service.UploaderService;
+import io.github.yvasyliev.deezer.util.QuadFunction;
+import lombok.RequiredArgsConstructor;
+
+import java.io.File;
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * Factory for creating requests related to uploading content.
+ */
+@RequiredArgsConstructor
+public class UploaderRequestFactory {
+    private final UploaderService uploaderService;
+    private final TokenManager<AccessToken> accessTokenManager;
+    private final TokenManager<Infos> uploadTokenManager;
+
+    /**
+     * Creates a request to upload a cover image for the specified playlist.
+     *
+     * @param playlistId the playlist ID
+     * @param cover      the cover image file to upload
+     * @return a request that, when executed, will upload the cover image for the playlist
+     */
+    public DeezerRequest<Boolean> uploadPlaylistCover(long playlistId, File cover) {
+        return uploadPlaylistCover(playlistId, cover, uploaderService::uploadPlaylistCover);
+    }
+
+    /**
+     * Creates a request to upload a cover image for the specified playlist.
+     *
+     * @param playlistId the playlist ID
+     * @param cover      the cover image file to upload
+     * @return a request that, when executed, will upload the cover image for the playlist
+     */
+    public DeezerRequest<Boolean> uploadPlaylistCover(long playlistId, FormData cover) {
+        return uploadPlaylistCover(playlistId, cover, uploaderService::uploadPlaylistCover);
+    }
+
+    private <T> DeezerRequest<Boolean> uploadPlaylistCover(
+            long playlistId,
+            T cover,
+            QuadFunction<Long, String, String, T, CompletableFuture<Boolean>> asyncMethod
+    ) {
+        return new SimpleDeezerRequest<>(
+                accessTokenManager,
+                uploadTokenManager,
+                (accessToken, uploadToken) -> asyncMethod.apply(playlistId, accessToken, uploadToken, cover)
+        );
+    }
+}

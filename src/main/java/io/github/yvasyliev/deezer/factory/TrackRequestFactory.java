@@ -1,6 +1,7 @@
 package io.github.yvasyliev.deezer.factory;
 
-import io.github.yvasyliev.deezer.authorization.AuthorizationContext;
+import io.github.yvasyliev.deezer.authorization.TokenManager;
+import io.github.yvasyliev.deezer.model.AccessToken;
 import io.github.yvasyliev.deezer.model.Track;
 import io.github.yvasyliev.deezer.request.DeezerRequest;
 import io.github.yvasyliev.deezer.request.GetByIdDeezerRequest;
@@ -14,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TrackRequestFactory {
     private final TrackService trackService;
-    private final AuthorizationContext authorizationContext;
+    private final TokenManager<AccessToken> accessTokenManager;
 
     /**
      * Creates a request to get a track.
@@ -33,6 +34,6 @@ public class TrackRequestFactory {
      * @return request to update a track
      */
     public UpdateTrackDeezerRequest updateTrack(long trackId) {
-        return new UpdateTrackDeezerRequest(trackId, authorizationContext, trackService);
+        return new UpdateTrackDeezerRequest(trackId, accessTokenManager, trackService);
     }
 }

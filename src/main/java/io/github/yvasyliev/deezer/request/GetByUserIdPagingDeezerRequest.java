@@ -1,6 +1,6 @@
 package io.github.yvasyliev.deezer.request;
 
-import io.github.yvasyliev.deezer.authorization.AuthorizationContext;
+import io.github.yvasyliev.deezer.authorization.TokenManager;
 import io.github.yvasyliev.deezer.model.AccessToken;
 import io.github.yvasyliev.deezer.util.QuadFunction;
 import lombok.RequiredArgsConstructor;
@@ -14,13 +14,18 @@ import java.util.concurrent.CompletableFuture;
 @Accessors(fluent = true)
 public class GetByUserIdPagingDeezerRequest<T> extends AbstractDeezerRequest<T> implements PagingDeezerRequest<T> {
     private final String userId;
-    private final AuthorizationContext authorizationContext;
-    private final QuadFunction<String, AccessToken, Integer, Integer, CompletableFuture<T>> asyncMethod;
+    private final TokenManager<AccessToken> accessTokenManager;
+    private final QuadFunction<String, String, Integer, Integer, CompletableFuture<T>> asyncMethod;
     private Integer index;
     private Integer limit;
 
     @Override
     protected CompletableFuture<T> doExecuteAsync() {
-        return asyncMethod.apply(userId, authorizationContext.getAccessTokenProvider().getAccessToken(), index, limit);
+        return accessTokenManager.getToken().thenCompose(accessToken -> asyncMethod.apply(
+                userId,
+                accessToken,
+                index,
+                limit
+        ));
     }
 }

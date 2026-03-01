@@ -43,6 +43,15 @@ public record Infos(
         @JsonProperty("has_podcasts") @Experimental Boolean hasPodcasts
 ) {
     /**
+     * Checks if the upload token is expired.
+     *
+     * @return {@code true} if the upload token is expired, {@code false} otherwise
+     */
+    public boolean isUploadTokenExpired() {
+        return uploadTokenExpiresAt != null && Instant.now().isAfter(uploadTokenExpiresAt);
+    }
+
+    /**
      * An offer object.
      *
      * @param id              offer ID
