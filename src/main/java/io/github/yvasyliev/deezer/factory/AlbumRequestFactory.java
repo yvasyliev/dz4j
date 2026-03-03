@@ -5,7 +5,7 @@ import io.github.yvasyliev.deezer.model.Page;
 import io.github.yvasyliev.deezer.model.Track;
 import io.github.yvasyliev.deezer.model.User;
 import io.github.yvasyliev.deezer.request.DeezerRequest;
-import io.github.yvasyliev.deezer.request.GetByIdDeezerRequest;
+import io.github.yvasyliev.deezer.request.IdDeezerRequest;
 import io.github.yvasyliev.deezer.request.GetByIdPagingDeezerRequest;
 import io.github.yvasyliev.deezer.request.PagingDeezerRequest;
 import io.github.yvasyliev.deezer.service.AlbumService;
@@ -28,7 +28,7 @@ public class AlbumRequestFactory {
      * @return request to get an album
      */
     public DeezerRequest<Album> getAlbum(long albumId) {
-        return new GetByIdDeezerRequest<>(albumId, albumService::getAlbum);
+        return new IdDeezerRequest<>(albumId, albumService::getAlbum);
     }
 
     /**

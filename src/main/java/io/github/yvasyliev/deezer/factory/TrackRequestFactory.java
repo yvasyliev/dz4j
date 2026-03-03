@@ -4,7 +4,7 @@ import io.github.yvasyliev.deezer.authorization.TokenManager;
 import io.github.yvasyliev.deezer.model.AccessToken;
 import io.github.yvasyliev.deezer.model.Track;
 import io.github.yvasyliev.deezer.request.DeezerRequest;
-import io.github.yvasyliev.deezer.request.GetByIdDeezerRequest;
+import io.github.yvasyliev.deezer.request.IdDeezerRequest;
 import io.github.yvasyliev.deezer.request.UpdateTrackDeezerRequest;
 import io.github.yvasyliev.deezer.service.TrackService;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class TrackRequestFactory {
      * @return request to get a track
      */
     public DeezerRequest<Track> getTrack(long trackId) {
-        return new GetByIdDeezerRequest<>(trackId, trackService::getTrack);
+        return new IdDeezerRequest<>(trackId, trackService::getTrack);
     }
 
     /**

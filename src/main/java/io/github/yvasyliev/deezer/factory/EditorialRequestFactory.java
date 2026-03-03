@@ -5,7 +5,7 @@ import io.github.yvasyliev.deezer.model.Chart;
 import io.github.yvasyliev.deezer.model.Editorial;
 import io.github.yvasyliev.deezer.model.Page;
 import io.github.yvasyliev.deezer.request.DeezerRequest;
-import io.github.yvasyliev.deezer.request.GetByIdDeezerRequest;
+import io.github.yvasyliev.deezer.request.IdDeezerRequest;
 import io.github.yvasyliev.deezer.request.GetByIdPagingDeezerRequest;
 import io.github.yvasyliev.deezer.request.PagingDeezerRequest;
 import io.github.yvasyliev.deezer.request.SimplePagingDeezerRequest;
@@ -75,7 +75,7 @@ public class EditorialRequestFactory {
     }
 
     private <T> DeezerRequest<T> createDeezerRequest(long genreId, Function<Long, CompletableFuture<T>> asyncMethod) {
-        return new GetByIdDeezerRequest<>(genreId, asyncMethod);
+        return new IdDeezerRequest<>(genreId, asyncMethod);
     }
 
     private <T> PagingDeezerRequest<Page<T>> createPagingDeezerRequest(

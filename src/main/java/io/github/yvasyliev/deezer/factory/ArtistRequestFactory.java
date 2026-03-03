@@ -7,7 +7,7 @@ import io.github.yvasyliev.deezer.model.Playlist;
 import io.github.yvasyliev.deezer.model.Track;
 import io.github.yvasyliev.deezer.model.User;
 import io.github.yvasyliev.deezer.request.DeezerRequest;
-import io.github.yvasyliev.deezer.request.GetByIdDeezerRequest;
+import io.github.yvasyliev.deezer.request.IdDeezerRequest;
 import io.github.yvasyliev.deezer.request.GetByIdPagingDeezerRequest;
 import io.github.yvasyliev.deezer.request.PagingDeezerRequest;
 import io.github.yvasyliev.deezer.service.ArtistService;
@@ -40,7 +40,7 @@ public class ArtistRequestFactory {
      * @return request to get an artist
      */
     public DeezerRequest<Artist> getArtist(long artistId) {
-        return new GetByIdDeezerRequest<>(artistId, artistService::getArtist);
+        return new IdDeezerRequest<>(artistId, artistService::getArtist);
     }
 
     /**
