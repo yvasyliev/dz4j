@@ -19,7 +19,7 @@ public interface GenreService {
      * @return all artists for a genre
      */
     @RequestLine("GET /genre/{genreId}/artists")
-    CompletableFuture<Page<Artist>> getArtists(@Param("genreId") int genreId);
+    CompletableFuture<Page<Artist>> getArtists(@Param("genreId") long genreId);
 
     /**
      * Returns a genre.
@@ -28,7 +28,7 @@ public interface GenreService {
      * @return a genre
      */
     @RequestLine("GET /genre/{genreId}")
-    CompletableFuture<Genre> getGenre(@Param("genreId") int genreId);
+    CompletableFuture<Genre> getGenre(@Param("genreId") long genreId);
 
     /**
      * Returns all genres.
@@ -45,5 +45,5 @@ public interface GenreService {
      * @return all radios for a genre
      */
     @RequestLine("GET /genre/{genreId}/radios")
-    CompletableFuture<Page<Radio>> getRadios(@Param("genreId") int genreId);
+    CompletableFuture<Page<Radio>> getRadios(@Param("genreId") long genreId);
 }
