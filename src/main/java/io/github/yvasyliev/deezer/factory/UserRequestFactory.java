@@ -14,7 +14,7 @@ import io.github.yvasyliev.deezer.model.Track;
 import io.github.yvasyliev.deezer.model.User;
 import io.github.yvasyliev.deezer.request.CreatePlaylistDeezerRequest;
 import io.github.yvasyliev.deezer.request.DeezerRequest;
-import io.github.yvasyliev.deezer.request.GetByUserIdPagingDeezerRequest;
+import io.github.yvasyliev.deezer.request.GetByIdPagingDeezerRequest;
 import io.github.yvasyliev.deezer.request.PagingDeezerRequest;
 import io.github.yvasyliev.deezer.request.SimpleDeezerRequest;
 import io.github.yvasyliev.deezer.service.UserService;
@@ -1254,6 +1254,6 @@ public class UserRequestFactory {
             String userId,
             QuadFunction<String, String, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod
     ) {
-        return new GetByUserIdPagingDeezerRequest<>(userId, accessTokenManager, asyncMethod);
+        return new GetByIdPagingDeezerRequest<>(userId, accessTokenManager, asyncMethod);
     }
 }

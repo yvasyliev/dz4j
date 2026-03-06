@@ -22,11 +22,7 @@ public class CreatePlaylistDeezerRequest extends AbstractDeezerRequest<Playlist>
 
     @Override
     protected CompletableFuture<Playlist> doExecuteAsync() {
-        return accessTokenManager.getToken().thenCompose(accessToken -> userService.createPlaylist(
-                userId,
-                accessToken,
-                title,
-                description
-        ));
+        return accessTokenManager.getToken()
+                .thenCompose(accessToken -> userService.createPlaylist(userId, accessToken, title, description));
     }
 }

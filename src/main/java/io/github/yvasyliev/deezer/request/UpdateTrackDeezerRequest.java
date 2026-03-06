@@ -22,12 +22,7 @@ public class UpdateTrackDeezerRequest extends AbstractDeezerRequest<Boolean> {
 
     @Override
     protected CompletableFuture<Boolean> doExecuteAsync() {
-        return accessTokenManager.getToken().thenCompose(accessToken -> trackService.updateTrack(
-                trackId,
-                accessToken,
-                title,
-                artist,
-                album
-        ));
+        return accessTokenManager.getToken()
+                .thenCompose(accessToken -> trackService.updateTrack(trackId, accessToken, title, artist, album));
     }
 }
