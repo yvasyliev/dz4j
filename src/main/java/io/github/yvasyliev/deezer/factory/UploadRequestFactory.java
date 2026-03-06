@@ -6,7 +6,7 @@ import io.github.yvasyliev.deezer.model.AccessToken;
 import io.github.yvasyliev.deezer.model.Infos;
 import io.github.yvasyliev.deezer.request.DeezerRequest;
 import io.github.yvasyliev.deezer.request.SimpleDeezerRequest;
-import io.github.yvasyliev.deezer.service.UploaderService;
+import io.github.yvasyliev.deezer.service.UploadService;
 import io.github.yvasyliev.deezer.util.QuadFunction;
 import lombok.RequiredArgsConstructor;
 
@@ -17,8 +17,8 @@ import java.util.concurrent.CompletableFuture;
  * Factory for creating requests related to uploading content.
  */
 @RequiredArgsConstructor
-public class UploaderRequestFactory {
-    private final UploaderService uploaderService;
+public class UploadRequestFactory {
+    private final UploadService uploadService;
     private final TokenManager<AccessToken> accessTokenManager;
     private final TokenManager<Infos> uploadTokenManager;
 
@@ -30,7 +30,7 @@ public class UploaderRequestFactory {
      * @return a request that, when executed, will upload the cover image for the playlist
      */
     public DeezerRequest<Boolean> uploadPlaylistCover(long playlistId, File cover) {
-        return uploadPlaylistCover(playlistId, cover, uploaderService::uploadPlaylistCover);
+        return uploadPlaylistCover(playlistId, cover, uploadService::uploadPlaylistCover);
     }
 
     /**
@@ -41,7 +41,7 @@ public class UploaderRequestFactory {
      * @return a request that, when executed, will upload the cover image for the playlist
      */
     public DeezerRequest<Boolean> uploadPlaylistCover(long playlistId, FormData cover) {
-        return uploadPlaylistCover(playlistId, cover, uploaderService::uploadPlaylistCover);
+        return uploadPlaylistCover(playlistId, cover, uploadService::uploadPlaylistCover);
     }
 
     private <T> DeezerRequest<Boolean> uploadPlaylistCover(

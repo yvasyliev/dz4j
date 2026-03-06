@@ -9,7 +9,7 @@ import java.io.File;
 import java.util.concurrent.CompletableFuture;
 
 @Headers("Accept: application/json")
-public interface UploaderService {
+public interface UploadService {
     /**
      * Uploads a cover image for the specified playlist.
      *

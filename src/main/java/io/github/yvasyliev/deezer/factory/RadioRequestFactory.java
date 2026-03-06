@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 @RequiredArgsConstructor
-public class RadioRequestService {
+public class RadioRequestFactory {
     private final RadioService radioService;
 
     public DeezerRequest<Page<Genre>> getGenres() {
