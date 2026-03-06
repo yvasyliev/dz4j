@@ -1,7 +1,6 @@
 package io.github.yvasyliev.deezer;
 
 import feign.AsyncFeign;
-import io.github.yvasyliev.deezer.authorization.AccessTokenProvider;
 import io.github.yvasyliev.deezer.authorization.AccessTokenSupplier;
 import io.github.yvasyliev.deezer.authorization.TokenManager;
 import io.github.yvasyliev.deezer.factory.AlbumRequestFactory;
@@ -47,6 +46,7 @@ import lombok.experimental.Accessors;
 
 import java.time.Instant;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Function;
 
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
@@ -82,35 +82,38 @@ public class DeezerClient {
     }
 
     public DeezerClient(AccessToken accessToken) {
-        this(CompletableFuture.completedFuture(accessToken));
+        this(oauth -> CompletableFuture.completedFuture(accessToken));
     }
 
-    //TODO: remove
-    private DeezerClient(CompletableFuture<AccessToken> accessToken) {
-        this(() -> accessToken);
+    public DeezerClient(int appId, String secret, String code) {
+        this(oauth -> oauth.getAccessToken(appId, secret, code).executeAsync());
     }
 
-    private DeezerClient(AccessTokenProvider accessTokenProvider) {
+    private DeezerClient(Function<OAuthRequestFactory, CompletableFuture<AccessToken>> accessTokenProvider) {
         var deezerApi = "https://api.deezer.com";
-        accessTokenSupplier = new AccessTokenSupplier(accessTokenProvider);
-        var accessTokenManager = new TokenManager<>(token -> true, accessTokenSupplier, AccessToken::token);
         var builder = AsyncFeign.builder();
 
         album = new AlbumRequestFactory(builder.target(AlbumService.class, deezerApi));
         artist = new ArtistRequestFactory(builder.target(ArtistService.class, deezerApi));
+        oauth = new OAuthRequestFactory(builder.target(OAuthService.class, deezerApi));
         chart = new ChartRequestFactory(builder.target(ChartService.class, deezerApi));
         editorial = new EditorialRequestFactory(builder.target(EditorialService.class, deezerApi));
-        episode = new EpisodeRequestFactory(builder.target(EpisodeService.class, deezerApi), accessTokenManager);
         genre = new GenreRequestFactory(builder.target(GenreService.class, deezerApi));
-        infos = new InfosRequestFactory(builder.target(InfosService.class, deezerApi), accessTokenManager);
-        oauth = new OAuthRequestFactory(builder.target(OAuthService.class, deezerApi));
         oEmbed = new OEmbedRequestFactory(builder.target(OEmbedService.class, deezerApi));
         options = new OptionsRequestFactory(builder.target(OptionsService.class, deezerApi));
-        playlist = new PlaylistRequestFactory(builder.target(PlaylistService.class, deezerApi), accessTokenManager);
-        podcast = new PodcastRequestFactory(builder.target(PodcastService.class, deezerApi), accessTokenManager);
         radio = new RadioRequestFactory(builder.target(RadioService.class, deezerApi));
         search = new SearchRequestFactory(builder.target(SearchService.class, deezerApi));
+
+        accessTokenSupplier = new AccessTokenSupplier(() -> accessTokenProvider.apply(oauth));
+
+        var accessTokenManager = new TokenManager<>(token -> true, accessTokenSupplier, AccessToken::token);
+
+        episode = new EpisodeRequestFactory(builder.target(EpisodeService.class, deezerApi), accessTokenManager);
+        infos = new InfosRequestFactory(builder.target(InfosService.class, deezerApi), accessTokenManager);
+        playlist = new PlaylistRequestFactory(builder.target(PlaylistService.class, deezerApi), accessTokenManager);
+        podcast = new PodcastRequestFactory(builder.target(PodcastService.class, deezerApi), accessTokenManager);
         track = new TrackRequestFactory(builder.target(TrackService.class, deezerApi), accessTokenManager);
+        user = new UserRequestFactory(builder.target(UserService.class, deezerApi), accessTokenManager);
 
         var uploadTokenManager = new TokenManager<>(
                 token -> token.isDone() && !token.isCompletedExceptionally() && !token.join().isUploadTokenExpired(),
@@ -123,6 +126,5 @@ public class DeezerClient {
                 accessTokenManager,
                 uploadTokenManager
         );
-        user = new UserRequestFactory(builder.target(UserService.class, deezerApi), accessTokenManager);
     }
 }
