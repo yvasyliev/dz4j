@@ -1,0 +1,35 @@
+package io.github.yvasyliev.deezer.factory;
+
+import io.github.yvasyliev.deezer.authorization.TokenManager;
+import io.github.yvasyliev.deezer.model.AccessToken;
+import io.github.yvasyliev.deezer.model.Episode;
+import io.github.yvasyliev.deezer.model.Page;
+import io.github.yvasyliev.deezer.model.Podcast;
+import io.github.yvasyliev.deezer.request.DeezerRequest;
+import io.github.yvasyliev.deezer.request.IdDeezerRequest;
+import io.github.yvasyliev.deezer.service.PodcastService;
+import lombok.RequiredArgsConstructor;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.function.BiFunction;
+
+@RequiredArgsConstructor
+public class PodcastRequestFactory {
+    private final PodcastService podcastService;
+    private final TokenManager<AccessToken> accessTokenManager;
+
+    public DeezerRequest<Page<Episode>> getEpisodes(long podcastId) {
+        return createDeezerRequest(podcastId, podcastService::getEpisodes);
+    }
+
+    public DeezerRequest<Podcast> getPodcast(long podcastId) {
+        return createDeezerRequest(podcastId, podcastService::getPodcast);
+    }
+
+    private <T> DeezerRequest<T> createDeezerRequest(
+            long podcastId,
+            BiFunction<Long, String, CompletableFuture<T>> asyncMethod
+    ) {
+        return new IdDeezerRequest<>(podcastId, accessTokenManager, asyncMethod);
+    }
+}
