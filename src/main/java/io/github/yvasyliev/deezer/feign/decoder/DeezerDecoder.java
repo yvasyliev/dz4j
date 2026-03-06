@@ -3,7 +3,9 @@ package io.github.yvasyliev.deezer.feign.decoder;
 import feign.Response;
 import feign.codec.Decoder;
 import io.github.yvasyliev.deezer.exception.DeezerException;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.Tolerate;
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.json.JsonMapper;
@@ -12,7 +14,9 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 
+@Builder
 @RequiredArgsConstructor
 public class DeezerDecoder implements Decoder {
     private final List<ResponseValidator> responseValidators;
@@ -50,5 +54,24 @@ public class DeezerDecoder implements Decoder {
 
     private JsonNode readBody(Response response) throws IOException {
         return jsonMapper.readTree(response.body().asInputStream());
+    }
+
+    public static class DeezerDecoderBuilder {
+        private List<ResponseValidator> responseValidators;
+        private List<JsonNodeDeserializer> jsonNodeDeserializers;
+
+        @Tolerate
+        public DeezerDecoderBuilder responseValidators(Consumer<List<ResponseValidator>> responseValidatorsCustomizer) {
+            responseValidatorsCustomizer.accept(responseValidators);
+
+            return this;
+        }
+
+        @Tolerate
+        public DeezerDecoderBuilder jsonNodeDeserializers(Consumer<List<JsonNodeDeserializer>> jsonNodeDeserializersCustomizer) {
+            jsonNodeDeserializersCustomizer.accept(jsonNodeDeserializers);
+
+            return this;
+        }
     }
 }

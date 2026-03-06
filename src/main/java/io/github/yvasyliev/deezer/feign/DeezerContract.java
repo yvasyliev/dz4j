@@ -3,31 +3,49 @@ package io.github.yvasyliev.deezer.feign;
 import feign.Contract;
 import feign.MethodMetadata;
 import feign.Param;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.Tolerate;
 
-import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
+@Builder
 @RequiredArgsConstructor
-public class DeezerContract extends Contract.Default {
+public class DeezerContract implements Contract {
+    private static final Contract DELEGATE = new Default();
     private final Map<Class<? extends Param.Expander>, Param.Expander> expanders;
 
     @Override
-    protected MethodMetadata parseAndValidateMetadata(Class<?> targetType, Method method) {
-        var methodMetadata = super.parseAndValidateMetadata(targetType, method);
+    public List<MethodMetadata> parseAndValidateMetadata(Class<?> targetType) {
+        var result = DELEGATE.parseAndValidateMetadata(targetType);
 
-        setExpanders(methodMetadata);
+        result.forEach(this::setExpanders);
 
-        return methodMetadata;
+        return result;
     }
 
-    private void setExpanders(MethodMetadata methodMetadata) {
-        var indexToExpander = methodMetadata.indexToExpander();
+    private void setExpanders(MethodMetadata md) {
+        var indexToExpander = md.indexToExpanderClass()
+                .entrySet()
+                .stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, entry -> expanders.get(entry.getValue())));
 
-        methodMetadata.indexToExpanderClass().forEach(
-                (index, expanderClass) -> Optional.ofNullable(expanders.get(expanderClass))
-                        .ifPresent(expander -> indexToExpander.put(index, expander))
-        );
+        md.indexToExpander(indexToExpander);
+    }
+
+    public static class DeezerContractBuilder {
+        private Map<Class<? extends Param.Expander>, Param.Expander> expanders;
+
+        @Tolerate
+        public DeezerContractBuilder expanders(
+                Consumer<Map<Class<? extends Param.Expander>, Param.Expander>> expandersCustomizer
+        ) {
+            expandersCustomizer.accept(expanders);
+
+            return this;
+        }
     }
 }
