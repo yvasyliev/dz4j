@@ -26,9 +26,11 @@ dependencies {
 
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation platform('org.slf4j:slf4j-bom:2.0.17') //TODO: remove
+    testImplementation platform('org.mockito:mockito-bom:5.22.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'io.github.openfeign:feign-slf4j' //TODO: remove
     testImplementation 'org.slf4j:slf4j-simple' //TODO: remove
+    testImplementation 'org.mockito:mockito-junit-jupiter'
 
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
