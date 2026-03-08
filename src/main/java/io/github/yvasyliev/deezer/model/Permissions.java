@@ -3,7 +3,7 @@ package io.github.yvasyliev.deezer.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("permissions") // TODO: check for DeserializationFeature.UNWRAP_ROOT_VALUE feature enabled
+@JsonRootName("permissions")
 public record Permissions(
         @JsonProperty("basic_access") Boolean basicAccess,
         @JsonProperty("email") Boolean email,

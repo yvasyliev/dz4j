@@ -58,6 +58,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
+import tools.jackson.databind.DeserializationFeature;
 import tools.jackson.databind.json.JsonMapper;
 
 import java.time.Instant;
@@ -180,6 +181,13 @@ public class DeezerClient {
             Consumer<AsyncFeign.AsyncBuilder<Object>> feignCustomizer
     ) {
         var mapper = Objects.requireNonNullElseGet(jsonMapper, JsonMapper::new);
+
+        if (!mapper.isEnabled(DeserializationFeature.UNWRAP_ROOT_VALUE)) {
+            throw new IllegalArgumentException(
+                    "DeserializationFeature.UNWRAP_ROOT_VALUE must be enabled in the provided JsonMapper"
+            );
+        }
+
         var decoder = DeezerDecoder.builder()
                 .responseValidators(new ArrayList<>(List.of(
                         new StatusValidator(),
