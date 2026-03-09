@@ -8,5 +8,5 @@ import java.lang.reflect.Type;
 
 @FunctionalInterface
 public interface JsonNodeDeserializer {
-    Object deserialize(JsonNode body, Type type) throws JacksonException, DeezerApiException;
+    <T> T deserialize(JsonNode body, Type type) throws JacksonException, DeezerApiException;
 }

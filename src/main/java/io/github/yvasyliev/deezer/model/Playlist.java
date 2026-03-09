@@ -2,6 +2,8 @@ package io.github.yvasyliev.deezer.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.yvasyliev.deezer.annotation.Experimental;
+import lombok.Builder;
+import lombok.Singular;
 
 import java.net.URL;
 import java.time.Duration;
@@ -39,6 +41,7 @@ import java.util.List;
  * @param creator          {@link User} object containing: {@code id}, {@code name}
  * @param tracks           list of {@link Track}
  */
+@Builder
 public record Playlist(
         @JsonProperty("id") Long id,
         @JsonProperty("title") String title,
@@ -65,7 +68,7 @@ public record Playlist(
         @Experimental @JsonProperty("md5_image") String md5Image,
         @Experimental @JsonProperty("picture_type") PictureType pictureType,
         @JsonProperty("creator") User creator,
-        @JsonProperty("tracks") List<Track> tracks
+        @JsonProperty("tracks") @Singular List<Track> tracks
 ) {
     /**
      * Type of the picture.

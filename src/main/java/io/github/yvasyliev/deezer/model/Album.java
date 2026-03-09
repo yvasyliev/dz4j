@@ -2,6 +2,8 @@ package io.github.yvasyliev.deezer.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.yvasyliev.deezer.annotation.Experimental;
+import lombok.Builder;
+import lombok.Singular;
 
 import java.net.URL;
 import java.time.Duration;
@@ -49,6 +51,7 @@ import java.util.List;
  *                              {@code picture_small}, {@code picture_medium}, {@code picture_big}, {@code picture_xl}
  * @param tracks                list of {@link Track}
  */
+@Builder
 public record Album(
         @JsonProperty("id") Long id,
         @JsonProperty("title") String title,
@@ -76,8 +79,8 @@ public record Album(
         @JsonProperty("explicit_lyrics") Boolean explicitLyrics,
         @JsonProperty("explicit_content_lyrics") ExplicitContent explicitContentLyrics,
         @JsonProperty("explicit_content_cover") ExplicitContent explicitContentCover,
-        @JsonProperty("contributors") List<Artist> contributors,
+        @JsonProperty("contributors") @Singular List<Artist> contributors,
         @JsonProperty("fallback") Album fallback,
         @JsonProperty("artist") Artist artist,
-        @JsonProperty("tracks") List<Track> tracks
+        @JsonProperty("tracks") @Singular List<Track> tracks
 ) {}

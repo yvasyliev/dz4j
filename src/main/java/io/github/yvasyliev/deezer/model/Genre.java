@@ -1,6 +1,8 @@
 package io.github.yvasyliev.deezer.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
+import lombok.Singular;
 
 import java.net.URL;
 import java.util.List;
@@ -18,6 +20,7 @@ import java.util.List;
  * @param pictureXl     the url of the genre picture in size xl.
  * @param radios        the list of radios associated with this genre
  */
+@Builder
 public record Genre(
         @JsonProperty("id") Long id,
         @JsonProperty("name") String name,
@@ -26,5 +29,5 @@ public record Genre(
         @JsonProperty("picture_medium") URL pictureMedium,
         @JsonProperty("picture_big") URL pictureBig,
         @JsonProperty("picture_xl") URL pictureXl,
-        @JsonProperty("radios") List<Radio> radios
+        @JsonProperty("radios") @Singular List<Radio> radios
 ) {}

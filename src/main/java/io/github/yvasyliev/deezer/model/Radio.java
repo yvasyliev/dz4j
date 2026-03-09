@@ -2,6 +2,7 @@ package io.github.yvasyliev.deezer.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.yvasyliev.deezer.annotation.Experimental;
+import lombok.Builder;
 
 import java.net.URL;
 
@@ -21,6 +22,7 @@ import java.net.URL;
  * @param tracklist     api Link to the tracklist of this radio
  * @param md5Image      the radio picture's md5 hash
  */
+@Builder
 public record Radio(
         @JsonProperty("id") Long id,
         @JsonProperty("title") String title,

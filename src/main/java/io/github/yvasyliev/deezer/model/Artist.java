@@ -1,6 +1,7 @@
 package io.github.yvasyliev.deezer.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 
 import java.net.URL;
 
@@ -22,6 +23,7 @@ import java.net.URL;
  * @param tracklist     API link to the top of this artist
  * @param role          the role of the artist in the context of a track contribution
  */
+@Builder
 public record Artist(
         @JsonProperty("id") Long id,
         @JsonProperty("name") String name,

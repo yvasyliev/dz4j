@@ -3,6 +3,7 @@ package io.github.yvasyliev.deezer.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.yvasyliev.deezer.annotation.Experimental;
 import io.github.yvasyliev.deezer.databind.util.ExpiresConverter;
+import lombok.Builder;
 import tools.jackson.databind.annotation.JsonDeserialize;
 
 import java.net.URL;
@@ -24,6 +25,7 @@ import java.util.List;
  * @param ads                  ads configuration for the current country
  * @param hasPodcasts          whether podcasts are available in the current country
  */
+@Builder
 public record Infos(
         @JsonProperty("country_iso") String countryIso,
         @JsonProperty("country") String country,

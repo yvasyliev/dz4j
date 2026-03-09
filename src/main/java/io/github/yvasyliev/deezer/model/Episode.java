@@ -3,6 +3,7 @@ package io.github.yvasyliev.deezer.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.yvasyliev.deezer.annotation.Experimental;
+import lombok.Builder;
 
 import java.net.URL;
 import java.time.Duration;
@@ -27,6 +28,7 @@ import java.time.LocalDateTime;
  * @param trackToken    the track token for media service
  * @param podcast       the parent {@link Podcast} object
  */
+@Builder
 @Experimental
 public record Episode(
         @JsonProperty("id") Long id,

@@ -1,6 +1,7 @@
 package io.github.yvasyliev.deezer.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -34,6 +35,7 @@ import java.util.EnumSet;
  *                                       {@code explicit_hide}
  * @param tracklist                      API Link to the flow of this user
  */
+@Builder
 public record User(
         @JsonProperty("id") Long id,
         @JsonProperty("name") String name,

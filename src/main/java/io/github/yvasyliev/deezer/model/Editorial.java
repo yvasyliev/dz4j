@@ -1,6 +1,7 @@
 package io.github.yvasyliev.deezer.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 
 import java.net.URL;
 
@@ -15,6 +16,7 @@ import java.net.URL;
  * @param pictureBig    the url of the editorial picture in size big.
  * @param pictureXl     the url of the editorial picture in size xl.
  */
+@Builder
 public record Editorial(
         @JsonProperty("id") Long id,
         @JsonProperty("name") String name,

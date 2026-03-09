@@ -2,6 +2,8 @@ package io.github.yvasyliev.deezer.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.yvasyliev.deezer.annotation.Experimental;
+import lombok.Builder;
+import lombok.Singular;
 
 import java.net.URL;
 import java.time.Duration;
@@ -47,6 +49,7 @@ import java.util.List;
  *                              {@code cover_small}, {@code cover_medium}, {@code cover_big}, {@code cover_xl},
  *                              {@code release_date}
  */
+@Builder
 public record Track(
         @JsonProperty("id") Long id,
         @JsonProperty("readable") Boolean readable,
@@ -70,7 +73,7 @@ public record Track(
         @JsonProperty("gain") Float gain,
         @JsonProperty("available_countries") EnumSet<Country> availableCountries,
         @JsonProperty("alternative") Track alternative,
-        @JsonProperty("contributors") List<Artist> contributors,
+        @JsonProperty("contributors") @Singular List<Artist> contributors,
         @JsonProperty("md5_image") @Experimental String md5Image,
         @JsonProperty("track_token") String trackToken,
         @JsonProperty("artist") Artist artist,

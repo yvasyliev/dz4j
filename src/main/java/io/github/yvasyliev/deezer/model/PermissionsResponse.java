@@ -1,8 +1,10 @@
 package io.github.yvasyliev.deezer.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 
 public record PermissionsResponse(@JsonProperty("permissions") Permissions permissions) {
+    @Builder
     public record Permissions(
             @JsonProperty("basic_access") Boolean basicAccess,
             @JsonProperty("email") Boolean email,

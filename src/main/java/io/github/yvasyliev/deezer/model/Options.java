@@ -1,6 +1,7 @@
 package io.github.yvasyliev.deezer.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 
 import java.time.Duration;
 
@@ -20,6 +21,7 @@ import java.time.Duration;
  * @param preview           allows to display the preview of the tracks
  * @param radio             allows to stream the radio
  */
+@Builder
 public record Options(
         @JsonProperty("streaming") Boolean streaming,
         @JsonProperty("streaming_duration") Duration streamingDuration,

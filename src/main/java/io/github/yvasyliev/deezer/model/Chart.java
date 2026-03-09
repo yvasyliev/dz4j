@@ -1,6 +1,7 @@
 package io.github.yvasyliev.deezer.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 
 /**
  * A chart object.
@@ -11,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @param playlists list of {@link Playlist}
  * @param podcasts  list of {@link Podcast}
  */
+@Builder
 public record Chart(
         @JsonProperty("tracks") Page<Track> tracks,
         @JsonProperty("albums") Page<Album> albums,

@@ -1,6 +1,7 @@
 package io.github.yvasyliev.deezer.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 
 import java.net.URL;
 
@@ -21,6 +22,7 @@ import java.net.URL;
  * @param pictureXl     the url of the podcast's cover in size xl.
  * @param position      the position of the podcasts in the charts
  */
+@Builder
 public record Podcast(
         @JsonProperty("id") Long id,
         @JsonProperty("title") String title,

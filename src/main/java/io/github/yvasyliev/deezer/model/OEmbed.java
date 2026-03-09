@@ -1,6 +1,7 @@
 package io.github.yvasyliev.deezer.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 
 import java.net.URL;
 
@@ -24,6 +25,7 @@ import java.net.URL;
  * @param height          the height in pixels required to display the HTML
  * @param html            the HTML required to display the resource
  */
+@Builder
 public record OEmbed(
         @JsonProperty("version") String version,
         @JsonProperty("type") Type type,

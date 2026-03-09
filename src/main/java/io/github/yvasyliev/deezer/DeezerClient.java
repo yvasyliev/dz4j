@@ -198,6 +198,7 @@ public class DeezerClient {
                         .build()
         );
 
+        var defaultDeserializer = new DefaultDeserializer(mapper);
         var decoder = DeezerDecoder.builder()
                 .responseValidators(new ArrayList<>(List.of(
                         new StatusValidator(),
@@ -206,8 +207,8 @@ public class DeezerClient {
                         new AccessTokenValidator()
                 )))
                 .jsonNodeDeserializers(new ArrayList<>(List.of(
-                        new ErrorDeserializer(mapper),
-                        new DefaultDeserializer(mapper)
+                        new ErrorDeserializer(defaultDeserializer),
+                        defaultDeserializer
                 )))
                 .jsonMapper(mapper);
         var contract = DeezerContract.builder().expanders(new HashMap<>(Map.of(

@@ -12,7 +12,7 @@ public class DefaultDeserializer implements JsonNodeDeserializer {
     private final JsonMapper jsonMapper;
 
     @Override
-    public Object deserialize(JsonNode body, Type type) throws JacksonException {
+    public <T> T deserialize(JsonNode body, Type type) throws JacksonException {
         return jsonMapper.treeToValue(body, jsonMapper.constructType(type));
     }
 }
