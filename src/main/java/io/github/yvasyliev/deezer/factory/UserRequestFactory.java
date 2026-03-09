@@ -7,7 +7,7 @@ import io.github.yvasyliev.deezer.model.Artist;
 import io.github.yvasyliev.deezer.model.NotificationResult;
 import io.github.yvasyliev.deezer.model.Options;
 import io.github.yvasyliev.deezer.model.Page;
-import io.github.yvasyliev.deezer.model.Permissions;
+import io.github.yvasyliev.deezer.model.PermissionsResponse;
 import io.github.yvasyliev.deezer.model.Playlist;
 import io.github.yvasyliev.deezer.model.Radio;
 import io.github.yvasyliev.deezer.model.Track;
@@ -685,7 +685,7 @@ public class UserRequestFactory {
      *
      * @return a request that, when executed, will return the user's permissions
      */
-    public DeezerRequest<Permissions> getPermissions() {
+    public DeezerRequest<PermissionsResponse> getPermissions() {
         return getPermissions(ME);
     }
 
@@ -695,11 +695,11 @@ public class UserRequestFactory {
      * @param userId the user ID
      * @return a request that, when executed, will return the user's permissions
      */
-    public DeezerRequest<Permissions> getPermissions(long userId) {
+    public DeezerRequest<PermissionsResponse> getPermissions(long userId) {
         return getPermissions(String.valueOf(userId));
     }
 
-    private DeezerRequest<Permissions> getPermissions(String userId) {
+    private DeezerRequest<PermissionsResponse> getPermissions(String userId) {
         return createDeezerRequest(userId, userService::getPermissions);
     }
 

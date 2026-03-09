@@ -10,7 +10,7 @@ import io.github.yvasyliev.deezer.model.Artist;
 import io.github.yvasyliev.deezer.model.NotificationResult;
 import io.github.yvasyliev.deezer.model.Options;
 import io.github.yvasyliev.deezer.model.Page;
-import io.github.yvasyliev.deezer.model.Permissions;
+import io.github.yvasyliev.deezer.model.PermissionsResponse;
 import io.github.yvasyliev.deezer.model.Playlist;
 import io.github.yvasyliev.deezer.model.Radio;
 import io.github.yvasyliev.deezer.model.Track;
@@ -30,7 +30,7 @@ public interface UserService {
      * @param albumIds    collection of album IDs to add
      * @return {@code true} if the albums were added successfully
      */
-    @RequestLine(value = "POST /user/{userId}/albums", collectionFormat = CollectionFormat.CSV) //TODO: regex
+    @RequestLine(value = "POST /user/{userId:\\d+|me}/albums", collectionFormat = CollectionFormat.CSV)
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addAlbums(
             @Param("userId") String userId,
@@ -46,7 +46,7 @@ public interface UserService {
      * @param artistIds   collection of artist IDs to add
      * @return {@code true} if the artists were added successfully
      */
-    @RequestLine(value = "POST /user/{userId}/artists", collectionFormat = CollectionFormat.CSV)
+    @RequestLine(value = "POST /user/{userId:\\d+|me}/artists", collectionFormat = CollectionFormat.CSV)
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addArtists(
             @Param("userId") String userId,
@@ -62,7 +62,7 @@ public interface UserService {
      * @param message     notification to add in the user feed
      * @return the result of the operation
      */
-    @RequestLine("POST /user/{userId}/notifications")
+    @RequestLine("POST /user/{userId:\\d+|me}/notifications")
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<NotificationResult> addNotification(
             @Param("userId") String userId,
@@ -78,7 +78,7 @@ public interface UserService {
      * @param playlistIds collection of playlist IDs to add
      * @return {@code true} if the playlists were added successfully
      */
-    @RequestLine(value = "POST /user/{userId}/playlists", collectionFormat = CollectionFormat.CSV)
+    @RequestLine(value = "POST /user/{userId:\\d+|me}/playlists", collectionFormat = CollectionFormat.CSV)
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addPlaylists(
             @Param("userId") String userId,
@@ -94,7 +94,7 @@ public interface UserService {
      * @param podcastId   the id of the podcast
      * @return {@code true} if the podcast was added successfully
      */
-    @RequestLine("POST /user/{userId}/podcasts")
+    @RequestLine("POST /user/{userId:\\d+|me}/podcasts")
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addPodcast(
             @Param("userId") String userId,
@@ -110,7 +110,7 @@ public interface UserService {
      * @param radioId     the id of the radio
      * @return {@code true} if the radio was added successfully
      */
-    @RequestLine("POST /user/{userId}/radios")
+    @RequestLine("POST /user/{userId:\\d+|me}/radios")
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addRadio(
             @Param("userId") String userId,
@@ -126,7 +126,7 @@ public interface UserService {
      * @param trackIds    collection of track IDs to add
      * @return {@code true} if the tracks were added successfully
      */
-    @RequestLine(value = "POST /user/{userId}/tracks", collectionFormat = CollectionFormat.CSV)
+    @RequestLine(value = "POST /user/{userId:\\d+|me}/tracks", collectionFormat = CollectionFormat.CSV)
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addTracks(
             @Param("userId") String userId,
@@ -143,7 +143,7 @@ public interface UserService {
      * @param description the description of the new playlist
      * @return {@code true} if the playlist was created successfully
      */
-    @RequestLine("POST /user/{userId}/playlists")
+    @RequestLine("POST /user/{userId:\\d+|me}/playlists")
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Playlist> createPlaylist(
             @Param("userId") String userId,
@@ -160,7 +160,7 @@ public interface UserService {
      * @param followeeId  the user ID to follow
      * @return {@code true} if the user was followed successfully
      */
-    @RequestLine("POST /user/{userId}/followings")
+    @RequestLine("POST /user/{userId:\\d+|me}/followings")
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> followUser(
             @Param("userId") String userId,
@@ -177,7 +177,7 @@ public interface UserService {
      * @param limit       maximum number of items to return
      * @return a page of albums
      */
-    @RequestLine("GET /user/{userId}/charts/albums?access_token={accessToken}&index={index}&limit={limit}")
+    @RequestLine("GET /user/{userId:\\d+|me}/charts/albums?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Album>> getAlbumChart(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -194,7 +194,9 @@ public interface UserService {
      * @param limit       maximum number of items to return
      * @return a page of album recommendations
      */
-    @RequestLine("GET /user/{userId}/recommendations/albums?access_token={accessToken}&index={index}&limit={limit}")
+    @RequestLine(
+            "GET /user/{userId:\\d+|me}/recommendations/albums?access_token={accessToken}&index={index}&limit={limit}"
+    )
     CompletableFuture<Page<Album>> getAlbumRecommendations(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -211,7 +213,7 @@ public interface UserService {
      * @param limit       maximum number of items to return
      * @return a page of artists
      */
-    @RequestLine("GET /user/{userId}/charts/artists?access_token={accessToken}&index={index}&limit={limit}")
+    @RequestLine("GET /user/{userId:\\d+|me}/charts/artists?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Artist>> getArtistChart(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -228,7 +230,9 @@ public interface UserService {
      * @param limit       maximum number of items to return
      * @return a page of artist recommendations
      */
-    @RequestLine("GET /user/{userId}/recommendations/artists?access_token={accessToken}&index={index}&limit={limit}")
+    @RequestLine(
+            "GET /user/{userId:\\d+|me}/recommendations/artists?access_token={accessToken}&index={index}&limit={limit}"
+    )
     CompletableFuture<Page<Artist>> getArtistRecommendations(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -245,7 +249,7 @@ public interface UserService {
      * @param limit       maximum number of items to return
      * @return a page of artists
      */
-    @RequestLine("GET /user/{userId}/artists?access_token={accessToken}&index={index}&limit={limit}")
+    @RequestLine("GET /user/{userId:\\d+|me}/artists?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Artist>> getArtists(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -262,7 +266,7 @@ public interface UserService {
      * @param limit       maximum number of items to return
      * @return a page of tracks
      */
-    @RequestLine("GET /user/{userId}/charts?access_token={accessToken}&index={index}&limit={limit}")
+    @RequestLine("GET /user/{userId:\\d+|me}/charts?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Track>> getChart(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -277,7 +281,7 @@ public interface UserService {
      * @param accessToken Deezer access token
      * @return a page of tracks in the user's flow
      */
-    @RequestLine("GET /user/{userId}/flow?access_token={accessToken}")
+    @RequestLine("GET /user/{userId:\\d+|me}/flow?access_token={accessToken}")
     CompletableFuture<Page<Track>> getFlow(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken
@@ -292,7 +296,7 @@ public interface UserService {
      * @param limit       maximum number of items to return
      * @return a page of users who follow the user
      */
-    @RequestLine("GET /user/{userId}/followers?access_token={accessToken}&index={index}&limit={limit}")
+    @RequestLine("GET /user/{userId:\\d+|me}/followers?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<User>> getFollowers(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -309,7 +313,7 @@ public interface UserService {
      * @param limit       maximum number of items to return
      * @return a page of users followed by the user
      */
-    @RequestLine("GET /user/{userId}/followings?access_token={accessToken}&index={index}&limit={limit}")
+    @RequestLine("GET /user/{userId:\\d+|me}/followings?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<User>> getFollowings(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -326,7 +330,7 @@ public interface UserService {
      * @param limit       maximum number of items to return
      * @return a page of tracks from the user's listening history
      */
-    @RequestLine("GET /user/{userId}/history?access_token={accessToken}&index={index}&limit={limit}")
+    @RequestLine("GET /user/{userId:\\d+|me}/history?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Track>> getHistory(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -341,21 +345,21 @@ public interface UserService {
      * @param accessToken Deezer access token
      * @return user's options
      */
-    @RequestLine("GET /user/{userId}/options?access_token={accessToken}")
+    @RequestLine("GET /user/{userId:\\d+|me}/options?access_token={accessToken}")
     CompletableFuture<Options> getOptions(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken
     );
 
     /**
-     * Returns the user's {@link Permissions} granted to the application.
+     * Returns the user's {@link PermissionsResponse} granted to the application.
      *
      * @param userId      user ID
      * @param accessToken Deezer access token
      * @return user's permissions
      */
-    @RequestLine("GET /user/{userId}/permissions?access_token={accessToken}")
-    CompletableFuture<Permissions> getPermissions(
+    @RequestLine("GET /user/{userId:\\d+|me}/permissions?access_token={accessToken}")
+    CompletableFuture<PermissionsResponse> getPermissions(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken
     );
@@ -369,7 +373,7 @@ public interface UserService {
      * @param limit       maximum number of items to return
      * @return a page of the user's personal songs
      */
-    @RequestLine("GET /user/{userId}/personal_songs?access_token={accessToken}&index={index}&limit={limit}")
+    @RequestLine("GET /user/{userId:\\d+|me}/personal_songs?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Track>> getPersonalSongs(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -386,7 +390,7 @@ public interface UserService {
      * @param limit       maximum number of items to return
      * @return a page of playlists
      */
-    @RequestLine("GET /user/{userId}/charts/playlists?access_token={accessToken}&index={index}&limit={limit}")
+    @RequestLine("GET /user/{userId:\\d+|me}/charts/playlists?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Playlist>> getPlaylistChart(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -403,7 +407,8 @@ public interface UserService {
      * @param limit       maximum number of items to return
      * @return a page of playlist recommendations
      */
-    @RequestLine("GET /user/{userId}/recommendations/playlists?access_token={accessToken}&index={index}&limit={limit}")
+    @RequestLine("GET "
+            + "/user/{userId:\\d+|me}/recommendations/playlists?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Playlist>> getPlaylistRecommendations(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -420,7 +425,7 @@ public interface UserService {
      * @param limit       maximum number of items to return
      * @return a page of playlists
      */
-    @RequestLine("GET /user/{userId}/playlists?access_token={accessToken}&index={index}&limit={limit}")
+    @RequestLine("GET /user/{userId:\\d+|me}/playlists?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Playlist>> getPlaylists(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -437,7 +442,9 @@ public interface UserService {
      * @param limit       maximum number of items to return
      * @return a page of radio recommendations
      */
-    @RequestLine("GET /user/{userId}/recommendations/radios?access_token={accessToken}&index={index}&limit={limit}")
+    @RequestLine(
+            "GET /user/{userId:\\d+|me}/recommendations/radios?access_token={accessToken}&index={index}&limit={limit}"
+    )
     CompletableFuture<Page<Radio>> getRadioRecommendations(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -454,7 +461,7 @@ public interface UserService {
      * @param limit       maximum number of items to return
      * @return a page of radios
      */
-    @RequestLine("GET /user/{userId}/radios?access_token={accessToken}&index={index}&limit={limit}")
+    @RequestLine("GET /user/{userId:\\d+|me}/radios?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Radio>> getRadios(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -471,7 +478,9 @@ public interface UserService {
      * @param limit       maximum number of items to return
      * @return a page of release recommendations
      */
-    @RequestLine("GET /user/{userId}/recommendations/releases?access_token={accessToken}&index={index}&limit={limit}")
+    @RequestLine(
+            "GET /user/{userId:\\d+|me}/recommendations/releases?access_token={accessToken}&index={index}&limit={limit}"
+    )
     CompletableFuture<Page<Album>> getReleaseRecommendations(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -488,7 +497,7 @@ public interface UserService {
      * @param limit       maximum number of items to return
      * @return a page of tracks
      */
-    @RequestLine("GET /user/{userId}/charts/tracks?access_token={accessToken}&index={index}&limit={limit}")
+    @RequestLine("GET /user/{userId:\\d+|me}/charts/tracks?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Track>> getTrackChart(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -503,7 +512,7 @@ public interface UserService {
      * @param accessToken Deezer access token
      * @return a page of track recommendations
      */
-    @RequestLine("GET /user/{userId}/recommendations/tracks?access_token={accessToken}")
+    @RequestLine("GET /user/{userId:\\d+|me}/recommendations/tracks?access_token={accessToken}")
     CompletableFuture<Page<Track>> getTrackRecommendations(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken
@@ -518,7 +527,7 @@ public interface UserService {
      * @param limit       maximum number of items to return
      * @return a page of tracks
      */
-    @RequestLine("GET /user/{userId}/tracks?access_token={accessToken}&index={index}&limit={limit}")
+    @RequestLine("GET /user/{userId:\\d+|me}/tracks?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Track>> getTracks(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -533,7 +542,7 @@ public interface UserService {
      * @param accessToken Deezer access token
      * @return user information
      */
-    @RequestLine("GET /user/{userId}?access_token={accessToken}")
+    @RequestLine("GET /user/{userId:\\d+|me}?access_token={accessToken}")
     CompletableFuture<User> getUser(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken
@@ -548,7 +557,7 @@ public interface UserService {
      * @param limit       maximum number of items to return
      * @return a page of albums
      */
-    @RequestLine("GET /user/{userId}/albums?access_token={accessToken}&index={index}&limit={limit}")
+    @RequestLine("GET /user/{userId:\\d+|me}/albums?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Album>> getUserAlbums(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -564,7 +573,7 @@ public interface UserService {
      * @param albumId     the id of the album to delete
      * @return {@code true} if the album was deleted successfully
      */
-    @RequestLine("DELETE /user/{userId}/albums?access_token={accessToken}&album_id={albumId}")
+    @RequestLine("DELETE /user/{userId:\\d+|me}/albums?access_token={accessToken}&album_id={albumId}")
     CompletableFuture<Boolean> removeAlbum(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -579,7 +588,7 @@ public interface UserService {
      * @param artistId    the id of the artist to delete
      * @return {@code true} if the artist was deleted successfully
      */
-    @RequestLine("DELETE /user/{userId}/artists?access_token={accessToken}&artist_id={artistId}")
+    @RequestLine("DELETE /user/{userId:\\d+|me}/artists?access_token={accessToken}&artist_id={artistId}")
     CompletableFuture<Boolean> removeArtist(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -594,7 +603,7 @@ public interface UserService {
      * @param playlistId  the id of the playlist to delete
      * @return {@code true} if the playlist was deleted successfully
      */
-    @RequestLine("DELETE /user/{userId}/playlists?access_token={accessToken}&playlist_id={playlistId}")
+    @RequestLine("DELETE /user/{userId:\\d+|me}/playlists?access_token={accessToken}&playlist_id={playlistId}")
     CompletableFuture<Boolean> removePlaylist(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -609,7 +618,7 @@ public interface UserService {
      * @param podcastId   the id of the podcast to delete
      * @return {@code true} if the podcast was deleted successfully
      */
-    @RequestLine("DELETE /user/{userId}/podcasts?access_token={accessToken}&podcast_id={podcastId}")
+    @RequestLine("DELETE /user/{userId:\\d+|me}/podcasts?access_token={accessToken}&podcast_id={podcastId}")
     CompletableFuture<Boolean> removePodcast(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -624,7 +633,7 @@ public interface UserService {
      * @param radioId     the id of the radio to delete
      * @return {@code true} if the radio was deleted successfully
      */
-    @RequestLine("DELETE /user/{userId}/radios?access_token={accessToken}&radio_id={radioId}")
+    @RequestLine("DELETE /user/{userId:\\d+|me}/radios?access_token={accessToken}&radio_id={radioId}")
     CompletableFuture<Boolean> removeRadio(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -639,7 +648,7 @@ public interface UserService {
      * @param trackId     the id of the track to delete
      * @return {@code true} if the track was deleted successfully
      */
-    @RequestLine("DELETE /user/{userId}/tracks?access_token={accessToken}&track_id={trackId}")
+    @RequestLine("DELETE /user/{userId:\\d+|me}/tracks?access_token={accessToken}&track_id={trackId}")
     CompletableFuture<Boolean> removeTrack(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
@@ -654,7 +663,7 @@ public interface UserService {
      * @param followeeId  the user ID to unfollow
      * @return {@code true} if the user was unfollowed successfully
      */
-    @RequestLine("DELETE /user/{userId}/followings?access_token={accessToken}&user_id={followeeId}")
+    @RequestLine("DELETE /user/{userId:\\d+|me}/followings?access_token={accessToken}&user_id={followeeId}")
     CompletableFuture<Boolean> unfollowUser(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
