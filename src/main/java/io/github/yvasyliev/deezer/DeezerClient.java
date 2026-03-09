@@ -5,6 +5,7 @@ import feign.form.FormEncoder;
 import io.github.yvasyliev.deezer.authorization.AccessTokenProvider;
 import io.github.yvasyliev.deezer.authorization.AccessTokenSupplier;
 import io.github.yvasyliev.deezer.authorization.TokenManager;
+import io.github.yvasyliev.deezer.databind.deser.PageDeserializerModifier;
 import io.github.yvasyliev.deezer.databind.util.ZeroToNullLocalDateConverter;
 import io.github.yvasyliev.deezer.factory.AlbumRequestFactory;
 import io.github.yvasyliev.deezer.factory.ArtistRequestFactory;
@@ -32,7 +33,6 @@ import io.github.yvasyliev.deezer.feign.decoder.DeezerDecoder;
 import io.github.yvasyliev.deezer.feign.decoder.DefaultDeserializer;
 import io.github.yvasyliev.deezer.feign.decoder.ErrorDeserializer;
 import io.github.yvasyliev.deezer.feign.decoder.HeadersValidator;
-import io.github.yvasyliev.deezer.feign.decoder.OptionalDeserializer;
 import io.github.yvasyliev.deezer.feign.decoder.StatusValidator;
 import io.github.yvasyliev.deezer.model.AccessToken;
 import io.github.yvasyliev.deezer.model.Infos;
@@ -187,11 +187,14 @@ public class DeezerClient {
         var mapper = Objects.requireNonNullElseGet(
                 jsonMapper,
                 () -> JsonMapper.builder()
-                        .addModule(new SimpleModule().addDeserializer(
-                                LocalDate.class,
-                                new StdConvertingDeserializer<>(new ZeroToNullLocalDateConverter()))
-                        )
                         .enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
+                        .addModule(new SimpleModule("deezer-api")
+                                .setDeserializerModifier(new PageDeserializerModifier())
+                                .addDeserializer(
+                                        LocalDate.class,
+                                        new StdConvertingDeserializer<>(new ZeroToNullLocalDateConverter())
+                                )
+                        )
                         .build()
         );
 
@@ -204,7 +207,7 @@ public class DeezerClient {
                 )))
                 .jsonNodeDeserializers(new ArrayList<>(List.of(
                         new ErrorDeserializer(mapper),
-                        new OptionalDeserializer(mapper),
+//                        new OptionalDeserializer(mapper),
                         new DefaultDeserializer(mapper)
                 )))
                 .jsonMapper(mapper);

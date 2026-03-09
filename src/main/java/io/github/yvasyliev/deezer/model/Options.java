@@ -22,7 +22,7 @@ import java.time.Duration;
  */
 public record Options(
         @JsonProperty("streaming") Boolean streaming,
-        @JsonProperty("streaming_duration") Duration streamingDuration, //TODO: deserialize
+        @JsonProperty("streaming_duration") Duration streamingDuration,
         @JsonProperty("offline") Boolean offline,
         @JsonProperty("hq") Boolean hq,
         @JsonProperty("ads_display") Boolean adsDisplay,

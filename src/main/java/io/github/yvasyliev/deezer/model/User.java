@@ -40,7 +40,7 @@ public record User(
         @JsonProperty("lastname") String lastname,
         @JsonProperty("firstname") String firstname,
         @JsonProperty("email") String email,
-        @JsonProperty("status") Integer status, //TODO: what are the values?
+        @JsonProperty("status") Integer status,
         @JsonProperty("birthday") LocalDate birthday,
         @JsonProperty("inscription_date") LocalDate inscriptionDate,
         @JsonProperty("gender") Gender gender,
