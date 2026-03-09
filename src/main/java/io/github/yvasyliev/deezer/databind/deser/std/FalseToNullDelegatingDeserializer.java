@@ -7,14 +7,14 @@ import tools.jackson.databind.DeserializationContext;
 import tools.jackson.databind.ValueDeserializer;
 import tools.jackson.databind.deser.std.DelegatingDeserializer;
 
-public class PageDelegatingDeserializer extends DelegatingDeserializer {
-    public PageDelegatingDeserializer(ValueDeserializer<?> d) {
+public class FalseToNullDelegatingDeserializer extends DelegatingDeserializer {
+    public FalseToNullDelegatingDeserializer(ValueDeserializer<?> d) {
         super(d);
     }
 
     @Override
     protected ValueDeserializer<?> newDelegatingInstance(ValueDeserializer<?> newDelegatee) {
-        return new PageDelegatingDeserializer(newDelegatee);
+        return new FalseToNullDelegatingDeserializer(newDelegatee);
     }
 
     @Override

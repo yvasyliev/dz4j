@@ -207,7 +207,6 @@ public class DeezerClient {
                 )))
                 .jsonNodeDeserializers(new ArrayList<>(List.of(
                         new ErrorDeserializer(mapper),
-//                        new OptionalDeserializer(mapper),
                         new DefaultDeserializer(mapper)
                 )))
                 .jsonMapper(mapper);

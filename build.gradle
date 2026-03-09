@@ -24,11 +24,13 @@ dependencies {
     api 'io.github.openfeign:feign-form'
     api 'tools.jackson.core:jackson-databind'
 
-    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation platform('org.junit:junit-bom:6.0.3')
     testImplementation platform('org.mockito:mockito-bom:5.22.0')
+    testImplementation platform('org.assertj:assertj-bom:3.27.7')
 
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'org.mockito:mockito-junit-jupiter'
+    testImplementation 'org.assertj:assertj-core'
 
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

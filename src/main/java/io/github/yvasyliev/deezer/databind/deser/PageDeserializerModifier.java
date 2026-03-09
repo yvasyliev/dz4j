@@ -1,6 +1,6 @@
 package io.github.yvasyliev.deezer.databind.deser;
 
-import io.github.yvasyliev.deezer.databind.deser.std.PageDelegatingDeserializer;
+import io.github.yvasyliev.deezer.databind.deser.std.FalseToNullDelegatingDeserializer;
 import io.github.yvasyliev.deezer.model.Page;
 import tools.jackson.databind.BeanDescription;
 import tools.jackson.databind.DeserializationConfig;
@@ -15,7 +15,7 @@ public class PageDeserializerModifier extends ValueDeserializerModifier {
             ValueDeserializer<?> deserializer
     ) {
         return Page.class.isAssignableFrom(beanDescRef.get().getBeanClass())
-                ? new PageDelegatingDeserializer(deserializer)
+                ? new FalseToNullDelegatingDeserializer(deserializer)
                 : super.modifyDeserializer(config, beanDescRef, deserializer);
     }
 }

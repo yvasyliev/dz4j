@@ -95,7 +95,7 @@ public interface PlaylistService {
      * @param limit      the maximum number of objects to return
      * @return list of recommendation tracks for the playlist
      */
-    @RequestLine("GET /playlist/{playlistId}/radio?index={index}&limit={limit}")//TODO: Deserializer
+    @RequestLine("GET /playlist/{playlistId}/radio?index={index}&limit={limit}")
     CompletableFuture<Optional<Page<Track>>> getRadio(
             @Param("playlistId") long playlistId,
             @Param("index") Integer index,
