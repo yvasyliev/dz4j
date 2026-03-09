@@ -13,9 +13,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,9 +35,9 @@ class ArtistRequestFactoryTest {
 
         when(artistService.getAlbums(artistId, index, limit)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = artistRequestFactory.getAlbums(artistId).index(index).limit(limit).execute();
+        var actual = artistRequestFactory.getAlbums(artistId).index(index).limit(limit).executeAsync();
 
-        assertEquals(expected, actual);
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
     }
 
     @Test
@@ -46,9 +47,9 @@ class ArtistRequestFactoryTest {
 
         when(artistService.getArtist(artistId)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = artistRequestFactory.getArtist(artistId).execute();
+        var actual = artistRequestFactory.getArtist(artistId).executeAsync();
 
-        assertEquals(expected, actual);
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
     }
 
     @Test
@@ -62,9 +63,9 @@ class ArtistRequestFactoryTest {
 
         when(artistService.getFans(artistId, index, limit)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = artistRequestFactory.getFans(artistId).index(index).limit(limit).execute();
+        var actual = artistRequestFactory.getFans(artistId).index(index).limit(limit).executeAsync();
 
-        assertEquals(expected, actual);
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
     }
 
     @Test
@@ -79,9 +80,9 @@ class ArtistRequestFactoryTest {
         when(artistService.getPlaylists(artistId, index, limit)).thenReturn(
                 CompletableFuture.completedFuture(expected));
 
-        var actual = artistRequestFactory.getPlaylists(artistId).index(index).limit(limit).execute();
+        var actual = artistRequestFactory.getPlaylists(artistId).index(index).limit(limit).executeAsync();
 
-        assertEquals(expected, actual);
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
     }
 
     @Test
@@ -95,9 +96,9 @@ class ArtistRequestFactoryTest {
 
         when(artistService.getRadio(artistId, index, limit)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = artistRequestFactory.getRadio(artistId).index(index).limit(limit).execute();
+        var actual = artistRequestFactory.getRadio(artistId).index(index).limit(limit).executeAsync();
 
-        assertEquals(expected, actual);
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
     }
 
     @Test
@@ -111,9 +112,9 @@ class ArtistRequestFactoryTest {
 
         when(artistService.getRelated(artistId, index, limit)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = artistRequestFactory.getRelated(artistId).index(index).limit(limit).execute();
+        var actual = artistRequestFactory.getRelated(artistId).index(index).limit(limit).executeAsync();
 
-        assertEquals(expected, actual);
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
     }
 
     @Test
@@ -127,8 +128,8 @@ class ArtistRequestFactoryTest {
 
         when(artistService.getTop(artistId, index, limit)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = artistRequestFactory.getTop(artistId).index(index).limit(limit).execute();
+        var actual = artistRequestFactory.getTop(artistId).index(index).limit(limit).executeAsync();
 
-        assertEquals(expected, actual);
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
     }
 }

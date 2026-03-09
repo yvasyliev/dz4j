@@ -7,9 +7,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -33,12 +34,12 @@ class AccessTokenSupplierTest {
     }
 
     private void testGet(AccessTokenProvider accessTokenProvider) {
-        var expected = CompletableFuture.completedFuture(mock(AccessToken.class));
+        var expected = mock(AccessToken.class);
 
-        when(accessTokenProvider.getAccessToken()).thenReturn(expected);
+        when(accessTokenProvider.getAccessToken()).thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = accessTokenSupplier.get();
 
-        assertEquals(expected, actual);
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
     }
 }

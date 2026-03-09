@@ -14,9 +14,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -35,9 +36,9 @@ class ChartRequestFactoryTest {
 
         when(chartService.getAlbumsChart(genreId, index, limit)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = chartRequestFactory.getAlbumsChart(genreId).index(index).limit(limit).execute();
+        var actual = chartRequestFactory.getAlbumsChart(genreId).index(index).limit(limit).executeAsync();
 
-        assertEquals(expected, actual);
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
     }
 
     @Test
@@ -51,9 +52,9 @@ class ChartRequestFactoryTest {
 
         when(chartService.getArtistsChart(genreId, index, limit)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = chartRequestFactory.getArtistsChart(genreId).index(index).limit(limit).execute();
+        var actual = chartRequestFactory.getArtistsChart(genreId).index(index).limit(limit).executeAsync();
 
-        assertEquals(expected, actual);
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
     }
 
     @Test
@@ -67,9 +68,9 @@ class ChartRequestFactoryTest {
 
         when(chartService.getChart(genreId, index, limit)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = chartRequestFactory.getChart(genreId).index(index).limit(limit).execute();
+        var actual = chartRequestFactory.getChart(genreId).index(index).limit(limit).executeAsync();
 
-        assertEquals(expected, actual);
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
     }
 
     @Test
@@ -83,9 +84,9 @@ class ChartRequestFactoryTest {
 
         when(chartService.getPlaylistsChart(genreId, index, limit)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = chartRequestFactory.getPlaylistsChart(genreId).index(index).limit(limit).execute();
+        var actual = chartRequestFactory.getPlaylistsChart(genreId).index(index).limit(limit).executeAsync();
 
-        assertEquals(expected, actual);
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
     }
 
     @Test
@@ -99,9 +100,9 @@ class ChartRequestFactoryTest {
 
         when(chartService.getPodcastsChart(genreId, index, limit)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = chartRequestFactory.getPodcastsChart(genreId).index(index).limit(limit).execute();
+        var actual = chartRequestFactory.getPodcastsChart(genreId).index(index).limit(limit).executeAsync();
 
-        assertEquals(expected, actual);
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
     }
 
     @Test
@@ -115,9 +116,9 @@ class ChartRequestFactoryTest {
 
         when(chartService.getTracksChart(genreId, index, limit)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = chartRequestFactory.getTracksChart(genreId).index(index).limit(limit).execute();
+        var actual = chartRequestFactory.getTracksChart(genreId).index(index).limit(limit).executeAsync();
 
-        assertEquals(expected, actual);
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
     }
 }
 

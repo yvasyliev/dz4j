@@ -12,9 +12,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -32,9 +33,9 @@ class EditorialRequestFactoryTest {
 
         when(editorialService.getEditorials(index, limit)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = editorialRequestFactory.getEditorials().index(index).limit(limit).execute();
+        var actual = editorialRequestFactory.getEditorials().index(index).limit(limit).executeAsync();
 
-        assertEquals(expected, actual);
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
     }
 
     @Test
@@ -44,9 +45,9 @@ class EditorialRequestFactoryTest {
 
         when(editorialService.getEditorial(genreId)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = editorialRequestFactory.getEditorial(genreId).execute();
+        var actual = editorialRequestFactory.getEditorial(genreId).executeAsync();
 
-        assertEquals(expected, actual);
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
     }
 
     @Test
@@ -58,9 +59,9 @@ class EditorialRequestFactoryTest {
 
         when(editorialService.getEditorialSelection(genreId)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = editorialRequestFactory.getEditorialSelection(genreId).execute();
+        var actual = editorialRequestFactory.getEditorialSelection(genreId).executeAsync();
 
-        assertEquals(expected, actual);
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
     }
 
     @Test
@@ -74,9 +75,9 @@ class EditorialRequestFactoryTest {
 
         when(editorialService.getEditorialReleases(genreId, index, limit)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = editorialRequestFactory.getEditorialReleases(genreId).index(index).limit(limit).execute();
+        var actual = editorialRequestFactory.getEditorialReleases(genreId).index(index).limit(limit).executeAsync();
 
-        assertEquals(expected, actual);
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
     }
 
     @Test
@@ -93,9 +94,9 @@ class EditorialRequestFactoryTest {
 
         when(editorialService.getEditorialCharts(genreId, index, limit)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = editorialRequestFactory.getEditorialCharts(genreId).index(index).limit(limit).execute();
+        var actual = editorialRequestFactory.getEditorialCharts(genreId).index(index).limit(limit).executeAsync();
 
-        assertEquals(expected, actual);
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
     }
 }
 

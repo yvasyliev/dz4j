@@ -6,14 +6,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -36,8 +36,7 @@ class TokenManagerTest {
 
         var actual = tokenManager.getToken();
 
-        assertNotNull(actual);
-        assertEquals(expected, actual.join());
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
     }
 
     @Test
@@ -55,8 +54,7 @@ class TokenManagerTest {
 
         var actual = tokenManager.getToken();
 
-        assertNotNull(actual);
-        assertEquals(expected, actual.join());
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
     }
 
     @Test
@@ -74,8 +72,7 @@ class TokenManagerTest {
 
         var actual = tokenManager.getToken();
 
-        assertNotNull(actual);
-        assertEquals(expected, actual.join());
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
         verify(tokenSupplier, times(1)).get();
     }
 
@@ -95,8 +92,7 @@ class TokenManagerTest {
 
         var actual = tokenManager.getToken();
 
-        assertNotNull(actual);
-        assertEquals(expected, actual.join());
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
         verify(tokenSupplier, times(1)).get();
     }
 }

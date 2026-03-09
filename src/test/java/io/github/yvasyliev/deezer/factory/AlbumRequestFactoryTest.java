@@ -11,9 +11,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,9 +29,9 @@ class AlbumRequestFactoryTest {
 
         when(albumService.getAlbum(albumId)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = albumRequestFactory.getAlbum(albumId).execute();
+        var actual = albumRequestFactory.getAlbum(albumId).executeAsync();
 
-        assertEquals(expected, actual);
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
     }
 
     @Test
@@ -44,9 +45,9 @@ class AlbumRequestFactoryTest {
 
         when(albumService.getAlbumFans(albumId, index, limit)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = albumRequestFactory.getAlbumFans(albumId).index(index).limit(limit).execute();
+        var actual = albumRequestFactory.getAlbumFans(albumId).index(index).limit(limit).executeAsync();
 
-        assertEquals(expected, actual);
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
     }
 
     @Test
@@ -60,8 +61,8 @@ class AlbumRequestFactoryTest {
 
         when(albumService.getAlbumTracks(albumId, index, limit)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = albumRequestFactory.getAlbumTracks(albumId).index(index).limit(limit).execute();
+        var actual = albumRequestFactory.getAlbumTracks(albumId).index(index).limit(limit).executeAsync();
 
-        assertEquals(expected, actual);
+        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
     }
 }
