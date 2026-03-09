@@ -5,6 +5,7 @@ import feign.form.FormEncoder;
 import io.github.yvasyliev.deezer.authorization.AccessTokenProvider;
 import io.github.yvasyliev.deezer.authorization.AccessTokenSupplier;
 import io.github.yvasyliev.deezer.authorization.TokenManager;
+import io.github.yvasyliev.deezer.databind.util.ZeroToNullLocalDateConverter;
 import io.github.yvasyliev.deezer.factory.AlbumRequestFactory;
 import io.github.yvasyliev.deezer.factory.ArtistRequestFactory;
 import io.github.yvasyliev.deezer.factory.ChartRequestFactory;
@@ -59,9 +60,12 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.deser.std.StdConvertingDeserializer;
 import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.module.SimpleModule;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -180,13 +184,16 @@ public class DeezerClient {
             Consumer<DeezerContract.DeezerContractBuilder> contractCustomizer,
             Consumer<AsyncFeign.AsyncBuilder<Object>> feignCustomizer
     ) {
-        var mapper = Objects.requireNonNullElseGet(jsonMapper, JsonMapper::new);
-
-        if (!mapper.isEnabled(DeserializationFeature.UNWRAP_ROOT_VALUE)) {
-            throw new IllegalArgumentException(
-                    "DeserializationFeature.UNWRAP_ROOT_VALUE must be enabled in the provided JsonMapper"
-            );
-        }
+        var mapper = Objects.requireNonNullElseGet(
+                jsonMapper,
+                () -> JsonMapper.builder()
+                        .addModule(new SimpleModule().addDeserializer(
+                                LocalDate.class,
+                                new StdConvertingDeserializer<>(new ZeroToNullLocalDateConverter()))
+                        )
+                        .enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
+                        .build()
+        );
 
         var decoder = DeezerDecoder.builder()
                 .responseValidators(new ArrayList<>(List.of(

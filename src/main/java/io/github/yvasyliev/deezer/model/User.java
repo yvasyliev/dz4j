@@ -41,7 +41,7 @@ public record User(
         @JsonProperty("firstname") String firstname,
         @JsonProperty("email") String email,
         @JsonProperty("status") Integer status, //TODO: what are the values?
-        @JsonProperty("birthday") LocalDate birthday, // TODO: handle 0000-00-00 date
+        @JsonProperty("birthday") LocalDate birthday,
         @JsonProperty("inscription_date") LocalDate inscriptionDate,
         @JsonProperty("gender") Gender gender,
         @JsonProperty("link") URL link,
@@ -53,7 +53,30 @@ public record User(
         @JsonProperty("country") Country country,
         @JsonProperty("lang") String lang,
         @JsonProperty("is_kid") Boolean isKid,
-        @JsonProperty("explicit_content_level") ExplicitContent explicitContentLevel,
-        @JsonProperty("explicit_content_levels_available") EnumSet<ExplicitContent> explicitContentLevelsAvailable,
+        @JsonProperty("explicit_content_level") ExplicitContentLevel explicitContentLevel,
+        @JsonProperty("explicit_content_levels_available") EnumSet<ExplicitContentLevel> explicitContentLevelsAvailable,
         @JsonProperty("tracklist") URL tracklist
-) {}
+) {
+    /**
+     * The user's explicit content level.
+     */
+    public enum ExplicitContentLevel {
+        /**
+         * Explicit content is displayed.
+         */
+        @JsonProperty("explicit_display")
+        EXPLICIT_DISPLAY,
+
+        /**
+         * No explicit content recommendation.
+         */
+        @JsonProperty("explicit_no_recommendation")
+        EXPLICIT_NO_RECOMMENDATION,
+
+        /**
+         * Explicit content is hidden.
+         */
+        @JsonProperty("explicit_hide")
+        EXPLICIT_HIDE
+    }
+}

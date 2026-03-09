@@ -61,7 +61,7 @@ public record Track(
         @JsonProperty("track_position") Integer trackPosition,
         @JsonProperty("disk_number") Integer diskNumber,
         @JsonProperty("rank") Integer rank,
-        @JsonProperty("release_date") LocalDate releaseDate, //TODO: deserializer
+        @JsonProperty("release_date") LocalDate releaseDate,
         @JsonProperty("explicit_lyrics") Boolean explicitLyrics,
         @JsonProperty("explicit_content_lyrics") ExplicitContent explicitContentLyrics,
         @JsonProperty("explicit_content_cover") ExplicitContent explicitContentCover,
