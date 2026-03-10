@@ -1,0 +1,33 @@
+package io.github.yvasyliev.deezer.feign.decoder;
+
+import feign.Response;
+import io.github.yvasyliev.deezer.exception.ResponseException;
+import lombok.Cleanup;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+
+class BodyValidatorTest {
+    private static final ResponseValidator VALIDATOR = new BodyValidator();
+
+    @Test
+    void shouldPassValidation() {
+        @Cleanup var response = Response.builder()
+                .request(mock())
+                .body(mock(Response.Body.class))
+                .build();
+
+        assertDoesNotThrow(() -> VALIDATOR.validate(response, null));
+    }
+
+    @Test
+    void shouldFailValidation() {
+        @Cleanup var response = Response.builder()
+                .request(mock())
+                .build();
+
+        assertThrows(ResponseException.class, () -> VALIDATOR.validate(response, null));
+    }
+}

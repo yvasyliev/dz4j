@@ -68,7 +68,9 @@ public class DeezerDecoder implements Decoder {
         }
 
         @Tolerate
-        public DeezerDecoderBuilder jsonNodeDeserializers(Consumer<List<JsonNodeDeserializer>> jsonNodeDeserializersCustomizer) {
+        public DeezerDecoderBuilder jsonNodeDeserializers(
+                Consumer<List<JsonNodeDeserializer>> jsonNodeDeserializersCustomizer
+        ) {
             jsonNodeDeserializersCustomizer.accept(jsonNodeDeserializers);
 
             return this;
