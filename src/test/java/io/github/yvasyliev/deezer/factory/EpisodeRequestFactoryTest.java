@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 class EpisodeRequestFactoryTest {
     @InjectMocks private EpisodeRequestFactory episodeRequestFactory;
     @Mock private EpisodeService episodeService;
-    @Mock TokenManager<AccessToken> accessTokenManager;
+    @Mock private TokenManager<AccessToken> accessTokenManager;
 
     @Test
     void testBookmarkEpisode() {

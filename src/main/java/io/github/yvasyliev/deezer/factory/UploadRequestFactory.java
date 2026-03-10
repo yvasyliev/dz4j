@@ -8,6 +8,7 @@ import io.github.yvasyliev.deezer.request.DeezerRequest;
 import io.github.yvasyliev.deezer.request.SimpleDeezerRequest;
 import io.github.yvasyliev.deezer.service.UploadService;
 import io.github.yvasyliev.deezer.util.QuadFunction;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.io.File;
@@ -37,11 +38,16 @@ public class UploadRequestFactory {
      * Creates a request to upload a cover image for the specified playlist.
      *
      * @param playlistId the playlist ID
-     * @param cover      the cover image file to upload
+     * @param cover      the cover image data to upload
+     * @param fileName   the name of the file being uploaded
      * @return a request that, when executed, will upload the cover image for the playlist
      */
-    public DeezerRequest<Boolean> uploadPlaylistCover(long playlistId, FormData cover) {
-        return uploadPlaylistCover(playlistId, cover, uploadService::uploadPlaylistCover);
+    public DeezerRequest<Boolean> uploadPlaylistCover(
+            long playlistId,
+            byte @NonNull [] cover,
+            @NonNull String fileName
+    ) {
+        return uploadPlaylistCover(playlistId, new FormData(null, fileName, cover), uploadService::uploadPlaylistCover);
     }
 
     private <T> DeezerRequest<Boolean> uploadPlaylistCover(
