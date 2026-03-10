@@ -11,10 +11,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,40 +28,36 @@ class AlbumRequestFactoryTest {
 
         when(albumService.getAlbum(albumId)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = albumRequestFactory.getAlbum(albumId).executeAsync();
+        var actual = albumRequestFactory.getAlbum(albumId).execute();
 
-        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
+        assertEquals(expected, actual);
     }
 
     @Test
     void testGetAlbumFans() {
         var albumId = 123L;
-        var index = 1;
-        var limit = 10;
         var expected = Page.<User>builder()
                 .data(User.builder().id(456L).build())
                 .build();
 
-        when(albumService.getAlbumFans(albumId, index, limit)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(albumService.getAlbumFans(albumId, null, null)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = albumRequestFactory.getAlbumFans(albumId).index(index).limit(limit).executeAsync();
+        var actual = albumRequestFactory.getAlbumFans(albumId).execute();
 
-        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
+        assertEquals(expected, actual);
     }
 
     @Test
     void testGetAlbumTracks() {
         var albumId = 123L;
-        var index = 1;
-        var limit = 10;
         var expected = Page.<Track>builder()
                 .data(Track.builder().id(456L).build())
                 .build();
 
-        when(albumService.getAlbumTracks(albumId, index, limit)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(albumService.getAlbumTracks(albumId, null, null)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = albumRequestFactory.getAlbumTracks(albumId).index(index).limit(limit).executeAsync();
+        var actual = albumRequestFactory.getAlbumTracks(albumId).execute();
 
-        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
+        assertEquals(expected, actual);
     }
 }

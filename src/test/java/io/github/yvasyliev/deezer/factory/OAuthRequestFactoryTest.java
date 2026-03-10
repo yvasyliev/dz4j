@@ -13,12 +13,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.net.MalformedURLException;
 import java.net.URI;
-import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -37,12 +37,12 @@ class OAuthRequestFactoryTest {
         var code = "test-code";
         var expected = new AccessToken("test-token", Instant.now().plusSeconds(3600));
 
-        when(oAuthService.getAccessTokenAsync(appId, secret, code)).thenReturn(
-                CompletableFuture.completedFuture(expected));
+        when(oAuthService.getAccessTokenAsync(appId, secret, code))
+                .thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = oAuthRequestFactory.getAccessToken(appId, secret, code).executeAsync();
+        var actual = oAuthRequestFactory.getAccessToken(appId, secret, code).execute();
 
-        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
+        assertEquals(expected, actual);
     }
 
     @Test

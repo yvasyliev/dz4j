@@ -10,10 +10,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,9 +29,9 @@ class InfosRequestFactoryTest {
         when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
         when(infosService.getInfos(token)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = infosRequestFactory.getInfos().executeAsync();
+        var actual = infosRequestFactory.getInfos().execute();
 
-        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
+        assertEquals(expected, actual);
     }
 }
 

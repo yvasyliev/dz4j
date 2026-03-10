@@ -11,10 +11,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,9 +33,9 @@ class EpisodeRequestFactoryTest {
         when(episodeService.bookmarkEpisode(episodeId, token, offset))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = episodeRequestFactory.bookmarkEpisode(episodeId, offset).executeAsync();
+        var actual = episodeRequestFactory.bookmarkEpisode(episodeId, offset).execute();
 
-        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -48,9 +47,9 @@ class EpisodeRequestFactoryTest {
         when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
         when(episodeService.getEpisode(episodeId, token)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = episodeRequestFactory.getEpisode(episodeId).executeAsync();
+        var actual = episodeRequestFactory.getEpisode(episodeId).execute();
 
-        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -63,8 +62,8 @@ class EpisodeRequestFactoryTest {
         when(episodeService.unbookmarkEpisode(episodeId, token))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = episodeRequestFactory.unbookmarkEpisode(episodeId).executeAsync();
+        var actual = episodeRequestFactory.unbookmarkEpisode(episodeId).execute();
 
-        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
+        assertEquals(expected, actual);
     }
 }

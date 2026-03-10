@@ -12,10 +12,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -25,17 +24,15 @@ class EditorialRequestFactoryTest {
 
     @Test
     void testGetEditorials() {
-        var index = 1;
-        var limit = 10;
         var expected = Page.<Editorial>builder()
                 .data(Editorial.builder().id(456L).build())
                 .build();
 
-        when(editorialService.getEditorials(index, limit)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(editorialService.getEditorials(null, null)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = editorialRequestFactory.getEditorials().index(index).limit(limit).executeAsync();
+        var actual = editorialRequestFactory.getEditorials().execute();
 
-        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -45,9 +42,9 @@ class EditorialRequestFactoryTest {
 
         when(editorialService.getEditorial(genreId)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = editorialRequestFactory.getEditorial(genreId).executeAsync();
+        var actual = editorialRequestFactory.getEditorial(genreId).execute();
 
-        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -59,32 +56,29 @@ class EditorialRequestFactoryTest {
 
         when(editorialService.getEditorialSelection(genreId)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = editorialRequestFactory.getEditorialSelection(genreId).executeAsync();
+        var actual = editorialRequestFactory.getEditorialSelection(genreId).execute();
 
-        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
+        assertEquals(expected, actual);
     }
 
     @Test
     void testGetEditorialReleases() {
         var genreId = 123L;
-        var index = 1;
-        var limit = 10;
         var expected = Page.<Album>builder()
                 .data(Album.builder().id(456L).build())
                 .build();
 
-        when(editorialService.getEditorialReleases(genreId, index, limit)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(editorialService.getEditorialReleases(genreId, null, null))
+                .thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = editorialRequestFactory.getEditorialReleases(genreId).index(index).limit(limit).executeAsync();
+        var actual = editorialRequestFactory.getEditorialReleases(genreId).execute();
 
-        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
+        assertEquals(expected, actual);
     }
 
     @Test
     void testGetEditorialCharts() {
         var genreId = 123L;
-        var index = 1;
-        var limit = 10;
         var expected = Page.<Chart>builder()
                 .data(Chart.builder()
                         .tracks(Page.<Track>builder().data(Track.builder().id(456L).build()).build())
@@ -92,11 +86,12 @@ class EditorialRequestFactoryTest {
                 )
                 .build();
 
-        when(editorialService.getEditorialCharts(genreId, index, limit)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(editorialService.getEditorialCharts(genreId, null, null))
+                .thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = editorialRequestFactory.getEditorialCharts(genreId).index(index).limit(limit).executeAsync();
+        var actual = editorialRequestFactory.getEditorialCharts(genreId).execute();
 
-        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
+        assertEquals(expected, actual);
     }
 }
 

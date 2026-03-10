@@ -1,11 +1,13 @@
 package io.github.yvasyliev.deezer.request;
 
+import io.github.yvasyliev.deezer.exception.DeezerException;
 import io.github.yvasyliev.deezer.model.OEmbed;
 import io.github.yvasyliev.deezer.service.OEmbedService;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.CompletableFuture;
 
@@ -13,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
 @Setter
 @Accessors(fluent = true)
 public class OEmbedDeezerRequest extends AbstractDeezerRequest<OEmbed> {
-    private final URL url;
+    private final String url;
     private final OEmbedService oEmbedService;
     private Boolean autoplay;
     private Integer maxWidth;
@@ -23,6 +25,10 @@ public class OEmbedDeezerRequest extends AbstractDeezerRequest<OEmbed> {
 
     @Override
     protected CompletableFuture<OEmbed> doExecuteAsync() {
-        return oEmbedService.getOEmbed(url, autoplay, maxWidth, maxHeight, radius, tracklist);
+        try {
+            return oEmbedService.getOEmbed(new URL(url), autoplay, maxWidth, maxHeight, radius, tracklist);
+        } catch (MalformedURLException e) {
+            return CompletableFuture.failedFuture(new DeezerException("Invalid URL", e));
+        }
     }
 }

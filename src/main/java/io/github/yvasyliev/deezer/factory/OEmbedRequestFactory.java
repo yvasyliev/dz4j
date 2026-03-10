@@ -1,12 +1,9 @@
 package io.github.yvasyliev.deezer.factory;
 
-import io.github.yvasyliev.deezer.model.OEmbed;
-import io.github.yvasyliev.deezer.request.DeezerRequest;
 import io.github.yvasyliev.deezer.request.OEmbedDeezerRequest;
 import io.github.yvasyliev.deezer.service.OEmbedService;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-
-import java.net.URL;
 
 /**
  * Factory for creating requests related to oEmbed information.
@@ -16,12 +13,66 @@ public class OEmbedRequestFactory {
     private final OEmbedService oEmbedService;
 
     /**
-     * Creates a request to get oEmbed information for a given URL.
+     * Creates a request to retrieve oEmbed information for an album.
      *
-     * @param url the URL to get oEmbed information for
-     * @return a request to get oEmbed information for the given URL
+     * @param albumId album ID
+     * @return a request to retrieve oEmbed information for the specified album
      */
-    public DeezerRequest<OEmbed> getOEmbed(URL url) {
-        return new OEmbedDeezerRequest(url, oEmbedService);
+    public OEmbedDeezerRequest getAlbumOEmbed(long albumId) {
+        return createDeezerRequest("https://www.deezer.com/album/", albumId);
+    }
+
+    /**
+     * Creates a request to retrieve oEmbed information for an episode.
+     *
+     * @param episodeId episode ID
+     * @return a request to retrieve oEmbed information for the specified episode
+     */
+    public OEmbedDeezerRequest getEpisodeOEmbed(long episodeId) {
+        return createDeezerRequest("https://www.deezer.com/episode/", episodeId);
+    }
+
+    /**
+     * Creates a request to retrieve oEmbed information for a playlist.
+     *
+     * @param playlistId playlist ID
+     * @return a request to retrieve oEmbed information for the specified playlist
+     */
+    public OEmbedDeezerRequest getPlaylistOEmbed(long playlistId) {
+        return createDeezerRequest("https://www.deezer.com/playlist/", playlistId);
+    }
+
+    /**
+     * Creates a request to retrieve oEmbed information for a show.
+     *
+     * @param showId show ID
+     * @return a request to retrieve oEmbed information for the specified show
+     */
+    public OEmbedDeezerRequest getShowOEmbed(long showId) {
+        return createDeezerRequest("https://www.deezer.com/show/", showId);
+    }
+
+    /**
+     * Creates a request to retrieve oEmbed information for a track.
+     *
+     * @param trackId track ID
+     * @return a request to retrieve oEmbed information for the specified track
+     */
+    public OEmbedDeezerRequest getTrackOEmbed(long trackId) {
+        return createDeezerRequest("https://www.deezer.com/track/", trackId);
+    }
+
+    /**
+     * Creates a request to retrieve oEmbed information for a page.
+     *
+     * @param pageId page ID
+     * @return a request to retrieve oEmbed information for the specified page
+     */
+    public OEmbedDeezerRequest getPageOEmbed(@NonNull String pageId) {
+        return createDeezerRequest("https://deezer.page.link/", pageId);
+    }
+
+    private <T> OEmbedDeezerRequest createDeezerRequest(String baseUrl, T id) {
+        return new OEmbedDeezerRequest(baseUrl + id, oEmbedService);
     }
 }

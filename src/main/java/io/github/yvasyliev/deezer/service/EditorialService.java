@@ -20,7 +20,7 @@ public interface EditorialService {
      * @return a list of editorials for the current country
      */
     @RequestLine("GET /editorial?index={index}&limit={limit}")
-    CompletableFuture<Page<Editorial>> getEditorials(@Param("index") int index, @Param("limit") int limit);
+    CompletableFuture<Page<Editorial>> getEditorials(@Param("index") Integer index, @Param("limit") Integer limit);
 
     /**
      * Returns an editorial for a specific genre.
@@ -51,8 +51,8 @@ public interface EditorialService {
     @RequestLine("GET /editorial/{genreId}/releases?index={index}&limit={limit}")
     CompletableFuture<Page<Album>> getEditorialReleases(
             @Param("genreId") long genreId,
-            @Param("index") int index,
-            @Param("limit") int limit
+            @Param("index") Integer index,
+            @Param("limit") Integer limit
     );
 
     /**
@@ -66,7 +66,7 @@ public interface EditorialService {
     @RequestLine("GET /editorial/{genreId}/charts?index={index}&limit={limit}")
     CompletableFuture<Page<Chart>> getEditorialCharts(
             @Param("genreId") long genreId,
-            @Param("index") int index,
-            @Param("limit") int limit
+            @Param("index") Integer index,
+            @Param("limit") Integer limit
     );
 }

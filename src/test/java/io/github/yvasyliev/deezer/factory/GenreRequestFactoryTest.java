@@ -11,10 +11,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -31,9 +30,9 @@ class GenreRequestFactoryTest {
 
         when(genreService.getArtists(genreId)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = genreRequestFactory.getArtists(genreId).executeAsync();
+        var actual = genreRequestFactory.getArtists(genreId).execute();
 
-        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -43,9 +42,9 @@ class GenreRequestFactoryTest {
 
         when(genreService.getGenre(genreId)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = genreRequestFactory.getGenre(genreId).executeAsync();
+        var actual = genreRequestFactory.getGenre(genreId).execute();
 
-        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -56,9 +55,9 @@ class GenreRequestFactoryTest {
 
         when(genreService.getGenres()).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = genreRequestFactory.getGenres().executeAsync();
+        var actual = genreRequestFactory.getGenres().execute();
 
-        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -70,8 +69,8 @@ class GenreRequestFactoryTest {
 
         when(genreService.getRadios(genreId)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = genreRequestFactory.getRadios(genreId).executeAsync();
+        var actual = genreRequestFactory.getRadios(genreId).execute();
 
-        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
+        assertEquals(expected, actual);
     }
 }
