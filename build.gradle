@@ -1,6 +1,7 @@
 plugins {
     id 'java-library'
     id 'io.freefair.lombok' version '9.1.0'
+    id 'jacoco'
 }
 
 group = 'io.github.yvasyliev.deezer'
@@ -37,4 +38,12 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+    }
 }
