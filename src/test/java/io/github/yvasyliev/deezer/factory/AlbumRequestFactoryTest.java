@@ -42,13 +42,13 @@ class AlbumRequestFactoryTest {
 
         when(albumService.getAlbumFans(albumId, null, null)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = albumRequestFactory.getAlbumFans(albumId).execute();
+        var actual = albumRequestFactory.getFans(albumId).execute();
 
         assertEquals(expected, actual);
     }
 
     @Test
-    void testGetAlbumTracks() {
+    void testGetTracks() {
         var albumId = 123L;
         var expected = Page.<Track>builder()
                 .data(Track.builder().id(456L).build())
@@ -56,7 +56,7 @@ class AlbumRequestFactoryTest {
 
         when(albumService.getAlbumTracks(albumId, null, null)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = albumRequestFactory.getAlbumTracks(albumId).execute();
+        var actual = albumRequestFactory.getTracks(albumId).execute();
 
         assertEquals(expected, actual);
     }

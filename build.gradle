@@ -18,32 +18,75 @@ repositories {
 }
 
 dependencies {
-    implementation platform('io.github.openfeign:feign-bom:13.6')
+    api platform('io.github.openfeign:feign-bom:13.6')
     implementation platform('tools.jackson:jackson-bom:3.0.3')
 
     api 'io.github.openfeign:feign-core'
     api 'io.github.openfeign:feign-form'
     api 'tools.jackson.core:jackson-databind'
-
-    testImplementation platform('org.junit:junit-bom:6.0.3')
-    testImplementation platform('org.mockito:mockito-bom:5.22.0')
-    testImplementation platform('org.assertj:assertj-bom:3.27.7')
-
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    testImplementation 'org.mockito:mockito-junit-jupiter'
-    testImplementation 'org.assertj:assertj-core'
-
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
-test {
-    useJUnitPlatform()
-    finalizedBy jacocoTestReport
+testing {
+    suites {
+        configureEach {
+            useJUnitJupiter()
+
+            dependencies {
+                implementation platform('org.junit:junit-bom:6.0.3')
+                implementation platform('org.mockito:mockito-bom:5.22.0')
+                implementation platform('org.assertj:assertj-bom:3.27.7')
+
+                implementation 'org.junit.jupiter:junit-jupiter'
+                implementation 'org.mockito:mockito-junit-jupiter'
+                implementation 'org.assertj:assertj-core'
+
+                runtimeOnly 'org.junit.platform:junit-platform-launcher'
+            }
+        }
+
+        integrationTest(JvmTestSuite) {
+            configurations.named(sources.implementationConfigurationName) {
+                extendsFrom(configurations.implementation)
+            }
+
+            dependencies {
+                implementation project()
+
+                implementation 'org.wiremock:wiremock:3.13.2'
+            }
+
+            targets {
+                configureEach {
+                    testTask.configure {
+                        shouldRunAfter(test)
+                    }
+                }
+            }
+        }
+    }
+}
+
+check {
+    dependsOn integrationTest
 }
 
 jacocoTestReport {
-    dependsOn test
+    dependsOn test, integrationTest
+
+    executionData(
+            tasks.named('test').get().extensions.getByType(JacocoTaskExtension).destinationFile,
+            tasks.named('integrationTest').get().extensions.getByType(JacocoTaskExtension).destinationFile
+    )
+
     reports {
         xml.required = true
     }
+}
+
+integrationTest {
+    finalizedBy jacocoTestReport
+}
+
+tasks.named('integrationTest') {
+    finalizedBy jacocoTestReport
 }

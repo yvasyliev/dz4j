@@ -1,5 +1,6 @@
 package io.github.yvasyliev.deezer.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.yvasyliev.deezer.annotation.Experimental;
 import lombok.Builder;
@@ -62,9 +63,9 @@ public record Playlist(
         @JsonProperty("picture_xl") URL pictureXl,
         @JsonProperty("checksum") String checksum,
         @Experimental @JsonProperty("tracklist") URL tracklist,
-        @Experimental @JsonProperty("creation_date") LocalDateTime creationDate,
-        @Experimental @JsonProperty("add_date") LocalDateTime addDate,
-        @Experimental @JsonProperty("mod_date") LocalDateTime modDate,
+        @Experimental @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") @JsonProperty("creation_date") LocalDateTime creationDate,
+        @Experimental @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") @JsonProperty("add_date") LocalDateTime addDate,
+        @Experimental @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") @JsonProperty("mod_date") LocalDateTime modDate,
         @Experimental @JsonProperty("md5_image") String md5Image,
         @Experimental @JsonProperty("picture_type") PictureType pictureType,
         @JsonProperty("creator") User creator,

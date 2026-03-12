@@ -65,7 +65,7 @@ public record Album(
         @JsonProperty("cover_xl") URL coverXl,
         @JsonProperty("md5_image") String md5Image,
         @JsonProperty("genre_id") Long genreId,
-        @JsonProperty("genres") List<Genre> genres,
+        @JsonProperty("genres") Page<Genre> genres,
         @JsonProperty("label") String label,
         @JsonProperty("provider") String provider,
         @JsonProperty("nb_tracks") Integer nbTracks,
@@ -82,5 +82,5 @@ public record Album(
         @JsonProperty("contributors") @Singular List<Artist> contributors,
         @JsonProperty("fallback") Album fallback,
         @JsonProperty("artist") Artist artist,
-        @JsonProperty("tracks") @Singular List<Track> tracks
+        @JsonProperty("tracks") Page<Track> tracks
 ) {}

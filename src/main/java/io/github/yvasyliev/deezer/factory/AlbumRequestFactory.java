@@ -37,7 +37,7 @@ public class AlbumRequestFactory {
      * @param albumId album ID
      * @return request to get a list of album's fans
      */
-    public PagingDeezerRequest<Page<User>> getAlbumFans(long albumId) {
+    public PagingDeezerRequest<Page<User>> getFans(long albumId) {
         return createPagingDeezerRequest(albumId, albumService::getAlbumFans);
     }
 
@@ -47,7 +47,7 @@ public class AlbumRequestFactory {
      * @param albumId album ID
      * @return request to get a list of album's tracks
      */
-    public PagingDeezerRequest<Page<Track>> getAlbumTracks(long albumId) {
+    public PagingDeezerRequest<Page<Track>> getTracks(long albumId) {
         return createPagingDeezerRequest(albumId, albumService::getAlbumTracks);
     }
 
