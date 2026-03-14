@@ -3,21 +3,16 @@ package io.github.yvasyliev.deezer;
 import com.github.tomakehurst.wiremock.common.ContentTypes;
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
-import io.github.yvasyliev.deezer.databind.deser.PageDeserializerModifier;
-import io.github.yvasyliev.deezer.databind.util.ZeroToNullLocalDateConverter;
 import io.github.yvasyliev.deezer.request.DeezerRequest;
+import io.github.yvasyliev.deezer.util.DeezerDefaults;
 import lombok.Cleanup;
 import org.junit.jupiter.api.BeforeEach;
 import tools.jackson.core.type.TypeReference;
-import tools.jackson.databind.DeserializationFeature;
-import tools.jackson.databind.deser.std.StdConvertingDeserializer;
 import tools.jackson.databind.json.JsonMapper;
-import tools.jackson.databind.module.SimpleModule;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.time.LocalDate;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
@@ -31,26 +26,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @WireMockTest
 abstract class AbstractDeezerClientIT {
-    private static final JsonMapper MAPPER = JsonMapper.builder()
-            .enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
-            .addModule(new SimpleModule("deezer-api")
-                    .setDeserializerModifier(new PageDeserializerModifier())
-                    .addDeserializer(
-                            LocalDate.class,
-                            new StdConvertingDeserializer<>(new ZeroToNullLocalDateConverter())
-                    )
-            )
-            .build();
+    private static final JsonMapper MAPPER = DeezerDefaults.jsonMapper();
     private DeezerClient deezerClient;
 
     @BeforeEach
     void setUp(WireMockRuntimeInfo wmRuntimeInfo) {
         deezerClient = DeezerClient.builder()
-                .apiBasePath(wmRuntimeInfo.getHttpBaseUrl())
+                .apiBaseUrl(wmRuntimeInfo.getHttpBaseUrl())
                 .build();
     }
 
-    public <T> void stubGet(StubArguments<T> args) throws IOException {
+    protected <T> void stubGet(StubArguments<T> args) throws IOException {
         var body = read(args.file);
         var expected = MAPPER.readValue(body, args.type);
         var builder = get(urlPathTemplate(args.pathTemplate)).willReturn(aResponse()
