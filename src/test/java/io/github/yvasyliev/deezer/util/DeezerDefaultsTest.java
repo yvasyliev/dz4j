@@ -9,7 +9,6 @@ import io.github.yvasyliev.deezer.feign.decoder.BodyValidator;
 import io.github.yvasyliev.deezer.feign.decoder.DefaultDeserializer;
 import io.github.yvasyliev.deezer.feign.decoder.ErrorDeserializer;
 import io.github.yvasyliev.deezer.feign.decoder.HeadersValidator;
-import io.github.yvasyliev.deezer.feign.decoder.StatusValidator;
 import io.github.yvasyliev.deezer.model.AccessToken;
 import io.github.yvasyliev.deezer.model.Infos;
 import io.github.yvasyliev.deezer.model.Page;
@@ -62,7 +61,6 @@ class DeezerDefaultsTest {
     @Test
     void testResponseValidators() {
         var expected = List.of(
-                new StatusValidator(),
                 new HeadersValidator(),
                 new BodyValidator(),
                 new AccessTokenValidator()

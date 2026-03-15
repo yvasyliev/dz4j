@@ -14,7 +14,6 @@ import io.github.yvasyliev.deezer.feign.decoder.ErrorDeserializer;
 import io.github.yvasyliev.deezer.feign.decoder.HeadersValidator;
 import io.github.yvasyliev.deezer.feign.decoder.JsonNodeDeserializer;
 import io.github.yvasyliev.deezer.feign.decoder.ResponseValidator;
-import io.github.yvasyliev.deezer.feign.decoder.StatusValidator;
 import io.github.yvasyliev.deezer.model.AccessToken;
 import io.github.yvasyliev.deezer.model.Infos;
 import lombok.experimental.UtilityClass;
@@ -57,7 +56,6 @@ public class DeezerDefaults {
 
     public List<ResponseValidator> responseValidators() {
         return new ArrayList<>(List.of(
-                new StatusValidator(),
                 new HeadersValidator(),
                 new BodyValidator(),
                 new AccessTokenValidator()
