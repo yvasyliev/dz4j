@@ -15,7 +15,7 @@ public class ErrorDeserializer implements JsonNodeDeserializer {
     public <T> T deserialize(JsonNode node, Type type) throws JacksonException, DeezerApiException {
         var error = node.path("error");
 
-        if (error.isMissingNode()) {
+        if (error.isMissingNode() || !error.isObject()) {
             return null;
         }
 

@@ -29,7 +29,9 @@ class ErrorDeserializerTest {
 
     @Test
     void shouldThrowDeezerApiException() {
-        var node = JsonNodeFactory.instance.objectNode().put("error", "some error");
+        var node = JsonNodeFactory.instance.objectNode();
+
+        node.putObject("error");
 
         when(delegate.deserialize(node.path("error"), DeezerApiException.class))
                 .thenReturn(mock(DeezerApiResponseException.class));
