@@ -8,7 +8,6 @@ import tools.jackson.databind.annotation.JsonDeserialize;
 
 import java.net.URL;
 import java.time.Instant;
-import java.util.List;
 
 /**
  * Get the information about the API in the current country
@@ -16,7 +15,6 @@ import java.util.List;
  * @param countryIso           the current country ISO code
  * @param country              the current country name
  * @param open                 indicates if Deezer is open in the current country or not
- * @param offers               an array of available offers in the current country
  * @param pop                  the pop value returned by the API
  * @param uploadToken          the upload token
  * @param uploadTokenExpiresAt the upload token expiration time
@@ -30,7 +28,6 @@ public record Infos(
         @JsonProperty("country_iso") String countryIso,
         @JsonProperty("country") String country,
         @JsonProperty("open") Boolean open,
-        @JsonProperty("offers") List<Offer> offers,
         @JsonProperty("pop") @Experimental String pop,
         @JsonProperty("upload_token") @Experimental String uploadToken,
 
@@ -50,34 +47,8 @@ public record Infos(
      * @return {@code true} if the upload token is expired, {@code false} otherwise
      */
     public boolean isUploadTokenExpired() {
-        return uploadTokenExpiresAt != null && Instant.now().isAfter(uploadTokenExpiresAt);
+        return uploadTokenExpiresAt == null || Instant.now().isAfter(uploadTokenExpiresAt);
     }
-
-    /**
-     * An offer object.
-     *
-     * @param id              offer ID
-     * @param name            offer name
-     * @param amount          offer amount
-     * @param currency        offer currency
-     * @param displayedAmount offer display amount
-     * @param tc              PDF terms of use
-     * @param tcHtml          HTML terms of use
-     * @param tcTxt           text terms of use
-     * @param tryAndBuy       trial period
-     */
-    @Experimental
-    public record Offer(
-            @JsonProperty("id") Long id,
-            @JsonProperty("name") String name,
-            @JsonProperty("amount") String amount,
-            @JsonProperty("currency") String currency,
-            @JsonProperty("displayed_amount") String displayedAmount,
-            @JsonProperty("tc") URL tc,
-            @JsonProperty("tc_html") URL tcHtml,
-            @JsonProperty("tc_txt") URL tcTxt,
-            @JsonProperty("try_and_buy") Integer tryAndBuy
-    ) {}
 
     /**
      * A hosts object.

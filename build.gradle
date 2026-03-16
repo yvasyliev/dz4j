@@ -86,7 +86,3 @@ jacocoTestReport {
 integrationTest {
     finalizedBy jacocoTestReport
 }
-
-tasks.named('integrationTest') {
-    finalizedBy jacocoTestReport
-}

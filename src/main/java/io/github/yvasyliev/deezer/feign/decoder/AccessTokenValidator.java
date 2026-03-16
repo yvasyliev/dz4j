@@ -12,7 +12,7 @@ public class AccessTokenValidator implements ResponseValidator {
     @Override
     public void validate(Response response, Type type) throws AccessTokenResponseException {
         if (AccessToken.class.equals(type) && isTextHtml(response)) {
-            throwAccessTokenException(response);
+            throw buildAccessTokenException(response);
         }
     }
 
@@ -20,15 +20,15 @@ public class AccessTokenValidator implements ResponseValidator {
         return response.headers().get("content-type").stream().anyMatch(ct -> ct.startsWith("text/html"));
     }
 
-    private void throwAccessTokenException(Response response) throws AccessTokenResponseException {
+    private AccessTokenResponseException buildAccessTokenException(Response response) {
         try {
-            throw new AccessTokenResponseException(readBody(response), response);
+            return new AccessTokenResponseException(readBody(response), response);
         } catch (IOException suppressed) {
             var e = new AccessTokenResponseException("Invalid access token response", response);
 
             e.addSuppressed(suppressed);
 
-            throw e;
+            return e;
         }
     }
 

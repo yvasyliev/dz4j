@@ -2,7 +2,6 @@ package io.github.yvasyliev.deezer.factory;
 
 import io.github.yvasyliev.deezer.request.OEmbedDeezerRequest;
 import io.github.yvasyliev.deezer.service.OEmbedService;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -68,7 +67,7 @@ public class OEmbedRequestFactory {
      * @param pageId page ID
      * @return a request to retrieve oEmbed information for the specified page
      */
-    public OEmbedDeezerRequest getPageOEmbed(@NonNull String pageId) {
+    public OEmbedDeezerRequest getPageOEmbed(String pageId) {
         return createDeezerRequest("https://deezer.page.link/", pageId);
     }
 

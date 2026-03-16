@@ -60,6 +60,7 @@ class AccessTokenValidatorTest {
 
         when(body.asReader(any())).thenThrow(IOException.class);
 
+        //TODO: assertj
         var exception = assertThrows(
                 AccessTokenResponseException.class,
                 () -> VALIDATOR.validate(response, AccessToken.class)
