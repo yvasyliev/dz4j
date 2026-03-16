@@ -1,7 +1,7 @@
 info:
   name: chart
   type: folder
-  seq: 1
+  seq: 3
 
 request:
   auth: inherit

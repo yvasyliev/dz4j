@@ -1,6 +1,8 @@
 package io.github.yvasyliev.deezer;
 
+import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
+import com.github.tomakehurst.wiremock.matching.StringValuePattern;
 import io.github.yvasyliev.deezer.exception.DeezerApiException;
 import io.github.yvasyliev.deezer.request.DeezerRequest;
 import io.github.yvasyliev.deezer.util.DeezerDefaults;
@@ -32,10 +34,14 @@ abstract class AbstractIT {
                 .isEqualTo(expected);
 
         assertThatThrownBy(() -> request.executeAsync().join())
-                .hasCauseInstanceOf(CompletionException.class)
+                .isInstanceOf(CompletionException.class)
                 .cause()
                 .usingRecursiveComparison()
                 .isEqualTo(expected);
+    }
+
+    protected StringValuePattern equalTo(Object value) {
+        return WireMock.equalTo(String.valueOf(value));
     }
 
     protected String read(String file) throws IOException {

@@ -4,6 +4,7 @@ import feign.Param;
 import io.github.yvasyliev.deezer.authorization.TokenManager;
 import io.github.yvasyliev.deezer.databind.deser.PageDeserializerModifier;
 import io.github.yvasyliev.deezer.databind.util.ZeroToNullLocalDateConverter;
+import io.github.yvasyliev.deezer.databind.util.ZeroToNullLocalDateTimeConverter;
 import io.github.yvasyliev.deezer.factory.InfosRequestFactory;
 import io.github.yvasyliev.deezer.feign.QueryExpander;
 import io.github.yvasyliev.deezer.feign.StrictExpander;
@@ -23,6 +24,7 @@ import tools.jackson.databind.json.JsonMapper;
 import tools.jackson.databind.module.SimpleModule;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,6 +51,10 @@ public class DeezerDefaults {
                         .addDeserializer(
                                 LocalDate.class,
                                 new StdConvertingDeserializer<>(new ZeroToNullLocalDateConverter())
+                        )
+                        .addDeserializer(
+                                LocalDateTime.class,
+                                new StdConvertingDeserializer<>(new ZeroToNullLocalDateTimeConverter())
                         )
                 )
                 .build();

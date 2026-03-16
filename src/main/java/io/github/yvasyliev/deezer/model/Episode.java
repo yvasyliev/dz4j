@@ -1,6 +1,5 @@
 package io.github.yvasyliev.deezer.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.yvasyliev.deezer.annotation.Experimental;
 import lombok.Builder;
@@ -35,7 +34,7 @@ public record Episode(
         @JsonProperty("title") String title,
         @JsonProperty("description") String description,
         @JsonProperty("available") Boolean available,
-        @JsonProperty("release_date") @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime releaseDate,
+        @JsonProperty("release_date") LocalDateTime releaseDate,
         @JsonProperty("duration") Duration duration,
         @JsonProperty("link") URL link,
         @JsonProperty("share") URL share,

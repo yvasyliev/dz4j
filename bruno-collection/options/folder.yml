@@ -1,7 +1,7 @@
 info:
   name: options
   type: folder
-  seq: 1
+  seq: 10
 
 request:
   auth: inherit

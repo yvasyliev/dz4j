@@ -11,7 +11,6 @@ import tools.jackson.core.type.TypeReference;
 
 import java.io.IOException;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
@@ -34,7 +33,7 @@ class AlbumIT extends AbstractIT {
         var expected = MAPPER.readValue(body, Album.class);
 
         stubFor(get(urlPathTemplate("/album/{albumId}"))
-                .withPathParam("albumId", equalTo(String.valueOf(albumId)))
+                .withPathParam("albumId", equalTo(albumId))
                 .willReturn(okJson(body))
         );
 
@@ -48,7 +47,7 @@ class AlbumIT extends AbstractIT {
         var expected = MAPPER.readValue(body, new TypeReference<Page<User>>() {});
 
         stubFor(get(urlPathTemplate("/album/{albumId}/fans"))
-                .withPathParam("albumId", equalTo(String.valueOf(albumId)))
+                .withPathParam("albumId", equalTo(albumId))
                 .willReturn(okJson(body))
         );
 
@@ -64,9 +63,9 @@ class AlbumIT extends AbstractIT {
         var expected = MAPPER.readValue(body, new TypeReference<Page<User>>() {});
 
         stubFor(get(urlPathTemplate("/album/{albumId}/fans"))
-                .withPathParam("albumId", equalTo(String.valueOf(albumId)))
-                .withQueryParam("index", equalTo(String.valueOf(index)))
-                .withQueryParam("limit", equalTo(String.valueOf(limit)))
+                .withPathParam("albumId", equalTo(albumId))
+                .withQueryParam("index", equalTo(index))
+                .withQueryParam("limit", equalTo(limit))
                 .willReturn(okJson(body))
         );
 
@@ -80,7 +79,7 @@ class AlbumIT extends AbstractIT {
         var expected = MAPPER.readValue(body, new TypeReference<Page<Track>>() {});
 
         stubFor(get(urlPathTemplate("/album/{albumId}/tracks"))
-                .withPathParam("albumId", equalTo(String.valueOf(albumId)))
+                .withPathParam("albumId", equalTo(albumId))
                 .willReturn(okJson(body))
         );
 
@@ -96,9 +95,9 @@ class AlbumIT extends AbstractIT {
         var expected = MAPPER.readValue(body, new TypeReference<Page<Track>>() {});
 
         stubFor(get(urlPathTemplate("/album/{albumId}/tracks"))
-                .withPathParam("albumId", equalTo(String.valueOf(albumId)))
-                .withQueryParam("index", equalTo(String.valueOf(index)))
-                .withQueryParam("limit", equalTo(String.valueOf(limit)))
+                .withPathParam("albumId", equalTo(albumId))
+                .withQueryParam("index", equalTo(index))
+                .withQueryParam("limit", equalTo(limit))
                 .willReturn(okJson(body))
         );
 

@@ -1,7 +1,7 @@
 info:
   name: radio
   type: folder
-  seq: 1
+  seq: 13
 
 request:
   auth: inherit

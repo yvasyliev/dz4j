@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aMultipart;
-import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
@@ -34,26 +33,12 @@ class UploadIT extends AbstractIT {
     @Test
     void shouldUploadPlaylistCoverWithFile() throws IOException {
         var playlistId = 500138701L;
-        var cover = createTempFile("fake_cover");
+        var content = "fake_cover";
+        var cover = createTempFile(content);
         var body = read("/response/playlist/upload-cover.json");
         var expected = MAPPER.readValue(body, Boolean.class);
 
-        stubInfos();
-        stubFor(post(urlPathTemplate("/playlist/{playlistId}"))
-                .withPathParam("playlistId", equalTo(String.valueOf(playlistId)))
-                .withMultipartRequestBody(aMultipart()
-                        .withName("access_token")
-                        .withBody(equalTo(ACCESS_TOKEN)))
-                .withMultipartRequestBody(aMultipart()
-                        .withName("upload_token")
-                        .withBody(equalTo(UPLOAD_TOKEN)))
-                .withMultipartRequestBody(aMultipart()
-                        .withHeader(ContentTypes.CONTENT_TYPE, equalTo("image/jpeg"))
-                        .withName("file")
-                        .withFileName(cover.getName())
-                        .withBody(equalTo("fake_cover")))
-                .willReturn(okJson(body))
-        );
+        stubUploadPlaylistCover(playlistId, cover.getName(), content, body);
 
         assertEquals(expected, deezerClient.upload().uploadPlaylistCover(playlistId, cover));
     }
@@ -66,9 +51,18 @@ class UploadIT extends AbstractIT {
         var body = read("/response/playlist/upload-cover.json");
         var expected = MAPPER.readValue(body, Boolean.class);
 
-        stubInfos();
+        stubUploadPlaylistCover(playlistId, fileName, cover, body);
+
+        assertEquals(expected, deezerClient.upload().uploadPlaylistCover(playlistId, cover.getBytes(), fileName));
+    }
+
+    private void stubUploadPlaylistCover(long playlistId, String fileName, String fileContent, String responseBody)
+            throws IOException {
+        stubFor(get(urlPathEqualTo("/infos"))
+                .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
+                .willReturn(okJson(read("/response/infos/get-infos.json"))));
         stubFor(post(urlPathTemplate("/playlist/{playlistId}"))
-                .withPathParam("playlistId", equalTo(String.valueOf(playlistId)))
+                .withPathParam("playlistId", equalTo(playlistId))
                 .withMultipartRequestBody(aMultipart()
                         .withName("access_token")
                         .withBody(equalTo(ACCESS_TOKEN)))
@@ -79,20 +73,12 @@ class UploadIT extends AbstractIT {
                         .withHeader(ContentTypes.CONTENT_TYPE, equalTo("image/jpeg"))
                         .withName("file")
                         .withFileName(fileName)
-                        .withBody(equalTo(cover)))
-                .willReturn(okJson(body))
+                        .withBody(equalTo(fileContent)))
+                .willReturn(okJson(responseBody))
         );
-
-        assertEquals(expected, deezerClient.upload().uploadPlaylistCover(playlistId, cover.getBytes(), fileName));
     }
 
-    private void stubInfos() throws IOException {
-        stubFor(get(urlPathEqualTo("/infos"))
-                .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(read("/response/infos/get-infos.json"))));
-    }
-
-    private static File createTempFile(String content) throws IOException {
+    private File createTempFile(String content) throws IOException {
         var path = Files.createTempFile("deezer-upload-it-", ".jpg");
         var file = Files.writeString(path, content).toFile();
 

@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.delete;
-import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
@@ -34,7 +33,7 @@ class EpisodeIT extends AbstractIT {
         var expected = MAPPER.readValue(body, Episode.class);
 
         stubFor(get(urlPathTemplate("/episode/{episodeId}"))
-                .withPathParam("episodeId", equalTo(String.valueOf(episodeId)))
+                .withPathParam("episodeId", equalTo(episodeId))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
                 .willReturn(okJson(body))
         );
@@ -50,9 +49,9 @@ class EpisodeIT extends AbstractIT {
         var expected = MAPPER.readValue(body, BookmarkResponse.class);
 
         stubFor(post(urlPathTemplate("/episode/{episodeId}/bookmark"))
-                .withPathParam("episodeId", equalTo(String.valueOf(episodeId)))
+                .withPathParam("episodeId", equalTo(episodeId))
                 .withFormParam("access_token", equalTo(ACCESS_TOKEN))
-                .withFormParam("offset", equalTo(String.valueOf(offset)))
+                .withFormParam("offset", equalTo(offset))
                 .willReturn(okJson(body))
         );
 
@@ -66,7 +65,7 @@ class EpisodeIT extends AbstractIT {
         var expected = MAPPER.readValue(body, BookmarkResponse.class);
 
         stubFor(delete(urlPathTemplate("/episode/{episodeId}/bookmark"))
-                .withPathParam("episodeId", equalTo(String.valueOf(episodeId)))
+                .withPathParam("episodeId", equalTo(episodeId))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
                 .willReturn(okJson(body))
         );

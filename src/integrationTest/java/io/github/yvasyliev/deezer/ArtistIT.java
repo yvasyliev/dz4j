@@ -13,7 +13,6 @@ import tools.jackson.core.type.TypeReference;
 
 import java.io.IOException;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
@@ -36,7 +35,7 @@ class ArtistIT extends AbstractIT {
         var expected = MAPPER.readValue(body, Artist.class);
 
         stubFor(get(urlPathTemplate("/artist/{artistId}"))
-                .withPathParam("artistId", equalTo(String.valueOf(artistId)))
+                .withPathParam("artistId", equalTo(artistId))
                 .willReturn(okJson(body))
         );
 
@@ -50,7 +49,7 @@ class ArtistIT extends AbstractIT {
         var expected = MAPPER.readValue(body, new TypeReference<Page<Album>>() {});
 
         stubFor(get(urlPathTemplate("/artist/{artistId}/albums"))
-                .withPathParam("artistId", equalTo(String.valueOf(artistId)))
+                .withPathParam("artistId", equalTo(artistId))
                 .willReturn(okJson(body))
         );
 
@@ -66,9 +65,9 @@ class ArtistIT extends AbstractIT {
         var expected = MAPPER.readValue(body, new TypeReference<Page<Album>>() {});
 
         stubFor(get(urlPathTemplate("/artist/{artistId}/albums"))
-                .withPathParam("artistId", equalTo(String.valueOf(artistId)))
-                .withQueryParam("index", equalTo(String.valueOf(index)))
-                .withQueryParam("limit", equalTo(String.valueOf(limit)))
+                .withPathParam("artistId", equalTo(artistId))
+                .withQueryParam("index", equalTo(index))
+                .withQueryParam("limit", equalTo(limit))
                 .willReturn(okJson(body))
         );
 
@@ -82,7 +81,7 @@ class ArtistIT extends AbstractIT {
         var expected = MAPPER.readValue(body, new TypeReference<Page<User>>() {});
 
         stubFor(get(urlPathTemplate("/artist/{artistId}/fans"))
-                .withPathParam("artistId", equalTo(String.valueOf(artistId)))
+                .withPathParam("artistId", equalTo(artistId))
                 .willReturn(okJson(body))
         );
 
@@ -98,9 +97,9 @@ class ArtistIT extends AbstractIT {
         var expected = MAPPER.readValue(body, new TypeReference<Page<User>>() {});
 
         stubFor(get(urlPathTemplate("/artist/{artistId}/fans"))
-                .withPathParam("artistId", equalTo(String.valueOf(artistId)))
-                .withQueryParam("index", equalTo(String.valueOf(index)))
-                .withQueryParam("limit", equalTo(String.valueOf(limit)))
+                .withPathParam("artistId", equalTo(artistId))
+                .withQueryParam("index", equalTo(index))
+                .withQueryParam("limit", equalTo(limit))
                 .willReturn(okJson(body))
         );
 
@@ -114,7 +113,7 @@ class ArtistIT extends AbstractIT {
         var expected = MAPPER.readValue(body, new TypeReference<Page<Playlist>>() {});
 
         stubFor(get(urlPathTemplate("/artist/{artistId}/playlists"))
-                .withPathParam("artistId", equalTo(String.valueOf(artistId)))
+                .withPathParam("artistId", equalTo(artistId))
                 .willReturn(okJson(body))
         );
 
@@ -130,9 +129,9 @@ class ArtistIT extends AbstractIT {
         var expected = MAPPER.readValue(body, new TypeReference<Page<Playlist>>() {});
 
         stubFor(get(urlPathTemplate("/artist/{artistId}/playlists"))
-                .withPathParam("artistId", equalTo(String.valueOf(artistId)))
-                .withQueryParam("index", equalTo(String.valueOf(index)))
-                .withQueryParam("limit", equalTo(String.valueOf(limit)))
+                .withPathParam("artistId", equalTo(artistId))
+                .withQueryParam("index", equalTo(index))
+                .withQueryParam("limit", equalTo(limit))
                 .willReturn(okJson(body))
         );
 
@@ -146,7 +145,7 @@ class ArtistIT extends AbstractIT {
         var expected = MAPPER.readValue(body, new TypeReference<Page<Track>>() {});
 
         stubFor(get(urlPathTemplate("/artist/{artistId}/radio"))
-                .withPathParam("artistId", equalTo(String.valueOf(artistId)))
+                .withPathParam("artistId", equalTo(artistId))
                 .willReturn(okJson(body))
         );
 
@@ -162,9 +161,9 @@ class ArtistIT extends AbstractIT {
         var expected = MAPPER.readValue(body, new TypeReference<Page<Track>>() {});
 
         stubFor(get(urlPathTemplate("/artist/{artistId}/radio"))
-                .withPathParam("artistId", equalTo(String.valueOf(artistId)))
-                .withQueryParam("index", equalTo(String.valueOf(index)))
-                .withQueryParam("limit", equalTo(String.valueOf(limit)))
+                .withPathParam("artistId", equalTo(artistId))
+                .withQueryParam("index", equalTo(index))
+                .withQueryParam("limit", equalTo(limit))
                 .willReturn(okJson(body))
         );
 
@@ -178,7 +177,7 @@ class ArtistIT extends AbstractIT {
         var expected = MAPPER.readValue(body, new TypeReference<Page<Artist>>() {});
 
         stubFor(get(urlPathTemplate("/artist/{artistId}/related"))
-                .withPathParam("artistId", equalTo(String.valueOf(artistId)))
+                .withPathParam("artistId", equalTo(artistId))
                 .willReturn(okJson(body))
         );
 
@@ -194,9 +193,9 @@ class ArtistIT extends AbstractIT {
         var expected = MAPPER.readValue(body, new TypeReference<Page<Artist>>() {});
 
         stubFor(get(urlPathTemplate("/artist/{artistId}/related"))
-                .withPathParam("artistId", equalTo(String.valueOf(artistId)))
-                .withQueryParam("index", equalTo(String.valueOf(index)))
-                .withQueryParam("limit", equalTo(String.valueOf(limit)))
+                .withPathParam("artistId", equalTo(artistId))
+                .withQueryParam("index", equalTo(index))
+                .withQueryParam("limit", equalTo(limit))
                 .willReturn(okJson(body))
         );
 
@@ -210,7 +209,7 @@ class ArtistIT extends AbstractIT {
         var expected = MAPPER.readValue(body, new TypeReference<Page<Track>>() {});
 
         stubFor(get(urlPathTemplate("/artist/{artistId}/top"))
-                .withPathParam("artistId", equalTo(String.valueOf(artistId)))
+                .withPathParam("artistId", equalTo(artistId))
                 .willReturn(okJson(body))
         );
 
@@ -226,9 +225,9 @@ class ArtistIT extends AbstractIT {
         var expected = MAPPER.readValue(body, new TypeReference<Page<Track>>() {});
 
         stubFor(get(urlPathTemplate("/artist/{artistId}/top"))
-                .withPathParam("artistId", equalTo(String.valueOf(artistId)))
-                .withQueryParam("index", equalTo(String.valueOf(index)))
-                .withQueryParam("limit", equalTo(String.valueOf(limit)))
+                .withPathParam("artistId", equalTo(artistId))
+                .withQueryParam("index", equalTo(index))
+                .withQueryParam("limit", equalTo(limit))
                 .willReturn(okJson(body))
         );
 

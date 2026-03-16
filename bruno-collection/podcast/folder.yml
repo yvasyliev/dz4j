@@ -1,7 +1,7 @@
 info:
   name: podcast
   type: folder
-  seq: 1
+  seq: 12
 
 request:
   auth: inherit

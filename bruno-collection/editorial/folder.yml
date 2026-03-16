@@ -1,7 +1,7 @@
 info:
   name: editorial
   type: folder
-  seq: 1
+  seq: 4
 
 request:
   auth: inherit

@@ -1,7 +1,7 @@
 info:
   name: search
   type: folder
-  seq: 1
+  seq: 14
 
 request:
   auth: inherit

@@ -1,7 +1,7 @@
 info:
   name: playlist
   type: folder
-  seq: 1
+  seq: 11
 
 request:
   auth: inherit
