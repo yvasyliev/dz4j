@@ -8,14 +8,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class InfosTest {
     @Test
-    void shouldReturnUploadTokenExpiredTrueWhenUploadTokenExpiresAtIsNull() {
+    void shouldReturnTrueWhenUploadTokenExpiresAtIsNull() {
         var infos = Infos.builder().build();
 
         assertTrue(infos.isUploadTokenExpired());
     }
 
     @Test
-    void shouldReturnUploadTokenExpiredTrueWhenUploadTokenExpiresAtIsBeforeNow() {
+    void shouldReturnTrueWhenUploadTokenExpiresAtIsBeforeNow() {
         var infos = Infos.builder()
                 .uploadTokenExpiresAt(Instant.now().minusSeconds(3600))
                 .build();
@@ -24,7 +24,7 @@ class InfosTest {
     }
 
     @Test
-    void shouldReturnUploadTokenExpiredFalseWhenUploadTokenExpiresAtIsAfterNow() {
+    void shouldReturnFalseWhenUploadTokenExpiresAtIsAfterNow() {
         var infos = Infos.builder()
                 .uploadTokenExpiresAt(Instant.now().plusSeconds(3600))
                 .build();
