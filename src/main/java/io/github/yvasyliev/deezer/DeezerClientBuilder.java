@@ -53,6 +53,7 @@ public class DeezerClientBuilder {
         return jsonMapper(DeezerDefaults.jsonMapper(clock));
     }
 
+    //TODO: decompose
     public DeezerClient build() {
         var builder = FeignConfigurator.build(jsonMapper, decoder, contract, feign);
         var accessTokenSupplier = new AccessTokenSupplier();

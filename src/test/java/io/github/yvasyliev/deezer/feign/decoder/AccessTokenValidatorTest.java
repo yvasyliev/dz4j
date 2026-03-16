@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -51,6 +51,7 @@ class AccessTokenValidatorTest {
 
     @Test
     void shouldFailValidationWithSuppressedException() throws IOException {
+        var e = new IOException("Failed to read body");
         @Cleanup var body = mock(Response.Body.class);
         @Cleanup var response = Response.builder()
                 .request(mock())
@@ -58,14 +59,10 @@ class AccessTokenValidatorTest {
                 .body(body)
                 .build();
 
-        when(body.asReader(any())).thenThrow(IOException.class);
+        when(body.asReader(any())).thenThrow(e);
 
-        //TODO: assertj
-        var exception = assertThrows(
-                AccessTokenResponseException.class,
-                () -> VALIDATOR.validate(response, AccessToken.class)
-        );
-
-        assertThat(exception.getSuppressed()).anySatisfy(e -> assertThat(e).isInstanceOf(IOException.class));
+        assertThatThrownBy(() -> VALIDATOR.validate(response, AccessToken.class))
+                .isInstanceOf(AccessTokenResponseException.class)
+                .hasSuppressedException(e);
     }
 }
