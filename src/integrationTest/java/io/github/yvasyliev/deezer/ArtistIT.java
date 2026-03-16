@@ -1,24 +1,17 @@
 package io.github.yvasyliev.deezer;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
-import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import io.github.yvasyliev.deezer.model.Album;
 import io.github.yvasyliev.deezer.model.Artist;
 import io.github.yvasyliev.deezer.model.Page;
 import io.github.yvasyliev.deezer.model.Playlist;
 import io.github.yvasyliev.deezer.model.Track;
 import io.github.yvasyliev.deezer.model.User;
-import io.github.yvasyliev.deezer.request.DeezerRequest;
-import io.github.yvasyliev.deezer.util.DeezerDefaults;
-import lombok.Cleanup;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tools.jackson.core.type.TypeReference;
-import tools.jackson.databind.json.JsonMapper;
 
 import java.io.IOException;
-import java.util.Objects;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
@@ -26,9 +19,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
 
-@WireMockTest
-class ArtistIT {
-    private static final JsonMapper MAPPER = DeezerDefaults.jsonMapper();
+class ArtistIT extends AbstractIT {
     private DeezerClient deezerClient;
 
     @BeforeEach
@@ -242,16 +233,5 @@ class ArtistIT {
         );
 
         assertEquals(expected, deezerClient.artist().getTop(artistId).index(index).limit(limit));
-    }
-
-    private <T> void assertEquals(T expected, DeezerRequest<T> request) {
-        Assertions.assertEquals(expected, request.execute());
-        Assertions.assertEquals(expected, request.executeAsync().join());
-    }
-
-    private String read(String file) throws IOException {
-        @Cleanup var inputStream = Objects.requireNonNull(this.getClass().getResourceAsStream(file));
-
-        return new String(inputStream.readAllBytes());
     }
 }

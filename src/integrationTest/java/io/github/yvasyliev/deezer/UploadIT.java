@@ -2,19 +2,12 @@ package io.github.yvasyliev.deezer;
 
 import com.github.tomakehurst.wiremock.common.ContentTypes;
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
-import com.github.tomakehurst.wiremock.junit5.WireMockTest;
-import io.github.yvasyliev.deezer.request.DeezerRequest;
-import io.github.yvasyliev.deezer.util.DeezerDefaults;
-import lombok.Cleanup;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import tools.jackson.databind.json.JsonMapper;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Objects;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aMultipart;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
@@ -25,11 +18,8 @@ import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
 
-@WireMockTest
-class UploadIT {
-    private static final String ACCESS_TOKEN = "test_access_token";
+class UploadIT extends AbstractIT {
     private static final String UPLOAD_TOKEN = "dyq9m5jxfh2bgh966v2npj2kevcdw6pw";
-    private static final JsonMapper MAPPER = DeezerDefaults.jsonMapper();
     private DeezerClient deezerClient;
 
     @BeforeEach
@@ -69,7 +59,7 @@ class UploadIT {
     }
 
     @Test
-    void shouldUploadPlaylistCoverWithoutBytes() throws IOException {
+    void shouldUploadPlaylistCoverWithBytes() throws IOException {
         var playlistId = 500138701L;
         var cover = "fake_cover";
         var fileName = "fake_cover.jpg";
@@ -102,23 +92,9 @@ class UploadIT {
                 .willReturn(okJson(read("/response/infos/get-infos.json"))));
     }
 
-    private <T> void assertEquals(T expected, DeezerRequest<T> request) {
-        Assertions.assertEquals(expected, request.execute());
-        Assertions.assertEquals(expected, request.executeAsync().join());
-    }
-
-    private String read(String file) throws IOException {
-        @Cleanup var inputStream = Objects.requireNonNull(this.getClass().getResourceAsStream(file));
-
-        return new String(inputStream.readAllBytes());
-    }
-
     private static File createTempFile(String content) throws IOException {
         var path = Files.createTempFile("deezer-upload-it-", ".jpg");
-
-        Files.write(path, content.getBytes());
-
-        var file = path.toFile();
+        var file = Files.writeString(path, content).toFile();
 
         file.deleteOnExit();
 
