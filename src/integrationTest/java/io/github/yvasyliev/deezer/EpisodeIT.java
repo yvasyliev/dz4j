@@ -1,60 +1,98 @@
 package io.github.yvasyliev.deezer;
 
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
+import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import io.github.yvasyliev.deezer.model.BookmarkResponse;
 import io.github.yvasyliev.deezer.model.Episode;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.FieldSource;
-import tools.jackson.core.type.TypeReference;
+import io.github.yvasyliev.deezer.request.DeezerRequest;
+import io.github.yvasyliev.deezer.util.DeezerDefaults;
+import lombok.Cleanup;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import tools.jackson.databind.json.JsonMapper;
 
 import java.io.IOException;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
+import java.util.Objects;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.delete;
+import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-class EpisodeIT extends AbstractDeezerClientIT {
-    private static final Supplier<Stream<Arguments>> testSuccessfulScenario = () -> {
+@WireMockTest
+class EpisodeIT {
+    private static final String ACCESS_TOKEN = "test_access_token";
+    private static final JsonMapper MAPPER = DeezerDefaults.jsonMapper();
+    private DeezerClient deezerClient;
+
+    @BeforeEach
+    void setUp(WireMockRuntimeInfo wmRuntimeInfo) {
+        deezerClient = DeezerClient.builder()
+                .apiBaseUrl(wmRuntimeInfo.getHttpBaseUrl())
+                .authorization(ACCESS_TOKEN)
+                .build();
+    }
+
+    @Test
+    void shouldReturnEpisode() throws IOException {
+        var episodeId = 605632582L;
+        var body = read("/response/episode/get-episode.json");
+        var expected = MAPPER.readValue(body, Episode.class);
+
+        stubFor(get(urlPathTemplate("/episode/{episodeId}"))
+                .withPathParam("episodeId", equalTo(String.valueOf(episodeId)))
+                .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
+                .willReturn(okJson(body))
+        );
+
+        assertEquals(expected, deezerClient.episode().getEpisode(episodeId));
+    }
+
+    @Test
+    void shouldBookmarkEpisode() throws IOException {
         var episodeId = 605632582L;
         var offset = 42;
+        var body = read("/response/episode/bookmark-episode.json");
+        var expected = MAPPER.readValue(body, BookmarkResponse.class);
 
-        return Stream.of(
-                arguments("return episode", new StubArguments<Episode>()
-                        .mappingBuilder(get(urlPathTemplate("/episode/{episodeId}")))
-                        .pathParam("episodeId", episodeId)
-                        .queryParam("access_token", ACCESS_TOKEN)
-                        .file("/response/episode/get-episode.json")
-                        .methodFactory(client -> client.episode().getEpisode(episodeId))
-                        .type(new TypeReference<>() {})
-                ),
-                arguments("bookmark episode", new StubArguments<BookmarkResponse>()
-                        .mappingBuilder(post(urlPathTemplate("/episode/{episodeId}/bookmark")))
-                        .pathParam("episodeId", episodeId)
-                        .formParam("access_token", ACCESS_TOKEN)
-                        .formParam("offset", offset)
-                        .file("/response/episode/bookmark-episode.json")
-                        .methodFactory(client -> client.episode().bookmarkEpisode(episodeId, offset))
-                        .type(new TypeReference<>() {})
-                ),
-                arguments("unbookmark episode", new StubArguments<BookmarkResponse>()
-                        .mappingBuilder(delete(urlPathTemplate("/episode/{episodeId}/bookmark")))
-                        .pathParam("episodeId", episodeId)
-                        .queryParam("access_token", ACCESS_TOKEN)
-                        .file("/response/episode/unbookmark-episode.json")
-                        .methodFactory(client -> client.episode().unbookmarkEpisode(episodeId))
-                        .type(new TypeReference<>() {})
-                )
+        stubFor(post(urlPathTemplate("/episode/{episodeId}/bookmark"))
+                .withPathParam("episodeId", equalTo(String.valueOf(episodeId)))
+                .withFormParam("access_token", equalTo(ACCESS_TOKEN))
+                .withFormParam("offset", equalTo(String.valueOf(offset)))
+                .willReturn(okJson(body))
         );
-    };
 
-    @ParameterizedTest(name = "should {0}", quoteTextArguments = false)
-    @FieldSource
-    void testSuccessfulScenario(String name, StubArguments<?> args) throws IOException {
-        stubRequest(args);
+        assertEquals(expected, deezerClient.episode().bookmarkEpisode(episodeId, offset));
+    }
+
+    @Test
+    void shouldUnbookmarkEpisode() throws IOException {
+        var episodeId = 605632582L;
+        var body = read("/response/episode/unbookmark-episode.json");
+        var expected = MAPPER.readValue(body, BookmarkResponse.class);
+
+        stubFor(delete(urlPathTemplate("/episode/{episodeId}/bookmark"))
+                .withPathParam("episodeId", equalTo(String.valueOf(episodeId)))
+                .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
+                .willReturn(okJson(body))
+        );
+
+        assertEquals(expected, deezerClient.episode().unbookmarkEpisode(episodeId));
+    }
+
+    private <T> void assertEquals(T expected, DeezerRequest<T> request) {
+        Assertions.assertEquals(expected, request.execute());
+        Assertions.assertEquals(expected, request.executeAsync().join());
+    }
+
+    private String read(String file) throws IOException {
+        @Cleanup var inputStream = Objects.requireNonNull(this.getClass().getResourceAsStream(file));
+
+        return new String(inputStream.readAllBytes());
     }
 }
 
