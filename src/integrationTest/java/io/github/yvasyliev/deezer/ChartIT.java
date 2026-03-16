@@ -31,7 +31,7 @@ class ChartIT extends AbstractIT {
 
     @Test
     void shouldReturnAlbumsChart() throws IOException {
-        var genreId = 1L;
+        var genreId = 152L;
         var body = read("/response/chart/get-albums-chart.json");
         var expected = MAPPER.readValue(body, new TypeReference<Page<Album>>() {});
 
@@ -45,7 +45,7 @@ class ChartIT extends AbstractIT {
 
     @Test
     void shouldReturnAlbumsChartWithPagination() throws IOException {
-        var genreId = 1L;
+        var genreId = 152L;
         var index = 5;
         var limit = 10;
         var body = read("/response/chart/get-albums-chart.json");
@@ -63,7 +63,7 @@ class ChartIT extends AbstractIT {
 
     @Test
     void shouldReturnArtistsChart() throws IOException {
-        var genreId = 1L;
+        var genreId = 152L;
         var body = read("/response/chart/get-artists-chart.json");
         var expected = MAPPER.readValue(body, new TypeReference<Page<Artist>>() {});
 
@@ -77,7 +77,7 @@ class ChartIT extends AbstractIT {
 
     @Test
     void shouldReturnArtistsChartWithPagination() throws IOException {
-        var genreId = 1L;
+        var genreId = 152L;
         var index = 5;
         var limit = 10;
         var body = read("/response/chart/get-artists-chart.json");
@@ -95,7 +95,7 @@ class ChartIT extends AbstractIT {
 
     @Test
     void shouldReturnChart() throws IOException {
-        var genreId = 1L;
+        var genreId = 152L;
         var body = read("/response/chart/get-chart.json");
         var expected = MAPPER.readValue(body, Chart.class);
 
@@ -109,7 +109,7 @@ class ChartIT extends AbstractIT {
 
     @Test
     void shouldReturnChartWithPagination() throws IOException {
-        var genreId = 1L;
+        var genreId = 152L;
         var index = 5;
         var limit = 10;
         var body = read("/response/chart/get-chart.json");
@@ -127,7 +127,7 @@ class ChartIT extends AbstractIT {
 
     @Test
     void shouldReturnPlaylistsChart() throws IOException {
-        var genreId = 1L;
+        var genreId = 152L;
         var body = read("/response/chart/get-playlists-chart.json");
         var expected = MAPPER.readValue(body, new TypeReference<Page<Playlist>>() {});
 
@@ -141,7 +141,7 @@ class ChartIT extends AbstractIT {
 
     @Test
     void shouldReturnPlaylistsChartWithPagination() throws IOException {
-        var genreId = 1L;
+        var genreId = 152L;
         var index = 5;
         var limit = 10;
         var body = read("/response/chart/get-playlists-chart.json");
@@ -159,7 +159,7 @@ class ChartIT extends AbstractIT {
 
     @Test
     void shouldReturnPodcastsChart() throws IOException {
-        var genreId = 1L;
+        var genreId = 152L;
         var body = read("/response/chart/get-podcasts-chart.json");
         var expected = MAPPER.readValue(body, new TypeReference<Page<Podcast>>() {});
 
@@ -173,7 +173,7 @@ class ChartIT extends AbstractIT {
 
     @Test
     void shouldReturnPodcastsChartWithPagination() throws IOException {
-        var genreId = 1L;
+        var genreId = 152L;
         var index = 5;
         var limit = 10;
         var body = read("/response/chart/get-podcasts-chart.json");
@@ -191,7 +191,7 @@ class ChartIT extends AbstractIT {
 
     @Test
     void shouldReturnTracksChart() throws IOException {
-        var genreId = 1L;
+        var genreId = 152L;
         var body = read("/response/chart/get-tracks-chart.json");
         var expected = MAPPER.readValue(body, new TypeReference<Page<Track>>() {});
 
@@ -205,7 +205,7 @@ class ChartIT extends AbstractIT {
 
     @Test
     void shouldReturnTracksChartWithPagination() throws IOException {
-        var genreId = 1L;
+        var genreId = 152L;
         var index = 5;
         var limit = 10;
         var body = read("/response/chart/get-tracks-chart.json");

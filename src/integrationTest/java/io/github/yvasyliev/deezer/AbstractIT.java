@@ -35,6 +35,7 @@ abstract class AbstractIT {
 
         assertThatThrownBy(() -> request.executeAsync().join())
                 .isInstanceOf(CompletionException.class)
+                .hasCauseInstanceOf(DeezerApiException.class)
                 .cause()
                 .usingRecursiveComparison()
                 .isEqualTo(expected);
