@@ -1,74 +1,127 @@
 package io.github.yvasyliev.deezer;
 
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
+import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import io.github.yvasyliev.deezer.model.Album;
 import io.github.yvasyliev.deezer.model.Page;
 import io.github.yvasyliev.deezer.model.Track;
 import io.github.yvasyliev.deezer.model.User;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.FieldSource;
+import io.github.yvasyliev.deezer.request.DeezerRequest;
+import io.github.yvasyliev.deezer.util.DeezerDefaults;
+import lombok.Cleanup;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.json.JsonMapper;
 
 import java.io.IOException;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
+import java.util.Objects;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-class AlbumIT extends AbstractDeezerClientIT {
-    private static final Supplier<Stream<Arguments>> testSuccessfulScenario = () -> {
+@WireMockTest
+class AlbumIT {
+    private static final JsonMapper MAPPER = DeezerDefaults.jsonMapper();
+    private DeezerClient deezerClient;
+
+    @BeforeEach
+    void setUp(WireMockRuntimeInfo wmRuntimeInfo) {
+        deezerClient = DeezerClient.builder()
+                .apiBaseUrl(wmRuntimeInfo.getHttpBaseUrl())
+                .build();
+    }
+
+    @Test
+    void shouldReturnAlbum() throws IOException {
+        var albumId = 500138701L;
+        var body = read("/response/album/get-album.json");
+        var expected = MAPPER.readValue(body, Album.class);
+
+        stubFor(get(urlPathTemplate("/album/{albumId}"))
+                .withPathParam("albumId", equalTo(String.valueOf(albumId)))
+                .willReturn(okJson(body))
+        );
+
+        assertEquals(expected, deezerClient.album().getAlbum(albumId));
+    }
+
+    @Test
+    void shouldReturnFans() throws IOException {
+        var albumId = 500138701L;
+        var body = read("/response/album/get-fans.json");
+        var expected = MAPPER.readValue(body, new TypeReference<Page<User>>() {});
+
+        stubFor(get(urlPathTemplate("/album/{albumId}/fans"))
+                .withPathParam("albumId", equalTo(String.valueOf(albumId)))
+                .willReturn(okJson(body))
+        );
+
+        assertEquals(expected, deezerClient.album().getFans(albumId));
+    }
+
+    @Test
+    void shouldReturnFansWithPagination() throws IOException {
         var albumId = 500138701L;
         var index = 5;
         var limit = 10;
+        var body = read("/response/album/get-fans.json");
+        var expected = MAPPER.readValue(body, new TypeReference<Page<User>>() {});
 
-        return Stream.of(
-                arguments("album", new StubArguments<Album>()
-                        .mappingBuilder(get(urlPathTemplate("/album/{albumId}")))
-                        .pathParam("albumId", albumId)
-                        .file("/response/album/get-album.json")
-                        .methodFactory(client -> client.album().getAlbum(albumId))
-                        .type(new TypeReference<>() {})
-                ),
-                arguments("fans", new StubArguments<Page<User>>()
-                        .mappingBuilder(get(urlPathTemplate("/album/{albumId}/fans")))
-                        .pathParam("albumId", albumId)
-                        .file("/response/album/get-fans.json")
-                        .methodFactory(client -> client.album().getFans(albumId))
-                        .type(new TypeReference<>() {})
-                ),
-                arguments("fans with pagination", new StubArguments<Page<User>>()
-                        .mappingBuilder(get(urlPathTemplate("/album/{albumId}/fans")))
-                        .pathParam("albumId", albumId)
-                        .queryParam("index", index)
-                        .queryParam("limit", limit)
-                        .file("/response/album/get-fans.json")
-                        .methodFactory(client -> client.album().getFans(albumId).index(index).limit(limit))
-                        .type(new TypeReference<>() {})
-                ),
-                arguments("tracks", new StubArguments<Page<Track>>()
-                        .mappingBuilder(get(urlPathTemplate("/album/{albumId}/tracks")))
-                        .pathParam("albumId", albumId)
-                        .file("/response/album/get-tracks.json")
-                        .methodFactory(client -> client.album().getTracks(albumId))
-                        .type(new TypeReference<>() {})
-                ),
-                arguments("tracks with pagination", new StubArguments<Page<Track>>()
-                        .mappingBuilder(get(urlPathTemplate("/album/{albumId}/tracks")))
-                        .pathParam("albumId", albumId)
-                        .queryParam("index", index)
-                        .queryParam("limit", limit)
-                        .file("/response/album/get-tracks.json")
-                        .methodFactory(client -> client.album().getTracks(albumId).index(index).limit(limit))
-                        .type(new TypeReference<>() {})
-                )
+        stubFor(get(urlPathTemplate("/album/{albumId}/fans"))
+                .withPathParam("albumId", equalTo(String.valueOf(albumId)))
+                .withQueryParam("index", equalTo(String.valueOf(index)))
+                .withQueryParam("limit", equalTo(String.valueOf(limit)))
+                .willReturn(okJson(body))
         );
-    };
 
-    @ParameterizedTest(name = "should return {0}", quoteTextArguments = false)
-    @FieldSource
-    void testSuccessfulScenario(String name, StubArguments<?> args) throws IOException {
-        stubRequest(args);
+        assertEquals(expected, deezerClient.album().getFans(albumId).index(index).limit(limit));
+    }
+
+    @Test
+    void shouldReturnTracks() throws IOException {
+        var albumId = 500138701L;
+        var body = read("/response/album/get-tracks.json");
+        var expected = MAPPER.readValue(body, new TypeReference<Page<Track>>() {});
+
+        stubFor(get(urlPathTemplate("/album/{albumId}/tracks"))
+                .withPathParam("albumId", equalTo(String.valueOf(albumId)))
+                .willReturn(okJson(body))
+        );
+
+        assertEquals(expected, deezerClient.album().getTracks(albumId));
+    }
+
+    @Test
+    void shouldReturnTracksWithPagination() throws IOException {
+        var albumId = 500138701L;
+        var index = 5;
+        var limit = 10;
+        var body = read("/response/album/get-tracks.json");
+        var expected = MAPPER.readValue(body, new TypeReference<Page<Track>>() {});
+
+        stubFor(get(urlPathTemplate("/album/{albumId}/tracks"))
+                .withPathParam("albumId", equalTo(String.valueOf(albumId)))
+                .withQueryParam("index", equalTo(String.valueOf(index)))
+                .withQueryParam("limit", equalTo(String.valueOf(limit)))
+                .willReturn(okJson(body))
+        );
+
+        assertEquals(expected, deezerClient.album().getTracks(albumId).index(index).limit(limit));
+    }
+
+    private <T> void assertEquals(T expected, DeezerRequest<T> request) {
+        Assertions.assertEquals(expected, request.execute());
+        Assertions.assertEquals(expected, request.executeAsync().join());
+    }
+
+    private String read(String file) throws IOException {
+        @Cleanup var inputStream = Objects.requireNonNull(this.getClass().getResourceAsStream(file));
+
+        return new String(inputStream.readAllBytes());
     }
 }
