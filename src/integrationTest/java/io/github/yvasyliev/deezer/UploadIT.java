@@ -1,20 +1,20 @@
 package io.github.yvasyliev.deezer;
 
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.FieldSource;
-import tools.jackson.core.type.TypeReference;
+import com.github.tomakehurst.wiremock.common.ContentTypes;
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
+import com.github.tomakehurst.wiremock.junit5.WireMockTest;
+import io.github.yvasyliev.deezer.request.DeezerRequest;
+import io.github.yvasyliev.deezer.util.DeezerDefaults;
+import lombok.Cleanup;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import tools.jackson.databind.json.JsonMapper;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.UncheckedIOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Objects;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aMultipart;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
@@ -24,50 +24,76 @@ import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-class UploadIT extends AbstractDeezerClientIT {
-    private static final Supplier<Stream<Arguments>> testSuccessfulScenario = () -> {
+@WireMockTest
+class UploadIT {
+    private static final String ACCESS_TOKEN = "test_access_token";
+    private static final String UPLOAD_TOKEN = "dyq9m5jxfh2bgh966v2npj2kevcdw6pw";
+    private static final JsonMapper MAPPER = DeezerDefaults.jsonMapper();
+    private DeezerClient deezerClient;
+
+    @BeforeEach
+    void setUp(WireMockRuntimeInfo wmRuntimeInfo) {
+        deezerClient = DeezerClient.builder()
+                .apiBaseUrl(wmRuntimeInfo.getHttpBaseUrl())
+                .uploadBaseUrl(wmRuntimeInfo.getHttpBaseUrl())
+                .authorization(ACCESS_TOKEN)
+                .build();
+    }
+
+    @Test
+    void shouldUploadPlaylistCoverWithFile() throws IOException {
         var playlistId = 500138701L;
-        var fileName = "cover.jpg";
-        var cover = "fake_cover_binary".getBytes(StandardCharsets.UTF_8);
-        var coverFile = createTempCover(cover);
+        var cover = createTempFile("fake_cover");
+        var body = read("/response/playlist/upload-cover.json");
+        var expected = MAPPER.readValue(body, Boolean.class);
 
-        return Stream.of(
-                arguments("file", new StubArguments<Boolean>()
-                        .mappingBuilder(post(urlPathTemplate("/playlist/{playlistId}"))
-                                .withMultipartRequestBody(aMultipart()
-                                        .withName("access_token")
-                                        .withBody(equalTo(ACCESS_TOKEN)))
-                                .withMultipartRequestBody(aMultipart()
-                                        .withName("upload_token")
-                                        .withBody(equalTo(UPLOAD_TOKEN))))
-                        .pathParam("playlistId", playlistId)
-                        .file("/response/playlist/upload-cover.json")
-                        .methodFactory(client -> client.upload().uploadPlaylistCover(playlistId, coverFile))
-                        .type(new TypeReference<>() {})
-                ),
-                arguments("bytes", new StubArguments<Boolean>()
-                        .mappingBuilder(post(urlPathTemplate("/playlist/{playlistId}"))
-                                .withMultipartRequestBody(aMultipart()
-                                        .withName("access_token")
-                                        .withBody(equalTo(ACCESS_TOKEN)))
-                                .withMultipartRequestBody(aMultipart()
-                                        .withName("upload_token")
-                                        .withBody(equalTo(UPLOAD_TOKEN))))
-                        .pathParam("playlistId", playlistId)
-                        .file("/response/playlist/upload-cover.json")
-                        .methodFactory(client -> client.upload().uploadPlaylistCover(playlistId, cover, fileName))
-                        .type(new TypeReference<>() {})
-                )
-        );
-    };
-
-    @ParameterizedTest(name = "should upload playlist cover from {0}", quoteTextArguments = false)
-    @FieldSource
-    void testSuccessfulScenario(String name, StubArguments<?> args) throws IOException {
         stubInfos();
-        stubRequest(args);
+        stubFor(post(urlPathTemplate("/playlist/{playlistId}"))
+                .withPathParam("playlistId", equalTo(String.valueOf(playlistId)))
+                .withMultipartRequestBody(aMultipart()
+                        .withName("access_token")
+                        .withBody(equalTo(ACCESS_TOKEN)))
+                .withMultipartRequestBody(aMultipart()
+                        .withName("upload_token")
+                        .withBody(equalTo(UPLOAD_TOKEN)))
+                .withMultipartRequestBody(aMultipart()
+                        .withHeader(ContentTypes.CONTENT_TYPE, equalTo("image/jpeg"))
+                        .withName("file")
+                        .withFileName(cover.getName())
+                        .withBody(equalTo("fake_cover")))
+                .willReturn(okJson(body))
+        );
+
+        assertEquals(expected, deezerClient.upload().uploadPlaylistCover(playlistId, cover));
+    }
+
+    @Test
+    void shouldUploadPlaylistCoverWithoutBytes() throws IOException {
+        var playlistId = 500138701L;
+        var cover = "fake_cover";
+        var fileName = "fake_cover.jpg";
+        var body = read("/response/playlist/upload-cover.json");
+        var expected = MAPPER.readValue(body, Boolean.class);
+
+        stubInfos();
+        stubFor(post(urlPathTemplate("/playlist/{playlistId}"))
+                .withPathParam("playlistId", equalTo(String.valueOf(playlistId)))
+                .withMultipartRequestBody(aMultipart()
+                        .withName("access_token")
+                        .withBody(equalTo(ACCESS_TOKEN)))
+                .withMultipartRequestBody(aMultipart()
+                        .withName("upload_token")
+                        .withBody(equalTo(UPLOAD_TOKEN)))
+                .withMultipartRequestBody(aMultipart()
+                        .withHeader(ContentTypes.CONTENT_TYPE, equalTo("image/jpeg"))
+                        .withName("file")
+                        .withFileName(fileName)
+                        .withBody(equalTo(cover)))
+                .willReturn(okJson(body))
+        );
+
+        assertEquals(expected, deezerClient.upload().uploadPlaylistCover(playlistId, cover.getBytes(), fileName));
     }
 
     private void stubInfos() throws IOException {
@@ -76,27 +102,26 @@ class UploadIT extends AbstractDeezerClientIT {
                 .willReturn(okJson(read("/response/infos/get-infos.json"))));
     }
 
-    private String read(String file) throws IOException {
-        try (InputStream inputStream = Objects.requireNonNull(this.getClass().getResourceAsStream(file));
-             ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-            inputStream.transferTo(outputStream);
-
-            return outputStream.toString(StandardCharsets.UTF_8);
-        }
+    private <T> void assertEquals(T expected, DeezerRequest<T> request) {
+        Assertions.assertEquals(expected, request.execute());
+        Assertions.assertEquals(expected, request.executeAsync().join());
     }
 
-    private static File createTempCover(byte[] bytes) {
-        try {
-            var path = Files.createTempFile("deezer-upload-it-", ".jpg");
-            Files.write(path, bytes);
-            var file = path.toFile();
-            file.deleteOnExit();
+    private String read(String file) throws IOException {
+        @Cleanup var inputStream = Objects.requireNonNull(this.getClass().getResourceAsStream(file));
 
-            return file;
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
+        return new String(inputStream.readAllBytes());
+    }
+
+    private static File createTempFile(String content) throws IOException {
+        var path = Files.createTempFile("deezer-upload-it-", ".jpg");
+
+        Files.write(path, content.getBytes());
+
+        var file = path.toFile();
+
+        file.deleteOnExit();
+
+        return file;
     }
 }
-
-
