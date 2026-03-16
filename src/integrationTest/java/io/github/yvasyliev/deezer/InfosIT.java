@@ -1,0 +1,43 @@
+package io.github.yvasyliev.deezer;
+
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
+import io.github.yvasyliev.deezer.model.Infos;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
+
+class InfosIT extends AbstractIT {
+    @Test
+    void shouldReturnInofs(WireMockRuntimeInfo wmRuntimeInfo) throws IOException {
+        var body = read("/response/infos/get-infos.json");
+        var expected = MAPPER.readValue(body, Infos.class);
+        var deezerClient = DeezerClient.builder()
+                .apiBaseUrl(wmRuntimeInfo.getHttpBaseUrl())
+                .clock(CLOCK)
+                .build();
+
+        stubFor(get(urlPathEqualTo("/infos")).willReturn(okJson(body)));
+
+        assertEquals(expected, deezerClient.infos().getInfos());
+    }
+
+    @Test
+    void shouldReturnInofsWithAccessToken(WireMockRuntimeInfo wmRuntimeInfo) throws IOException {
+        var body = read("/response/infos/get-infos.json");
+        var expected = MAPPER.readValue(body, Infos.class);
+        var deezerClient = DeezerClient.builder()
+                .apiBaseUrl(wmRuntimeInfo.getHttpBaseUrl())
+                .clock(CLOCK)
+                .authorization(ACCESS_TOKEN)
+                .build();
+
+        stubFor(get(urlPathEqualTo("/infos")).willReturn(okJson(body)));
+
+        assertEquals(expected, deezerClient.infos().getInfos());
+    }
+}

@@ -21,6 +21,7 @@ import io.github.yvasyliev.deezer.factory.UploadRequestFactory;
 import io.github.yvasyliev.deezer.factory.UserRequestFactory;
 import io.github.yvasyliev.deezer.model.AccessToken;
 import io.github.yvasyliev.deezer.service.OAuthService;
+import io.github.yvasyliev.deezer.util.DeezerDefaults;
 import io.github.yvasyliev.deezer.util.FeignConfigurator;
 import io.github.yvasyliev.deezer.util.RequestFactoryProvider;
 import io.github.yvasyliev.deezer.util.TriFunction;
@@ -34,7 +35,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Clock;
 import java.time.Instant;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
@@ -47,6 +50,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
@@ -210,6 +214,16 @@ class DeezerClientTest {
                 .extracting(AccessTokenSupplier::get)
                 .extracting(CompletableFuture::join)
                 .isEqualTo(expected);
+    }
+
+    @Test
+    void shouldSetClock() {
+        var expected = Clock.fixed(Instant.now(), ZoneId.systemDefault());
+        @Cleanup var deezerDefaults = mockStatic(DeezerDefaults.class, CALLS_REAL_METHODS);
+
+        DeezerClient.builder().clock(expected).build();
+
+        deezerDefaults.verify(() -> DeezerDefaults.jsonMapper(expected));
     }
 
     private static DeezerClient withAppAuthorization(

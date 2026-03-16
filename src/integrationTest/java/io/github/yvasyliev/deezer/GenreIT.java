@@ -79,4 +79,3 @@ class GenreIT extends AbstractIT {
         assertEquals(expected, deezerClient.genre().getRadios(genreId));
     }
 }
-

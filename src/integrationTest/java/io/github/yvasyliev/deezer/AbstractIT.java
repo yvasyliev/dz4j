@@ -12,6 +12,9 @@ import tools.jackson.databind.json.JsonMapper;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.Objects;
 import java.util.concurrent.CompletionException;
 
@@ -20,7 +23,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @WireMockTest
 abstract class AbstractIT {
     protected static final String ACCESS_TOKEN = "test_access_token";
-    protected static final JsonMapper MAPPER = DeezerDefaults.jsonMapper();
+    protected static final Clock CLOCK = Clock.fixed(Instant.now(), ZoneId.systemDefault());
+    protected static final JsonMapper MAPPER = DeezerDefaults.jsonMapper(CLOCK);
 
     protected <T> void assertEquals(T expected, DeezerRequest<T> request) {
         Assertions.assertEquals(expected, request.execute());

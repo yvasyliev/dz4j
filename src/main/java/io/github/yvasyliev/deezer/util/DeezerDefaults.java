@@ -2,7 +2,9 @@ package io.github.yvasyliev.deezer.util;
 
 import feign.Param;
 import io.github.yvasyliev.deezer.authorization.TokenManager;
+import io.github.yvasyliev.deezer.databind.cfg.DeezerHandlerInstantiator;
 import io.github.yvasyliev.deezer.databind.deser.PageDeserializerModifier;
+import io.github.yvasyliev.deezer.databind.util.ExpiresConverter;
 import io.github.yvasyliev.deezer.databind.util.ZeroToNullLocalDateConverter;
 import io.github.yvasyliev.deezer.databind.util.ZeroToNullLocalDateTimeConverter;
 import io.github.yvasyliev.deezer.factory.InfosRequestFactory;
@@ -23,6 +25,7 @@ import tools.jackson.databind.deser.std.StdConvertingDeserializer;
 import tools.jackson.databind.json.JsonMapper;
 import tools.jackson.databind.module.SimpleModule;
 
+import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -43,9 +46,12 @@ public class DeezerDefaults {
     public final CompletableFuture<AccessToken> EMPTY_ACCESS_TOKEN_FUTURE =
             AuthHelper.createAccessTokenFuture(AuthHelper.createAccessToken(null));
 
-    public JsonMapper jsonMapper() {
+    public JsonMapper jsonMapper(Clock clock) {
         return JsonMapper.builder()
                 .enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
+                .handlerInstantiator(new DeezerHandlerInstantiator(Map.of(
+                        ExpiresConverter.class, new ExpiresConverter(clock)
+                )))
                 .addModule(new SimpleModule("deezer-api")
                         .setDeserializerModifier(new PageDeserializerModifier())
                         .addDeserializer(

@@ -27,8 +27,10 @@ import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.DeserializationFeature;
 import tools.jackson.databind.json.JsonMapper;
 
+import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -51,7 +53,7 @@ import static org.mockito.Mockito.when;
 class DeezerDefaultsTest {
     @Test
     void testJsonMapper() {
-        var jsonMapper = DeezerDefaults.jsonMapper();
+        var jsonMapper = DeezerDefaults.jsonMapper(Clock.systemDefaultZone());
 
         assertNotNull(jsonMapper);
         assertTrue(jsonMapper.isEnabled(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT));
@@ -106,7 +108,7 @@ class DeezerDefaultsTest {
 
     @Nested
     class JsonMapperTest {
-        private static final JsonMapper JSON_MAPPER = DeezerDefaults.jsonMapper();
+        private static final JsonMapper JSON_MAPPER = DeezerDefaults.jsonMapper(Clock.systemDefaultZone());
         private static final Supplier<Stream<Arguments>> shouldDeserializePage = () -> {
             var json = """
                        {
@@ -136,6 +138,19 @@ class DeezerDefaultsTest {
                     arguments(json2, LocalDate.of(2026, 2, 13))
             );
         };
+        private static final Supplier<Stream<Arguments>> shouldDeserializeLocalDateTime = () -> {
+            var json1 = """
+                        "0000-00-00 00:00:00"
+                        """;
+            var json2 = """
+                        "2026-02-13 20:02:13"
+                        """;
+
+            return Stream.of(
+                    arguments(json1, null),
+                    arguments(json2, LocalDateTime.of(2026, 2, 13, 20, 2, 13))
+            );
+        };
 
         @Test
         void shouldCreateJsonMapper() {
@@ -156,6 +171,14 @@ class DeezerDefaultsTest {
         @FieldSource
         void shouldDeserializeLocalDate(String json, LocalDate expected) {
             var actual = JSON_MAPPER.readValue(json, LocalDate.class);
+
+            assertEquals(expected, actual);
+        }
+
+        @ParameterizedTest
+        @FieldSource
+        void shouldDeserializeLocalDateTime(String json, LocalDateTime expected) {
+            var actual = JSON_MAPPER.readValue(json, LocalDateTime.class);
 
             assertEquals(expected, actual);
         }

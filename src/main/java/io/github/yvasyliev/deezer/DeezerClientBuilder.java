@@ -15,6 +15,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import tools.jackson.databind.json.JsonMapper;
 
+import java.time.Clock;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -22,7 +23,7 @@ import java.util.function.Function;
 @Setter
 @Accessors(fluent = true, chain = true)
 public class DeezerClientBuilder {
-    private JsonMapper jsonMapper = DeezerDefaults.jsonMapper();
+    private JsonMapper jsonMapper = DeezerDefaults.jsonMapper(Clock.systemDefaultZone());
     private Consumer<DeezerDecoder.DeezerDecoderBuilder> decoder = DeezerDefaults.noopConsumer();
     private Consumer<DeezerContract.DeezerContractBuilder> contract = DeezerDefaults.noopConsumer();
     private Consumer<AsyncFeign.AsyncBuilder<Object>> feign = DeezerDefaults.noopConsumer();
@@ -46,6 +47,10 @@ public class DeezerClientBuilder {
 
     public DeezerClientBuilder authorization(int appId, String secret, String code) {
         return accessTokenProviderFactory(oauth -> oauth.getAccessToken(appId, secret, code).executeAsync());
+    }
+
+    public DeezerClientBuilder clock(Clock clock) {
+        return jsonMapper(DeezerDefaults.jsonMapper(clock));
     }
 
     public DeezerClient build() {
