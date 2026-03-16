@@ -29,6 +29,7 @@ public class FeignConfigurator {
         contractCustomizer.accept(contract);
 
         var builder = AsyncFeign.builder()
+                .dismiss404()
                 .encoder(new FormEncoder())
                 .decoder(decoder.build())
                 .contract(contract.build());

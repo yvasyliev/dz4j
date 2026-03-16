@@ -1,0 +1,7 @@
+{
+  "error": {
+    "type": "MissingParameterException",
+    "message": "PARAMETER_MISSING",
+    "code": 501
+  }
+}

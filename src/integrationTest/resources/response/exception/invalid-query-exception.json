@@ -1,0 +1,7 @@
+{
+  "error": {
+    "type": "InvalidQueryException",
+    "message": "QUERY_INVALID",
+    "code": 600
+  }
+}

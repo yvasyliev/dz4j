@@ -1,0 +1,7 @@
+{
+  "error": {
+    "type": "Exception",
+    "message": "QUOTA",
+    "code": 4
+  }
+}

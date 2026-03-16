@@ -33,6 +33,7 @@ class FeignConfiguratorTest {
         var jsonNodeDeserializers = List.of(mock(JsonNodeDeserializer.class));
         var expander = mock(Param.Expander.class);
         var expected = AsyncFeign.builder()
+                .dismiss404()
                 .encoder(new FormEncoder())
                 .decoder(new DeezerDecoder(responseValidators, jsonNodeDeserializers, jsonMapper))
                 .contract(new DeezerContract(Map.of(TestExpander.class, expander)));
