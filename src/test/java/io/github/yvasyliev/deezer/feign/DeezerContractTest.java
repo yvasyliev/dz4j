@@ -3,12 +3,8 @@ package io.github.yvasyliev.deezer.feign;
 import feign.Contract;
 import feign.Param;
 import feign.RequestLine;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 import tools.jackson.databind.json.JsonMapper;
 
 import java.util.Map;
@@ -20,19 +16,14 @@ import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-@ExtendWith(MockitoExtension.class)
 class DeezerContractTest {
-    @Mock private TestExpander expander;
-    private Contract contract;
-
-    @BeforeEach
-    void setUp() {
-        contract = new DeezerContract(Map.of(TestExpander.class, expander));
-    }
-
     @Test
     void testParseAndValidateMetadata() {
+        var expander = mock(TestExpander.class);
         var expected = new Contract.Default().parseAndValidateMetadata(TestClient.class);
+        var contract = DeezerContract.builder()
+                .expanders(expanders -> expanders.put(TestExpander.class, expander))
+                .build();
 
         expected.get(0).indexToExpander(Map.of(0, expander));
 

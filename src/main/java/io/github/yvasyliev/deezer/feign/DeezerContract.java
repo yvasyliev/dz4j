@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class DeezerContract implements Contract {
-    private static final Contract DELEGATE = new Default(); //TODO: instance variable
+    private final Contract delegate;
     private final Map<Class<? extends Param.Expander>, Param.Expander> expanders;
 
     @Builder
@@ -24,7 +24,7 @@ public class DeezerContract implements Contract {
             JsonMapper jsonMapper,
             Consumer<Map<Class<? extends Param.Expander>, Param.Expander>> expanders
     ) {
-        this(new HashMap<>());
+        this(new Default(), new HashMap<>());
 
         this.expanders.put(QueryExpander.class, new QueryExpander(jsonMapper));
         this.expanders.put(StrictExpander.class, new StrictExpander());
@@ -34,7 +34,7 @@ public class DeezerContract implements Contract {
 
     @Override
     public List<MethodMetadata> parseAndValidateMetadata(Class<?> targetType) {
-        var result = DELEGATE.parseAndValidateMetadata(targetType);
+        var result = delegate.parseAndValidateMetadata(targetType);
 
         result.forEach(this::setExpanders);
 
