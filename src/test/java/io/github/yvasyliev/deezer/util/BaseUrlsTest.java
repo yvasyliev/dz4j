@@ -8,13 +8,20 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class BaseUrlsTest {
     @Test
-    void shouldInitializeDefaultBaseUrls() {
+    void shouldInitializeDefaultBaseUrlsByBuilder() {
         var baseUrls = BaseUrls.builder().build();
 
-        assertNotNull(baseUrls);
-        assertEquals("https://api.deezer.com", baseUrls.api());
-        assertEquals("https://connect.deezer.com", baseUrls.oauth());
-        assertEquals("https://upload.deezer.com", baseUrls.upload());
+        assertBaseUrls(baseUrls, "https://api.deezer.com", "https://connect.deezer.com", "https://upload.deezer.com");
+    }
+
+    @Test
+    void shouldInitializeCustomBaseUrlsByConstructor() {
+        var api = "https://api.example.com";
+        var oauth = "https://connect.example.com";
+        var upload = "https://upload.example.com";
+        var baseUrls = new BaseUrls(api, oauth, upload);
+
+        assertBaseUrls(baseUrls, api, oauth, upload);
     }
 
     @Test
@@ -28,6 +35,10 @@ class BaseUrlsTest {
                 .upload(upload)
                 .build();
 
+        assertBaseUrls(baseUrls, api, oauth, upload);
+    }
+
+    private void assertBaseUrls(BaseUrls baseUrls, String api, String oauth, String upload) {
         assertNotNull(baseUrls);
         assertEquals(api, baseUrls.api());
         assertEquals(oauth, baseUrls.oauth());

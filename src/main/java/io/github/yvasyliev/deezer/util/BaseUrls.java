@@ -1,9 +1,11 @@
 package io.github.yvasyliev.deezer.util;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 
+@AllArgsConstructor
 @Getter
 @Accessors(fluent = true)
 @Builder
