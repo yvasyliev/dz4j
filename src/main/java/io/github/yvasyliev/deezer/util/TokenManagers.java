@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 
 @UtilityClass
 public class TokenManagers {
-    public TokenManager<AccessToken> accessTokenTokenManager(
+    public TokenManager<AccessToken> accessTokenManager(
             Supplier<CompletableFuture<AccessToken>> accessTokenSupplier
     ) {
         return new TokenManager<>(token -> true, accessTokenSupplier, AccessToken::token);

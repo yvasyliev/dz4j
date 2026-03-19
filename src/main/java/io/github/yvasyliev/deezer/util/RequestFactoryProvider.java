@@ -76,7 +76,7 @@ public class RequestFactoryProvider {
         var assembler = new RequestFactoryAssembler(
                 builder,
                 baseUrls.api(),
-                TokenManagers.accessTokenTokenManager(accessTokenSupplier)
+                TokenManagers.accessTokenManager(accessTokenSupplier)
         );
 
         album = assembler.assemble(AlbumRequestFactory::new, AlbumService.class);

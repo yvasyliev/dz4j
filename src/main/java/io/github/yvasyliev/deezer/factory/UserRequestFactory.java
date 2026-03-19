@@ -32,7 +32,6 @@ import java.util.function.BiFunction;
  */
 @RequiredArgsConstructor
 public class UserRequestFactory {
-    private static final String ME = "me";
     private final UserService userService;
     private final TokenManager<AccessToken> accessTokenManager;
 
@@ -55,7 +54,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will add album(s) to the user's library
      */
     public DeezerRequest<Boolean> addAlbums(Collection<Long> albumIds) {
-        return addAlbums(ME, albumIds);
+        return addAlbums(UserId.ME, albumIds);
     }
 
     /**
@@ -77,10 +76,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will add album(s) to the user's library
      */
     public DeezerRequest<Boolean> addAlbums(long userId, Collection<Long> albumIds) {
-        return addAlbums(String.valueOf(userId), albumIds);
+        return addAlbums(UserId.of(userId), albumIds);
     }
 
-    private DeezerRequest<Boolean> addAlbums(String userId, Collection<Long> albumIds) {
+    private DeezerRequest<Boolean> addAlbums(UserId userId, Collection<Long> albumIds) {
         return createDeezerRequest(userId, albumIds, userService::addAlbums);
     }
 
@@ -105,7 +104,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will add artist(s) to the user's favorites
      */
     public DeezerRequest<Boolean> addArtists(Collection<Long> artistIds) {
-        return addArtists(ME, artistIds);
+        return addArtists(UserId.ME, artistIds);
     }
 
     /**
@@ -127,10 +126,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will add artist(s) to the user's favorites
      */
     public DeezerRequest<Boolean> addArtists(long userId, Collection<Long> artistIds) {
-        return addArtists(String.valueOf(userId), artistIds);
+        return addArtists(UserId.of(userId), artistIds);
     }
 
-    private DeezerRequest<Boolean> addArtists(String userId, Collection<Long> artistIds) {
+    private DeezerRequest<Boolean> addArtists(UserId userId, Collection<Long> artistIds) {
         return createDeezerRequest(userId, artistIds, userService::addArtists);
     }
 
@@ -145,7 +144,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will add the specified notification to the user's feed
      */
     public DeezerRequest<NotificationResult> addNotification(String message) {
-        return addNotification(ME, message);
+        return addNotification(UserId.ME, message);
     }
 
     /**
@@ -156,10 +155,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will add the specified notification to the user's feed
      */
     public DeezerRequest<NotificationResult> addNotification(long userId, String message) {
-        return addNotification(String.valueOf(userId), message);
+        return addNotification(UserId.of(userId), message);
     }
 
-    private DeezerRequest<NotificationResult> addNotification(String userId, String message) {
+    private DeezerRequest<NotificationResult> addNotification(UserId userId, String message) {
         return createDeezerRequest(userId, message, userService::addNotification);
     }
 
@@ -184,7 +183,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will add playlist(s) to the user's favorites
      */
     public DeezerRequest<Boolean> addPlaylists(Collection<Long> playlistIds) {
-        return addPlaylists(ME, playlistIds);
+        return addPlaylists(UserId.ME, playlistIds);
     }
 
     /**
@@ -206,10 +205,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will add playlist(s) to the user's favorites
      */
     public DeezerRequest<Boolean> addPlaylists(long userId, Collection<Long> playlistIds) {
-        return addPlaylists(String.valueOf(userId), playlistIds);
+        return addPlaylists(UserId.of(userId), playlistIds);
     }
 
-    private DeezerRequest<Boolean> addPlaylists(String userId, Collection<Long> playlistIds) {
+    private DeezerRequest<Boolean> addPlaylists(UserId userId, Collection<Long> playlistIds) {
         return createDeezerRequest(userId, playlistIds, userService::addPlaylists);
     }
 
@@ -224,7 +223,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will add the specified podcast to the user's favorites
      */
     public DeezerRequest<Boolean> addPodcast(long podcastId) {
-        return addPodcast(ME, podcastId);
+        return addPodcast(UserId.ME, podcastId);
     }
 
     /**
@@ -235,10 +234,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will add the specified podcast to the user's favorites
      */
     public DeezerRequest<Boolean> addPodcast(long userId, long podcastId) {
-        return addPodcast(String.valueOf(userId), podcastId);
+        return addPodcast(UserId.of(userId), podcastId);
     }
 
-    private DeezerRequest<Boolean> addPodcast(String userId, long podcastId) {
+    private DeezerRequest<Boolean> addPodcast(UserId userId, long podcastId) {
         return createDeezerRequest(userId, podcastId, userService::addPodcast);
     }
 
@@ -253,7 +252,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will add the specified radio to the user's favorites
      */
     public DeezerRequest<Boolean> addRadio(long radioId) {
-        return addRadio(ME, radioId);
+        return addRadio(UserId.ME, radioId);
     }
 
     /**
@@ -264,10 +263,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will add the specified radio to the user's favorites
      */
     public DeezerRequest<Boolean> addRadio(long userId, long radioId) {
-        return addRadio(String.valueOf(userId), radioId);
+        return addRadio(UserId.of(userId), radioId);
     }
 
-    private DeezerRequest<Boolean> addRadio(String userId, long radioId) {
+    private DeezerRequest<Boolean> addRadio(UserId userId, long radioId) {
         return createDeezerRequest(userId, radioId, userService::addRadio);
     }
 
@@ -292,7 +291,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will add track(s) to the user's favorites
      */
     public DeezerRequest<Boolean> addTracks(Collection<Long> trackIds) {
-        return addTracks(ME, trackIds);
+        return addTracks(UserId.ME, trackIds);
     }
 
     /**
@@ -314,10 +313,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will add track(s) to the user's favorites
      */
     public DeezerRequest<Boolean> addTracks(long userId, Collection<Long> trackIds) {
-        return addTracks(String.valueOf(userId), trackIds);
+        return addTracks(UserId.of(userId), trackIds);
     }
 
-    private DeezerRequest<Boolean> addTracks(String userId, Collection<Long> trackIds) {
+    private DeezerRequest<Boolean> addTracks(UserId userId, Collection<Long> trackIds) {
         return createDeezerRequest(userId, trackIds, userService::addTracks);
     }
 
@@ -332,7 +331,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will create a new playlist for the user
      */
     public CreatePlaylistDeezerRequest createPlaylist(String title) {
-        return createPlaylist(ME, title);
+        return createPlaylist(UserId.ME, title);
     }
 
     /**
@@ -343,11 +342,11 @@ public class UserRequestFactory {
      * @return a request that, when executed, will create a new playlist for the user
      */
     public CreatePlaylistDeezerRequest createPlaylist(long userId, String title) {
-        return createPlaylist(String.valueOf(userId), title);
+        return createPlaylist(UserId.of(userId), title);
     }
 
-    private CreatePlaylistDeezerRequest createPlaylist(String userId, String title) {
-        return new CreatePlaylistDeezerRequest(userId, accessTokenManager, title, userService);
+    private CreatePlaylistDeezerRequest createPlaylist(UserId userId, String title) {
+        return new CreatePlaylistDeezerRequest(userId.id(), accessTokenManager, title, userService);
     }
 
     //endregion
@@ -361,7 +360,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will follow the specified user
      */
     public DeezerRequest<Boolean> followUser(long followeeId) {
-        return followUser(ME, followeeId);
+        return followUser(UserId.ME, followeeId);
     }
 
     /**
@@ -372,10 +371,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will follow the specified user
      */
     public DeezerRequest<Boolean> followUser(long userId, long followeeId) {
-        return followUser(String.valueOf(userId), followeeId);
+        return followUser(UserId.of(userId), followeeId);
     }
 
-    private DeezerRequest<Boolean> followUser(String userId, long followeeId) {
+    private DeezerRequest<Boolean> followUser(UserId userId, long followeeId) {
         return createDeezerRequest(userId, followeeId, userService::followUser);
     }
 
@@ -389,7 +388,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return the user's top albums
      */
     public PagingDeezerRequest<Page<Album>> getAlbumChart() {
-        return getAlbumChart(ME);
+        return getAlbumChart(UserId.ME);
     }
 
     /**
@@ -399,10 +398,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return the user's top albums
      */
     public PagingDeezerRequest<Page<Album>> getAlbumChart(long userId) {
-        return getAlbumChart(String.valueOf(userId));
+        return getAlbumChart(UserId.of(userId));
     }
 
-    private PagingDeezerRequest<Page<Album>> getAlbumChart(String userId) {
+    private PagingDeezerRequest<Page<Album>> getAlbumChart(UserId userId) {
         return createPagingDeezerRequest(userId, userService::getAlbumChart);
     }
 
@@ -416,7 +415,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of album recommendations
      */
     public PagingDeezerRequest<Page<Album>> getAlbumRecommendations() {
-        return getAlbumRecommendations(ME);
+        return getAlbumRecommendations(UserId.ME);
     }
 
     /**
@@ -426,10 +425,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of album recommendations
      */
     public PagingDeezerRequest<Page<Album>> getAlbumRecommendations(long userId) {
-        return getAlbumRecommendations(String.valueOf(userId));
+        return getAlbumRecommendations(UserId.of(userId));
     }
 
-    private PagingDeezerRequest<Page<Album>> getAlbumRecommendations(String userId) {
+    private PagingDeezerRequest<Page<Album>> getAlbumRecommendations(UserId userId) {
         return createPagingDeezerRequest(userId, userService::getAlbumRecommendations);
     }
 
@@ -443,7 +442,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of the user's top artists
      */
     public PagingDeezerRequest<Page<Artist>> getArtistChart() {
-        return getArtistChart(ME);
+        return getArtistChart(UserId.ME);
     }
 
     /**
@@ -453,10 +452,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of the user's top artists
      */
     public PagingDeezerRequest<Page<Artist>> getArtistChart(long userId) {
-        return getArtistChart(String.valueOf(userId));
+        return getArtistChart(UserId.of(userId));
     }
 
-    private PagingDeezerRequest<Page<Artist>> getArtistChart(String userId) {
+    private PagingDeezerRequest<Page<Artist>> getArtistChart(UserId userId) {
         return createPagingDeezerRequest(userId, userService::getArtistChart);
     }
 
@@ -470,7 +469,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of artists recommendations
      */
     public PagingDeezerRequest<Page<Artist>> getArtistRecommendations() {
-        return getArtistRecommendations(ME);
+        return getArtistRecommendations(UserId.ME);
     }
 
     /**
@@ -480,10 +479,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of artists recommendations
      */
     public PagingDeezerRequest<Page<Artist>> getArtistRecommendations(long userId) {
-        return getArtistRecommendations(String.valueOf(userId));
+        return getArtistRecommendations(UserId.of(userId));
     }
 
-    private PagingDeezerRequest<Page<Artist>> getArtistRecommendations(String userId) {
+    private PagingDeezerRequest<Page<Artist>> getArtistRecommendations(UserId userId) {
         return createPagingDeezerRequest(userId, userService::getArtistRecommendations);
     }
 
@@ -497,7 +496,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of the user's favorite artists
      */
     public PagingDeezerRequest<Page<Artist>> getArtists() {
-        return getArtists(ME);
+        return getArtists(UserId.ME);
     }
 
     /**
@@ -507,10 +506,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of the user's favorite artists
      */
     public PagingDeezerRequest<Page<Artist>> getArtists(long userId) {
-        return getArtists(String.valueOf(userId));
+        return getArtists(UserId.of(userId));
     }
 
-    private PagingDeezerRequest<Page<Artist>> getArtists(String userId) {
+    private PagingDeezerRequest<Page<Artist>> getArtists(UserId userId) {
         return createPagingDeezerRequest(userId, userService::getArtists);
     }
 
@@ -524,7 +523,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of the user's top tracks
      */
     public PagingDeezerRequest<Page<Track>> getChart() {
-        return getChart(ME);
+        return getChart(UserId.ME);
     }
 
     /**
@@ -534,10 +533,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of the user's top tracks
      */
     public PagingDeezerRequest<Page<Track>> getChart(long userId) {
-        return getChart(String.valueOf(userId));
+        return getChart(UserId.of(userId));
     }
 
-    private PagingDeezerRequest<Page<Track>> getChart(String userId) {
+    private PagingDeezerRequest<Page<Track>> getChart(UserId userId) {
         return createPagingDeezerRequest(userId, userService::getChart);
     }
 
@@ -551,7 +550,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of user's flow tracks
      */
     public DeezerRequest<Page<Track>> getFlow() {
-        return getFlow(ME);
+        return getFlow(UserId.ME);
     }
 
     /**
@@ -561,10 +560,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of user's flow tracks
      */
     public DeezerRequest<Page<Track>> getFlow(long userId) {
-        return getFlow(String.valueOf(userId));
+        return getFlow(UserId.of(userId));
     }
 
-    private DeezerRequest<Page<Track>> getFlow(String userId) {
+    private DeezerRequest<Page<Track>> getFlow(UserId userId) {
         return createDeezerRequest(userId, userService::getFlow);
     }
 
@@ -578,7 +577,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of the user's followers
      */
     public PagingDeezerRequest<Page<User>> getFollowers() {
-        return getFollowers(ME);
+        return getFollowers(UserId.ME);
     }
 
     /**
@@ -588,10 +587,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of the user's followers
      */
     public PagingDeezerRequest<Page<User>> getFollowers(long userId) {
-        return getFollowers(String.valueOf(userId));
+        return getFollowers(UserId.of(userId));
     }
 
-    private PagingDeezerRequest<Page<User>> getFollowers(String userId) {
+    private PagingDeezerRequest<Page<User>> getFollowers(UserId userId) {
         return createPagingDeezerRequest(userId, userService::getFollowers);
     }
 
@@ -605,7 +604,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of users followed by the user
      */
     public PagingDeezerRequest<Page<User>> getFollowings() {
-        return getFollowings(ME);
+        return getFollowings(UserId.ME);
     }
 
     /**
@@ -615,10 +614,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of users followed by the user
      */
     public PagingDeezerRequest<Page<User>> getFollowings(long userId) {
-        return getFollowings(String.valueOf(userId));
+        return getFollowings(UserId.of(userId));
     }
 
-    private PagingDeezerRequest<Page<User>> getFollowings(String userId) {
+    private PagingDeezerRequest<Page<User>> getFollowings(UserId userId) {
         return createPagingDeezerRequest(userId, userService::getFollowings);
     }
 
@@ -632,7 +631,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of the user's listening history
      */
     public PagingDeezerRequest<Page<Track>> getHistory() {
-        return getHistory(ME);
+        return getHistory(UserId.ME);
     }
 
     /**
@@ -642,10 +641,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of the user's listening history
      */
     public PagingDeezerRequest<Page<Track>> getHistory(long userId) {
-        return getHistory(String.valueOf(userId));
+        return getHistory(UserId.of(userId));
     }
 
-    private PagingDeezerRequest<Page<Track>> getHistory(String userId) {
+    private PagingDeezerRequest<Page<Track>> getHistory(UserId userId) {
         return createPagingDeezerRequest(userId, userService::getHistory);
     }
 
@@ -659,7 +658,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return the user's options
      */
     public DeezerRequest<Options> getOptions() {
-        return getOptions(ME);
+        return getOptions(UserId.ME);
     }
 
     /**
@@ -669,10 +668,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return the user's options
      */
     public DeezerRequest<Options> getOptions(long userId) {
-        return getOptions(String.valueOf(userId));
+        return getOptions(UserId.of(userId));
     }
 
-    private DeezerRequest<Options> getOptions(String userId) {
+    private DeezerRequest<Options> getOptions(UserId userId) {
         return createDeezerRequest(userId, userService::getOptions);
     }
 
@@ -686,7 +685,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return the user's permissions
      */
     public DeezerRequest<PermissionsResponse> getPermissions() {
-        return getPermissions(ME);
+        return getPermissions(UserId.ME);
     }
 
     /**
@@ -696,10 +695,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return the user's permissions
      */
     public DeezerRequest<PermissionsResponse> getPermissions(long userId) {
-        return getPermissions(String.valueOf(userId));
+        return getPermissions(UserId.of(userId));
     }
 
-    private DeezerRequest<PermissionsResponse> getPermissions(String userId) {
+    private DeezerRequest<PermissionsResponse> getPermissions(UserId userId) {
         return createDeezerRequest(userId, userService::getPermissions);
     }
 
@@ -713,7 +712,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of the user's personal songs
      */
     public PagingDeezerRequest<Page<Track>> getPersonalSongs() {
-        return getPersonalSongs(ME);
+        return getPersonalSongs(UserId.ME);
     }
 
     /**
@@ -723,10 +722,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of the user's personal songs
      */
     public PagingDeezerRequest<Page<Track>> getPersonalSongs(long userId) {
-        return getPersonalSongs(String.valueOf(userId));
+        return getPersonalSongs(UserId.of(userId));
     }
 
-    private PagingDeezerRequest<Page<Track>> getPersonalSongs(String userId) {
+    private PagingDeezerRequest<Page<Track>> getPersonalSongs(UserId userId) {
         return createPagingDeezerRequest(userId, userService::getPersonalSongs);
     }
 
@@ -740,7 +739,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of the user's top playlists
      */
     public PagingDeezerRequest<Page<Playlist>> getPlaylistChart() {
-        return getPlaylistChart(ME);
+        return getPlaylistChart(UserId.ME);
     }
 
     /**
@@ -750,10 +749,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of the user's top playlists
      */
     public PagingDeezerRequest<Page<Playlist>> getPlaylistChart(long userId) {
-        return getPlaylistChart(String.valueOf(userId));
+        return getPlaylistChart(UserId.of(userId));
     }
 
-    private PagingDeezerRequest<Page<Playlist>> getPlaylistChart(String userId) {
+    private PagingDeezerRequest<Page<Playlist>> getPlaylistChart(UserId userId) {
         return createPagingDeezerRequest(userId, userService::getPlaylistChart);
     }
 
@@ -767,7 +766,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of playlists recommendations
      */
     public PagingDeezerRequest<Page<Playlist>> getPlaylistRecommendations() {
-        return getPlaylistRecommendations(ME);
+        return getPlaylistRecommendations(UserId.ME);
     }
 
     /**
@@ -777,10 +776,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of playlists recommendations
      */
     public PagingDeezerRequest<Page<Playlist>> getPlaylistRecommendations(long userId) {
-        return getPlaylistRecommendations(String.valueOf(userId));
+        return getPlaylistRecommendations(UserId.of(userId));
     }
 
-    private PagingDeezerRequest<Page<Playlist>> getPlaylistRecommendations(String userId) {
+    private PagingDeezerRequest<Page<Playlist>> getPlaylistRecommendations(UserId userId) {
         return createPagingDeezerRequest(userId, userService::getPlaylistRecommendations);
     }
 
@@ -794,7 +793,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of user's public playlists
      */
     public PagingDeezerRequest<Page<Playlist>> getPlaylists() {
-        return getPlaylists(ME);
+        return getPlaylists(UserId.ME);
     }
 
     /**
@@ -804,10 +803,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of user's public playlists
      */
     public PagingDeezerRequest<Page<Playlist>> getPlaylists(long userId) {
-        return getPlaylists(String.valueOf(userId));
+        return getPlaylists(UserId.of(userId));
     }
 
-    private PagingDeezerRequest<Page<Playlist>> getPlaylists(String userId) {
+    private PagingDeezerRequest<Page<Playlist>> getPlaylists(UserId userId) {
         return createPagingDeezerRequest(userId, userService::getPlaylists);
     }
 
@@ -821,7 +820,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of radio recommendations
      */
     public PagingDeezerRequest<Page<Radio>> getRadioRecommendations() {
-        return getRadioRecommendations(ME);
+        return getRadioRecommendations(UserId.ME);
     }
 
     /**
@@ -831,10 +830,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of radio recommendations
      */
     public PagingDeezerRequest<Page<Radio>> getRadioRecommendations(long userId) {
-        return getRadioRecommendations(String.valueOf(userId));
+        return getRadioRecommendations(UserId.of(userId));
     }
 
-    private PagingDeezerRequest<Page<Radio>> getRadioRecommendations(String userId) {
+    private PagingDeezerRequest<Page<Radio>> getRadioRecommendations(UserId userId) {
         return createPagingDeezerRequest(userId, userService::getRadioRecommendations);
     }
 
@@ -848,7 +847,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of the user's favorite radios
      */
     public PagingDeezerRequest<Page<Radio>> getRadios() {
-        return getRadios(ME);
+        return getRadios(UserId.ME);
     }
 
     /**
@@ -858,10 +857,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of the user's favorite radios
      */
     public PagingDeezerRequest<Page<Radio>> getRadios(long userId) {
-        return getRadios(String.valueOf(userId));
+        return getRadios(UserId.of(userId));
     }
 
-    private PagingDeezerRequest<Page<Radio>> getRadios(String userId) {
+    private PagingDeezerRequest<Page<Radio>> getRadios(UserId userId) {
         return createPagingDeezerRequest(userId, userService::getRadios);
     }
 
@@ -875,7 +874,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of release recommendations
      */
     public PagingDeezerRequest<Page<Album>> getReleaseRecommendations() {
-        return getReleaseRecommendations(ME);
+        return getReleaseRecommendations(UserId.ME);
     }
 
     /**
@@ -885,10 +884,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of release recommendations
      */
     public PagingDeezerRequest<Page<Album>> getReleaseRecommendations(long userId) {
-        return getReleaseRecommendations(String.valueOf(userId));
+        return getReleaseRecommendations(UserId.of(userId));
     }
 
-    private PagingDeezerRequest<Page<Album>> getReleaseRecommendations(String userId) {
+    private PagingDeezerRequest<Page<Album>> getReleaseRecommendations(UserId userId) {
         return createPagingDeezerRequest(userId, userService::getReleaseRecommendations);
     }
 
@@ -902,7 +901,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of the user's top tracks
      */
     public PagingDeezerRequest<Page<Track>> getTrackChart() {
-        return getTrackChart(ME);
+        return getTrackChart(UserId.ME);
     }
 
     /**
@@ -912,10 +911,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of the user's top tracks
      */
     public PagingDeezerRequest<Page<Track>> getTrackChart(long userId) {
-        return getTrackChart(String.valueOf(userId));
+        return getTrackChart(UserId.of(userId));
     }
 
-    private PagingDeezerRequest<Page<Track>> getTrackChart(String userId) {
+    private PagingDeezerRequest<Page<Track>> getTrackChart(UserId userId) {
         return createPagingDeezerRequest(userId, userService::getTrackChart);
     }
 
@@ -929,7 +928,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of track recommendations
      */
     public DeezerRequest<Page<Track>> getTrackRecommendations() {
-        return getTrackRecommendations(ME);
+        return getTrackRecommendations(UserId.ME);
     }
 
     /**
@@ -939,10 +938,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of track recommendations
      */
     public DeezerRequest<Page<Track>> getTrackRecommendations(long userId) {
-        return getTrackRecommendations(String.valueOf(userId));
+        return getTrackRecommendations(UserId.of(userId));
     }
 
-    private DeezerRequest<Page<Track>> getTrackRecommendations(String userId) {
+    private DeezerRequest<Page<Track>> getTrackRecommendations(UserId userId) {
         return createDeezerRequest(userId, userService::getTrackRecommendations);
     }
 
@@ -956,7 +955,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of user's favorite tracks
      */
     public PagingDeezerRequest<Page<Track>> getTracks() {
-        return getTracks(ME);
+        return getTracks(UserId.ME);
     }
 
     /**
@@ -966,10 +965,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return a list of user's favorite tracks
      */
     public PagingDeezerRequest<Page<Track>> getTracks(long userId) {
-        return getTracks(String.valueOf(userId));
+        return getTracks(UserId.of(userId));
     }
 
-    private PagingDeezerRequest<Page<Track>> getTracks(String userId) {
+    private PagingDeezerRequest<Page<Track>> getTracks(UserId userId) {
         return createPagingDeezerRequest(userId, userService::getTracks);
     }
 
@@ -983,7 +982,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return the user information
      */
     public DeezerRequest<User> getUser() {
-        return getUser(ME);
+        return getUser(UserId.ME);
     }
 
     /**
@@ -993,10 +992,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will return the user information
      */
     public DeezerRequest<User> getUser(long userId) {
-        return getUser(String.valueOf(userId));
+        return getUser(UserId.of(userId));
     }
 
-    private DeezerRequest<User> getUser(String userId) {
+    private DeezerRequest<User> getUser(UserId userId) {
         return createDeezerRequest(userId, userService::getUser);
     }
 
@@ -1009,8 +1008,8 @@ public class UserRequestFactory {
      *
      * @return a request that, when executed, will return a list of the user's favorite albums
      */
-    public PagingDeezerRequest<Page<Album>> getUserAlbums() {
-        return getUserAlbums(ME);
+    public PagingDeezerRequest<Page<Album>> getAlbums() {
+        return getAlbums(UserId.ME);
     }
 
     /**
@@ -1019,12 +1018,12 @@ public class UserRequestFactory {
      * @param userId the user ID
      * @return a request that, when executed, will return a list of the user's favorite albums
      */
-    public PagingDeezerRequest<Page<Album>> getUserAlbums(long userId) {
-        return getUserAlbums(String.valueOf(userId));
+    public PagingDeezerRequest<Page<Album>> getAlbums(long userId) {
+        return getAlbums(UserId.of(userId));
     }
 
-    private PagingDeezerRequest<Page<Album>> getUserAlbums(String userId) {
-        return createPagingDeezerRequest(userId, userService::getUserAlbums);
+    private PagingDeezerRequest<Page<Album>> getAlbums(UserId userId) {
+        return createPagingDeezerRequest(userId, userService::getAlbums);
     }
 
     //endregion
@@ -1038,7 +1037,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will remove an album from the user's library
      */
     public DeezerRequest<Boolean> removeAlbum(long albumId) {
-        return removeAlbum(ME, albumId);
+        return removeAlbum(UserId.ME, albumId);
     }
 
     /**
@@ -1049,10 +1048,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will remove an album from the user's library
      */
     public DeezerRequest<Boolean> removeAlbum(long userId, long albumId) {
-        return removeAlbum(String.valueOf(userId), albumId);
+        return removeAlbum(UserId.of(userId), albumId);
     }
 
-    private DeezerRequest<Boolean> removeAlbum(String userId, long albumId) {
+    private DeezerRequest<Boolean> removeAlbum(UserId userId, long albumId) {
         return createDeezerRequest(userId, albumId, userService::removeAlbum);
     }
 
@@ -1067,7 +1066,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will remove an artist from the user's favorites
      */
     public DeezerRequest<Boolean> removeArtist(long artistId) {
-        return removeArtist(ME, artistId);
+        return removeArtist(UserId.ME, artistId);
     }
 
     /**
@@ -1078,10 +1077,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will remove an artist from the user's favorites
      */
     public DeezerRequest<Boolean> removeArtist(long userId, long artistId) {
-        return removeArtist(String.valueOf(userId), artistId);
+        return removeArtist(UserId.of(userId), artistId);
     }
 
-    private DeezerRequest<Boolean> removeArtist(String userId, long artistId) {
+    private DeezerRequest<Boolean> removeArtist(UserId userId, long artistId) {
         return createDeezerRequest(userId, artistId, userService::removeArtist);
     }
 
@@ -1096,7 +1095,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will remove a playlist from the user's favorites
      */
     public DeezerRequest<Boolean> removePlaylist(long playlistId) {
-        return removePlaylist(ME, playlistId);
+        return removePlaylist(UserId.ME, playlistId);
     }
 
     /**
@@ -1107,10 +1106,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will remove a playlist from the user's favorites
      */
     public DeezerRequest<Boolean> removePlaylist(long userId, long playlistId) {
-        return removePlaylist(String.valueOf(userId), playlistId);
+        return removePlaylist(UserId.of(userId), playlistId);
     }
 
-    private DeezerRequest<Boolean> removePlaylist(String userId, long playlistId) {
+    private DeezerRequest<Boolean> removePlaylist(UserId userId, long playlistId) {
         return createDeezerRequest(userId, playlistId, userService::removePlaylist);
     }
 
@@ -1125,7 +1124,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will remove a podcast from the user's favorites
      */
     public DeezerRequest<Boolean> removePodcast(long podcastId) {
-        return removePodcast(ME, podcastId);
+        return removePodcast(UserId.ME, podcastId);
     }
 
     /**
@@ -1136,10 +1135,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will remove a podcast from the user's favorites
      */
     public DeezerRequest<Boolean> removePodcast(long userId, long podcastId) {
-        return removePodcast(String.valueOf(userId), podcastId);
+        return removePodcast(UserId.of(userId), podcastId);
     }
 
-    private DeezerRequest<Boolean> removePodcast(String userId, long podcastId) {
+    private DeezerRequest<Boolean> removePodcast(UserId userId, long podcastId) {
         return createDeezerRequest(userId, podcastId, userService::removePodcast);
     }
 
@@ -1154,7 +1153,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will remove a radio from the user's favorites
      */
     public DeezerRequest<Boolean> removeRadio(long radioId) {
-        return removeRadio(ME, radioId);
+        return removeRadio(UserId.ME, radioId);
     }
 
     /**
@@ -1165,10 +1164,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will remove a radio from the user's favorites
      */
     public DeezerRequest<Boolean> removeRadio(long userId, long radioId) {
-        return removeRadio(String.valueOf(userId), radioId);
+        return removeRadio(UserId.of(userId), radioId);
     }
 
-    private DeezerRequest<Boolean> removeRadio(String userId, long radioId) {
+    private DeezerRequest<Boolean> removeRadio(UserId userId, long radioId) {
         return createDeezerRequest(userId, radioId, userService::removeRadio);
     }
 
@@ -1183,7 +1182,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will remove a track from the user's favorites
      */
     public DeezerRequest<Boolean> removeTrack(long trackId) {
-        return removeTrack(ME, trackId);
+        return removeTrack(UserId.ME, trackId);
     }
 
     /**
@@ -1194,10 +1193,10 @@ public class UserRequestFactory {
      * @return a request that, when executed, will remove a track from the user's favorites
      */
     public DeezerRequest<Boolean> removeTrack(long userId, long trackId) {
-        return removeTrack(String.valueOf(userId), trackId);
+        return removeTrack(UserId.of(userId), trackId);
     }
 
-    private DeezerRequest<Boolean> removeTrack(String userId, long trackId) {
+    private DeezerRequest<Boolean> removeTrack(UserId userId, long trackId) {
         return createDeezerRequest(userId, trackId, userService::removeTrack);
     }
 
@@ -1212,7 +1211,7 @@ public class UserRequestFactory {
      * @return a request that, when executed, will unfollow the specified user
      */
     public DeezerRequest<Boolean> unfollowUser(long followeeId) {
-        return unfollowUser(ME, followeeId);
+        return unfollowUser(UserId.ME, followeeId);
     }
 
     /**
@@ -1223,37 +1222,45 @@ public class UserRequestFactory {
      * @return a request that, when executed, will unfollow the specified user
      */
     public DeezerRequest<Boolean> unfollowUser(long userId, long followeeId) {
-        return unfollowUser(String.valueOf(userId), followeeId);
+        return unfollowUser(UserId.of(userId), followeeId);
     }
 
-    private DeezerRequest<Boolean> unfollowUser(String userId, long followeeId) {
+    private DeezerRequest<Boolean> unfollowUser(UserId userId, long followeeId) {
         return createDeezerRequest(userId, followeeId, userService::unfollowUser);
     }
 
     //endregion
 
     private <T> DeezerRequest<T> createDeezerRequest(
-            String userId,
+            UserId userId,
             BiFunction<String, String, CompletableFuture<T>> asyncMethod
     ) {
-        return new SimpleDeezerRequest<>(accessTokenManager, accessToken -> asyncMethod.apply(userId, accessToken));
-    }
-
-    private <T, R> DeezerRequest<R> createDeezerRequest(
-            String userId,
-            T argument,
-            TriFunction<String, String, T, CompletableFuture<R>> asyncMethod
-    ) {
-        return createDeezerRequest(
-                userId,
-                (id, accessToken) -> asyncMethod.apply(id, accessToken, argument)
+        return new SimpleDeezerRequest<>(
+                accessTokenManager,
+                accessToken -> asyncMethod.apply(userId.id(), accessToken)
         );
     }
 
+    private <T, R> DeezerRequest<R> createDeezerRequest(
+            UserId userId,
+            T argument,
+            TriFunction<String, String, T, CompletableFuture<R>> asyncMethod
+    ) {
+        return createDeezerRequest(userId, (id, accessToken) -> asyncMethod.apply(id, accessToken, argument));
+    }
+
     private <T> PagingDeezerRequest<Page<T>> createPagingDeezerRequest(
-            String userId,
+            UserId userId,
             QuadFunction<String, String, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod
     ) {
-        return new GetByIdPagingDeezerRequest<>(userId, accessTokenManager, asyncMethod);
+        return new GetByIdPagingDeezerRequest<>(userId.id(), accessTokenManager, asyncMethod);
+    }
+
+    private record UserId(String id) {
+        private static final UserId ME = new UserId("me");
+
+        private static UserId of(long userId) {
+            return new UserId(String.valueOf(userId));
+        }
     }
 }

@@ -1135,23 +1135,23 @@ class UserRequestFactoryTest {
     }
 
     @Test
-    void testGetUserAlbums() {
+    void testGetAlbums() {
         var token = "test-token";
         var expected = Page.<Album>builder()
                 .data(Album.builder().id(123L).build())
                 .build();
 
         when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getUserAlbums("me", token, null, null))
+        when(userService.getAlbums("me", token, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = userRequestFactory.getUserAlbums().execute();
+        var actual = userRequestFactory.getAlbums().execute();
 
         assertEquals(expected, actual);
     }
 
     @Test
-    void testGetUserAlbumsWithUserId() {
+    void testGetAlbumsWithId() {
         var userId = 123L;
         var token = "test-token";
         var expected = Page.<Album>builder()
@@ -1159,10 +1159,10 @@ class UserRequestFactoryTest {
                 .build();
 
         when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getUserAlbums(String.valueOf(userId), token, null, null))
+        when(userService.getAlbums(String.valueOf(userId), token, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = userRequestFactory.getUserAlbums(userId).execute();
+        var actual = userRequestFactory.getAlbums(userId).execute();
 
         assertEquals(expected, actual);
     }

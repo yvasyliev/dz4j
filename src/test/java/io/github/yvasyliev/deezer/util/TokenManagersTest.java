@@ -23,9 +23,9 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class TokenManagersTest {
     @Test
-    void testAccessTokenTokenManager() {
+    void testAccessTokenManager() {
         var expected = "token";
-        var accessTokenManager = TokenManagers.accessTokenTokenManager(
+        var accessTokenManager = TokenManagers.accessTokenManager(
                 () -> CompletableFuture.completedFuture(new AccessToken(expected, Instant.now()))
         );
 

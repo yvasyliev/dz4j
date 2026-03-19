@@ -10,7 +10,7 @@ import io.github.yvasyliev.deezer.request.DeezerRequest;
 import io.github.yvasyliev.deezer.request.GetByIdPagingDeezerRequest;
 import io.github.yvasyliev.deezer.request.PagingDeezerRequest;
 import io.github.yvasyliev.deezer.request.SimpleDeezerRequest;
-import io.github.yvasyliev.deezer.request.UpdatePlaylistRequest;
+import io.github.yvasyliev.deezer.request.UpdatePlaylistDeezerRequest;
 import io.github.yvasyliev.deezer.service.PlaylistService;
 import io.github.yvasyliev.deezer.util.TriFunction;
 import lombok.RequiredArgsConstructor;
@@ -162,7 +162,7 @@ public class PlaylistRequestFactory {
      * @return a request that, when executed, will update the playlist
      */
     public DeezerRequest<Boolean> updatePlaylist(long playlistId) {
-        return new UpdatePlaylistRequest(playlistId, accessTokenManager, playlistService);
+        return new UpdatePlaylistDeezerRequest(playlistId, accessTokenManager, playlistService);
     }
 
     private <T> PagingDeezerRequest<T> createPagingDeezerRequest(

@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class UpdatePlaylistRequestTest {
+class UpdatePlaylistDeezerRequestTest {
     @Mock private TokenManager<AccessToken> accessTokenManager;
     @Mock private PlaylistService playlistService;
 
@@ -31,7 +31,7 @@ class UpdatePlaylistRequestTest {
         when(playlistService.updatePlaylist(playlistId, accessToken, title, description, isPublic, collaborative))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
-        var actual = new UpdatePlaylistRequest(playlistId, accessTokenManager, playlistService)
+        var actual = new UpdatePlaylistDeezerRequest(playlistId, accessTokenManager, playlistService)
                 .title(title)
                 .description(description)
                 .isPublic(isPublic)

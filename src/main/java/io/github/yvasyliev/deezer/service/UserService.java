@@ -558,7 +558,7 @@ public interface UserService {
      * @return a page of albums
      */
     @RequestLine("GET /user/{userId:\\d+|me}/albums?access_token={accessToken}&index={index}&limit={limit}")
-    CompletableFuture<Page<Album>> getUserAlbums(
+    CompletableFuture<Page<Album>> getAlbums(
             @Param("userId") String userId,
             @Param("accessToken") String accessToken,
             @Param("index") Integer index,

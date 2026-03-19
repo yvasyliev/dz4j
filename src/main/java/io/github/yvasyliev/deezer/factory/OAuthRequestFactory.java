@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class OAuthRequestFactory {
     private static final String LOGIN_URL_TEMPLATE =
             "https://connect.deezer.com/oauth/auth.php?app_id=%d&redirect_uri=%s&perms=%s";
-    private final OAuthService oAuthService;
+    private final OAuthService oauthService;
 
     /**
      * Creates a request to exchange an authorization code for an access token.
@@ -34,7 +34,7 @@ public class OAuthRequestFactory {
      * @return request to exchange an authorization code for an access token
      */
     public DeezerRequest<AccessToken> getAccessToken(int appId, String secret, String code) {
-        return new SimpleDeezerRequest<>(() -> oAuthService.getAccessTokenAsync(appId, secret, code));
+        return new SimpleDeezerRequest<>(() -> oauthService.getAccessTokenAsync(appId, secret, code));
     }
 
     /**

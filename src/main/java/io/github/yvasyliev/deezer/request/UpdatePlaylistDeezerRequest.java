@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
 @RequiredArgsConstructor
 @Setter
 @Accessors(fluent = true)
-public class UpdatePlaylistRequest extends AbstractDeezerRequest<Boolean> {
+public class UpdatePlaylistDeezerRequest extends AbstractDeezerRequest<Boolean> {
     private final long playlistId;
     private final TokenManager<AccessToken> accessTokenManager;
     private final PlaylistService playlistService;
