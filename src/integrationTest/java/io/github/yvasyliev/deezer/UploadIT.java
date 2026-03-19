@@ -24,8 +24,9 @@ class UploadIT extends AbstractIT {
     @BeforeEach
     void setUp(WireMockRuntimeInfo wmRuntimeInfo) {
         deezerClient = DeezerClient.builder()
-                .apiBaseUrl(wmRuntimeInfo.getHttpBaseUrl())
-                .uploadBaseUrl(wmRuntimeInfo.getHttpBaseUrl())
+                .baseUrl(baseUrls -> baseUrls.api(wmRuntimeInfo.getHttpBaseUrl())
+                        .upload(wmRuntimeInfo.getHttpBaseUrl())
+                )
                 .authorization(ACCESS_TOKEN)
                 .build();
     }

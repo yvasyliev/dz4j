@@ -5,6 +5,7 @@ import io.github.yvasyliev.deezer.factory.OAuthRequestFactory;
 import io.github.yvasyliev.deezer.feign.DeezerFeignBuilder;
 import io.github.yvasyliev.deezer.model.AccessToken;
 import io.github.yvasyliev.deezer.util.AccessTokenSuppliers;
+import io.github.yvasyliev.deezer.util.BaseUrls;
 import io.github.yvasyliev.deezer.util.Customizer;
 import io.github.yvasyliev.deezer.util.RequestFactoryProvider;
 import lombok.AccessLevel;
@@ -12,7 +13,6 @@ import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Delegate;
 
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -43,35 +43,29 @@ public class DeezerClient {
     }
 
     private DeezerClient(Function<OAuthRequestFactory, CompletableFuture<AccessToken>> accessTokenSupplierFactory) {
-        this(null, null, null, null, accessTokenSupplierFactory);
+        this(null, null, accessTokenSupplierFactory);
     }
 
     @Builder
     private DeezerClient(
-            String apiBaseUrl,
-            String oauthBaseUrl,
-            String uploadBaseUrl,
+            Consumer<BaseUrls.BaseUrlsBuilder> baseUrl,
             Consumer<DeezerFeignBuilder> config,
             Function<OAuthRequestFactory, CompletableFuture<AccessToken>> accessTokenSupplierFactory
     ) {
-        this(apiBaseUrl, oauthBaseUrl, uploadBaseUrl, config, new AccessTokenSupplier());
+        this(baseUrl, config, new AccessTokenSupplier());
         var oauth = requestFactoryProvider.oauth();
         accessTokenSupplier.setDelegate(() -> accessTokenSupplierFactory.apply(oauth));
     }
 
     private DeezerClient(
-            String apiBaseUrl,
-            String oauthBaseUrl,
-            String uploadBaseUrl,
+            Consumer<BaseUrls.BaseUrlsBuilder> baseUrl,
             Consumer<DeezerFeignBuilder> config,
             AccessTokenSupplier accessTokenSupplier
     ) {
         this(
                 new RequestFactoryProvider(
                         Customizer.customize(new DeezerFeignBuilder(), config).build(),
-                        Objects.requireNonNullElse(apiBaseUrl, "https://api.deezer.com"),
-                        Objects.requireNonNullElse(oauthBaseUrl, "https://connect.deezer.com"),
-                        Objects.requireNonNullElse(uploadBaseUrl, "https://upload.deezer.com"),
+                        Customizer.customize(BaseUrls.builder(), baseUrl).build(),
                         accessTokenSupplier
                 ),
                 accessTokenSupplier

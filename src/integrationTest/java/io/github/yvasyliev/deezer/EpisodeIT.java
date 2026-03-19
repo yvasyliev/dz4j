@@ -21,7 +21,7 @@ class EpisodeIT extends AbstractIT {
     @BeforeEach
     void setUp(WireMockRuntimeInfo wmRuntimeInfo) {
         deezerClient = DeezerClient.builder()
-                .apiBaseUrl(wmRuntimeInfo.getHttpBaseUrl())
+                .baseUrl(baseUrls -> baseUrls.api(wmRuntimeInfo.getHttpBaseUrl()))
                 .authorization(ACCESS_TOKEN)
                 .build();
     }

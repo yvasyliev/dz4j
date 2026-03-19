@@ -70,14 +70,12 @@ public class RequestFactoryProvider {
 
     public RequestFactoryProvider(
             AsyncFeign.AsyncBuilder<Object> builder,
-            String apiBaseUrl,
-            String oauthBaseUrl,
-            String uploadBaseUrl,
+            BaseUrls baseUrls,
             Supplier<CompletableFuture<AccessToken>> accessTokenSupplier
     ) {
         var assembler = new RequestFactoryAssembler(
                 builder,
-                apiBaseUrl,
+                baseUrls.api(),
                 TokenManagers.accessTokenTokenManager(accessTokenSupplier)
         );
 
@@ -88,7 +86,7 @@ public class RequestFactoryProvider {
         episode = assembler.assemble(EpisodeRequestFactory::new, EpisodeService.class);
         genre = assembler.assemble(GenreRequestFactory::new, GenreService.class);
         infos = assembler.assemble(InfosRequestFactory::new, InfosService.class);
-        oauth = assembler.assemble(OAuthRequestFactory::new, OAuthService.class, oauthBaseUrl);
+        oauth = assembler.assemble(OAuthRequestFactory::new, OAuthService.class, baseUrls.oauth());
         oEmbed = assembler.assemble(OEmbedRequestFactory::new, OEmbedService.class);
         options = assembler.assemble(OptionsRequestFactory::new, OptionsService.class);
         playlist = assembler.assemble(PlaylistRequestFactory::new, PlaylistService.class);
@@ -96,7 +94,7 @@ public class RequestFactoryProvider {
         radio = assembler.assemble(RadioRequestFactory::new, RadioService.class);
         search = assembler.assemble(SearchRequestFactory::new, SearchService.class);
         track = assembler.assemble(TrackRequestFactory::new, TrackService.class);
-        upload = assembler.assemble(infos, uploadBaseUrl);
+        upload = assembler.assemble(infos, baseUrls.upload());
         user = assembler.assemble(UserRequestFactory::new, UserService.class);
     }
 

@@ -42,9 +42,11 @@ class RequestFactoryProviderTest {
         var uploadBaseUrl = "https://upload.example.com";
         var requestFactoryProvider = new RequestFactoryProvider(
                 builder,
-                apiBaseUrl,
-                oauthBaseUrl,
-                uploadBaseUrl,
+                BaseUrls.builder()
+                        .api(apiBaseUrl)
+                        .oauth(oauthBaseUrl)
+                        .upload(uploadBaseUrl)
+                        .build(),
                 accessTokenSupplier
         );
 

@@ -17,7 +17,7 @@ class InfosIT extends AbstractIT {
         var body = read("/response/infos/get-infos.json");
         var expected = MAPPER.readValue(body, Infos.class);
         var deezerClient = DeezerClient.builder()
-                .apiBaseUrl(wmRuntimeInfo.getHttpBaseUrl())
+                .baseUrl(baseUrls -> baseUrls.api(wmRuntimeInfo.getHttpBaseUrl()))
                 .config(config -> config.jsonMapper(AbstractIT::testJsonMapper))
                 .build();
 
@@ -31,7 +31,7 @@ class InfosIT extends AbstractIT {
         var body = read("/response/infos/get-infos.json");
         var expected = MAPPER.readValue(body, Infos.class);
         var deezerClient = DeezerClient.builder()
-                .apiBaseUrl(wmRuntimeInfo.getHttpBaseUrl())
+                .baseUrl(baseUrls -> baseUrls.api(wmRuntimeInfo.getHttpBaseUrl()))
                 .config(config -> config.jsonMapper(AbstractIT::testJsonMapper))
                 .authorization(ACCESS_TOKEN)
                 .build();
