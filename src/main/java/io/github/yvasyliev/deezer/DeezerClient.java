@@ -1,5 +1,6 @@
 package io.github.yvasyliev.deezer;
 
+import feign.AsyncFeign;
 import io.github.yvasyliev.deezer.authorization.AccessTokenSupplier;
 import io.github.yvasyliev.deezer.factory.OAuthRequestFactory;
 import io.github.yvasyliev.deezer.feign.DeezerFeignBuilder;
@@ -52,24 +53,21 @@ public class DeezerClient {
             Consumer<DeezerFeignBuilder> config,
             Function<OAuthRequestFactory, CompletableFuture<AccessToken>> accessTokenSupplierFactory
     ) {
-        this(baseUrl, config, new AccessTokenSupplier());
+        this(
+                Customizer.customize(new DeezerFeignBuilder(), config).build(),
+                Customizer.customize(BaseUrls.builder(), baseUrl).build(),
+                new AccessTokenSupplier()
+        );
         var oauth = requestFactoryProvider.oauth();
         accessTokenSupplier.setDelegate(() -> accessTokenSupplierFactory.apply(oauth));
     }
 
     private DeezerClient(
-            Consumer<BaseUrls.BaseUrlsBuilder> baseUrl,
-            Consumer<DeezerFeignBuilder> config,
+            AsyncFeign.AsyncBuilder<Object> feign,
+            BaseUrls baseUrls,
             AccessTokenSupplier accessTokenSupplier
     ) {
-        this(
-                new RequestFactoryProvider(
-                        Customizer.customize(new DeezerFeignBuilder(), config).build(),
-                        Customizer.customize(BaseUrls.builder(), baseUrl).build(),
-                        accessTokenSupplier
-                ),
-                accessTokenSupplier
-        );
+        this(new RequestFactoryProvider(feign, baseUrls, accessTokenSupplier), accessTokenSupplier);
     }
 
     //endregion
