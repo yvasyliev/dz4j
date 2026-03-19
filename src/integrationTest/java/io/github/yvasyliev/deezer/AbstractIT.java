@@ -3,9 +3,9 @@ package io.github.yvasyliev.deezer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import com.github.tomakehurst.wiremock.matching.StringValuePattern;
+import io.github.yvasyliev.deezer.databind.json.DeezerJsonMapperBuilder;
 import io.github.yvasyliev.deezer.exception.DeezerApiException;
 import io.github.yvasyliev.deezer.request.DeezerRequest;
-import io.github.yvasyliev.deezer.util.DeezerDefaults;
 import lombok.Cleanup;
 import org.junit.jupiter.api.Assertions;
 import tools.jackson.databind.json.JsonMapper;
@@ -22,9 +22,21 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @WireMockTest
 abstract class AbstractIT {
+    private static final Clock CLOCK = Clock.fixed(Instant.now(), ZoneId.systemDefault());
     protected static final String ACCESS_TOKEN = "test_access_token";
-    protected static final Clock CLOCK = Clock.fixed(Instant.now(), ZoneId.systemDefault());
-    protected static final JsonMapper MAPPER = DeezerDefaults.jsonMapper(CLOCK);
+    protected static final JsonMapper MAPPER = testJsonMapper();
+
+    protected static void testJsonMapper(DeezerJsonMapperBuilder builder) {
+        builder.handlerInstantiator(hi -> hi.expiresConverter(converter -> converter.clock(CLOCK)));
+    }
+
+    private static JsonMapper testJsonMapper() {
+        var builder = new DeezerJsonMapperBuilder();
+
+        testJsonMapper(builder);
+
+        return builder.build();
+    }
 
     protected <T> void assertEquals(T expected, DeezerRequest<T> request) {
         Assertions.assertEquals(expected, request.execute());

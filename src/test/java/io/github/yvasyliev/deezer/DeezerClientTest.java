@@ -1,247 +1,129 @@
 package io.github.yvasyliev.deezer;
 
-import feign.AsyncFeign;
 import io.github.yvasyliev.deezer.authorization.AccessTokenSupplier;
-import io.github.yvasyliev.deezer.factory.AlbumRequestFactory;
-import io.github.yvasyliev.deezer.factory.ArtistRequestFactory;
-import io.github.yvasyliev.deezer.factory.ChartRequestFactory;
-import io.github.yvasyliev.deezer.factory.EditorialRequestFactory;
-import io.github.yvasyliev.deezer.factory.EpisodeRequestFactory;
-import io.github.yvasyliev.deezer.factory.GenreRequestFactory;
-import io.github.yvasyliev.deezer.factory.InfosRequestFactory;
 import io.github.yvasyliev.deezer.factory.OAuthRequestFactory;
-import io.github.yvasyliev.deezer.factory.OEmbedRequestFactory;
-import io.github.yvasyliev.deezer.factory.OptionsRequestFactory;
-import io.github.yvasyliev.deezer.factory.PlaylistRequestFactory;
-import io.github.yvasyliev.deezer.factory.PodcastRequestFactory;
-import io.github.yvasyliev.deezer.factory.RadioRequestFactory;
-import io.github.yvasyliev.deezer.factory.SearchRequestFactory;
-import io.github.yvasyliev.deezer.factory.TrackRequestFactory;
-import io.github.yvasyliev.deezer.factory.UploadRequestFactory;
-import io.github.yvasyliev.deezer.factory.UserRequestFactory;
 import io.github.yvasyliev.deezer.model.AccessToken;
-import io.github.yvasyliev.deezer.service.OAuthService;
-import io.github.yvasyliev.deezer.util.DeezerDefaults;
-import io.github.yvasyliev.deezer.util.FeignConfigurator;
-import io.github.yvasyliev.deezer.util.RequestFactoryProvider;
-import io.github.yvasyliev.deezer.util.TriFunction;
+import io.github.yvasyliev.deezer.util.AccessTokenSuppliers;
 import lombok.Cleanup;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.FieldSource;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.Clock;
 import java.time.Instant;
-import java.time.ZoneId;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.InstanceOfAssertFactories.COMPLETABLE_FUTURE;
 import static org.assertj.core.api.InstanceOfAssertFactories.type;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.CALLS_REAL_METHODS;
-import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class DeezerClientTest {
-    @SuppressWarnings("unchecked")
-    private static final Function<DeezerClient, Object>[] EXTRACTORS = List.<Function<DeezerClient, Object>>of(
-            DeezerClient::album,
-            DeezerClient::artist,
-            DeezerClient::chart,
-            DeezerClient::editorial,
-            DeezerClient::episode,
-            DeezerClient::genre,
-            DeezerClient::infos,
-            DeezerClient::oauth,
-            DeezerClient::oEmbed,
-            DeezerClient::options,
-            DeezerClient::playlist,
-            DeezerClient::podcast,
-            DeezerClient::radio,
-            DeezerClient::search,
-            DeezerClient::track,
-            DeezerClient::upload,
-            DeezerClient::user
-    ).toArray(Function[]::new);
-
+    private static final String TOKEN = "token";
+    private static final AccessToken STATIC_ACCESS_TOKEN = new AccessToken(TOKEN);
+    private static final AccessToken ACCESS_TOKEN = new AccessToken(TOKEN, Instant.now());
+    private static final int APP_ID = 123;
+    private static final String SECRET = "secret";
+    private static final String CODE = "code";
     private static final Supplier<Stream<Arguments>> shouldCreateDefaultDeezerClient = () -> Stream.of(
-            arguments(new DeezerClient()),
-            arguments(DeezerClient.builder().build())
+            arguments("constructor", new DeezerClient()),
+            arguments("builder", DeezerClient.builder().build())
     );
-
-    private static final Supplier<Stream<Arguments>> shouldSetAuthorization = () -> {
-        var token = "token";
-        var nullAccessToken = new AccessToken(null, Instant.MAX);
-        var staticAccessToken = new AccessToken(token, Instant.MAX);
-        var tempAccessToken = new AccessToken(token, Instant.now());
+    private static final Supplier<Stream<Arguments>> shouldAuthorizeWithStringAccessToken = () -> {
         var stringAccessTokenClient = new DeezerClient();
-        var accessTokenClient = new DeezerClient();
-        var unauthorizedClient = new DeezerClient();
-
-        stringAccessTokenClient.authorization(token);
-        accessTokenClient.authorization(staticAccessToken);
-        unauthorizedClient.authorization(token);
-        unauthorizedClient.removeAuthorization();
+        stringAccessTokenClient.authorization(TOKEN);
 
         return Stream.of(
-                arguments(new DeezerClient(), nullAccessToken),
-                arguments(DeezerClient.builder().build(), nullAccessToken),
-                arguments(new DeezerClient(token), staticAccessToken),
-                arguments(stringAccessTokenClient, staticAccessToken),
-                arguments(DeezerClient.builder().authorization(token).build(), staticAccessToken),
-                arguments(new DeezerClient(staticAccessToken), staticAccessToken),
-                arguments(accessTokenClient, staticAccessToken),
-                arguments(DeezerClient.builder().authorization(staticAccessToken).build(), staticAccessToken),
-                arguments(withAppAuthorization(DeezerClient::new, tempAccessToken), tempAccessToken),
-                arguments(
-                        withAppAuthorization(
-                                (appId, secret, code) -> {
-                                    var client = new DeezerClient();
-                                    client.authorization(appId, secret, code);
-                                    return client;
-                                },
-                                tempAccessToken
-                        ),
-                        tempAccessToken
-                ),
-                arguments(
-                        withAppAuthorization(
-                                (appId, secret, code) -> DeezerClient.builder()
-                                        .authorization(appId, secret, code)
-                                        .build(),
-                                tempAccessToken
-                        ),
-                        tempAccessToken
-                ),
-                arguments(unauthorizedClient, nullAccessToken)
+                arguments("constructor", new DeezerClient(TOKEN)),
+                arguments("builder", DeezerClient.builder().authorization(TOKEN).build()),
+                arguments("method", stringAccessTokenClient)
+        );
+    };
+    private static final Supplier<Stream<Arguments>> shouldAuthorizeWithAccessToken = () -> {
+        var stringAccessTokenClient = new DeezerClient();
+        stringAccessTokenClient.authorization(ACCESS_TOKEN);
+
+        return Stream.of(
+                arguments("constructor", new DeezerClient(ACCESS_TOKEN)),
+                arguments("builder", DeezerClient.builder().authorization(ACCESS_TOKEN).build()),
+                arguments("method", stringAccessTokenClient)
+        );
+    };
+    private static final Supplier<Stream<Arguments>> shouldAuthorizeWithAppIdSecretAndCode = () -> {
+        var accessTokenFuture = CompletableFuture.completedFuture(ACCESS_TOKEN);
+        var appIdSecretCodeClient = new DeezerClient();
+        @Cleanup var accessTokenSuppliers = mockStatic(AccessTokenSuppliers.class);
+
+        accessTokenSuppliers.when(() -> AccessTokenSuppliers.accessTokenSupplier(
+                any(),
+                eq(APP_ID),
+                eq(SECRET),
+                eq(CODE)
+        )).thenReturn((Supplier<CompletableFuture<AccessToken>>) () -> accessTokenFuture);
+        accessTokenSuppliers.when(() -> AccessTokenSuppliers.accessTokenSupplierFactory(
+                eq(APP_ID),
+                eq(SECRET),
+                eq(CODE)
+        )).thenReturn((Function<OAuthRequestFactory, CompletableFuture<AccessToken>>) oAuthRequestFactory ->
+                accessTokenFuture
+        );
+
+        appIdSecretCodeClient.authorization(APP_ID, SECRET, CODE);
+
+        return Stream.of(
+                arguments("constructor", new DeezerClient(APP_ID, SECRET, CODE)),
+                arguments("builder", DeezerClient.builder().authorization(APP_ID, SECRET, CODE).build()),
+                arguments("method", appIdSecretCodeClient)
         );
     };
 
-    @Mock private RequestFactoryProvider requestFactoryProvider;
-    @Mock private AccessTokenSupplier accessTokenSupplier;
-
-    @ParameterizedTest
+    @ParameterizedTest(name = "should create default DeezerClient by {0}")
     @FieldSource
-    void shouldCreateDefaultDeezerClient(DeezerClient deezerClient) {
-        assertThat(deezerClient)
-                .extracting(EXTRACTORS)
-                .doesNotContainNull();
+    void shouldCreateDefaultDeezerClient(String ignored, DeezerClient deezerClient) {
+        assertThat(deezerClient).hasNoNullFieldsOrProperties();
+        assertAccessToken(deezerClient, new AccessToken());
+    }
+
+    @ParameterizedTest(name = "should authorize with string access token by {0}")
+    @FieldSource
+    void shouldAuthorizeWithStringAccessToken(String ignored, DeezerClient deezerClient) {
+        assertAccessToken(deezerClient, STATIC_ACCESS_TOKEN);
+    }
+
+    @ParameterizedTest(name = "should authorize with access token by {0}")
+    @FieldSource
+    void shouldAuthorizeWithAccessToken(String ignored, DeezerClient deezerClient) {
+        assertAccessToken(deezerClient, ACCESS_TOKEN);
+    }
+
+    @ParameterizedTest(name = "should authorize with appId, secret and code by {0}")
+    @FieldSource
+    void shouldAuthorizeWithAppIdSecretAndCode(String ignored, DeezerClient deezerClient) {
+        assertAccessToken(deezerClient, ACCESS_TOKEN);
     }
 
     @Test
-    void shouldReturnRequestFactories() {
-        var album = mock(AlbumRequestFactory.class);
-        var artist = mock(ArtistRequestFactory.class);
-        var chart = mock(ChartRequestFactory.class);
-        var editorial = mock(EditorialRequestFactory.class);
-        var episode = mock(EpisodeRequestFactory.class);
-        var genre = mock(GenreRequestFactory.class);
-        var infos = mock(InfosRequestFactory.class);
-        var oauth = mock(OAuthRequestFactory.class);
-        var oEmbed = mock(OEmbedRequestFactory.class);
-        var options = mock(OptionsRequestFactory.class);
-        var playlist = mock(PlaylistRequestFactory.class);
-        var podcast = mock(PodcastRequestFactory.class);
-        var radio = mock(RadioRequestFactory.class);
-        var search = mock(SearchRequestFactory.class);
-        var track = mock(TrackRequestFactory.class);
-        var upload = mock(UploadRequestFactory.class);
-        var user = mock(UserRequestFactory.class);
+    void shouldRemoveAuthorization() {
+        var deezerClient = new DeezerClient(ACCESS_TOKEN);
 
-        when(requestFactoryProvider.album()).thenReturn(album);
-        when(requestFactoryProvider.artist()).thenReturn(artist);
-        when(requestFactoryProvider.chart()).thenReturn(chart);
-        when(requestFactoryProvider.editorial()).thenReturn(editorial);
-        when(requestFactoryProvider.episode()).thenReturn(episode);
-        when(requestFactoryProvider.genre()).thenReturn(genre);
-        when(requestFactoryProvider.infos()).thenReturn(infos);
-        when(requestFactoryProvider.oauth()).thenReturn(oauth);
-        when(requestFactoryProvider.oEmbed()).thenReturn(oEmbed);
-        when(requestFactoryProvider.options()).thenReturn(options);
-        when(requestFactoryProvider.playlist()).thenReturn(playlist);
-        when(requestFactoryProvider.podcast()).thenReturn(podcast);
-        when(requestFactoryProvider.radio()).thenReturn(radio);
-        when(requestFactoryProvider.search()).thenReturn(search);
-        when(requestFactoryProvider.track()).thenReturn(track);
-        when(requestFactoryProvider.upload()).thenReturn(upload);
-        when(requestFactoryProvider.user()).thenReturn(user);
+        deezerClient.removeAuthorization();
 
-        var deezerClient = new DeezerClient(requestFactoryProvider, accessTokenSupplier);
-
-        assertThat(deezerClient)
-                .extracting(EXTRACTORS)
-                .containsExactly(
-                        album,
-                        artist,
-                        chart,
-                        editorial,
-                        episode,
-                        genre,
-                        infos,
-                        oauth,
-                        oEmbed,
-                        options,
-                        playlist,
-                        podcast,
-                        radio,
-                        search,
-                        track,
-                        upload,
-                        user
-                );
+        assertAccessToken(deezerClient, new AccessToken());
     }
 
-    @ParameterizedTest
-    @FieldSource
-    void shouldSetAuthorization(DeezerClient deezerClient, AccessToken expected) {
+    private void assertAccessToken(DeezerClient deezerClient, AccessToken expected) {
         assertThat(deezerClient)
                 .extracting("accessTokenSupplier", type(AccessTokenSupplier.class))
-                .extracting(AccessTokenSupplier::get)
-                .extracting(CompletableFuture::join)
-                .isEqualTo(expected);
-    }
-
-    @Test
-    void shouldSetClock() {
-        var expected = Clock.fixed(Instant.now(), ZoneId.systemDefault());
-        @Cleanup var deezerDefaults = mockStatic(DeezerDefaults.class, CALLS_REAL_METHODS);
-
-        DeezerClient.builder().clock(expected).build();
-
-        deezerDefaults.verify(() -> DeezerDefaults.jsonMapper(expected));
-    }
-
-    private static DeezerClient withAppAuthorization(
-            TriFunction<Integer, String, String, DeezerClient> factory,
-            AccessToken accessToken
-    ) {
-        var appId = 123;
-        var secret = "secret";
-        var code = "code";
-        var builder = Mockito.<AsyncFeign.AsyncBuilder<Object>>mock();
-        var oAuthService = mock(OAuthService.class);
-        @Cleanup var feignConfigurator = mockStatic(FeignConfigurator.class);
-
-        feignConfigurator.when(() -> FeignConfigurator.build(any(), any(), any(), any())).thenReturn(builder);
-        lenient().when(builder.target(eq(OAuthService.class), anyString())).thenReturn(oAuthService);
-        when(oAuthService.getAccessTokenAsync(appId, secret, code))
-                .thenReturn(CompletableFuture.completedFuture(accessToken));
-
-        return factory.apply(appId, secret, code);
+                .extracting(AccessTokenSupplier::get, COMPLETABLE_FUTURE)
+                .isCompletedWithValue(expected);
     }
 }

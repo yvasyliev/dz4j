@@ -388,7 +388,7 @@ public class UserRequestFactory {
      *
      * @return a request that, when executed, will return the user's top albums
      */
-    public PagingDeezerRequest<Page<Album>> getAlbumChar() {
+    public PagingDeezerRequest<Page<Album>> getAlbumChart() {
         return getAlbumChart(ME);
     }
 

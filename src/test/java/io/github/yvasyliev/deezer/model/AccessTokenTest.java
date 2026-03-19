@@ -4,10 +4,28 @@ import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class AccessTokenTest {
+    @Test
+    void shouldCreateStaticNullToken() {
+        var expected = new AccessToken(null, Instant.MAX);
+        var actual = new AccessToken();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldCreateStaticToken() {
+        var token = "token";
+        var expected = new AccessToken(token, Instant.MAX);
+        var actual = new AccessToken(token);
+
+        assertEquals(expected, actual);
+    }
+
     @Test
     void shouldReturnTrueWhenExpiresAtIsNull() {
         var accessToken = new AccessToken("token", null);

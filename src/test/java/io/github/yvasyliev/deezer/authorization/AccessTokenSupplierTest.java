@@ -3,43 +3,31 @@ package io.github.yvasyliev.deezer.authorization;
 import io.github.yvasyliev.deezer.model.AccessToken;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.Duration;
+import java.time.Instant;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class AccessTokenSupplierTest {
-    @InjectMocks private AccessTokenSupplier accessTokenSupplier;
-    @Mock private AccessTokenProvider accessTokenProvider;
+    @Mock private Supplier<CompletableFuture<AccessToken>> delegate;
 
     @Test
-    void testGet() {
-        testGet(accessTokenProvider);
-    }
+    void shouldGetAccessToken() {
+        var accessTokenSupplier = new AccessTokenSupplier();
+        var expected = new AccessToken("token", Instant.now());
 
-    @Test
-    void testSetAccessTokenProvider() {
-        var accessTokenProvider = mock(AccessTokenProvider.class);
+        when(delegate.get()).thenReturn(CompletableFuture.completedFuture(expected));
 
-        accessTokenSupplier.setAccessTokenProvider(accessTokenProvider);
-
-        testGet(accessTokenProvider);
-    }
-
-    private void testGet(AccessTokenProvider accessTokenProvider) {
-        var expected = mock(AccessToken.class);
-
-        when(accessTokenProvider.getAccessToken()).thenReturn(CompletableFuture.completedFuture(expected));
+        accessTokenSupplier.setDelegate(delegate);
 
         var actual = accessTokenSupplier.get();
 
-        assertThat(actual).succeedsWithin(Duration.ofSeconds(1)).isEqualTo(expected);
+        assertThat(actual).isCompletedWithValue(expected);
     }
 }

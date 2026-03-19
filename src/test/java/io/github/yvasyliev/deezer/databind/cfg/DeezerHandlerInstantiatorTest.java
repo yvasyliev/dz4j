@@ -1,75 +1,95 @@
 package io.github.yvasyliev.deezer.databind.cfg;
 
-import org.junit.jupiter.api.BeforeEach;
+import io.github.yvasyliev.deezer.databind.util.ExpiresConverter;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import tools.jackson.databind.cfg.HandlerInstantiator;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.FieldSource;
+import org.mockito.Mockito;
 import tools.jackson.databind.util.Converter;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
+import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
-@ExtendWith(MockitoExtension.class)
 class DeezerHandlerInstantiatorTest {
-    @Mock private Converter<?, ?> converter;
-    private HandlerInstantiator handlerInstantiator;
+    private static final Supplier<Stream<Arguments>> testConverterInstance = () -> Stream.of(
+            arguments(String.class, null),
+            arguments(DeezerHandlerInstantiatorTest.class, mock(Converter.class))
+    );
 
-    @BeforeEach
-    void setUp() {
-        handlerInstantiator = new DeezerHandlerInstantiator(Map.of(DeezerHandlerInstantiatorTest.class, converter));
-    }
+    @ParameterizedTest
+    @FieldSource
+    void testConverterInstance(Class<?> implClass, Converter<?, ?> expected) {
+        var converters = new HashMap<Class<?>, Converter<?, ?>>();
 
-    @Test
-    void shouldReturnConverter() {
-        var actual = handlerInstantiator.converterInstance(mock(), mock(), DeezerHandlerInstantiatorTest.class);
+        converters.put(implClass, expected);
 
-        assertEquals(converter, actual);
-    }
+        var handlerInstantiator = new DeezerHandlerInstantiator(converters);
+        var actual = handlerInstantiator.converterInstance(mock(), mock(), implClass);
 
-    @Test
-    void shouldReturnNullForUnknownConverter() {
-        var actual = handlerInstantiator.converterInstance(mock(), mock(), String.class);
-
-        assertNull(actual);
+        assertEquals(expected, actual);
     }
 
     @Test
     void testDeserializerInstance() {
-        var actual = handlerInstantiator.deserializerInstance(mock(), mock(), String.class);
+        var actual = new DeezerHandlerInstantiator(null).deserializerInstance(mock(), mock(), String.class);
 
         assertNull(actual);
     }
 
     @Test
     void testKeyDeserializerInstance() {
-        var actual = handlerInstantiator.keyDeserializerInstance(mock(), mock(), String.class);
+        var actual = new DeezerHandlerInstantiator(null).keyDeserializerInstance(mock(), mock(), String.class);
 
         assertNull(actual);
     }
 
     @Test
     void testSerializerInstance() {
-        var actual = handlerInstantiator.serializerInstance(mock(), mock(), String.class);
+        var actual = new DeezerHandlerInstantiator(null).serializerInstance(mock(), mock(), String.class);
 
         assertNull(actual);
     }
 
     @Test
     void testTypeResolverBuilderInstance() {
-        var actual = handlerInstantiator.typeResolverBuilderInstance(mock(), mock(), String.class);
+        var actual = new DeezerHandlerInstantiator(null).typeResolverBuilderInstance(mock(), mock(), String.class);
 
         assertNull(actual);
     }
 
     @Test
     void testTypeIdResolverInstance() {
-        var actual = handlerInstantiator.typeIdResolverInstance(mock(), mock(), String.class);
+        var actual = new DeezerHandlerInstantiator(null).typeIdResolverInstance(mock(), mock(), String.class);
 
         assertNull(actual);
+    }
+
+    @Test
+    void shouldCreateDeezerHandlerInstantiator() {
+        var expiresConverter = Mockito.<Consumer<ExpiresConverter.ExpiresConverterBuilder>>mock();
+        var converters = Mockito.<Consumer<Map<Class<?>, Converter<?, ?>>>>mock();
+        var expected = new DeezerHandlerInstantiator(Map.of(
+                ExpiresConverter.class, ExpiresConverter.builder().build())
+        );
+        var actual = DeezerHandlerInstantiator.builder()
+                .expiresConverter(expiresConverter)
+                .converters(converters)
+                .build();
+
+        assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
+        verify(expiresConverter).accept(notNull());
+        verify(converters).accept(notNull());
     }
 }

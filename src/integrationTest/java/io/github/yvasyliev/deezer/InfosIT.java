@@ -18,10 +18,10 @@ class InfosIT extends AbstractIT {
         var expected = MAPPER.readValue(body, Infos.class);
         var deezerClient = DeezerClient.builder()
                 .apiBaseUrl(wmRuntimeInfo.getHttpBaseUrl())
-                .clock(CLOCK)
+                .config(config -> config.jsonMapper(AbstractIT::testJsonMapper))
                 .build();
 
-        stubFor(get(urlPathEqualTo("/infos")).willReturn(okJson(body)));
+        stubFor(get("/infos").willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.infos().getInfos());
     }
@@ -32,11 +32,14 @@ class InfosIT extends AbstractIT {
         var expected = MAPPER.readValue(body, Infos.class);
         var deezerClient = DeezerClient.builder()
                 .apiBaseUrl(wmRuntimeInfo.getHttpBaseUrl())
-                .clock(CLOCK)
+                .config(config -> config.jsonMapper(AbstractIT::testJsonMapper))
                 .authorization(ACCESS_TOKEN)
                 .build();
 
-        stubFor(get(urlPathEqualTo("/infos")).willReturn(okJson(body)));
+        stubFor(get(urlPathEqualTo("/infos"))
+                .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
+                .willReturn(okJson(body))
+        );
 
         assertEquals(expected, deezerClient.infos().getInfos());
     }

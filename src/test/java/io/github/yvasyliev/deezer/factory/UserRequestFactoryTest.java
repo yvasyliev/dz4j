@@ -401,7 +401,7 @@ class UserRequestFactoryTest {
     }
 
     @Test
-    void testGetAlbumChar() {
+    void testGetAlbumChart() {
         var token = "test-token";
         var expected = Page.<Album>builder()
                 .data(Album.builder().id(123L).build())
@@ -411,7 +411,7 @@ class UserRequestFactoryTest {
         when(userService.getAlbumChart("me", token, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = userRequestFactory.getAlbumChar().execute();
+        var actual = userRequestFactory.getAlbumChart().execute();
 
         assertEquals(expected, actual);
     }

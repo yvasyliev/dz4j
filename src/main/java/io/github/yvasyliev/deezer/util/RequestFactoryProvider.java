@@ -46,6 +46,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+//TODO: what package fits best for this class?
 @Getter
 @Accessors(fluent = true)
 public class RequestFactoryProvider {
@@ -77,7 +78,7 @@ public class RequestFactoryProvider {
         var assembler = new RequestFactoryAssembler(
                 builder,
                 apiBaseUrl,
-                DeezerDefaults.accessTokenTokenManager(accessTokenSupplier)
+                TokenManagers.accessTokenTokenManager(accessTokenSupplier)
         );
 
         album = assembler.assemble(AlbumRequestFactory::new, AlbumService.class);
@@ -115,7 +116,7 @@ public class RequestFactoryProvider {
 
         private UploadRequestFactory assemble(InfosRequestFactory infos, String baseUrl) {
             return assemble(
-                    t -> new UploadRequestFactory(t, accessTokenManager, DeezerDefaults.uploadTokenManager(infos)),
+                    t -> new UploadRequestFactory(t, accessTokenManager, TokenManagers.uploadTokenManager(infos)),
                     UploadService.class,
                     baseUrl
             );

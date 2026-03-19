@@ -3,20 +3,34 @@ package io.github.yvasyliev.deezer.feign;
 import feign.Contract;
 import feign.MethodMetadata;
 import feign.Param;
+import io.github.yvasyliev.deezer.util.Customizer;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.Tolerate;
+import tools.jackson.databind.json.JsonMapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-@Builder
 @RequiredArgsConstructor
 public class DeezerContract implements Contract {
-    private static final Contract DELEGATE = new Default();
+    private static final Contract DELEGATE = new Default(); //TODO: instance variable
     private final Map<Class<? extends Param.Expander>, Param.Expander> expanders;
+
+    @Builder
+    private DeezerContract(
+            JsonMapper jsonMapper,
+            Consumer<Map<Class<? extends Param.Expander>, Param.Expander>> expanders
+    ) {
+        this(new HashMap<>());
+
+        this.expanders.put(QueryExpander.class, new QueryExpander(jsonMapper));
+        this.expanders.put(StrictExpander.class, new StrictExpander());
+
+        Customizer.customize(this.expanders, expanders);
+    }
 
     @Override
     public List<MethodMetadata> parseAndValidateMetadata(Class<?> targetType) {
@@ -34,18 +48,5 @@ public class DeezerContract implements Contract {
                 .collect(Collectors.toMap(Map.Entry::getKey, entry -> expanders.get(entry.getValue())));
 
         md.indexToExpander(indexToExpander);
-    }
-
-    public static class DeezerContractBuilder {
-        private Map<Class<? extends Param.Expander>, Param.Expander> expanders;
-
-        @Tolerate
-        public DeezerContractBuilder expanders(
-                Consumer<Map<Class<? extends Param.Expander>, Param.Expander>> expandersCustomizer
-        ) {
-            expandersCustomizer.accept(expanders);
-
-            return this;
-        }
     }
 }

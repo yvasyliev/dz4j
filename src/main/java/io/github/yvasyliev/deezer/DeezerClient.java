@@ -1,67 +1,130 @@
 package io.github.yvasyliev.deezer;
 
-import io.github.yvasyliev.deezer.authorization.AccessTokenProvider;
 import io.github.yvasyliev.deezer.authorization.AccessTokenSupplier;
+import io.github.yvasyliev.deezer.factory.OAuthRequestFactory;
+import io.github.yvasyliev.deezer.feign.DeezerFeignBuilder;
 import io.github.yvasyliev.deezer.model.AccessToken;
-import io.github.yvasyliev.deezer.util.AuthHelper;
-import io.github.yvasyliev.deezer.util.DeezerDefaults;
+import io.github.yvasyliev.deezer.util.AccessTokenSuppliers;
+import io.github.yvasyliev.deezer.util.Customizer;
 import io.github.yvasyliev.deezer.util.RequestFactoryProvider;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Delegate;
 
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class DeezerClient {
-    @Delegate private final RequestFactoryProvider requestFactoryProvider;
+    @Delegate
+    private final RequestFactoryProvider requestFactoryProvider;
     private final AccessTokenSupplier accessTokenSupplier;
 
+    //region constructors
+
     public DeezerClient() {
-        this(builder());
+        this(new AccessToken());
     }
 
     public DeezerClient(String accessToken) {
-        this(builder().authorization(accessToken));
+        this(new AccessToken(accessToken));
     }
 
     public DeezerClient(AccessToken accessToken) {
-        this(builder().authorization(accessToken));
+        this(AccessTokenSuppliers.accessTokenSupplierFactory(accessToken));
     }
 
     public DeezerClient(int appId, String secret, String code) {
-        this(builder().authorization(appId, secret, code));
+        this(AccessTokenSuppliers.accessTokenSupplierFactory(appId, secret, code));
     }
 
-    private DeezerClient(DeezerClientBuilder builder) {
-        this(builder.build());
+    private DeezerClient(Function<OAuthRequestFactory, CompletableFuture<AccessToken>> accessTokenSupplierFactory) {
+        this(null, null, null, null, accessTokenSupplierFactory);
     }
 
-    private DeezerClient(DeezerClient deezerClient) {
-        this(deezerClient.requestFactoryProvider, deezerClient.accessTokenSupplier);
+    @Builder
+    private DeezerClient(
+            String apiBaseUrl,
+            String oauthBaseUrl,
+            String uploadBaseUrl,
+            Consumer<DeezerFeignBuilder> config,
+            Function<OAuthRequestFactory, CompletableFuture<AccessToken>> accessTokenSupplierFactory
+    ) {
+        this(apiBaseUrl, oauthBaseUrl, uploadBaseUrl, config, new AccessTokenSupplier());
+        var oauth = requestFactoryProvider.oauth();
+        accessTokenSupplier.setDelegate(() -> accessTokenSupplierFactory.apply(oauth));
     }
 
-    public static DeezerClientBuilder builder() {
-        return new DeezerClientBuilder();
+    private DeezerClient(
+            String apiBaseUrl,
+            String oauthBaseUrl,
+            String uploadBaseUrl,
+            Consumer<DeezerFeignBuilder> config,
+            AccessTokenSupplier accessTokenSupplier
+    ) {
+        this(
+                new RequestFactoryProvider(
+                        Customizer.customize(new DeezerFeignBuilder(), config).build(),
+                        Objects.requireNonNullElse(apiBaseUrl, "https://api.deezer.com"),
+                        Objects.requireNonNullElse(oauthBaseUrl, "https://connect.deezer.com"),
+                        Objects.requireNonNullElse(uploadBaseUrl, "https://upload.deezer.com"),
+                        accessTokenSupplier
+                ),
+                accessTokenSupplier
+        );
     }
+
+    //endregion
+
+    //region authorization
 
     public void authorization(String accessToken) {
-        authorization(AuthHelper.createAccessToken(accessToken));
+        authorization(new AccessToken(accessToken));
     }
 
     public void authorization(AccessToken accessToken) {
-        var accessTokenFuture = AuthHelper.createAccessTokenFuture(accessToken);
-
-        authorization(() -> accessTokenFuture);
+        authorization(AccessTokenSuppliers.accessTokenSupplier(accessToken));
     }
 
     public void authorization(int appId, String secret, String code) {
-        authorization(() -> oauth().getAccessToken(appId, secret, code).executeAsync());
+        authorization(AccessTokenSuppliers.accessTokenSupplier(oauth(), appId, secret, code));
     }
 
-    private void authorization(AccessTokenProvider accessTokenProvider) {
-        accessTokenSupplier.setAccessTokenProvider(accessTokenProvider);
+    private void authorization(Supplier<CompletableFuture<AccessToken>> accessTokenSupplier) {
+        this.accessTokenSupplier.setDelegate(accessTokenSupplier);
     }
+
+    //endregion
 
     public void removeAuthorization() {
-        authorization(() -> DeezerDefaults.EMPTY_ACCESS_TOKEN_FUTURE);
+        authorization(AccessTokenSuppliers.EMPTY_ACCESS_TOKEN_SUPPLIER);
+    }
+
+    public static class DeezerClientBuilder {
+        private Function<OAuthRequestFactory, CompletableFuture<AccessToken>> accessTokenSupplierFactory =
+                AccessTokenSuppliers.EMPTY_ACCESS_TOKEN_SUPPLIER_FACTORY;
+
+        public DeezerClientBuilder authorization(String accessToken) {
+            return authorization(new AccessToken(accessToken));
+        }
+
+        public DeezerClientBuilder authorization(AccessToken accessToken) {
+            return accessTokenSupplierFactory(AccessTokenSuppliers.accessTokenSupplierFactory(accessToken));
+        }
+
+        public DeezerClientBuilder authorization(int appId, String secret, String code) {
+            return accessTokenSupplierFactory(AccessTokenSuppliers.accessTokenSupplierFactory(appId, secret, code));
+        }
+
+        private DeezerClientBuilder accessTokenSupplierFactory(
+                Function<OAuthRequestFactory, CompletableFuture<AccessToken>> accessTokenSupplierFactory
+        ) {
+            this.accessTokenSupplierFactory = accessTokenSupplierFactory;
+            return this;
+        }
     }
 }

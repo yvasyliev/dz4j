@@ -7,12 +7,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import tools.jackson.databind.json.JsonMapper;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.anyMap;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class DeezerContractTest {
@@ -36,13 +42,16 @@ class DeezerContractTest {
     }
 
     @Test
-    void testBuilder() {
-        var actual = DeezerContract.builder()
-                .expanders(new HashMap<>())
-                .expanders(expanders -> expanders.put(TestExpander.class, expander))
+    void shouldBuildDeezerContract() {
+        var jsonMapper = mock(JsonMapper.class);
+        var expanders = Mockito.<Consumer<Map<Class<? extends Param.Expander>, Param.Expander>>>mock();
+        var deezerContract = DeezerContract.builder()
+                .jsonMapper(jsonMapper)
+                .expanders(expanders)
                 .build();
 
-        assertThat(actual).usingRecursiveComparison().isEqualTo(contract);
+        assertNotNull(deezerContract);
+        verify(expanders).accept(anyMap());
     }
 
     private interface TestClient {

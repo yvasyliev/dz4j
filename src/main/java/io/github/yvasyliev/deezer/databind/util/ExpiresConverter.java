@@ -1,15 +1,16 @@
 package io.github.yvasyliev.deezer.databind.util;
 
-import lombok.RequiredArgsConstructor;
+import lombok.Builder;
 import tools.jackson.databind.util.StdConverter;
 
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
 
-@RequiredArgsConstructor
+@Builder
 public class ExpiresConverter extends StdConverter<Duration, Instant> {
-    private final Clock clock;
+    @Builder.Default
+    private final Clock clock = Clock.systemDefaultZone();
 
     @Override
     public Instant convert(Duration duration) {

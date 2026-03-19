@@ -1,0 +1,55 @@
+package io.github.yvasyliev.deezer.databind.json;
+
+import io.github.yvasyliev.deezer.databind.cfg.DeezerHandlerInstantiator;
+import io.github.yvasyliev.deezer.databind.deser.PageDeserializerModifier;
+import io.github.yvasyliev.deezer.databind.util.ZeroToNullLocalDateConverter;
+import io.github.yvasyliev.deezer.databind.util.ZeroToNullLocalDateTimeConverter;
+import io.github.yvasyliev.deezer.util.Customizer;
+import lombok.Setter;
+import lombok.experimental.Accessors;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.JacksonModule;
+import tools.jackson.databind.cfg.HandlerInstantiator;
+import tools.jackson.databind.deser.std.StdConvertingDeserializer;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.module.SimpleModule;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.function.Consumer;
+
+@Setter
+@Accessors(fluent = true)
+public class DeezerJsonMapperBuilder {
+    private Consumer<SimpleModule> module;
+    private Consumer<JsonMapper.Builder> mapper;
+    private Consumer<DeezerHandlerInstantiator.DeezerHandlerInstantiatorBuilder> handlerInstantiator;
+
+    public JsonMapper build() {
+        var builder = JsonMapper.builder()
+                .enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
+                .handlerInstantiator(buildHandlerInstantiator())
+                .addModule(buildModule());
+
+        return Customizer.customize(builder, this.mapper).build();
+    }
+
+    private JacksonModule buildModule() {
+        var module = new SimpleModule("deezer-api")
+                .setDeserializerModifier(new PageDeserializerModifier())
+                .addDeserializer(
+                        LocalDate.class,
+                        new StdConvertingDeserializer<>(new ZeroToNullLocalDateConverter())
+                )
+                .addDeserializer(
+                        LocalDateTime.class,
+                        new StdConvertingDeserializer<>(new ZeroToNullLocalDateTimeConverter())
+                );
+
+        return Customizer.customize(module, this.module);
+    }
+
+    private HandlerInstantiator buildHandlerInstantiator() {
+        return Customizer.customize(DeezerHandlerInstantiator.builder(), this.handlerInstantiator).build();
+    }
+}
