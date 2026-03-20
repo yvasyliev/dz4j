@@ -99,7 +99,15 @@ class OEmbedIT extends AbstractIT {
         var body = read("/response/oembed/get-album.json");
         var expected = MAPPER.readValue(body, OEmbed.class);
 
-        stubOEmbedWithOptions("https://www.deezer.com/album/" + albumId, autoplay, maxWidth, maxHeight, radius, tracklist, body);
+        stubOEmbedWithOptions(
+                "https://www.deezer.com/album/" + albumId,
+                autoplay,
+                maxWidth,
+                maxHeight,
+                radius,
+                tracklist,
+                body
+        );
 
         assertEquals(expected, deezerClient.oEmbed().getAlbumOEmbed(albumId)
                 .autoplay(autoplay)
@@ -120,7 +128,15 @@ class OEmbedIT extends AbstractIT {
         var body = read("/response/oembed/get-episode.json");
         var expected = MAPPER.readValue(body, OEmbed.class);
 
-        stubOEmbedWithOptions("https://www.deezer.com/episode/" + episodeId, autoplay, maxWidth, maxHeight, radius, tracklist, body);
+        stubOEmbedWithOptions(
+                "https://www.deezer.com/episode/" + episodeId,
+                autoplay,
+                maxWidth,
+                maxHeight,
+                radius,
+                tracklist,
+                body
+        );
 
         assertEquals(expected, deezerClient.oEmbed().getEpisodeOEmbed(episodeId)
                 .autoplay(autoplay)
@@ -141,7 +157,15 @@ class OEmbedIT extends AbstractIT {
         var body = read("/response/oembed/get-playlist.json");
         var expected = MAPPER.readValue(body, OEmbed.class);
 
-        stubOEmbedWithOptions("https://www.deezer.com/playlist/" + playlistId, autoplay, maxWidth, maxHeight, radius, tracklist, body);
+        stubOEmbedWithOptions(
+                "https://www.deezer.com/playlist/" + playlistId,
+                autoplay,
+                maxWidth,
+                maxHeight,
+                radius,
+                tracklist,
+                body
+        );
 
         assertEquals(expected, deezerClient.oEmbed().getPlaylistOEmbed(playlistId)
                 .autoplay(autoplay)
@@ -162,7 +186,15 @@ class OEmbedIT extends AbstractIT {
         var body = read("/response/oembed/get-show.json");
         var expected = MAPPER.readValue(body, OEmbed.class);
 
-        stubOEmbedWithOptions("https://www.deezer.com/show/" + showId, autoplay, maxWidth, maxHeight, radius, tracklist, body);
+        stubOEmbedWithOptions(
+                "https://www.deezer.com/show/" + showId,
+                autoplay,
+                maxWidth,
+                maxHeight,
+                radius,
+                tracklist,
+                body
+        );
 
         assertEquals(expected, deezerClient.oEmbed().getShowOEmbed(showId)
                 .autoplay(autoplay)
@@ -183,7 +215,15 @@ class OEmbedIT extends AbstractIT {
         var body = read("/response/oembed/get-track.json");
         var expected = MAPPER.readValue(body, OEmbed.class);
 
-        stubOEmbedWithOptions("https://www.deezer.com/track/" + trackId, autoplay, maxWidth, maxHeight, radius, tracklist, body);
+        stubOEmbedWithOptions(
+                "https://www.deezer.com/track/" + trackId,
+                autoplay,
+                maxWidth,
+                maxHeight,
+                radius,
+                tracklist,
+                body
+        );
 
         assertEquals(expected, deezerClient.oEmbed().getTrackOEmbed(trackId)
                 .autoplay(autoplay)
@@ -204,7 +244,15 @@ class OEmbedIT extends AbstractIT {
         var body = read("/response/oembed/get-page.json");
         var expected = MAPPER.readValue(body, OEmbed.class);
 
-        stubOEmbedWithOptions("https://deezer.page.link/" + pageId, autoplay, maxWidth, maxHeight, radius, tracklist, body);
+        stubOEmbedWithOptions(
+                "https://deezer.page.link/" + pageId,
+                autoplay,
+                maxWidth,
+                maxHeight,
+                radius,
+                tracklist,
+                body
+        );
 
         assertEquals(expected, deezerClient.oEmbed().getPageOEmbed(pageId)
                 .autoplay(autoplay)
@@ -243,5 +291,3 @@ class OEmbedIT extends AbstractIT {
         );
     }
 }
-
-
