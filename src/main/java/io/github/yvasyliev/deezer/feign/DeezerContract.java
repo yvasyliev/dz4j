@@ -1,6 +1,7 @@
 package io.github.yvasyliev.deezer.feign;
 
 import feign.Contract;
+import feign.DefaultContract;
 import feign.MethodMetadata;
 import feign.Param;
 import io.github.yvasyliev.deezer.util.Customizer;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class DeezerContract implements Contract {
+    private static final Param.Expander DEFAULT_EXPANDER = new Param.ToStringExpander();
     private final Contract delegate;
     private final Map<Class<? extends Param.Expander>, Param.Expander> expanders;
 
@@ -24,7 +26,7 @@ public class DeezerContract implements Contract {
             JsonMapper jsonMapper,
             Consumer<Map<Class<? extends Param.Expander>, Param.Expander>> expanders
     ) {
-        this(new Default(), new HashMap<>());
+        this(new DefaultContract(), new HashMap<>());
 
         this.expanders.put(QueryExpander.class, new QueryExpander(jsonMapper));
         this.expanders.put(StrictExpander.class, new StrictExpander());
@@ -45,7 +47,10 @@ public class DeezerContract implements Contract {
         var indexToExpander = md.indexToExpanderClass()
                 .entrySet()
                 .stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, entry -> expanders.get(entry.getValue())));
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        entry -> expanders.getOrDefault(entry.getValue(), DEFAULT_EXPANDER)
+                ));
 
         md.indexToExpander(indexToExpander);
     }
