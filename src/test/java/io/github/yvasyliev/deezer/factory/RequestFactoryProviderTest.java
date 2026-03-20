@@ -1,6 +1,7 @@
-package io.github.yvasyliev.deezer.util;
+package io.github.yvasyliev.deezer.factory;
 
 import feign.AsyncFeign;
+import io.github.yvasyliev.deezer.configuration.BaseUrls;
 import io.github.yvasyliev.deezer.model.AccessToken;
 import io.github.yvasyliev.deezer.service.AlbumService;
 import io.github.yvasyliev.deezer.service.ArtistService;

@@ -1,24 +1,8 @@
-package io.github.yvasyliev.deezer.util;
+package io.github.yvasyliev.deezer.factory;
 
 import feign.AsyncFeign;
 import io.github.yvasyliev.deezer.authorization.TokenManager;
-import io.github.yvasyliev.deezer.factory.AlbumRequestFactory;
-import io.github.yvasyliev.deezer.factory.ArtistRequestFactory;
-import io.github.yvasyliev.deezer.factory.ChartRequestFactory;
-import io.github.yvasyliev.deezer.factory.EditorialRequestFactory;
-import io.github.yvasyliev.deezer.factory.EpisodeRequestFactory;
-import io.github.yvasyliev.deezer.factory.GenreRequestFactory;
-import io.github.yvasyliev.deezer.factory.InfosRequestFactory;
-import io.github.yvasyliev.deezer.factory.OAuthRequestFactory;
-import io.github.yvasyliev.deezer.factory.OEmbedRequestFactory;
-import io.github.yvasyliev.deezer.factory.OptionsRequestFactory;
-import io.github.yvasyliev.deezer.factory.PlaylistRequestFactory;
-import io.github.yvasyliev.deezer.factory.PodcastRequestFactory;
-import io.github.yvasyliev.deezer.factory.RadioRequestFactory;
-import io.github.yvasyliev.deezer.factory.SearchRequestFactory;
-import io.github.yvasyliev.deezer.factory.TrackRequestFactory;
-import io.github.yvasyliev.deezer.factory.UploadRequestFactory;
-import io.github.yvasyliev.deezer.factory.UserRequestFactory;
+import io.github.yvasyliev.deezer.configuration.BaseUrls;
 import io.github.yvasyliev.deezer.model.AccessToken;
 import io.github.yvasyliev.deezer.service.AlbumService;
 import io.github.yvasyliev.deezer.service.ArtistService;
@@ -37,6 +21,7 @@ import io.github.yvasyliev.deezer.service.SearchService;
 import io.github.yvasyliev.deezer.service.TrackService;
 import io.github.yvasyliev.deezer.service.UploadService;
 import io.github.yvasyliev.deezer.service.UserService;
+import io.github.yvasyliev.deezer.util.TokenManagers;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
@@ -46,7 +31,6 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-//TODO: what package fits best for this class?
 @Getter
 @Accessors(fluent = true)
 public class RequestFactoryProvider {

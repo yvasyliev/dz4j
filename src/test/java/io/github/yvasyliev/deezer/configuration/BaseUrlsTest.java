@@ -1,4 +1,4 @@
-package io.github.yvasyliev.deezer.util;
+package io.github.yvasyliev.deezer.configuration;
 
 import org.junit.jupiter.api.Test;
 
