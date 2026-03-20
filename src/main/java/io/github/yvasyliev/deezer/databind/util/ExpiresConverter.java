@@ -14,6 +14,6 @@ public class ExpiresConverter extends StdConverter<Duration, Instant> {
 
     @Override
     public Instant convert(Duration duration) {
-        return Instant.now(clock).plus(duration);
+        return Duration.ZERO.equals(duration) ? Instant.MAX : Instant.now(clock).plus(duration);
     }
 }
