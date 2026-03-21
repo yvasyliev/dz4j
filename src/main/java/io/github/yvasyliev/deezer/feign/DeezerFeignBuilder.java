@@ -3,6 +3,7 @@ package io.github.yvasyliev.deezer.feign;
 import feign.AsyncFeign;
 import feign.form.FormEncoder;
 import io.github.yvasyliev.deezer.databind.json.DeezerJsonMapperBuilder;
+import io.github.yvasyliev.deezer.feign.codec.DeezerFormEncoder;
 import io.github.yvasyliev.deezer.feign.decoder.DeezerDecoder;
 import io.github.yvasyliev.deezer.util.Customizer;
 import lombok.Setter;
@@ -23,7 +24,7 @@ public class DeezerFeignBuilder {
         var jsonMapper = buildJsonMapper();
         var feign = AsyncFeign.builder()
                 .dismiss404()
-                .encoder(new FormEncoder())
+                .encoder(new DeezerFormEncoder(new FormEncoder()))
                 .decoder(buildDecoder(jsonMapper))
                 .contract(buildContract(jsonMapper));
 

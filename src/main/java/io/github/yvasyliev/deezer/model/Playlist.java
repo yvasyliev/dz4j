@@ -3,12 +3,10 @@ package io.github.yvasyliev.deezer.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.yvasyliev.deezer.annotation.Experimental;
 import lombok.Builder;
-import lombok.Singular;
 
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * A playlist object.
@@ -68,7 +66,7 @@ public record Playlist(
         @Experimental @JsonProperty("md5_image") String md5Image,
         @Experimental @JsonProperty("picture_type") PictureType pictureType,
         @JsonProperty("creator") User creator,
-        @JsonProperty("tracks") @Singular List<Track> tracks
+        @JsonProperty("tracks") Page<Track> tracks
 ) {
     /**
      * Type of the picture.

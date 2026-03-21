@@ -1,7 +1,6 @@
 package io.github.yvasyliev.deezer.feign;
 
 import feign.Contract;
-import feign.DefaultContract;
 import feign.MethodMetadata;
 import feign.Param;
 import io.github.yvasyliev.deezer.util.Customizer;
@@ -26,7 +25,7 @@ public class DeezerContract implements Contract {
             JsonMapper jsonMapper,
             Consumer<Map<Class<? extends Param.Expander>, Param.Expander>> expanders
     ) {
-        this(new DefaultContract(), new HashMap<>());
+        this(new Default(), new HashMap<>());
 
         this.expanders.put(QueryExpander.class, new QueryExpander(jsonMapper));
         this.expanders.put(StrictExpander.class, new StrictExpander());
