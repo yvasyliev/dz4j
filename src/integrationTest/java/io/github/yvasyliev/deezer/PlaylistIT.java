@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import tools.jackson.core.type.TypeReference;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.delete;
@@ -27,13 +26,6 @@ class PlaylistIT extends AbstractIT {
     void setUp(WireMockRuntimeInfo wmRuntimeInfo) {
         deezerClient = DeezerClient.builder()
                 .baseUrl(baseUrls -> baseUrls.api(wmRuntimeInfo.getHttpBaseUrl()))
-                .config(config -> config.feign(feign -> feign.requestInterceptor(template -> {
-                    var body = template.body();
-
-                    if (body != null) {
-                        System.out.println(new String(body, StandardCharsets.UTF_8));
-                    }
-                })))
                 .authorization(ACCESS_TOKEN)
                 .build();
     }
