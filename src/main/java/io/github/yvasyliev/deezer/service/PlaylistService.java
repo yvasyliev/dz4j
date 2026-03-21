@@ -24,7 +24,7 @@ public interface PlaylistService {
      * @param trackIds    collection of track IDs to add
      * @return {@code true} if the tracks were added successfully
      */
-    @RequestLine(value = "POST /playlist/{playlistId}/tracks", collectionFormat = CollectionFormat.CSV)
+    @RequestLine("POST /playlist/{playlistId}/tracks")
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addTracks(
             @Param("playlistId") long playlistId,
@@ -139,7 +139,7 @@ public interface PlaylistService {
      * @param trackIds    list of track IDs in the desired order
      * @return {@code true} if the tracks were ordered successfully
      */
-    @RequestLine(value = "POST /playlist/{playlistId}/tracks", collectionFormat = CollectionFormat.CSV)
+    @RequestLine("POST /playlist/{playlistId}/tracks")
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> orderTracks(
             @Param("playlistId") long playlistId,

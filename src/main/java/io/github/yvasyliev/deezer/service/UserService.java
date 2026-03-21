@@ -1,6 +1,5 @@
 package io.github.yvasyliev.deezer.service;
 
-import feign.CollectionFormat;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
@@ -30,7 +29,7 @@ public interface UserService {
      * @param albumIds    collection of album IDs to add
      * @return {@code true} if the albums were added successfully
      */
-    @RequestLine(value = "POST /user/{userId:\\d+|me}/albums", collectionFormat = CollectionFormat.CSV)
+    @RequestLine("POST /user/{userId:\\d+|me}/albums")
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addAlbums(
             @Param("userId") String userId,
@@ -46,7 +45,7 @@ public interface UserService {
      * @param artistIds   collection of artist IDs to add
      * @return {@code true} if the artists were added successfully
      */
-    @RequestLine(value = "POST /user/{userId:\\d+|me}/artists", collectionFormat = CollectionFormat.CSV)
+    @RequestLine("POST /user/{userId:\\d+|me}/artists")
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addArtists(
             @Param("userId") String userId,
@@ -78,7 +77,7 @@ public interface UserService {
      * @param playlistIds collection of playlist IDs to add
      * @return {@code true} if the playlists were added successfully
      */
-    @RequestLine(value = "POST /user/{userId:\\d+|me}/playlists", collectionFormat = CollectionFormat.CSV)
+    @RequestLine("POST /user/{userId:\\d+|me}/playlists")
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addPlaylists(
             @Param("userId") String userId,
@@ -126,7 +125,7 @@ public interface UserService {
      * @param trackIds    collection of track IDs to add
      * @return {@code true} if the tracks were added successfully
      */
-    @RequestLine(value = "POST /user/{userId:\\d+|me}/tracks", collectionFormat = CollectionFormat.CSV)
+    @RequestLine("POST /user/{userId:\\d+|me}/tracks")
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addTracks(
             @Param("userId") String userId,
