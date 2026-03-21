@@ -7,6 +7,7 @@ import io.github.yvasyliev.deezer.model.Order;
 import io.github.yvasyliev.deezer.model.Page;
 import io.github.yvasyliev.deezer.model.Playlist;
 import io.github.yvasyliev.deezer.model.Query;
+import io.github.yvasyliev.deezer.model.Radio;
 import io.github.yvasyliev.deezer.model.SimpleQuery;
 import io.github.yvasyliev.deezer.model.Track;
 import io.github.yvasyliev.deezer.model.User;
@@ -160,6 +161,34 @@ public class SearchRequestFactory {
 
     private SearchDeezerRequest<Track> searchTrack(Query query) {
         return createSearchDeezerRequest(query, searchService::searchTrack);
+    }
+
+    //endregion
+
+    //region searchRadio
+
+    /**
+     * Creates a request to search for radios based on a simple query string.
+     *
+     * @param query the search query string
+     * @return a request for searching radios
+     */
+    public SearchDeezerRequest<Radio> searchRadio(String query) {
+        return searchRadio(new SimpleQuery(query));
+    }
+
+    /**
+     * Creates a request to search for radios based on an advanced query.
+     *
+     * @param query the advanced search query
+     * @return a request for searching radios
+     */
+    public SearchDeezerRequest<Radio> searchRadio(AdvancedQuery query) {
+        return searchRadio((Query) query);
+    }
+
+    private SearchDeezerRequest<Radio> searchRadio(Query query) {
+        return createSearchDeezerRequest(query, searchService::searchRadio);
     }
 
     //endregion

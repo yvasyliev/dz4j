@@ -5,6 +5,7 @@ import io.github.yvasyliev.deezer.model.Album;
 import io.github.yvasyliev.deezer.model.Artist;
 import io.github.yvasyliev.deezer.model.Page;
 import io.github.yvasyliev.deezer.model.Playlist;
+import io.github.yvasyliev.deezer.model.Radio;
 import io.github.yvasyliev.deezer.model.SimpleQuery;
 import io.github.yvasyliev.deezer.model.Track;
 import io.github.yvasyliev.deezer.model.User;
@@ -141,6 +142,36 @@ class SearchRequestFactoryTest {
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = searchRequestFactory.searchPlaylist(query).execute();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testSearchRadio() {
+        var query = "test radio";
+        var expected = Page.<Radio>builder()
+                .data(Radio.builder().id(123L).build())
+                .build();
+
+        when(searchService.searchRadio(new SimpleQuery(query), null, null, null, null))
+                .thenReturn(CompletableFuture.completedFuture(expected));
+
+        var actual = searchRequestFactory.searchRadio(query).execute();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testAdvancedSearchRadio() {
+        var query = AdvancedQuery.builder().artist("test artist").build();
+        var expected = Page.<Radio>builder()
+                .data(Radio.builder().id(123L).build())
+                .build();
+
+        when(searchService.searchRadio(query, null, null, null, null))
+                .thenReturn(CompletableFuture.completedFuture(expected));
+
+        var actual = searchRequestFactory.searchRadio(query).execute();
 
         assertEquals(expected, actual);
     }

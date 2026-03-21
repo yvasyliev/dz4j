@@ -11,6 +11,7 @@ import io.github.yvasyliev.deezer.model.Order;
 import io.github.yvasyliev.deezer.model.Page;
 import io.github.yvasyliev.deezer.model.Playlist;
 import io.github.yvasyliev.deezer.model.Query;
+import io.github.yvasyliev.deezer.model.Radio;
 import io.github.yvasyliev.deezer.model.Track;
 import io.github.yvasyliev.deezer.model.User;
 
@@ -88,6 +89,25 @@ public interface SearchService {
      */
     @RequestLine("GET /search/playlist?q={query}&strict={strict}&order={order}&index={index}&limit={limit}")
     CompletableFuture<Page<Playlist>> searchPlaylist(
+            @Param(value = "query", expander = QueryExpander.class) Query query,
+            @Param(value = "strict", expander = StrictExpander.class) Boolean strict,
+            @Param("order") Order order,
+            @Param("index") Integer index,
+            @Param("limit") Integer limit
+    );
+
+    /**
+     * Searches for radios matching the given query.
+     *
+     * @param query  search query
+     * @param strict if {@code true}, enables strict mode for more accurate results
+     * @param order  order of the results
+     * @param index  index of the first result to return
+     * @param limit  maximum number of results to return
+     * @return a page of radios matching the search criteria
+     */
+    @RequestLine("GET /search/radio?q={query}&strict={strict}&order={order}&index={index}&limit={limit}")
+    CompletableFuture<Page<Radio>> searchRadio(
             @Param(value = "query", expander = QueryExpander.class) Query query,
             @Param(value = "strict", expander = StrictExpander.class) Boolean strict,
             @Param("order") Order order,
