@@ -6,6 +6,7 @@ import com.github.tomakehurst.wiremock.matching.StringValuePattern;
 import io.github.yvasyliev.deezer.databind.json.DeezerJsonMapperBuilder;
 import io.github.yvasyliev.deezer.exception.DeezerApiException;
 import io.github.yvasyliev.deezer.request.DeezerRequest;
+import io.github.yvasyliev.deezer.util.Customizer;
 import lombok.Cleanup;
 import org.junit.jupiter.api.Assertions;
 import tools.jackson.databind.json.JsonMapper;
@@ -24,18 +25,11 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 abstract class AbstractIT {
     private static final Clock CLOCK = Clock.fixed(Instant.now(), ZoneId.systemDefault());
     protected static final String ACCESS_TOKEN = "test_access_token";
-    protected static final JsonMapper MAPPER = testJsonMapper();
+    protected static final JsonMapper MAPPER =
+            Customizer.customize(new DeezerJsonMapperBuilder(), AbstractIT::testJsonMapper).build();
 
     protected static void testJsonMapper(DeezerJsonMapperBuilder builder) {
         builder.handlerInstantiator(hi -> hi.expiresConverter(converter -> converter.clock(CLOCK)));
-    }
-
-    private static JsonMapper testJsonMapper() {
-        var builder = new DeezerJsonMapperBuilder();
-
-        testJsonMapper(builder);
-
-        return builder.build();
     }
 
     protected <T> void assertEquals(T expected, DeezerRequest<T> request) {
