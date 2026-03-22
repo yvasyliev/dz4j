@@ -21,8 +21,19 @@ class ErrorDeserializerTest {
     @Mock private JsonNodeDeserializer delegate;
 
     @Test
-    void shouldReturnNull() {
+    void shouldReturnNullIfErrorIsMissing() {
         var actual = deserializer.deserialize(MissingNode.getInstance(), Object.class);
+
+        assertNull(actual);
+    }
+
+    @Test
+    void shouldReturnNullIfErrorIsNotObject() {
+        var node = JsonNodeFactory.instance.objectNode();
+
+        node.put("error", "error");
+
+        var actual = deserializer.deserialize(node, Object.class);
 
         assertNull(actual);
     }
