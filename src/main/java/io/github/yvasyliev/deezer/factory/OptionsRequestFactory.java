@@ -6,6 +6,9 @@ import io.github.yvasyliev.deezer.request.SimpleDeezerRequest;
 import io.github.yvasyliev.deezer.service.OptionsService;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Factory for creating requests related to options.
+ */
 @RequiredArgsConstructor
 public class OptionsRequestFactory {
     private final OptionsService optionsService;

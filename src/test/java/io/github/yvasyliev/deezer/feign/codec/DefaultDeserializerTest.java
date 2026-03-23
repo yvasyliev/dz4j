@@ -1,4 +1,4 @@
-package io.github.yvasyliev.deezer.feign.decoder;
+package io.github.yvasyliev.deezer.feign.codec;
 
 import org.junit.jupiter.api.Test;
 import tools.jackson.databind.json.JsonMapper;

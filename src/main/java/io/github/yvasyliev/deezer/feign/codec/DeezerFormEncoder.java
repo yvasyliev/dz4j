@@ -11,10 +11,22 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * A custom Feign encoder that transforms collection values into CSV strings for form URL-encoded requests.
+ */
 @RequiredArgsConstructor
 public class DeezerFormEncoder implements Encoder {
     private final Encoder delegate;
 
+    /**
+     * Encodes the given body using the delegate encoder. If the body contains {@link Collection} values, they will be
+     * replaced with a CSV string.
+     *
+     * @param body     {@inheritDoc}
+     * @param bodyType {@inheritDoc}
+     * @param template {@inheritDoc}
+     * @throws EncodeException {@inheritDoc}
+     */
     @Override
     public void encode(Object body, Type bodyType, RequestTemplate template) throws EncodeException {
         delegate.encode(transform(body, template), bodyType, template);

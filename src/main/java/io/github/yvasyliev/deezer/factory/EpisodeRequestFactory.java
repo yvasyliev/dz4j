@@ -12,6 +12,9 @@ import lombok.RequiredArgsConstructor;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
 
+/**
+ * Factory for creating requests related to episodes.
+ */
 @RequiredArgsConstructor
 public class EpisodeRequestFactory {
     private final EpisodeService episodeService;

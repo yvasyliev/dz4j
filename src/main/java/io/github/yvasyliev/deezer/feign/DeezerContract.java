@@ -14,6 +14,9 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+/**
+ * Custom Feign contract for Deezer API, allowing for custom parameter expanders.
+ */
 @RequiredArgsConstructor
 public class DeezerContract implements Contract {
     private static final Param.Expander DEFAULT_EXPANDER = new Param.ToStringExpander();
@@ -33,6 +36,13 @@ public class DeezerContract implements Contract {
         Customizer.customize(this.expanders, expanders);
     }
 
+    /**
+     * Parses and validates the metadata of the Feign interface, replacing any parameter expanders with the custom ones
+     * defined in this contract.
+     *
+     * @param targetType {@inheritDoc}
+     * @return a list of {@link MethodMetadata} for the Feign interface, with custom parameter expanders applied.
+     */
     @Override
     public List<MethodMetadata> parseAndValidateMetadata(Class<?> targetType) {
         var result = delegate.parseAndValidateMetadata(targetType);

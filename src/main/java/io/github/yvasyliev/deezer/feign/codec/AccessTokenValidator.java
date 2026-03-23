@@ -1,4 +1,4 @@
-package io.github.yvasyliev.deezer.feign.decoder;
+package io.github.yvasyliev.deezer.feign.codec;
 
 import feign.Response;
 import feign.Util;
@@ -8,7 +8,19 @@ import io.github.yvasyliev.deezer.model.AccessToken;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
+/**
+ * Validates the access token response to ensure it is not an HTML error page.
+ */
 public class AccessTokenValidator implements ResponseValidator {
+    /**
+     * Validates the access token response. If the expected type is {@link AccessToken} and the response content type is
+     * {@code text/html}, it throws an {@link AccessTokenResponseException} with the response body as the message.
+     *
+     * @param response {@inheritDoc}
+     * @param type     {@inheritDoc}
+     * @throws AccessTokenResponseException if the response is an HTML error page instead of a valid access token
+     *                                      response
+     */
     @Override
     public void validate(Response response, Type type) throws AccessTokenResponseException {
         if (AccessToken.class.equals(type) && isTextHtml(response)) {

@@ -1,4 +1,4 @@
-package io.github.yvasyliev.deezer.feign.decoder;
+package io.github.yvasyliev.deezer.feign.codec;
 
 import feign.Response;
 import io.github.yvasyliev.deezer.exception.AccessTokenResponseException;

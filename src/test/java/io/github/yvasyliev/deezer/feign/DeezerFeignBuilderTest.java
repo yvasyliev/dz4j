@@ -2,7 +2,7 @@ package io.github.yvasyliev.deezer.feign;
 
 import feign.AsyncFeign;
 import io.github.yvasyliev.deezer.databind.json.DeezerJsonMapperBuilder;
-import io.github.yvasyliev.deezer.feign.decoder.DeezerDecoder;
+import io.github.yvasyliev.deezer.feign.codec.DeezerDecoder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;

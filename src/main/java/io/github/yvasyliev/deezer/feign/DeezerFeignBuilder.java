@@ -4,7 +4,7 @@ import feign.AsyncFeign;
 import feign.form.FormEncoder;
 import io.github.yvasyliev.deezer.databind.json.DeezerJsonMapperBuilder;
 import io.github.yvasyliev.deezer.feign.codec.DeezerFormEncoder;
-import io.github.yvasyliev.deezer.feign.decoder.DeezerDecoder;
+import io.github.yvasyliev.deezer.feign.codec.DeezerDecoder;
 import io.github.yvasyliev.deezer.util.Customizer;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -12,6 +12,9 @@ import tools.jackson.databind.json.JsonMapper;
 
 import java.util.function.Consumer;
 
+/**
+ * Builder for creating a Feign client for the Deezer API.
+ */
 @Setter
 @Accessors(fluent = true)
 public class DeezerFeignBuilder {
@@ -20,6 +23,11 @@ public class DeezerFeignBuilder {
     private Consumer<DeezerContract.DeezerContractBuilder> contract;
     private Consumer<AsyncFeign.AsyncBuilder<Object>> feign;
 
+    /**
+     * Builds a Feign client for the Deezer API using the configured JSON mapper, decoder, contract, and Feign builder.
+     *
+     * @return a Feign client for the Deezer API
+     */
     public AsyncFeign.AsyncBuilder<Object> build() {
         var jsonMapper = buildJsonMapper();
         var feign = AsyncFeign.builder()

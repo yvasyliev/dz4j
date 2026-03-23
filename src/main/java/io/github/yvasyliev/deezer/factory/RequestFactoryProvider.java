@@ -31,6 +31,9 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+/**
+ * Provider of request factories for different Deezer API endpoints.
+ */
 @Getter
 @Accessors(fluent = true)
 public class RequestFactoryProvider {
@@ -52,6 +55,13 @@ public class RequestFactoryProvider {
     private final UploadRequestFactory upload;
     private final UserRequestFactory user;
 
+    /**
+     * Constructs a new {@link RequestFactoryProvider}.
+     *
+     * @param builder             the Feign async builder to use for creating service clients
+     * @param baseUrls            the base URLs for the Deezer API endpoints
+     * @param accessTokenSupplier an access token supplier
+     */
     public RequestFactoryProvider(
             AsyncFeign.AsyncBuilder<Object> builder,
             BaseUrls baseUrls,
