@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * Base class for all exceptions thrown by the Deezer API. It is used to deserialize error responses from the API.
+ */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = DeezerApiResponseException.class, name = "Exception"),
@@ -27,6 +30,12 @@ public abstract class DeezerApiException extends DeezerException {
 
     private final ErrorCode code;
 
+    /**
+     * Constructs a new {@code DeezerApiException} with the specified message and error code.
+     *
+     * @param message the detail message explaining the reason for the exception
+     * @param code    the error code associated with the exception
+     */
     public DeezerApiException(String message, ErrorCode code) {
         super(message);
         this.code = code;

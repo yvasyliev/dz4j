@@ -7,6 +7,11 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+/**
+ * A token manager. Refreshes token when necessary. The class is thread-safe.
+ *
+ * @param <T> token type
+ */
 @RequiredArgsConstructor
 public class TokenManager<T> {
     private final Predicate<CompletableFuture<T>> tokenValidator;
@@ -14,6 +19,11 @@ public class TokenManager<T> {
     private final Function<T, String> tokenMapper;
     private volatile CompletableFuture<T> token;
 
+    /**
+     * Returns a valid token. If the current token is invalid, it will be refreshed using the token supplier.
+     *
+     * @return a valid token
+     */
     public CompletableFuture<String> getToken() {
         var localToken = token;
 

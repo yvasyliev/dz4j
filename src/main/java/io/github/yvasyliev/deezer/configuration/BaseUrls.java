@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 
+/**
+ * Base URLs for the Deezer API. These can be customized if needed.
+ */
 @AllArgsConstructor
 @Getter
 @Accessors(fluent = true)

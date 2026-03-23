@@ -1,5 +1,6 @@
 plugins {
     id 'java-library'
+    id 'checkstyle'
     id 'io.freefair.lombok' version '9.1.0'
     id 'jacoco'
 }
@@ -18,12 +19,14 @@ repositories {
 }
 
 dependencies {
-    api platform('io.github.openfeign:feign-bom:13.6')
+    implementation platform('io.github.openfeign:feign-bom:13.6')
     implementation platform('tools.jackson:jackson-bom:3.0.3')
 
-    api 'io.github.openfeign:feign-core'
     api 'io.github.openfeign:feign-form'
     api 'tools.jackson.core:jackson-databind'
+
+    checkstyle 'com.puppycrawl.tools:checkstyle:12.3.1'
+    checkstyle 'com.github.sevntu-checkstyle:sevntu-checks:1.44.1'
 }
 
 testing {
@@ -85,4 +88,8 @@ jacocoTestReport {
 
 integrationTest {
     finalizedBy jacocoTestReport
+}
+
+checkstyle {
+    maxWarnings = 0
 }

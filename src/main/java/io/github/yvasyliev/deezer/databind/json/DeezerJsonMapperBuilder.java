@@ -18,6 +18,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.function.Consumer;
 
+/**
+ * A builder for creating a customized {@link JsonMapper} instance for Deezer API responses.
+ */
 @Setter
 @Accessors(fluent = true)
 public class DeezerJsonMapperBuilder {
@@ -25,6 +28,11 @@ public class DeezerJsonMapperBuilder {
     private Consumer<JsonMapper.Builder> mapper;
     private Consumer<DeezerHandlerInstantiator.DeezerHandlerInstantiatorBuilder> handlerInstantiator;
 
+    /**
+     * Builds a {@link JsonMapper} with the custom configurations provided through the builder.
+     *
+     * @return a configured {@link JsonMapper} instance
+     */
     public JsonMapper build() {
         var builder = JsonMapper.builder()
                 .enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
