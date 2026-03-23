@@ -68,7 +68,7 @@ public class EditorialRequestFactory {
      *
      * @param genreId the genre ID
      * @return a request that, when executed, will return the top tracks, albums, artists, playlists and podcasts per
-     * genre for the current country
+     *         genre for the current country
      */
     public PagingDeezerRequest<Page<Chart>> getEditorialCharts(long genreId) {
         return createPagingDeezerRequest(genreId, editorialService::getEditorialCharts);

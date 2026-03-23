@@ -23,6 +23,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 class DeezerHandlerInstantiatorTest {
+    @SuppressWarnings("checkstyle:ConstantName")
     private static final Supplier<Stream<Arguments>> testConverterInstance = () -> Stream.of(
             arguments(String.class, null),
             arguments(DeezerHandlerInstantiatorTest.class, mock(Converter.class))

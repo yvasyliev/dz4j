@@ -23,7 +23,7 @@ public class QueryExpander implements Param.Expander {
      *
      * @param value a value to expand
      * @return the expanded string representation of the query, or {@code null} if the value is not a supported query
-     * type
+     *         type
      */
     @Override
     public String expand(Object value) {

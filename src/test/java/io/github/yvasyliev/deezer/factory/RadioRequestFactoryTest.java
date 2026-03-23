@@ -36,8 +36,6 @@ class RadioRequestFactoryTest {
 
     @Test
     void testGetLists() {
-        var index = 1;
-        var limit = 10;
         var expected = Page.<Radio>builder()
                 .data(Radio.builder().id(123L).build())
                 .build();
@@ -77,8 +75,6 @@ class RadioRequestFactoryTest {
     @Test
     void testGetTracks() {
         var radioId = 123L;
-        var index = 1;
-        var limit = 10;
         var expected = Page.<Track>builder()
                 .data(Track.builder().id(456L).build())
                 .build();

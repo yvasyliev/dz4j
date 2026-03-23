@@ -132,8 +132,8 @@ public class DeezerClient {
         authorization(AccessTokenSuppliers.accessTokenSupplier(oauth(), appId, secret, code));
     }
 
-    private void authorization(Supplier<CompletableFuture<AccessToken>> accessTokenSupplier) {
-        this.accessTokenSupplier.setDelegate(accessTokenSupplier);
+    private void authorization(Supplier<CompletableFuture<AccessToken>> delegate) {
+        this.accessTokenSupplier.setDelegate(delegate);
     }
 
     //endregion
@@ -190,9 +190,9 @@ public class DeezerClient {
         }
 
         private DeezerClientBuilder accessTokenSupplierFactory(
-                Function<OAuthRequestFactory, CompletableFuture<AccessToken>> accessTokenSupplierFactory
+                Function<OAuthRequestFactory, CompletableFuture<AccessToken>> delegate
         ) {
-            this.accessTokenSupplierFactory = accessTokenSupplierFactory;
+            this.accessTokenSupplierFactory = delegate;
             return this;
         }
     }

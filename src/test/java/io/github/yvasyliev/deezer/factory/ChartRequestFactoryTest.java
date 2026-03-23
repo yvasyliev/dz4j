@@ -41,8 +41,6 @@ class ChartRequestFactoryTest {
     @Test
     void testGetArtistsChart() {
         var genreId = 123L;
-        var index = 1;
-        var limit = 10;
         var expected = Page.<Artist>builder()
                 .data(Artist.builder().id(456L).build())
                 .build();
@@ -75,7 +73,8 @@ class ChartRequestFactoryTest {
                 .data(Playlist.builder().id(456L).build())
                 .build();
 
-        when(chartService.getPlaylistsChart(genreId, null, null)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(chartService.getPlaylistsChart(genreId, null, null))
+                .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = chartRequestFactory.getPlaylistsChart(genreId).execute();
 
@@ -89,7 +88,8 @@ class ChartRequestFactoryTest {
                 .data(Podcast.builder().id(456L).build())
                 .build();
 
-        when(chartService.getPodcastsChart(genreId, null, null)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(chartService.getPodcastsChart(genreId, null, null))
+                .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = chartRequestFactory.getPodcastsChart(genreId).execute();
 
@@ -99,8 +99,6 @@ class ChartRequestFactoryTest {
     @Test
     void testGetTracksChart() {
         var genreId = 123L;
-        var index = 1;
-        var limit = 10;
         var expected = Page.<Track>builder()
                 .data(Track.builder().id(456L).build())
                 .build();

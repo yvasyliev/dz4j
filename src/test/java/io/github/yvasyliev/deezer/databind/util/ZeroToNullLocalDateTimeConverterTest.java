@@ -14,6 +14,8 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class ZeroToNullLocalDateTimeConverterTest {
     private static final StdConverter<String, LocalDateTime> CONVERTER = new ZeroToNullLocalDateTimeConverter();
+
+    @SuppressWarnings("checkstyle:ConstantName")
     private static final Supplier<Stream<Arguments>> testConvert = () -> Stream.of(
             arguments("0000-00-00 00:00:00", null),
             arguments("2024-01-21 21:34:15", LocalDateTime.of(2024, 1, 21, 21, 34, 15))

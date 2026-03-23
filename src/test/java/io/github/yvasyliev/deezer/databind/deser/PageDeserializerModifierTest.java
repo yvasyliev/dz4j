@@ -20,6 +20,8 @@ import static org.mockito.Mockito.when;
 
 class PageDeserializerModifierTest {
     private static final ValueDeserializerModifier PAGE_DESERIALIZER_MODIFIER = new PageDeserializerModifier();
+
+    @SuppressWarnings("checkstyle:ConstantName")
     private static final Supplier<Stream<Arguments>> testModifyDeserializer = () -> {
         var deserializer = mock(ValueDeserializer.class);
 

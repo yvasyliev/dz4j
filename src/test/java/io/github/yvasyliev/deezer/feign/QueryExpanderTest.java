@@ -17,6 +17,8 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class QueryExpanderTest {
     private static final Param.Expander EXPANDER = new QueryExpander(new JsonMapper());
+
+    @SuppressWarnings("checkstyle:ConstantName")
     private static final Supplier<Stream<Arguments>> testExpand = () -> Stream.of(
             arguments(new SimpleQuery("test query"), "test query"),
             arguments(
@@ -31,8 +33,8 @@ class QueryExpanderTest {
                             145
                     ),
                     """
-                    artist:"test artist" album:"test album" track:"test track" label:"test label" dur_min:120""" +
-                            " dur_max:180 bpm_min:85 bpm_max:145"
+                    artist:"test artist" album:"test album" track:"test track" label:"test label" dur_min:120"""
+                            + " dur_max:180 bpm_min:85 bpm_max:145"
             ),
             arguments(new Object(), null)
     );

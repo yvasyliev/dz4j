@@ -13,6 +13,8 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class StrictExpanderTest {
     private static final Param.Expander EXPANDER = new StrictExpander();
+
+    @SuppressWarnings("checkstyle:ConstantName")
     private static final Supplier<Stream<Arguments>> testExpand = () -> Stream.of(
             arguments(true, "on"),
             arguments(false, null),

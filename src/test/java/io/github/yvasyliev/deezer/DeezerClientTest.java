@@ -34,10 +34,14 @@ class DeezerClientTest {
     private static final int APP_ID = 123;
     private static final String SECRET = "secret";
     private static final String CODE = "code";
+
+    @SuppressWarnings("checkstyle:ConstantName")
     private static final Supplier<Stream<Arguments>> shouldCreateDefaultDeezerClient = () -> Stream.of(
             arguments("constructor", new DeezerClient()),
             arguments("builder", DeezerClient.builder().build())
     );
+
+    @SuppressWarnings("checkstyle:ConstantName")
     private static final Supplier<Stream<Arguments>> shouldAuthorizeWithStringAccessToken = () -> {
         var stringAccessTokenClient = new DeezerClient();
         stringAccessTokenClient.authorization(TOKEN);
@@ -48,6 +52,8 @@ class DeezerClientTest {
                 arguments("method", stringAccessTokenClient)
         );
     };
+
+    @SuppressWarnings("checkstyle:ConstantName")
     private static final Supplier<Stream<Arguments>> shouldAuthorizeWithAccessToken = () -> {
         var stringAccessTokenClient = new DeezerClient();
         stringAccessTokenClient.authorization(ACCESS_TOKEN);
@@ -58,6 +64,8 @@ class DeezerClientTest {
                 arguments("method", stringAccessTokenClient)
         );
     };
+
+    @SuppressWarnings("checkstyle:ConstantName")
     private static final Supplier<Stream<Arguments>> shouldAuthorizeWithAppIdSecretAndCode = () -> {
         var accessTokenFuture = CompletableFuture.completedFuture(ACCESS_TOKEN);
         var appIdSecretCodeClient = new DeezerClient();

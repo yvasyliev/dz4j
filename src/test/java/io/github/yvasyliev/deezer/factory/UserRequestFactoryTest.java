@@ -349,7 +349,8 @@ class UserRequestFactoryTest {
         var expected = Playlist.builder().id(123L).build();
 
         when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.createPlaylist("me", token, title, null)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(userService.createPlaylist("me", token, title, null))
+                .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.createPlaylist(title).execute();
 
@@ -474,7 +475,8 @@ class UserRequestFactoryTest {
                 .build();
 
         when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getArtistChart("me", token, null, null)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(userService.getArtistChart("me", token, null, null))
+                .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getArtistChart().execute();
 

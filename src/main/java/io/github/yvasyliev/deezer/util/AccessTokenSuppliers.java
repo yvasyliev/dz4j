@@ -55,7 +55,7 @@ public class AccessTokenSuppliers {
      * @param secret the application secret to be used for retrieving the access token
      * @param code   the authorization code to be used for retrieving the access token
      * @return a supplier that retrieves an access token asynchronously using the provided parameters and the given
-     * {@link OAuthRequestFactory}
+     *         {@link OAuthRequestFactory}
      */
     public Supplier<CompletableFuture<AccessToken>> accessTokenSupplier(
             OAuthRequestFactory oauth,
@@ -76,7 +76,7 @@ public class AccessTokenSuppliers {
      *
      * @param accessToken the access token to be supplied
      * @return a factory that always returns the provided access token wrapped in a completed future, regardless of the
-     * provided {@link OAuthRequestFactory}
+     *         provided {@link OAuthRequestFactory}
      */
     public Function<OAuthRequestFactory, CompletableFuture<AccessToken>> accessTokenSupplierFactory(
             AccessToken accessToken
