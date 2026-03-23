@@ -16,24 +16,24 @@ import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class DeezerFeignBuilderTest {
-    @Mock private Consumer<DeezerJsonMapperBuilder> jsonMapper;
-    @Mock private Consumer<DeezerDecoder.DeezerDecoderBuilder> decoder;
-    @Mock private Consumer<DeezerContract.DeezerContractBuilder> contract;
-    @Mock private Consumer<AsyncFeign.AsyncBuilder<Object>> feign;
+    @Mock private Consumer<DeezerJsonMapperBuilder> jsonMapperCustomizer;
+    @Mock private Consumer<DeezerDecoder.DeezerDecoderBuilder> decoderCustomizer;
+    @Mock private Consumer<DeezerContract.DeezerContractBuilder> contractCustomizer;
+    @Mock private Consumer<AsyncFeign.AsyncBuilder<Object>> feignCustomizer;
 
     @Test
     void testBuild() {
         var feign = new DeezerFeignBuilder()
-                .jsonMapper(jsonMapper)
-                .decoder(decoder)
-                .contract(contract)
-                .feign(this.feign)
+                .jsonMapper(jsonMapperCustomizer)
+                .decoder(decoderCustomizer)
+                .contract(contractCustomizer)
+                .feign(this.feignCustomizer)
                 .build();
 
         assertNotNull(feign);
-        verify(jsonMapper).accept(any());
-        verify(decoder).accept(any());
-        verify(contract).accept(any());
-        verify(this.feign).accept(any());
+        verify(jsonMapperCustomizer).accept(any());
+        verify(decoderCustomizer).accept(any());
+        verify(contractCustomizer).accept(any());
+        verify(this.feignCustomizer).accept(any());
     }
 }

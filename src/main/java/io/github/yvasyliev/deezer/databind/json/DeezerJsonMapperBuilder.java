@@ -39,11 +39,11 @@ public class DeezerJsonMapperBuilder {
                 .handlerInstantiator(buildHandlerInstantiator())
                 .addModule(buildModule());
 
-        return Customizer.customize(builder, this.mapper).build();
+        return Customizer.customize(builder, mapper).build();
     }
 
     private JacksonModule buildModule() {
-        var module = new SimpleModule("deezer-api")
+        var deezerModule = new SimpleModule("deezer-api")
                 .setDeserializerModifier(new PageDeserializerModifier())
                 .addDeserializer(
                         LocalDate.class,
@@ -54,10 +54,10 @@ public class DeezerJsonMapperBuilder {
                         new StdConvertingDeserializer<>(new ZeroToNullLocalDateTimeConverter())
                 );
 
-        return Customizer.customize(module, this.module);
+        return Customizer.customize(deezerModule, module);
     }
 
     private HandlerInstantiator buildHandlerInstantiator() {
-        return Customizer.customize(DeezerHandlerInstantiator.builder(), this.handlerInstantiator).build();
+        return Customizer.customize(DeezerHandlerInstantiator.builder(), handlerInstantiator).build();
     }
 }

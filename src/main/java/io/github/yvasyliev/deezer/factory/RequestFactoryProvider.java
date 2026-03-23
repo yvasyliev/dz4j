@@ -107,16 +107,16 @@ public class RequestFactoryProvider {
             return assemble(t -> factory.apply(t, accessTokenManager), target);
         }
 
-        private UploadRequestFactory assemble(InfosRequestFactory infos, String baseUrl) {
+        private UploadRequestFactory assemble(InfosRequestFactory infos, String url) {
             return assemble(
                     t -> new UploadRequestFactory(t, accessTokenManager, TokenManagers.uploadTokenManager(infos)),
                     UploadService.class,
-                    baseUrl
+                    url
             );
         }
 
-        private <T, R> R assemble(Function<T, R> factory, Class<T> target, String baseUrl) {
-            return factory.apply(builder.target(target, baseUrl));
+        private <T, R> R assemble(Function<T, R> factory, Class<T> target, String url) {
+            return factory.apply(builder.target(target, url));
         }
     }
 }

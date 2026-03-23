@@ -39,12 +39,12 @@ class TokenManagersTest {
 
     @Nested
     class UploadTokenManagerTest {
-        @Mock private InfosRequestFactory infos;
+        @Mock private InfosRequestFactory infosRequestFactory;
         @Mock private DeezerRequest<Infos> request;
 
         @BeforeEach
         void setUp() {
-            when(infos.getInfos()).thenReturn(request);
+            when(infosRequestFactory.getInfos()).thenReturn(request);
         }
 
         @Test
@@ -55,7 +55,7 @@ class TokenManagersTest {
                     .uploadTokenExpiresAt(Instant.now())
                     .build();
             var uploadTokenFuture = spy(CompletableFuture.completedFuture(infos));
-            var uploadTokenManager = TokenManagers.uploadTokenManager(this.infos);
+            var uploadTokenManager = TokenManagers.uploadTokenManager(infosRequestFactory);
 
             when(request.executeAsync()).thenReturn(uploadTokenFuture);
 
@@ -73,7 +73,7 @@ class TokenManagersTest {
                     .uploadToken("token")
                     .uploadTokenExpiresAt(Instant.now().plusSeconds(3600))
                     .build();
-            var uploadTokenManager = TokenManagers.uploadTokenManager(this.infos);
+            var uploadTokenManager = TokenManagers.uploadTokenManager(infosRequestFactory);
 
             when(request.executeAsync()).thenReturn(CompletableFuture.completedFuture(infos));
 
@@ -88,7 +88,7 @@ class TokenManagersTest {
                     .uploadToken("token")
                     .uploadTokenExpiresAt(Instant.now().plusSeconds(3600))
                     .build();
-            var uploadTokenManager = TokenManagers.uploadTokenManager(this.infos);
+            var uploadTokenManager = TokenManagers.uploadTokenManager(infosRequestFactory);
 
             when(request.executeAsync())
                     .thenReturn(CompletableFuture.failedFuture(new RuntimeException("test exception")));
@@ -114,7 +114,7 @@ class TokenManagersTest {
                     .uploadToken("expected-token")
                     .uploadTokenExpiresAt(Instant.now().plusSeconds(3600))
                     .build();
-            var uploadTokenManager = TokenManagers.uploadTokenManager(infos);
+            var uploadTokenManager = TokenManagers.uploadTokenManager(infosRequestFactory);
 
             when(request.executeAsync()).thenReturn(CompletableFuture.completedFuture(oldInfos));
 

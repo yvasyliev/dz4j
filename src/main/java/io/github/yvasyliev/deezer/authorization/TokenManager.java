@@ -41,7 +41,7 @@ public class TokenManager<T> {
         return localToken.thenApply(tokenMapper);
     }
 
-    private boolean isInvalid(CompletableFuture<T> token) {
-        return token == null || !tokenValidator.test(token);
+    private boolean isInvalid(CompletableFuture<T> tokenFuture) {
+        return tokenFuture == null || !tokenValidator.test(tokenFuture);
     }
 }

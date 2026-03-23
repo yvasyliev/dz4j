@@ -42,8 +42,8 @@ public class GetByIdPagingDeezerRequest<T, R> extends AbstractDeezerRequest<R> i
     ) {
         this(
                 id,
-                (objId, index, limit) -> accessTokenManager.getToken()
-                        .thenCompose(accessToken -> asyncMethod.apply(id, accessToken, index, limit))
+                (objId, idx, lmt) -> accessTokenManager.getToken()
+                        .thenCompose(accessToken -> asyncMethod.apply(id, accessToken, idx, lmt))
         );
     }
 

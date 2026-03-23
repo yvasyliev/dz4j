@@ -29,25 +29,25 @@ public class DeezerFeignBuilder {
      * @return a Feign client for the Deezer API
      */
     public AsyncFeign.AsyncBuilder<Object> build() {
-        var jsonMapper = buildJsonMapper();
-        var feign = AsyncFeign.builder()
+        var mapper = buildJsonMapper();
+        var feignBuilder = AsyncFeign.builder()
                 .dismiss404()
                 .encoder(new DeezerFormEncoder(new FormEncoder()))
-                .decoder(buildDecoder(jsonMapper))
-                .contract(buildContract(jsonMapper));
+                .decoder(buildDecoder(mapper))
+                .contract(buildContract(mapper));
 
-        return Customizer.customize(feign, this.feign);
+        return Customizer.customize(feignBuilder, feign);
     }
 
     private JsonMapper buildJsonMapper() {
-        return Customizer.customize(new DeezerJsonMapperBuilder(), this.jsonMapper).build();
+        return Customizer.customize(new DeezerJsonMapperBuilder(), jsonMapper).build();
     }
 
-    private DeezerDecoder buildDecoder(JsonMapper jsonMapper) {
-        return Customizer.customize(DeezerDecoder.builder().jsonMapper(jsonMapper), this.decoder).build();
+    private DeezerDecoder buildDecoder(JsonMapper mapper) {
+        return Customizer.customize(DeezerDecoder.builder().jsonMapper(mapper), decoder).build();
     }
 
-    private DeezerContract buildContract(JsonMapper jsonMapper) {
-        return Customizer.customize(DeezerContract.builder().jsonMapper(jsonMapper), this.contract).build();
+    private DeezerContract buildContract(JsonMapper mapper) {
+        return Customizer.customize(DeezerContract.builder().jsonMapper(mapper), contract).build();
     }
 }

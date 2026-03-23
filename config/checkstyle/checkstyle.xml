@@ -80,12 +80,12 @@
         <module name="FallThrough"/>
         <module name="FinalClass"/>
         <module name="GenericWhitespace"/>
-<!--        <module name="HiddenField">-->
-<!--            <property name="ignoreAbstractMethods" value="true"/>-->
-<!--            <property name="ignoreConstructorParameter" value="true"/>-->
-<!--            <property name="ignoreSetter" value="true"/>-->
-<!--            <property name="setterCanReturnItsClass" value="true"/>-->
-<!--        </module>-->
+        <module name="HiddenField">
+            <property name="ignoreAbstractMethods" value="true"/>
+            <property name="ignoreConstructorParameter" value="true"/>
+            <property name="ignoreSetter" value="true"/>
+            <property name="setterCanReturnItsClass" value="true"/>
+        </module>
         <module name="HideUtilityClassConstructor">
             <property name="ignoreAnnotatedBy" value="SpringBootApplication"/>
         </module>
@@ -177,7 +177,7 @@
         <module name="TodoComment"/>
         <module name="TypeName"/>
         <module name="TypecastParenPad"/>
-<!--        <module name="UnnecessaryNullCheckWithInstanceOf"/>-->
+        <module name="UnnecessaryNullCheckWithInstanceOf"/>
         <module name="UnnecessaryParentheses"/>
         <module name="UnnecessarySemicolonAfterOuterTypeDeclaration"/>
         <module name="UnnecessarySemicolonAfterTypeMemberDeclaration"/>
