@@ -81,6 +81,6 @@ public record Artist(
         /**
          * Guest.
          */
-        @JsonProperty("Guest") GUEST,
+        @JsonProperty("Guest") GUEST
     }
 }

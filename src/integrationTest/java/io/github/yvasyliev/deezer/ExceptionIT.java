@@ -1,7 +1,7 @@
 package io.github.yvasyliev.deezer;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
-import io.github.yvasyliev.deezer.exception.DeezerApiException;
+import io.github.yvasyliev.deezer.exception.AbstractDeezerApiException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +27,7 @@ class ExceptionIT extends AbstractIT {
     @Test
     void shouldThrowDataException() throws IOException {
         var body = read("/response/exception/data-exception.json");
-        var expected = readError(body, DeezerApiException.class);
+        var expected = readError(body, AbstractDeezerApiException.class);
 
         stubFor(get(urlEqualTo("/options")).willReturn(okJson(body)));
 
@@ -37,7 +37,7 @@ class ExceptionIT extends AbstractIT {
     @Test
     void shouldThrowException() throws IOException {
         var body = read("/response/exception/exception.json");
-        var expected = readError(body, DeezerApiException.class);
+        var expected = readError(body, AbstractDeezerApiException.class);
 
         stubFor(get(urlEqualTo("/options")).willReturn(okJson(body)));
 
@@ -47,7 +47,7 @@ class ExceptionIT extends AbstractIT {
     @Test
     void shouldThrowIndividualAccountChangedNotAllowedException() throws IOException {
         var body = read("/response/exception/individual-acccount-changed-not-allowed-exception.json");
-        var expected = readError(body, DeezerApiException.class);
+        var expected = readError(body, AbstractDeezerApiException.class);
 
         stubFor(get(urlEqualTo("/options")).willReturn(okJson(body)));
 
@@ -57,7 +57,7 @@ class ExceptionIT extends AbstractIT {
     @Test
     void shouldThrowInvalidQueryException() throws IOException {
         var body = read("/response/exception/invalid-query-exception.json");
-        var expected = readError(body, DeezerApiException.class);
+        var expected = readError(body, AbstractDeezerApiException.class);
 
         stubFor(get(urlEqualTo("/options")).willReturn(okJson(body)));
 
@@ -67,7 +67,7 @@ class ExceptionIT extends AbstractIT {
     @Test
     void shouldThrowMissingParameterException() throws IOException {
         var body = read("/response/exception/missing-parameter-exception.json");
-        var expected = readError(body, DeezerApiException.class);
+        var expected = readError(body, AbstractDeezerApiException.class);
 
         stubFor(get(urlEqualTo("/options")).willReturn(okJson(body)));
 
@@ -77,7 +77,7 @@ class ExceptionIT extends AbstractIT {
     @Test
     void shouldThrowOAuthException() throws IOException {
         var body = read("/response/exception/oauth-exception.json");
-        var expected = readError(body, DeezerApiException.class);
+        var expected = readError(body, AbstractDeezerApiException.class);
 
         stubFor(get(urlEqualTo("/options")).willReturn(okJson(body)));
 
@@ -87,7 +87,7 @@ class ExceptionIT extends AbstractIT {
     @Test
     void shouldThrowParameterException() throws IOException {
         var body = read("/response/exception/parameter-exception.json");
-        var expected = readError(body, DeezerApiException.class);
+        var expected = readError(body, AbstractDeezerApiException.class);
 
         stubFor(get(urlEqualTo("/options")).willReturn(okJson(body)));
 
@@ -97,7 +97,7 @@ class ExceptionIT extends AbstractIT {
     @Test
     void shouldThrowSimpleApiHttpException() throws IOException {
         var body = read("/response/exception/simple-api-http-exception.json");
-        var expected = readError(body, DeezerApiException.class);
+        var expected = readError(body, AbstractDeezerApiException.class);
 
         stubFor(get(urlEqualTo("/options")).willReturn(jsonResponse(body, HttpURLConnection.HTTP_NOT_FOUND)));
 

@@ -31,6 +31,7 @@ import java.util.function.BiFunction;
  * Factory for creating requests related to users.
  */
 @RequiredArgsConstructor
+@SuppressWarnings("checkstyle:MethodCount")
 public class UserRequestFactory {
     private static final String ME = "me";
     private final UserService userService;

@@ -1,6 +1,6 @@
 package io.github.yvasyliev.deezer.feign.codec;
 
-import io.github.yvasyliev.deezer.exception.DeezerApiException;
+import io.github.yvasyliev.deezer.exception.AbstractDeezerApiException;
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;
 
@@ -18,8 +18,9 @@ public interface JsonNodeDeserializer {
      * @param type the type to deserialize into
      * @param <T>  the type of the resulting Java object
      * @return the deserialized Java object
-     * @throws JacksonException   if an error occurs during deserialization
-     * @throws DeezerApiException if the API response indicates an error (e.g., contains an {@code error} field)
+     * @throws JacksonException           if an error occurs during deserialization
+     * @throws AbstractDeezerApiException if the API response indicates an error (e.g., contains an {@code error}
+     *                                    field)
      */
-    <T> T deserialize(JsonNode body, Type type) throws JacksonException, DeezerApiException;
+    <T> T deserialize(JsonNode body, Type type) throws JacksonException, AbstractDeezerApiException;
 }

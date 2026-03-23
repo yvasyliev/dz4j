@@ -21,6 +21,7 @@ import java.util.function.Supplier;
 
 /**
  * The main client class for interacting with the Deezer API.
+ *
  * <p>
  * It provides methods for authorization and access to various services. The client can be configured with custom base
  * URLs, Feign configurations, and access token suppliers. It also supports dynamic authorization by allowing the access
@@ -146,6 +147,7 @@ public class DeezerClient {
 
     /**
      * A builder for creating instances of {@link DeezerClient} with custom configurations.
+     *
      * <p>
      * It allows setting the authorization method, base URLs, and Feign configurations. The builder provides a fluent
      * API for configuring the client and supports dynamic authorization by allowing the access token supplier to be set

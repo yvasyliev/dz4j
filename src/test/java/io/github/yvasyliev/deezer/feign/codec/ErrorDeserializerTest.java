@@ -1,6 +1,6 @@
 package io.github.yvasyliev.deezer.feign.codec;
 
-import io.github.yvasyliev.deezer.exception.DeezerApiException;
+import io.github.yvasyliev.deezer.exception.AbstractDeezerApiException;
 import io.github.yvasyliev.deezer.exception.DeezerApiResponseException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,9 +44,9 @@ class ErrorDeserializerTest {
 
         node.putObject("error");
 
-        when(delegate.deserialize(node.path("error"), DeezerApiException.class))
+        when(delegate.deserialize(node.path("error"), AbstractDeezerApiException.class))
                 .thenReturn(mock(DeezerApiResponseException.class));
 
-        assertThrows(DeezerApiException.class, () -> deserializer.deserialize(node, Object.class));
+        assertThrows(AbstractDeezerApiException.class, () -> deserializer.deserialize(node, Object.class));
     }
 }

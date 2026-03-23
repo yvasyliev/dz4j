@@ -10,7 +10,7 @@ import java.net.URL;
 import java.time.Instant;
 
 /**
- * Get the information about the API in the current country
+ * Get the information about the API in the current country.
  *
  * @param countryIso           the current country ISO code
  * @param country              the current country name

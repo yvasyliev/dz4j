@@ -4,7 +4,7 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import com.github.tomakehurst.wiremock.matching.StringValuePattern;
 import io.github.yvasyliev.deezer.databind.json.DeezerJsonMapperBuilder;
-import io.github.yvasyliev.deezer.exception.DeezerApiException;
+import io.github.yvasyliev.deezer.exception.AbstractDeezerApiException;
 import io.github.yvasyliev.deezer.request.DeezerRequest;
 import io.github.yvasyliev.deezer.util.Customizer;
 import lombok.Cleanup;
@@ -37,15 +37,15 @@ abstract class AbstractIT {
         Assertions.assertEquals(expected, request.executeAsync().join());
     }
 
-    protected void assertThrows(DeezerApiException expected, DeezerRequest<?> request) {
+    protected void assertThrows(AbstractDeezerApiException expected, DeezerRequest<?> request) {
         assertThatThrownBy(request::execute)
-                .isInstanceOf(DeezerApiException.class)
+                .isInstanceOf(AbstractDeezerApiException.class)
                 .usingRecursiveComparison()
                 .isEqualTo(expected);
 
         assertThatThrownBy(() -> request.executeAsync().join())
                 .isInstanceOf(CompletionException.class)
-                .hasCauseInstanceOf(DeezerApiException.class)
+                .hasCauseInstanceOf(AbstractDeezerApiException.class)
                 .cause()
                 .usingRecursiveComparison()
                 .isEqualTo(expected);

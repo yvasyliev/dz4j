@@ -24,7 +24,7 @@ public interface RadioService {
     CompletableFuture<Page<Genre>> getGenres();
 
     /**
-     * Returns a list of personal radio splitted by genre (as MIX in website)
+     * Returns a list of personal radio splitted by genre (as MIX in website).
      *
      * @param index the offset of the first object
      * @param limit the maximum number of objects to return

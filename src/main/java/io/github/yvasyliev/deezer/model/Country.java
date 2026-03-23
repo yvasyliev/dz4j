@@ -1216,5 +1216,5 @@ public enum Country {
      * Zimbabwe.
      */
     @JsonProperty("ZW")
-    ZIMBABWE,
+    ZIMBABWE
 }

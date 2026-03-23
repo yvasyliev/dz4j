@@ -8,6 +8,7 @@ import java.util.concurrent.CompletionException;
 /**
  * An abstract implementation of the {@link DeezerRequest} interface that provides a default implementation for the
  * {@link #execute()} and {@link #executeAsync()} methods.
+ *
  * <p>
  * Subclasses are required to implement the {@link #doExecuteAsync()} method, which performs the actual execution of the
  * request asynchronously.

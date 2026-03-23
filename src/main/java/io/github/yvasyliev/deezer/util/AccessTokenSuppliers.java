@@ -13,12 +13,14 @@ import java.util.function.Supplier;
  */
 @UtilityClass
 public class AccessTokenSuppliers {
+    @SuppressWarnings("checkstyle:MemberName")
     private final CompletableFuture<AccessToken> EMPTY_ACCESS_TOKEN_FUTURE =
             CompletableFuture.completedFuture(new AccessToken());
 
     /**
      * A supplier that always returns an empty access token future.
      */
+    @SuppressWarnings({"checkstyle:VisibilityModifier", "checkstyle:MemberName"})
     public final Supplier<CompletableFuture<AccessToken>> EMPTY_ACCESS_TOKEN_SUPPLIER =
             () -> EMPTY_ACCESS_TOKEN_FUTURE;
 
@@ -26,6 +28,7 @@ public class AccessTokenSuppliers {
      * A factory that always returns an empty access token future, regardless of the provided
      * {@link OAuthRequestFactory}.
      */
+    @SuppressWarnings({"checkstyle:VisibilityModifier", "checkstyle:MemberName"})
     public final Function<OAuthRequestFactory, CompletableFuture<AccessToken>> EMPTY_ACCESS_TOKEN_SUPPLIER_FACTORY =
             oauth -> EMPTY_ACCESS_TOKEN_FUTURE;
 

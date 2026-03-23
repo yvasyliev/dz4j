@@ -44,7 +44,7 @@ public interface EditorialService {
     CompletableFuture<Page<Album>> getEditorialSelection(@Param("genreId") long genreId);
 
     /**
-     * Returns the new releases per genre for the current country
+     * Returns the new releases per genre for the current country.
      *
      * @param genreId the genre ID
      * @param index   the offset of the first object

@@ -12,6 +12,14 @@ import java.util.concurrent.CompletableFuture;
  */
 @Headers("Accept: application/json")
 public interface OAuthService {
+    /**
+     * Retrieves an access token from Deezer using the provided application ID, secret, and authorization code.
+     *
+     * @param appId  the application ID for OAuth authentication
+     * @param secret the application secret for OAuth authentication
+     * @param code   the authorization code obtained from the OAuth flow
+     * @return a {@link CompletableFuture} that will complete with the retrieved access token
+     */
     @RequestLine("GET /oauth/access_token.php?app_id={appId}&code={code}&secret={secret}&output=json")
     CompletableFuture<AccessToken> getAccessTokenAsync(
             @Param("appId") int appId,

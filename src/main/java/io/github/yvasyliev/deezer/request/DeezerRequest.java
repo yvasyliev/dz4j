@@ -6,6 +6,7 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * Represents a request to the Deezer API that can be executed synchronously or asynchronously.
+ *
  * <p>
  * It's recommended to extend {@link AbstractDeezerRequest} instead of implementing this interface directly for the
  * streamlined handling of exceptions and asynchronous execution.

@@ -7,7 +7,7 @@ import io.github.yvasyliev.deezer.annotation.Experimental;
  * Exception thrown when there is a simple HTTP error related to the Deezer API.
  */
 @Experimental
-public class SimpleApiHttpException extends DeezerApiException {
+public class SimpleApiHttpException extends AbstractDeezerApiException {
     /**
      * Constructs a new {@link SimpleApiHttpException} with the specified message and error code.
      *

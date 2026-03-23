@@ -94,6 +94,6 @@ public record User(
         /**
          * Male.
          */
-        @JsonProperty("M") MALE,
+        @JsonProperty("M") MALE
     }
 }

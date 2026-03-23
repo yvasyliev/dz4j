@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Exception thrown when there is an error related to invalid parameters in the Deezer API.
  */
-public class ParameterException extends DeezerApiException {
+public class ParameterException extends AbstractDeezerApiException {
     /**
      * Constructs a new {@link ParameterException} with the specified message and error code.
      *

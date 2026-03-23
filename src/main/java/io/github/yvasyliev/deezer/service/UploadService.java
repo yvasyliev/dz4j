@@ -18,6 +18,7 @@ public interface UploadService {
      *
      * @param playlistId  the playlist ID
      * @param accessToken the access token for authentication
+     * @param uploadToken the upload token for authentication
      * @param cover       the cover image file to upload
      * @return {@code true} if the upload was successful
      */

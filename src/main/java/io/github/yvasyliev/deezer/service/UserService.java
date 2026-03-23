@@ -568,7 +568,7 @@ public interface UserService {
     );
 
     /**
-     * Removes an album from the user's library
+     * Removes an album from the user's library.
      *
      * @param userId      user ID
      * @param accessToken Deezer access token with {@code manage_library} and {@code delete_library} permission

@@ -24,7 +24,7 @@ import lombok.ToString;
 })
 @Getter
 @ToString(callSuper = true)
-public abstract class DeezerApiException extends DeezerException {
+public abstract class AbstractDeezerApiException extends DeezerException {
     protected static final String MESSAGE = "message";
     protected static final String CODE = "code";
 
@@ -36,7 +36,7 @@ public abstract class DeezerApiException extends DeezerException {
      * @param message the detail message explaining the reason for the exception
      * @param code    the error code associated with the exception
      */
-    public DeezerApiException(String message, ErrorCode code) {
+    public AbstractDeezerApiException(String message, ErrorCode code) {
         super(message);
         this.code = code;
     }

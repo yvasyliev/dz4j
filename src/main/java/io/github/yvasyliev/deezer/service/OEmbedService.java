@@ -25,7 +25,7 @@ public interface OEmbedService {
      * @return the oEmbed information for the given URL
      */
     @RequestLine("GET /oembed?format=json"
-            + "&url={url}" //TODO: regex?
+            + "&url={url}"
             + "&autoplay={autoplay}"
             + "&maxwidth={maxWidth}"
             + "&maxheight={maxHeight}"

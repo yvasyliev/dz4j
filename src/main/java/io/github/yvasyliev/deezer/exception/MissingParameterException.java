@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Exception thrown when a required parameter is missing in a request to the Deezer API.
  */
-public class MissingParameterException extends DeezerApiException {
+public class MissingParameterException extends AbstractDeezerApiException {
     /**
      * Constructs a new {@link MissingParameterException} with the specified message and error code.
      *

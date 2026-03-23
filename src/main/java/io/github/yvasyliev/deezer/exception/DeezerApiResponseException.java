@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Exception thrown when Deezer API returns an error response.
  */
-public class DeezerApiResponseException extends DeezerApiException {
+public class DeezerApiResponseException extends AbstractDeezerApiException {
     /**
      * Constructs a new {@link DeezerApiResponseException} with the specified message and error code.
      *

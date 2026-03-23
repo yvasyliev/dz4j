@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Exception thrown when a query to the Deezer API is invalid.
  */
-public class InvalidQueryException extends DeezerApiException {
+public class InvalidQueryException extends AbstractDeezerApiException {
     /**
      * Constructs a new {@link InvalidQueryException} with the specified message and error code.
      *

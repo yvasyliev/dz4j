@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Exception thrown when an attempt is made to change an individual account, which is not allowed by the Deezer API.
  */
-public class IndividualAccountChangedNotAllowedException extends DeezerApiException {
+public class IndividualAccountChangedNotAllowedException extends AbstractDeezerApiException {
     /**
      * Constructs a new {@link IndividualAccountChangedNotAllowedException} with the specified message and error code.
      *

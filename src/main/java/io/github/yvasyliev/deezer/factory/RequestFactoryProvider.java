@@ -36,6 +36,7 @@ import java.util.function.Supplier;
  */
 @Getter
 @Accessors(fluent = true)
+@SuppressWarnings({"checkstyle:ClassDataAbstractionCoupling", "checkstyle:ClassFanOutComplexity"})
 public class RequestFactoryProvider {
     private final AlbumRequestFactory album;
     private final ArtistRequestFactory artist;

@@ -111,6 +111,6 @@ public record Album(
          * Single.
          */
         @JsonProperty("single")
-        SINGLE,
+        SINGLE
     }
 }

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Exception thrown when there is an error during the OAuth authentication process with the Deezer API.
  */
-public class OAuthException extends DeezerApiException {
+public class OAuthException extends AbstractDeezerApiException {
     /**
      * Constructs a new {@link OAuthException} with the specified message and error code.
      *
