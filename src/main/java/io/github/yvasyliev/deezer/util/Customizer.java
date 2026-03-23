@@ -1,6 +1,7 @@
 package io.github.yvasyliev.deezer.util;
 
 import lombok.experimental.UtilityClass;
+import org.jspecify.annotations.Nullable;
 
 import java.util.function.Consumer;
 
@@ -17,7 +18,7 @@ public class Customizer {
      * @param <T>        the type of the object being customized
      * @return the customized object
      */
-    public static <T> T customize(T t, Consumer<T> customizer) {
+    public static <T> T customize(T t, @Nullable Consumer<T> customizer) {
         if (customizer != null) {
             customizer.accept(t);
         }

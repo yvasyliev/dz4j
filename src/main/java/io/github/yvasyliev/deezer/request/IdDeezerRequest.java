@@ -3,6 +3,7 @@ package io.github.yvasyliev.deezer.request;
 import io.github.yvasyliev.deezer.authorization.TokenManager;
 import io.github.yvasyliev.deezer.model.AccessToken;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
@@ -30,7 +31,7 @@ public class IdDeezerRequest<T> extends AbstractDeezerRequest<T> {
     public IdDeezerRequest(
             long id,
             TokenManager<AccessToken> tokenManager,
-            BiFunction<Long, String, CompletableFuture<T>> asyncMethod
+            BiFunction<Long, @Nullable String, CompletableFuture<T>> asyncMethod
     ) {
         this(id, objId -> tokenManager.getToken().thenCompose(token -> asyncMethod.apply(objId, token)));
     }

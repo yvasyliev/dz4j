@@ -5,12 +5,12 @@ info:
 
 http:
   method: GET
-  url: "{{api-host}}/search/user?q=eminem&strinct=on&order=DURATION_DESC&limit=1&index=0"
+  url: "{{api-host}}/search/user?q=eminem&strict=on&order=DURATION_DESC&limit=1&index=0"
   params:
     - name: q
       value: eminem
       type: query
-    - name: strinct
+    - name: strict
       value: on
       type: query
     - name: order

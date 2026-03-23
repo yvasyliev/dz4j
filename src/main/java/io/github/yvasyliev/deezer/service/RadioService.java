@@ -7,6 +7,7 @@ import io.github.yvasyliev.deezer.model.Genre;
 import io.github.yvasyliev.deezer.model.Page;
 import io.github.yvasyliev.deezer.model.Radio;
 import io.github.yvasyliev.deezer.model.Track;
+import org.jspecify.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -31,7 +32,10 @@ public interface RadioService {
      * @return a list of personal radio splitted by genre (as MIX in website)
      */
     @RequestLine("GET /radio/lists?index={index}&limit={limit}")
-    CompletableFuture<Page<Radio>> getLists(@Param("index") Integer index, @Param("limit") Integer limit);
+    CompletableFuture<Page<Radio>> getLists(
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
+    );
 
     /**
      * Returns a radio.
@@ -61,7 +65,7 @@ public interface RadioService {
     @RequestLine("GET /radio/{radioId}/tracks?index={index}&limit={limit}")
     CompletableFuture<Page<Track>> getTracks(
             @Param("radioId") long radioId,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 }

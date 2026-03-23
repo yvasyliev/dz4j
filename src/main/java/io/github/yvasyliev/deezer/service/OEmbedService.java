@@ -4,6 +4,7 @@ import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 import io.github.yvasyliev.deezer.model.OEmbed;
+import org.jspecify.annotations.Nullable;
 
 import java.net.URL;
 import java.util.concurrent.CompletableFuture;
@@ -33,10 +34,10 @@ public interface OEmbedService {
             + "&tracklist={tracklist}")
     CompletableFuture<OEmbed> getOEmbed(
             @Param("url") URL url,
-            @Param("autoplay") Boolean autoplay,
-            @Param("maxWidth") Integer maxWidth,
-            @Param("maxHeight") Integer maxHeight,
-            @Param("radius") Boolean radius,
-            @Param("tracklist") Boolean tracklist
+            @Param("autoplay") @Nullable Boolean autoplay,
+            @Param("maxWidth") @Nullable Integer maxWidth,
+            @Param("maxHeight") @Nullable Integer maxHeight,
+            @Param("radius") @Nullable Boolean radius,
+            @Param("tracklist") @Nullable Boolean tracklist
     );
 }

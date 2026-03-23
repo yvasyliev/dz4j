@@ -19,7 +19,7 @@ class BodyValidatorTest {
                 .body(mock(Response.Body.class))
                 .build();
 
-        assertDoesNotThrow(() -> VALIDATOR.validate(response, null));
+        assertDoesNotThrow(() -> VALIDATOR.validate(response, mock()));
     }
 
     @Test
@@ -28,6 +28,6 @@ class BodyValidatorTest {
                 .request(mock())
                 .build();
 
-        assertThrows(ResponseException.class, () -> VALIDATOR.validate(response, null));
+        assertThrows(ResponseException.class, () -> VALIDATOR.validate(response, mock()));
     }
 }

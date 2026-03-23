@@ -2,10 +2,12 @@ package io.github.yvasyliev.deezer.feign.codec;
 
 import io.github.yvasyliev.deezer.exception.AbstractDeezerApiException;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.Nullable;
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;
 
 import java.lang.reflect.Type;
+import java.util.Objects;
 
 /**
  * A {@link JsonNode} deserializer that throws an {@link AbstractDeezerApiException} if the node contains an
@@ -27,6 +29,7 @@ public class ErrorDeserializer implements JsonNodeDeserializer {
      * @throws AbstractDeezerApiException {@inheritDoc}
      */
     @Override
+    @Nullable
     public <T> T deserialize(JsonNode node, Type type) throws JacksonException, AbstractDeezerApiException {
         var error = node.path("error");
 
@@ -34,6 +37,9 @@ public class ErrorDeserializer implements JsonNodeDeserializer {
             return null;
         }
 
-        throw (AbstractDeezerApiException) delegate.deserialize(error, AbstractDeezerApiException.class);
+        throw (AbstractDeezerApiException) Objects.requireNonNull(delegate.deserialize(
+                error,
+                AbstractDeezerApiException.class
+        ));
     }
 }

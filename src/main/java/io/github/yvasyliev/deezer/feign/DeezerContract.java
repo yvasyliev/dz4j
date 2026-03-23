@@ -1,11 +1,13 @@
 package io.github.yvasyliev.deezer.feign;
 
 import feign.Contract;
+import feign.DefaultContract;
 import feign.MethodMetadata;
 import feign.Param;
 import io.github.yvasyliev.deezer.util.Customizer;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.Nullable;
 import tools.jackson.databind.json.JsonMapper;
 
 import java.util.HashMap;
@@ -26,9 +28,9 @@ public class DeezerContract implements Contract {
     @Builder
     private DeezerContract(
             JsonMapper jsonMapper,
-            Consumer<Map<Class<? extends Param.Expander>, Param.Expander>> expanders
+            @Nullable Consumer<Map<Class<? extends Param.Expander>, Param.Expander>> expanders
     ) {
-        this(new Default(), new HashMap<>());
+        this(new DefaultContract(), new HashMap<>());
 
         this.expanders.put(QueryExpander.class, new QueryExpander(jsonMapper));
         this.expanders.put(StrictExpander.class, new StrictExpander());

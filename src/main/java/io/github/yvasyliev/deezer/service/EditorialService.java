@@ -7,6 +7,7 @@ import io.github.yvasyliev.deezer.model.Album;
 import io.github.yvasyliev.deezer.model.Chart;
 import io.github.yvasyliev.deezer.model.Editorial;
 import io.github.yvasyliev.deezer.model.Page;
+import org.jspecify.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -23,7 +24,10 @@ public interface EditorialService {
      * @return a list of editorials for the current country
      */
     @RequestLine("GET /editorial?index={index}&limit={limit}")
-    CompletableFuture<Page<Editorial>> getEditorials(@Param("index") Integer index, @Param("limit") Integer limit);
+    CompletableFuture<Page<Editorial>> getEditorials(
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
+    );
 
     /**
      * Returns an editorial for a specific genre.
@@ -54,8 +58,8 @@ public interface EditorialService {
     @RequestLine("GET /editorial/{genreId}/releases?index={index}&limit={limit}")
     CompletableFuture<Page<Album>> getEditorialReleases(
             @Param("genreId") long genreId,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 
     /**
@@ -69,7 +73,7 @@ public interface EditorialService {
     @RequestLine("GET /editorial/{genreId}/charts?index={index}&limit={limit}")
     CompletableFuture<Page<Chart>> getEditorialCharts(
             @Param("genreId") long genreId,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 }

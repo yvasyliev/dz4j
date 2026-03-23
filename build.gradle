@@ -24,6 +24,7 @@ dependencies {
 
     api 'io.github.openfeign:feign-form'
     api 'tools.jackson.core:jackson-databind'
+    api 'org.jspecify:jspecify:1.0.0'
 
     checkstyle 'com.puppycrawl.tools:checkstyle:13.3.0'
     checkstyle 'com.github.sevntu-checkstyle:sevntu-checks:1.44.1'

@@ -48,6 +48,7 @@ public class PlaylistRequestFactory {
      * @return a request that, when executed, will add the tracks to the playlist
      */
     public DeezerRequest<Boolean> addTracks(long playlistId, Collection<Long> trackIds) {
+        //noinspection ConstantConditions
         return createDeezerRequest(playlistId, trackIds, playlistService::addTracks);
     }
 
@@ -80,6 +81,7 @@ public class PlaylistRequestFactory {
      * @return a request that, when executed, will delete the tracks from the playlist
      */
     public DeezerRequest<Boolean> deleteTracks(long playlistId, Collection<Long> trackIds) {
+        //noinspection ConstantConditions
         return createDeezerRequest(playlistId, trackIds, playlistService::deleteTracks);
     }
 
@@ -152,6 +154,7 @@ public class PlaylistRequestFactory {
      * @return a request that, when executed, will order the playlist's tracks
      */
     public DeezerRequest<Boolean> orderTracks(long playlistId, Collection<Long> trackIds) {
+        //noinspection ConstantConditions
         return createDeezerRequest(playlistId, trackIds, playlistService::orderTracks);
     }
 

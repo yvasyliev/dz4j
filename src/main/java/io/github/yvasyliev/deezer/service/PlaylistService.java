@@ -9,6 +9,7 @@ import io.github.yvasyliev.deezer.model.Page;
 import io.github.yvasyliev.deezer.model.Playlist;
 import io.github.yvasyliev.deezer.model.Track;
 import io.github.yvasyliev.deezer.model.User;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -31,7 +32,7 @@ public interface PlaylistService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addTracks(
             @Param("playlistId") long playlistId,
-            @Param("access_token") String accessToken,
+            @Param("access_token") @Nullable String accessToken,
             @Param("songs") Collection<Long> trackIds
     );
 
@@ -45,7 +46,7 @@ public interface PlaylistService {
     @RequestLine("DELETE /playlist/{playlistId}?access_token={accessToken}")
     CompletableFuture<Boolean> deletePlaylist(
             @Param("playlistId") long playlistId,
-            @Param("accessToken") String accessToken
+            @Param("accessToken") @Nullable String accessToken
     );
 
     /**
@@ -62,7 +63,7 @@ public interface PlaylistService {
     )
     CompletableFuture<Boolean> deleteTracks(
             @Param("playlistId") long playlistId,
-            @Param("accessToken") String accessToken,
+            @Param("accessToken") @Nullable String accessToken,
             @Param("songs") Collection<Long> trackIds
     );
 
@@ -77,8 +78,8 @@ public interface PlaylistService {
     @RequestLine("GET /playlist/{playlistId}/fans?index={index}&limit={limit}")
     CompletableFuture<Page<User>> getFans(
             @Param("playlistId") long playlistId,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 
     /**
@@ -101,8 +102,8 @@ public interface PlaylistService {
     @RequestLine("GET /playlist/{playlistId}/radio?index={index}&limit={limit}")
     CompletableFuture<Optional<Page<Track>>> getRadio(
             @Param("playlistId") long playlistId,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 
     /**
@@ -116,8 +117,8 @@ public interface PlaylistService {
     @RequestLine("GET /playlist/{playlistId}/tracks?index={index}&limit={limit}")
     CompletableFuture<Page<Track>> getTracks(
             @Param("playlistId") long playlistId,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 
     /**
@@ -131,7 +132,7 @@ public interface PlaylistService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> markAsSeen(
             @Param("playlistId") long playlistId,
-            @Param("access_token") String accessToken
+            @Param("access_token") @Nullable String accessToken
     );
 
     /**
@@ -146,7 +147,7 @@ public interface PlaylistService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> orderTracks(
             @Param("playlistId") long playlistId,
-            @Param("access_token") String accessToken,
+            @Param("access_token") @Nullable String accessToken,
             @Param("order") Collection<Long> trackIds
     );
 
@@ -165,10 +166,10 @@ public interface PlaylistService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> updatePlaylist(
             @Param("playlistId") long playlistId,
-            @Param("access_token") String accessToken,
-            @Param("title") @Experimental String title,
-            @Param("description") @Experimental String description,
-            @Param("public") @Experimental Boolean isPublic,
-            @Param("collaborative") @Experimental Boolean collaborative
+            @Param("access_token") @Nullable String accessToken,
+            @Param("title") @Experimental @Nullable String title,
+            @Param("description") @Experimental @Nullable String description,
+            @Param("public") @Experimental @Nullable Boolean isPublic,
+            @Param("collaborative") @Experimental @Nullable Boolean collaborative
     );
 }

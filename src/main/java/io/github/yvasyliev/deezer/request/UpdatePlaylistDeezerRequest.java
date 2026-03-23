@@ -6,6 +6,7 @@ import io.github.yvasyliev.deezer.service.PlaylistService;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.jspecify.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -19,10 +20,10 @@ public class UpdatePlaylistDeezerRequest extends AbstractDeezerRequest<Boolean> 
     private final long playlistId;
     private final TokenManager<AccessToken> accessTokenManager;
     private final PlaylistService playlistService;
-    private String title;
-    private String description;
-    private Boolean isPublic;
-    private Boolean collaborative;
+    @Nullable private String title;
+    @Nullable private String description;
+    @Nullable private Boolean isPublic;
+    @Nullable private Boolean collaborative;
 
     @Override
     protected CompletableFuture<Boolean> doExecuteAsync() {

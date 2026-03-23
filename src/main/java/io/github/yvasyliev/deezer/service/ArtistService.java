@@ -9,6 +9,7 @@ import io.github.yvasyliev.deezer.model.Page;
 import io.github.yvasyliev.deezer.model.Playlist;
 import io.github.yvasyliev.deezer.model.Track;
 import io.github.yvasyliev.deezer.model.User;
+import org.jspecify.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -28,8 +29,8 @@ public interface ArtistService {
     @RequestLine("GET /artist/{artistId}/albums?index={index}&limit={limit}")
     CompletableFuture<Page<Album>> getAlbums(
             @Param("artistId") long artistId,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 
     /**
@@ -52,8 +53,8 @@ public interface ArtistService {
     @RequestLine("GET /artist/{artistId}/fans?index={index}&limit={limit}")
     CompletableFuture<Page<User>> getFans(
             @Param("artistId") long artistId,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 
     /**
@@ -67,8 +68,8 @@ public interface ArtistService {
     @RequestLine("GET /artist/{artistId}/playlists?index={index}&limit={limit}")
     CompletableFuture<Page<Playlist>> getPlaylists(
             @Param("artistId") long artistId,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 
     /**
@@ -82,8 +83,8 @@ public interface ArtistService {
     @RequestLine("GET /artist/{artistId}/radio?index={index}&limit={limit}")
     CompletableFuture<Page<Track>> getRadio(
             @Param("artistId") long artistId,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 
     /**
@@ -97,8 +98,8 @@ public interface ArtistService {
     @RequestLine("GET /artist/{artistId}/related?index={index}&limit={limit}")
     CompletableFuture<Page<Artist>> getRelated(
             @Param("artistId") long artistId,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 
     /**
@@ -112,7 +113,7 @@ public interface ArtistService {
     @RequestLine("GET /artist/{artistId}/top?index={index}&limit={limit}")
     CompletableFuture<Page<Track>> getTop(
             @Param("artistId") long artistId,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 }

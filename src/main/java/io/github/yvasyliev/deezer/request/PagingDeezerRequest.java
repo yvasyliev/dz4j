@@ -1,5 +1,7 @@
 package io.github.yvasyliev.deezer.request;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * Represents a request to the Deezer API that supports pagination parameters.
  *
@@ -12,7 +14,7 @@ public interface PagingDeezerRequest<T> extends DeezerRequest<T> {
      * @param index the index of the first item to return in the response
      * @return the updated request with the specified index parameter
      */
-    PagingDeezerRequest<T> index(Integer index);
+    PagingDeezerRequest<T> index(@Nullable Integer index);
 
     /**
      * Sets the maximum number of items to return in the response.
@@ -20,5 +22,5 @@ public interface PagingDeezerRequest<T> extends DeezerRequest<T> {
      * @param limit the maximum number of items to return in the response
      * @return the updated request with the specified limit parameter
      */
-    PagingDeezerRequest<T> limit(Integer limit);
+    PagingDeezerRequest<T> limit(@Nullable Integer limit);
 }

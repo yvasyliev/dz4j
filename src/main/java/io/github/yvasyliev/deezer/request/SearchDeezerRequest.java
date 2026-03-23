@@ -7,6 +7,7 @@ import io.github.yvasyliev.deezer.util.QuinaryFunction;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.jspecify.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -21,13 +22,15 @@ import java.util.concurrent.CompletableFuture;
 public class SearchDeezerRequest<T> extends AbstractDeezerRequest<Page<T>> implements PagingDeezerRequest<Page<T>> {
     private final Query query;
     private final QuinaryFunction<Query, Boolean, Order, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod;
-    private Boolean strict;
-    private Order order;
+    @Nullable private Boolean strict;
+    @Nullable private Order order;
 
     @Setter(onMethod_ = @Override)
+    @Nullable
     private Integer index;
 
     @Setter(onMethod_ = @Override)
+    @Nullable
     private Integer limit;
 
     @Override

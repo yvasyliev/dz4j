@@ -1,6 +1,7 @@
 package io.github.yvasyliev.deezer.feign;
 
 import feign.Param;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A strict expander for boolean values.
@@ -14,6 +15,7 @@ public class StrictExpander implements Param.Expander {
      * @return {@code on} if the value is {@code true}, and {@code null} if the value is {@code false}
      */
     @Override
+    @Nullable
     public String expand(Object value) {
         return Boolean.TRUE.equals(value) ? "on" : null;
     }

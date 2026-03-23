@@ -5,6 +5,7 @@ import feign.Param;
 import feign.RequestLine;
 import io.github.yvasyliev.deezer.model.BookmarkResponse;
 import io.github.yvasyliev.deezer.model.Episode;
+import org.jspecify.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -25,7 +26,7 @@ public interface EpisodeService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<BookmarkResponse> bookmarkEpisode(
             @Param("episodeId") long episodeId,
-            @Param("access_token") String accessToken,
+            @Param("access_token") @Nullable String accessToken,
             @Param("offset") int offset
     );
 
@@ -39,7 +40,7 @@ public interface EpisodeService {
     @RequestLine("GET /episode/{episodeId}?access_token={accessToken}")
     CompletableFuture<Episode> getEpisode(
             @Param("episodeId") long episodeId,
-            @Param("accessToken") String accessToken
+            @Param("accessToken") @Nullable String accessToken
     );
 
     /**
@@ -52,6 +53,6 @@ public interface EpisodeService {
     @RequestLine("DELETE /episode/{episodeId}/bookmark?access_token={accessToken}")
     CompletableFuture<BookmarkResponse> unbookmarkEpisode(
             @Param("episodeId") long episodeId,
-            @Param("accessToken") String accessToken
+            @Param("accessToken") @Nullable String accessToken
     );
 }

@@ -7,6 +7,7 @@ import io.github.yvasyliev.deezer.model.Album;
 import io.github.yvasyliev.deezer.model.Page;
 import io.github.yvasyliev.deezer.model.Track;
 import io.github.yvasyliev.deezer.model.User;
+import org.jspecify.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -35,8 +36,8 @@ public interface AlbumService {
     @RequestLine("GET /album/{albumId}/fans?index={index}&limit={limit}")
     CompletableFuture<Page<User>> getAlbumFans(
             @Param("albumId") long albumId,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 
     /**
@@ -50,7 +51,7 @@ public interface AlbumService {
     @RequestLine("GET /album/{albumId}/tracks?index={index}&limit={limit}")
     CompletableFuture<Page<Track>> getAlbumTracks(
             @Param("albumId") long albumId,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 }

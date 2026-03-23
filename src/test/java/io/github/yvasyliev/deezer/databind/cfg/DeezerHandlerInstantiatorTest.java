@@ -44,35 +44,35 @@ class DeezerHandlerInstantiatorTest {
 
     @Test
     void testDeserializerInstance() {
-        var actual = new DeezerHandlerInstantiator(null).deserializerInstance(mock(), mock(), String.class);
+        var actual = new DeezerHandlerInstantiator(mock()).deserializerInstance(mock(), mock(), String.class);
 
         assertNull(actual);
     }
 
     @Test
     void testKeyDeserializerInstance() {
-        var actual = new DeezerHandlerInstantiator(null).keyDeserializerInstance(mock(), mock(), String.class);
+        var actual = new DeezerHandlerInstantiator(mock()).keyDeserializerInstance(mock(), mock(), String.class);
 
         assertNull(actual);
     }
 
     @Test
     void testSerializerInstance() {
-        var actual = new DeezerHandlerInstantiator(null).serializerInstance(mock(), mock(), String.class);
+        var actual = new DeezerHandlerInstantiator(mock()).serializerInstance(mock(), mock(), String.class);
 
         assertNull(actual);
     }
 
     @Test
     void testTypeResolverBuilderInstance() {
-        var actual = new DeezerHandlerInstantiator(null).typeResolverBuilderInstance(mock(), mock(), String.class);
+        var actual = new DeezerHandlerInstantiator(mock()).typeResolverBuilderInstance(mock(), mock(), String.class);
 
         assertNull(actual);
     }
 
     @Test
     void testTypeIdResolverInstance() {
-        var actual = new DeezerHandlerInstantiator(null).typeIdResolverInstance(mock(), mock(), String.class);
+        var actual = new DeezerHandlerInstantiator(mock()).typeIdResolverInstance(mock(), mock(), String.class);
 
         assertNull(actual);
     }

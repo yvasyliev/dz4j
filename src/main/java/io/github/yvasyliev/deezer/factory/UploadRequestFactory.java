@@ -30,6 +30,7 @@ public class UploadRequestFactory {
      * @return a request that, when executed, will upload the cover image for the playlist
      */
     public DeezerRequest<Boolean> uploadPlaylistCover(long playlistId, File cover) {
+        //noinspection ConstantConditions
         return uploadPlaylistCover(playlistId, cover, uploadService::uploadPlaylistCover);
     }
 
@@ -42,6 +43,7 @@ public class UploadRequestFactory {
      * @return a request that, when executed, will upload the cover image for the playlist
      */
     public DeezerRequest<Boolean> uploadPlaylistCover(long playlistId, byte[] cover, String fileName) {
+        //noinspection ConstantConditions
         return uploadPlaylistCover(playlistId, new FormData(null, fileName, cover), uploadService::uploadPlaylistCover);
     }
 

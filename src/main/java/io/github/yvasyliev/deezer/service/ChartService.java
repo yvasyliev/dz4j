@@ -3,6 +3,7 @@ package io.github.yvasyliev.deezer.service;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
+import org.jspecify.annotations.Nullable;
 import io.github.yvasyliev.deezer.model.Album;
 import io.github.yvasyliev.deezer.model.Artist;
 import io.github.yvasyliev.deezer.model.Chart;
@@ -29,8 +30,8 @@ public interface ChartService {
     @RequestLine("GET /chart/{genreId}/albums?index={index}&limit={limit}")
     CompletableFuture<Page<Album>> getAlbumsChart(
             @Param("genreId") long genreId,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 
     /**
@@ -44,8 +45,8 @@ public interface ChartService {
     @RequestLine("GET /chart/{genreId}/artists?index={index}&limit={limit}")
     CompletableFuture<Page<Artist>> getArtistsChart(
             @Param("genreId") long genreId,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 
     /**
@@ -59,8 +60,8 @@ public interface ChartService {
     @RequestLine("GET /chart/{genreId}?index={index}&limit={limit}")
     CompletableFuture<Chart> getChart(
             @Param("genreId") long genreId,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 
     /**
@@ -74,8 +75,8 @@ public interface ChartService {
     @RequestLine("GET /chart/{genreId}/playlists?index={index}&limit={limit}")
     CompletableFuture<Page<Playlist>> getPlaylistsChart(
             @Param("genreId") long genreId,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 
     /**
@@ -89,8 +90,8 @@ public interface ChartService {
     @RequestLine("GET /chart/{genreId}/podcasts?index={index}&limit={limit}")
     CompletableFuture<Page<Podcast>> getPodcastsChart(
             @Param("genreId") long genreId,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 
     /**
@@ -104,7 +105,7 @@ public interface ChartService {
     @RequestLine("GET /chart/{genreId}/tracks?index={index}&limit={limit}")
     CompletableFuture<Page<Track>> getTracksChart(
             @Param("genreId") long genreId,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 }

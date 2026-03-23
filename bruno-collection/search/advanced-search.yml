@@ -5,12 +5,12 @@ info:
 
 http:
   method: GET
-  url: "{{api-host}}/search?q=bpm_min:120&strinct=on&order=DURATION_DESC&limit=1&index=0"
+  url: "{{api-host}}/search?q=bpm_min:120&strict=on&order=DURATION_DESC&limit=1&index=0"
   params:
     - name: q
       value: bpm_min:120
       type: query
-    - name: strinct
+    - name: strict
       value: on
       type: query
     - name: order

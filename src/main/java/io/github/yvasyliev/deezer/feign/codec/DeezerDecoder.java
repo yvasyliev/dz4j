@@ -6,6 +6,7 @@ import io.github.yvasyliev.deezer.exception.DeezerException;
 import io.github.yvasyliev.deezer.util.Customizer;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.Nullable;
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.json.JsonMapper;
@@ -29,8 +30,8 @@ public class DeezerDecoder implements Decoder {
     @Builder
     private DeezerDecoder(
             JsonMapper jsonMapper,
-            Consumer<List<ResponseValidator>> responseValidators,
-            Consumer<List<JsonNodeDeserializer>> jsonNodeDeserializers
+            @Nullable Consumer<List<ResponseValidator>> responseValidators,
+            @Nullable Consumer<List<JsonNodeDeserializer>> jsonNodeDeserializers
     ) {
         this(new ArrayList<>(), new ArrayList<>(), jsonMapper);
 
@@ -60,6 +61,7 @@ public class DeezerDecoder implements Decoder {
      *                          the response body
      */
     @Override
+    @Nullable
     public Object decode(Response response, Type type) throws IOException, JacksonException, DeezerException {
         responseValidators.forEach(validator -> validator.validate(response, type));
 

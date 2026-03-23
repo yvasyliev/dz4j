@@ -6,6 +6,7 @@ import feign.RequestLine;
 import io.github.yvasyliev.deezer.model.Episode;
 import io.github.yvasyliev.deezer.model.Page;
 import io.github.yvasyliev.deezer.model.Podcast;
+import org.jspecify.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -24,7 +25,7 @@ public interface PodcastService {
     @RequestLine("GET /podcast/{podcastId}/episodes?access_token={accessToken}")
     CompletableFuture<Page<Episode>> getEpisodes(
             @Param("podcastId") long podcastId,
-            @Param("accessToken") String accessToken
+            @Param("accessToken") @Nullable String accessToken
     );
 
     /**
@@ -37,6 +38,6 @@ public interface PodcastService {
     @RequestLine("GET /podcast/{podcastId}?access_token={accessToken}")
     CompletableFuture<Podcast> getPodcast(
             @Param("podcastId") long podcastId,
-            @Param("accessToken") String accessToken
+            @Param("accessToken") @Nullable String accessToken
     );
 }

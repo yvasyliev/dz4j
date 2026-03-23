@@ -7,6 +7,7 @@ import io.github.yvasyliev.deezer.util.TriFunction;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.jspecify.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -22,8 +23,8 @@ import java.util.concurrent.CompletableFuture;
 public class GetByIdPagingDeezerRequest<T, R> extends AbstractDeezerRequest<R> implements PagingDeezerRequest<R> {
     private final T id;
     private final TriFunction<T, Integer, Integer, CompletableFuture<R>> asyncMethod;
-    private Integer index;
-    private Integer limit;
+    @Nullable private Integer index;
+    @Nullable private Integer limit;
 
     /**
      * Constructs a new {@link GetByIdPagingDeezerRequest} with the specified ID, access token manager, and asynchronous

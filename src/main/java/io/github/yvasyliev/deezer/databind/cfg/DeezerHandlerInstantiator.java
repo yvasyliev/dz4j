@@ -4,6 +4,7 @@ import io.github.yvasyliev.deezer.databind.util.ExpiresConverter;
 import io.github.yvasyliev.deezer.util.Customizer;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.Nullable;
 import tools.jackson.databind.DeserializationConfig;
 import tools.jackson.databind.KeyDeserializer;
 import tools.jackson.databind.SerializationConfig;
@@ -30,7 +31,7 @@ public class DeezerHandlerInstantiator extends HandlerInstantiator {
     @Builder
     private DeezerHandlerInstantiator(
             Consumer<ExpiresConverter.ExpiresConverterBuilder> expiresConverter,
-            Consumer<Map<Class<?>, Converter<?, ?>>> converters
+            @Nullable Consumer<Map<Class<?>, Converter<?, ?>>> converters
     ) {
         this(new HashMap<>());
         this.converters.put(
@@ -49,6 +50,7 @@ public class DeezerHandlerInstantiator extends HandlerInstantiator {
      * @return a converter instance or {@code null}
      */
     @Override
+    @Nullable
     public Converter<?, ?> converterInstance(MapperConfig<?> config, Annotated annotated, Class<?> implClass) {
         return converters.get(implClass);
     }
@@ -64,6 +66,7 @@ public class DeezerHandlerInstantiator extends HandlerInstantiator {
      * @return {@inheritDoc}
      */
     @Override
+    @Nullable
     public ValueDeserializer<?> deserializerInstance(
             DeserializationConfig config,
             Annotated annotated,
@@ -81,6 +84,7 @@ public class DeezerHandlerInstantiator extends HandlerInstantiator {
      * @return {@inheritDoc}
      */
     @Override
+    @Nullable
     public KeyDeserializer keyDeserializerInstance(
             DeserializationConfig config,
             Annotated annotated,
@@ -98,6 +102,7 @@ public class DeezerHandlerInstantiator extends HandlerInstantiator {
      * @return {@inheritDoc}
      */
     @Override
+    @Nullable
     public ValueSerializer<?> serializerInstance(SerializationConfig config, Annotated annotated, Class<?> serClass) {
         return null;
     }
@@ -111,6 +116,7 @@ public class DeezerHandlerInstantiator extends HandlerInstantiator {
      * @return {@inheritDoc}
      */
     @Override
+    @Nullable
     public TypeResolverBuilder<?> typeResolverBuilderInstance(
             MapperConfig<?> config,
             Annotated annotated,
@@ -128,6 +134,7 @@ public class DeezerHandlerInstantiator extends HandlerInstantiator {
      * @return {@inheritDoc}
      */
     @Override
+    @Nullable
     public TypeIdResolver typeIdResolverInstance(MapperConfig<?> config, Annotated annotated, Class<?> resolverClass) {
         return null;
     }

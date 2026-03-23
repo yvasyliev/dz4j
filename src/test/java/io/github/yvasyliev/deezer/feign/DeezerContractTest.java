@@ -1,6 +1,6 @@
 package io.github.yvasyliev.deezer.feign;
 
-import feign.Contract;
+import feign.DefaultContract;
 import feign.Param;
 import feign.RequestLine;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ class DeezerContractTest {
     @Test
     void testParseAndValidateMetadata() {
         var expander = mock(TestExpander.class);
-        var expected = new Contract.Default().parseAndValidateMetadata(TestClient.class);
+        var expected = new DefaultContract().parseAndValidateMetadata(TestClient.class);
         var contract = DeezerContract.builder()
                 .expanders(expanders -> expanders.put(TestExpander.class, expander))
                 .build();

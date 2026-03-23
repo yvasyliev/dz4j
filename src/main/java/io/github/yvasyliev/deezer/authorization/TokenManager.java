@@ -1,6 +1,7 @@
 package io.github.yvasyliev.deezer.authorization;
 
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
@@ -16,7 +17,9 @@ import java.util.function.Supplier;
 public class TokenManager<T> {
     private final Predicate<CompletableFuture<T>> tokenValidator;
     private final Supplier<CompletableFuture<T>> tokenSupplier;
-    private final Function<T, String> tokenMapper;
+    private final Function<T, @Nullable String> tokenMapper;
+
+    @Nullable
     private volatile CompletableFuture<T> token;
 
     /**
@@ -24,7 +27,7 @@ public class TokenManager<T> {
      *
      * @return a valid token
      */
-    public CompletableFuture<String> getToken() {
+    public CompletableFuture<@Nullable String> getToken() {
         var localToken = token;
 
         if (isInvalid(localToken)) {
@@ -41,7 +44,7 @@ public class TokenManager<T> {
         return localToken.thenApply(tokenMapper);
     }
 
-    private boolean isInvalid(CompletableFuture<T> tokenFuture) {
+    private boolean isInvalid(@Nullable CompletableFuture<T> tokenFuture) {
         return tokenFuture == null || !tokenValidator.test(tokenFuture);
     }
 }

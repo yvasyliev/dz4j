@@ -3,6 +3,7 @@ package io.github.yvasyliev.deezer.authorization;
 import io.github.yvasyliev.deezer.model.AccessToken;
 import lombok.Setter;
 import lombok.experimental.Delegate;
+import org.jspecify.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
@@ -13,5 +14,6 @@ import java.util.function.Supplier;
 @Setter
 public class AccessTokenSupplier implements Supplier<CompletableFuture<AccessToken>> {
     @Delegate
+    @Nullable
     private volatile Supplier<CompletableFuture<AccessToken>> delegate;
 }

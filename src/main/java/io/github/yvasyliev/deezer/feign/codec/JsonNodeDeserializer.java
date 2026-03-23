@@ -1,6 +1,7 @@
 package io.github.yvasyliev.deezer.feign.codec;
 
 import io.github.yvasyliev.deezer.exception.AbstractDeezerApiException;
+import org.jspecify.annotations.Nullable;
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;
 
@@ -22,5 +23,6 @@ public interface JsonNodeDeserializer {
      * @throws AbstractDeezerApiException if the API response indicates an error (e.g., contains an {@code error}
      *                                    field)
      */
+    @Nullable
     <T> T deserialize(JsonNode body, Type type) throws JacksonException, AbstractDeezerApiException;
 }

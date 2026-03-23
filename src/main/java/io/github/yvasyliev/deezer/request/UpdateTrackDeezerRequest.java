@@ -6,6 +6,7 @@ import io.github.yvasyliev.deezer.service.TrackService;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.jspecify.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -20,9 +21,9 @@ public class UpdateTrackDeezerRequest extends AbstractDeezerRequest<Boolean> {
     private final long trackId;
     private final TokenManager<AccessToken> accessTokenManager;
     private final TrackService trackService;
-    private String title;
-    private String artist;
-    private String album;
+    @Nullable private String title;
+    @Nullable private String artist;
+    @Nullable private String album;
 
     @Override
     protected CompletableFuture<Boolean> doExecuteAsync() {

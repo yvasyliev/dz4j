@@ -7,6 +7,7 @@ import io.github.yvasyliev.deezer.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.jspecify.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -21,7 +22,7 @@ public class CreatePlaylistDeezerRequest extends AbstractDeezerRequest<Playlist>
     private final TokenManager<AccessToken> accessTokenManager;
     private final String title;
     private final UserService userService;
-    private String description;
+    @Nullable private String description;
 
     @Override
     protected CompletableFuture<Playlist> doExecuteAsync() {

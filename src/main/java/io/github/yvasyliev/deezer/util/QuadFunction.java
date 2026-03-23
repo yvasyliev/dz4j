@@ -1,5 +1,7 @@
 package io.github.yvasyliev.deezer.util;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * Represents a function that accepts four arguments and produces a result.
  *
@@ -20,5 +22,5 @@ public interface QuadFunction<A, B, C, D, R> {
      * @param d the fourth argument
      * @return the result of applying this function to the given arguments
      */
-    R apply(A a, B b, C c, D d);
+    R apply(A a, @Nullable B b, @Nullable C c, @Nullable D d);
 }

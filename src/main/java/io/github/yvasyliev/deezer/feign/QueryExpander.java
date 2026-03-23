@@ -4,6 +4,7 @@ import feign.Param;
 import io.github.yvasyliev.deezer.model.AdvancedQuery;
 import io.github.yvasyliev.deezer.model.SimpleQuery;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.Nullable;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.json.JsonMapper;
 
@@ -26,6 +27,7 @@ public class QueryExpander implements Param.Expander {
      *         type
      */
     @Override
+    @Nullable
     public String expand(Object value) {
         if (value instanceof SimpleQuery query) {
             return query.query();

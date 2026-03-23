@@ -13,6 +13,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Delegate;
+import org.jspecify.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -78,8 +79,8 @@ public class DeezerClient {
 
     @Builder
     private DeezerClient(
-            Consumer<BaseUrls.BaseUrlsBuilder> baseUrl,
-            Consumer<DeezerFeignBuilder> config,
+            @Nullable Consumer<BaseUrls.BaseUrlsBuilder> baseUrl,
+            @Nullable Consumer<DeezerFeignBuilder> config,
             Function<OAuthRequestFactory, CompletableFuture<AccessToken>> accessTokenSupplierFactory
     ) {
         this(

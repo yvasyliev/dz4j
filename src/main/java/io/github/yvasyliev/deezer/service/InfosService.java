@@ -4,6 +4,7 @@ import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 import io.github.yvasyliev.deezer.model.Infos;
+import org.jspecify.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -19,5 +20,5 @@ public interface InfosService {
      * @return the information about the API in the current country
      */
     @RequestLine("GET /infos?access_token={accessToken}")
-    CompletableFuture<Infos> getInfos(@Param("accessToken") String accessToken);
+    CompletableFuture<Infos> getInfos(@Param("accessToken") @Nullable String accessToken);
 }

@@ -4,6 +4,7 @@ import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 import io.github.yvasyliev.deezer.model.Track;
+import org.jspecify.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -35,9 +36,9 @@ public interface TrackService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> updateTrack(
             @Param("trackId") long trackId,
-            @Param("access_token") String accessToken,
-            @Param("title") String title,
-            @Param("artist") String artist,
-            @Param("album") String album
+            @Param("access_token") @Nullable String accessToken,
+            @Param("title") @Nullable String title,
+            @Param("artist") @Nullable String artist,
+            @Param("album") @Nullable String album
     );
 }

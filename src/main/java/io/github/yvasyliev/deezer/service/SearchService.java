@@ -14,6 +14,7 @@ import io.github.yvasyliev.deezer.model.Query;
 import io.github.yvasyliev.deezer.model.Radio;
 import io.github.yvasyliev.deezer.model.Track;
 import io.github.yvasyliev.deezer.model.User;
+import org.jspecify.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -36,10 +37,10 @@ public interface SearchService {
     @RequestLine("GET /search?q={query}&strict={strict}&order={order}&index={index}&limit={limit}")
     CompletableFuture<Page<Track>> search(
             @Param(value = "query", expander = QueryExpander.class) Query query,
-            @Param(value = "strict", expander = StrictExpander.class) Boolean strict,
-            @Param("order") Order order,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param(value = "strict", expander = StrictExpander.class) @Nullable Boolean strict,
+            @Param("order") @Nullable Order order,
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 
     /**
@@ -55,10 +56,10 @@ public interface SearchService {
     @RequestLine("GET /search/album?q={query}&strict={strict}&order={order}&index={index}&limit={limit}")
     CompletableFuture<Page<Album>> searchAlbum(
             @Param(value = "query", expander = QueryExpander.class) Query query,
-            @Param(value = "strict", expander = StrictExpander.class) Boolean strict,
-            @Param("order") Order order,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param(value = "strict", expander = StrictExpander.class) @Nullable Boolean strict,
+            @Param("order") @Nullable Order order,
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 
     /**
@@ -74,10 +75,10 @@ public interface SearchService {
     @RequestLine("GET /search/artist?q={query}&strict={strict}&order={order}&index={index}&limit={limit}")
     CompletableFuture<Page<Artist>> searchArtist(
             @Param(value = "query", expander = QueryExpander.class) Query query,
-            @Param(value = "strict", expander = StrictExpander.class) Boolean strict,
-            @Param("order") Order order,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param(value = "strict", expander = StrictExpander.class) @Nullable Boolean strict,
+            @Param("order") @Nullable Order order,
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 
     /**
@@ -93,10 +94,10 @@ public interface SearchService {
     @RequestLine("GET /search/playlist?q={query}&strict={strict}&order={order}&index={index}&limit={limit}")
     CompletableFuture<Page<Playlist>> searchPlaylist(
             @Param(value = "query", expander = QueryExpander.class) Query query,
-            @Param(value = "strict", expander = StrictExpander.class) Boolean strict,
-            @Param("order") Order order,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param(value = "strict", expander = StrictExpander.class) @Nullable Boolean strict,
+            @Param("order") @Nullable Order order,
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 
     /**
@@ -112,10 +113,10 @@ public interface SearchService {
     @RequestLine("GET /search/radio?q={query}&strict={strict}&order={order}&index={index}&limit={limit}")
     CompletableFuture<Page<Radio>> searchRadio(
             @Param(value = "query", expander = QueryExpander.class) Query query,
-            @Param(value = "strict", expander = StrictExpander.class) Boolean strict,
-            @Param("order") Order order,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param(value = "strict", expander = StrictExpander.class) @Nullable Boolean strict,
+            @Param("order") @Nullable Order order,
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 
     /**
@@ -132,10 +133,10 @@ public interface SearchService {
     @RequestLine("GET /search/track?q={query}&strict={strict}&order={order}&index={index}&limit={limit}")
     CompletableFuture<Page<Track>> searchTrack(
             @Param(value = "query", expander = QueryExpander.class) Query query,
-            @Param(value = "strict", expander = StrictExpander.class) Boolean strict,
-            @Param("order") Order order,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param(value = "strict", expander = StrictExpander.class) @Nullable Boolean strict,
+            @Param("order") @Nullable Order order,
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 
     /**
@@ -151,9 +152,9 @@ public interface SearchService {
     @RequestLine("GET /search/user?q={query}&strict={strict}&order={order}&index={index}&limit={limit}")
     CompletableFuture<Page<User>> searchUser(
             @Param(value = "query", expander = QueryExpander.class) Query query,
-            @Param(value = "strict", expander = StrictExpander.class) Boolean strict,
-            @Param("order") Order order,
-            @Param("index") Integer index,
-            @Param("limit") Integer limit
+            @Param(value = "strict", expander = StrictExpander.class) @Nullable Boolean strict,
+            @Param("order") @Nullable Order order,
+            @Param("index") @Nullable Integer index,
+            @Param("limit") @Nullable Integer limit
     );
 }

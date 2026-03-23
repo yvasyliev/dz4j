@@ -1,5 +1,6 @@
 package io.github.yvasyliev.deezer.databind.deser.std;
 
+import org.jspecify.annotations.Nullable;
 import tools.jackson.core.JacksonException;
 import tools.jackson.core.JsonParser;
 import tools.jackson.core.JsonToken;
@@ -30,6 +31,7 @@ public class FalseToNullDelegatingDeserializer extends DelegatingDeserializer {
      * @throws JacksonException if deserialization error occurs
      */
     @Override
+    @Nullable
     public Object deserialize(JsonParser p, DeserializationContext ctxt) throws JacksonException {
         return JsonToken.VALUE_FALSE.equals(p.currentToken()) ? null : super.deserialize(p, ctxt);
     }

@@ -7,6 +7,7 @@ import io.github.yvasyliev.deezer.databind.util.ZeroToNullLocalDateTimeConverter
 import io.github.yvasyliev.deezer.util.Customizer;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.jspecify.annotations.Nullable;
 import tools.jackson.databind.DeserializationFeature;
 import tools.jackson.databind.JacksonModule;
 import tools.jackson.databind.cfg.HandlerInstantiator;
@@ -24,9 +25,9 @@ import java.util.function.Consumer;
 @Setter
 @Accessors(fluent = true)
 public class DeezerJsonMapperBuilder {
-    private Consumer<SimpleModule> module;
-    private Consumer<JsonMapper.Builder> mapper;
-    private Consumer<DeezerHandlerInstantiator.DeezerHandlerInstantiatorBuilder> handlerInstantiator;
+    @Nullable private Consumer<SimpleModule> module;
+    @Nullable private Consumer<JsonMapper.Builder> mapper;
+    @Nullable private Consumer<DeezerHandlerInstantiator.DeezerHandlerInstantiatorBuilder> handlerInstantiator;
 
     /**
      * Builds a {@link JsonMapper} with the custom configurations provided through the builder.

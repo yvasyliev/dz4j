@@ -1,5 +1,7 @@
 package io.github.yvasyliev.deezer.util;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * Represents a function that accepts three arguments and produces a result.
  *
@@ -18,5 +20,5 @@ public interface TriFunction<T, U, V, R> {
      * @param v the third function argument
      * @return the function result
      */
-    R apply(T t, U u, V v);
+    R apply(T t, @Nullable U u, @Nullable V v);
 }

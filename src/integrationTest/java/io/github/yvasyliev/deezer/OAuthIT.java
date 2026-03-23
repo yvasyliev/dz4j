@@ -15,6 +15,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
 import static com.github.tomakehurst.wiremock.common.ContentTypes.CONTENT_TYPE;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.mock;
 
 public class OAuthIT extends AbstractIT {
     @Test
@@ -63,6 +64,6 @@ public class OAuthIT extends AbstractIT {
 
         assertThatThrownBy(() -> request.executeAsync().join())
                 .isInstanceOf(CompletionException.class)
-                .hasCause(new AccessTokenResponseException(expected, null));
+                .hasCause(new AccessTokenResponseException(expected, mock()));
     }
 }

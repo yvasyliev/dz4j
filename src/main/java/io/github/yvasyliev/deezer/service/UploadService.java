@@ -4,6 +4,7 @@ import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 import feign.form.FormData;
+import org.jspecify.annotations.Nullable;
 
 import java.io.File;
 import java.util.concurrent.CompletableFuture;
@@ -26,7 +27,7 @@ public interface UploadService {
     @Headers("Content-Type: multipart/form-data")
     CompletableFuture<Boolean> uploadPlaylistCover(
             @Param("playlistId") long playlistId,
-            @Param("access_token") String accessToken,
+            @Param("access_token") @Nullable String accessToken,
             @Param("upload_token") String uploadToken,
             @Param("file") File cover
     );
@@ -44,7 +45,7 @@ public interface UploadService {
     @Headers("Content-Type: multipart/form-data")
     CompletableFuture<Boolean> uploadPlaylistCover(
             @Param("playlistId") long playlistId,
-            @Param("access_token") String accessToken,
+            @Param("access_token") @Nullable String accessToken,
             @Param("upload_token") String uploadToken,
             @Param("file") FormData cover
     );

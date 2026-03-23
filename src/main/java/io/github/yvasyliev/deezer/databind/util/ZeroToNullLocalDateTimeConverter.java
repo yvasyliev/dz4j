@@ -1,5 +1,6 @@
 package io.github.yvasyliev.deezer.databind.util;
 
+import org.jspecify.annotations.Nullable;
 import tools.jackson.databind.util.StdConverter;
 
 import java.time.LocalDateTime;
@@ -20,6 +21,7 @@ public class ZeroToNullLocalDateTimeConverter extends StdConverter<String, Local
      * @return the resulting {@link LocalDateTime}, or {@code null} if the input string is {@code 0000-00-00 00:00:00}
      */
     @Override
+    @Nullable
     public LocalDateTime convert(String value) {
         return "0000-00-00 00:00:00".equals(value) ? null : LocalDateTime.parse(value, FORMATTER);
     }

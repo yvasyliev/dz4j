@@ -1,5 +1,7 @@
 package io.github.yvasyliev.deezer.util;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * Represents a function that accepts five arguments and produces a result.
  *
@@ -22,5 +24,5 @@ public interface QuinaryFunction<A, B, C, D, E, R> {
      * @param e the fifth argument to the function
      * @return the result of applying this function to the given arguments
      */
-    R apply(A a, B b, C c, D d, E e);
+    R apply(A a, @Nullable B b, @Nullable C c, @Nullable D d, @Nullable E e);
 }

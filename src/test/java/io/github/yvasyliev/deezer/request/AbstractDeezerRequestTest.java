@@ -1,6 +1,7 @@
 package io.github.yvasyliev.deezer.request;
 
 import io.github.yvasyliev.deezer.exception.DeezerException;
+import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,6 +28,7 @@ class AbstractDeezerRequestTest {
     void setUp() {
         request = new AbstractDeezerRequest<>() {
             @Override
+            @NonNull
             protected CompletableFuture<String> doExecuteAsync() {
                 return asyncMethod.get();
             }
