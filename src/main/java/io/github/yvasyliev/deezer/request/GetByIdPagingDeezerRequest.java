@@ -10,6 +10,12 @@ import lombok.experimental.Accessors;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * A request to retrieve a paginated resource from the Deezer API by its ID.
+ *
+ * @param <T> the type of the ID used to identify the resource
+ * @param <R> the type of the response expected from the Deezer API
+ */
 @RequiredArgsConstructor
 @Setter(onMethod_ = @Override)
 @Accessors(fluent = true)
@@ -19,6 +25,16 @@ public class GetByIdPagingDeezerRequest<T, R> extends AbstractDeezerRequest<R> i
     private Integer index;
     private Integer limit;
 
+    /**
+     * Constructs a new {@link GetByIdPagingDeezerRequest} with the specified ID, access token manager, and asynchronous
+     * method to retrieve the resource.
+     *
+     * @param id                 a resource ID
+     * @param accessTokenManager an access token manager to retrieve the access token for the request
+     * @param asyncMethod        a function that takes the resource ID, access token, index, and limit as parameters and
+     *                           returns a {@link CompletableFuture} that will be completed with the response from the
+     *                           Deezer API
+     */
     public GetByIdPagingDeezerRequest(
             T id,
             TokenManager<AccessToken> accessTokenManager,

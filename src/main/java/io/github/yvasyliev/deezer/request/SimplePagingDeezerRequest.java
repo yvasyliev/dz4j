@@ -8,6 +8,11 @@ import lombok.experimental.Accessors;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
 
+/**
+ * A simple implementation of a paging request for Deezer resources.
+ *
+ * @param <T> the type of the resources being paged through
+ */
 @RequiredArgsConstructor
 @Setter(onMethod_ = @Override)
 @Accessors(fluent = true)

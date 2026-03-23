@@ -10,6 +10,9 @@ import io.github.yvasyliev.deezer.model.Radio;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Service for interacting with genres on Deezer.
+ */
 @Headers("Accept: application/json")
 public interface GenreService {
     /**

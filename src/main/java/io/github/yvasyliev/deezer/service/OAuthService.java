@@ -7,6 +7,9 @@ import io.github.yvasyliev.deezer.model.AccessToken;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Service for handling OAuth authentication with Deezer.
+ */
 @Headers("Accept: application/json")
 public interface OAuthService {
     @RequestLine("GET /oauth/access_token.php?app_id={appId}&code={code}&secret={secret}&output=json")

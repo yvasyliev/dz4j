@@ -10,6 +10,11 @@ import lombok.experimental.Accessors;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * A request to search for resources on Deezer based on a query.
+ *
+ * @param <T> the type of the resources being searched for
+ */
 @RequiredArgsConstructor
 @Setter
 @Accessors(fluent = true)

@@ -9,6 +9,9 @@ import io.github.yvasyliev.deezer.model.Podcast;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Service for interacting with podcasts on Deezer.
+ */
 @Headers("Accept: application/json")
 public interface PodcastService {
     /**

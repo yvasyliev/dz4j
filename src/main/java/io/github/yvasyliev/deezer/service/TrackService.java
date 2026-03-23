@@ -7,6 +7,9 @@ import io.github.yvasyliev.deezer.model.Track;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Service for managing tracks on Deezer.
+ */
 @Headers("Accept: application/json")
 public interface TrackService {
     /**

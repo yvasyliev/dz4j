@@ -13,6 +13,9 @@ import io.github.yvasyliev.deezer.model.Track;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Service for accessing Deezer charts.
+ */
 @Headers("Accept: application/json")
 public interface ChartService {
     /**

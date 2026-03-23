@@ -17,6 +17,9 @@ import io.github.yvasyliev.deezer.model.User;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Service for searching for resources on Deezer based on a query.
+ */
 @Headers("Accept: application/json")
 public interface SearchService {
     /**

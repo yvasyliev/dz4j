@@ -10,6 +10,9 @@ import io.github.yvasyliev.deezer.model.Page;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Service for accessing editorials on Deezer.
+ */
 @Headers("Accept: application/json")
 public interface EditorialService {
     /**

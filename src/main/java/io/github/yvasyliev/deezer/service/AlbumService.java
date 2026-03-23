@@ -10,6 +10,9 @@ import io.github.yvasyliev.deezer.model.User;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Service for interacting with albums on Deezer.
+ */
 @Headers("Accept: application/json")
 public interface AlbumService {
     /**

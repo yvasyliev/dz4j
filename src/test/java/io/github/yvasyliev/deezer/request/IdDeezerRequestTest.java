@@ -1,6 +1,7 @@
 package io.github.yvasyliev.deezer.request;
 
 import io.github.yvasyliev.deezer.authorization.TokenManager;
+import io.github.yvasyliev.deezer.model.AccessToken;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -29,7 +30,7 @@ class IdDeezerRequestTest {
     void shouldExecuteMethodWithToken() {
         var id = 123L;
         var token = "token";
-        var tokenManager = Mockito.<TokenManager<Object>>mock();
+        var tokenManager = Mockito.<TokenManager<AccessToken>>mock();
         var asyncMethod = Mockito.<BiFunction<Long, String, CompletableFuture<String>>>mock();
         var expected = "result";
 

@@ -11,6 +11,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * A request to retrieve oEmbed information for a given Deezer URL.
+ */
 @RequiredArgsConstructor
 @Setter
 @Accessors(fluent = true)

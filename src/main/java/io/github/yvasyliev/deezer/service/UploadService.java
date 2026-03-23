@@ -8,6 +8,9 @@ import feign.form.FormData;
 import java.io.File;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Service for uploading content to Deezer, such as playlist cover images.
+ */
 @Headers("Accept: application/json")
 public interface UploadService {
     /**

@@ -9,6 +9,10 @@ import lombok.experimental.Accessors;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * A request to update an existing playlist on Deezer, allowing changes to the title, description, visibility, and
+ * collaboration status.
+ */
 @RequiredArgsConstructor
 @Setter
 @Accessors(fluent = true)

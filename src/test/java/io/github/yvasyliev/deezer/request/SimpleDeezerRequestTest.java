@@ -2,6 +2,7 @@ package io.github.yvasyliev.deezer.request;
 
 import io.github.yvasyliev.deezer.authorization.TokenManager;
 import io.github.yvasyliev.deezer.model.AccessToken;
+import io.github.yvasyliev.deezer.model.Infos;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -44,7 +45,7 @@ class SimpleDeezerRequestTest {
     @Test
     void shouldExecuteMethodWithTwoTokens() {
         var accessTokenManager = Mockito.<TokenManager<AccessToken>>mock();
-        var uploadTokenManager = Mockito.<TokenManager<AccessToken>>mock();
+        var uploadTokenManager = Mockito.<TokenManager<Infos>>mock();
         var asyncMethod = Mockito.<BiFunction<String, String, CompletableFuture<String>>>mock();
         var accessToken = "access_token";
         var uploadToken = "app_token";

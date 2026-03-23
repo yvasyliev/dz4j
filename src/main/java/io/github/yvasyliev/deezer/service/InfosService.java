@@ -7,6 +7,9 @@ import io.github.yvasyliev.deezer.model.Infos;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Service for getting the information about the API in the current country.
+ */
 @Headers("Accept: application/json")
 public interface InfosService {
     /**

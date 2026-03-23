@@ -10,6 +10,9 @@ import lombok.experimental.Accessors;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * A request to create a new playlist for a user on Deezer.
+ */
 @RequiredArgsConstructor
 @Setter
 @Accessors(fluent = true)

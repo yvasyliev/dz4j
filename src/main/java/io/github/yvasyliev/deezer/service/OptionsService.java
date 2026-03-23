@@ -6,6 +6,9 @@ import io.github.yvasyliev.deezer.model.Options;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Service for retrieving user options from Deezer.
+ */
 @Headers("Accept: application/json")
 public interface OptionsService {
     /**

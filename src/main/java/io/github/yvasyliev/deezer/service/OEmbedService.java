@@ -8,6 +8,9 @@ import io.github.yvasyliev.deezer.model.OEmbed;
 import java.net.URL;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Service for retrieving oEmbed information from Deezer.
+ */
 @Headers("Accept: application/json")
 public interface OEmbedService {
     /**
@@ -22,7 +25,7 @@ public interface OEmbedService {
      * @return the oEmbed information for the given URL
      */
     @RequestLine("GET /oembed?format=json"
-            + "&url={url}"
+            + "&url={url}" //TODO: regex?
             + "&autoplay={autoplay}"
             + "&maxwidth={maxWidth}"
             + "&maxheight={maxHeight}"

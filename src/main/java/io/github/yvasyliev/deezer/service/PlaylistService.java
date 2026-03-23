@@ -14,6 +14,9 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Service for working with playlists on Deezer.
+ */
 @Headers("Accept: application/json")
 public interface PlaylistService {
     /**

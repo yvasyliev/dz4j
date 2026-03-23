@@ -8,6 +8,9 @@ import io.github.yvasyliev.deezer.model.Episode;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Service for managing episodes on Deezer.
+ */
 @Headers("Accept: application/json")
 public interface EpisodeService {
     /**

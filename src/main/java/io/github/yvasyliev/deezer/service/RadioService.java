@@ -10,6 +10,9 @@ import io.github.yvasyliev.deezer.model.Track;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Service for interacting with Deezer's radio-related endpoints.
+ */
 @Headers("Accept: application/json")
 public interface RadioService {
     /**
