@@ -1,6 +1,7 @@
 package io.github.yvasyliev.deezer.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.github.yvasyliev.deezer.annotation.Experimental;
 import lombok.Builder;
 
 import java.net.URL;
@@ -39,4 +40,47 @@ public record Artist(
         @JsonProperty("radio") Boolean radio,
         @JsonProperty("tracklist") URL tracklist,
         @JsonProperty("role") Role role
-) {}
+) {
+    /**
+     * The role of the artist in the context of a track contribution.
+     */
+    @Experimental
+    public enum Role {
+        /**
+         * Main.
+         */
+        @JsonProperty("Main")
+        MAIN,
+
+        /**
+         * Featured.
+         */
+        @JsonProperty("Featured")
+        FEATURED,
+
+        /**
+         * Remixer.
+         */
+        @JsonProperty("Remixer") REMIXER,
+
+        /**
+         * Composer.
+         */
+        @JsonProperty("Composer") COMPOSER,
+
+        /**
+         * Author.
+         */
+        @JsonProperty("Author") AUTHOR,
+
+        /**
+         * Producer.
+         */
+        @JsonProperty("Producer") PRODUCER,
+
+        /**
+         * Guest.
+         */
+        @JsonProperty("Guest") GUEST,
+    }
+}

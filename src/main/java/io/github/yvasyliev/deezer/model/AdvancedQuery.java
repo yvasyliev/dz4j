@@ -9,6 +9,19 @@ import tools.jackson.databind.annotation.JsonSerialize;
 
 import java.time.Duration;
 
+/**
+ * An advanced query for searching operation on Deezer. All fields are optional and will be ignored if they are
+ * {@code null}.
+ *
+ * @param artist an artist name to search for
+ * @param album  an album name to search for
+ * @param track  a track name to search for
+ * @param label  a label name to search for
+ * @param durMin a minimum track duration to search for
+ * @param durMax a maximum track duration to search for
+ * @param bpmMin a minimum track BPM to search for
+ * @param bpmMax a maximum track BPM to search for
+ */
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record AdvancedQuery(

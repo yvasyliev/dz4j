@@ -83,4 +83,34 @@ public record Album(
         @JsonProperty("fallback") Album fallback,
         @JsonProperty("artist") Artist artist,
         @JsonProperty("tracks") Page<Track> tracks
-) {}
+) {
+    /**
+     * The record type values.
+     */
+    @Experimental
+    public enum RecordType {
+        /**
+         * Album.
+         */
+        @JsonProperty("album")
+        ALBUM,
+
+        /**
+         * Compilation.
+         */
+        @JsonProperty("compilation")
+        COMPILATION,
+
+        /**
+         * EP.
+         */
+        @JsonProperty("ep")
+        EP,
+
+        /**
+         * Single.
+         */
+        @JsonProperty("single")
+        SINGLE,
+    }
+}

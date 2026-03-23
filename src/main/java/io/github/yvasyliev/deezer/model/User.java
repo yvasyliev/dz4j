@@ -81,4 +81,19 @@ public record User(
         @JsonProperty("explicit_hide")
         EXPLICIT_HIDE
     }
+
+    /**
+     * The user's gender.
+     */
+    public enum Gender {
+        /**
+         * Female.
+         */
+        @JsonProperty("F") FEMALE,
+
+        /**
+         * Male.
+         */
+        @JsonProperty("M") MALE,
+    }
 }
