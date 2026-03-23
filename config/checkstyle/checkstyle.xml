@@ -16,6 +16,10 @@
     <module name="NewlineAtEndOfFile"/>
     <module name="SuppressWarningsFilter"/>
     <module name="TreeWalker">
+        <module name="SuppressionXpathFilter">
+            <property name="file" value="${config_loc}/checkstyle-xpath-suppressions.xml"/>
+        </module>
+
         <module name="AbstractClassName"/>
         <module name="AnnotationUseStyle"/>
         <module name="ArrayTypeStyle"/>
@@ -42,6 +46,7 @@
         <module name="AvoidStaticImport">
             <property name="excludes"
                       value="org.assertj.core.api.Assertions.*,
+                            org.assertj.core.api.InstanceOfAssertFactories.*,
                             org.junit.jupiter.api.Assertions.*,
                             org.junit.jupiter.params.provider.Arguments.*,
                             org.mockito.Mockito.*,

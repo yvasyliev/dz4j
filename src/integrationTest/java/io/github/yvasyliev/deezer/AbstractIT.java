@@ -24,7 +24,11 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @WireMockTest
 abstract class AbstractIT {
     private static final Clock CLOCK = Clock.fixed(Instant.now(), ZoneId.systemDefault());
+
+    @SuppressWarnings("checkstyle:DeclarationOrder")
     protected static final String ACCESS_TOKEN = "test_access_token";
+
+    @SuppressWarnings("checkstyle:DeclarationOrder")
     protected static final JsonMapper MAPPER =
             Customizer.customize(new DeezerJsonMapperBuilder(), AbstractIT::testJsonMapper).build();
 

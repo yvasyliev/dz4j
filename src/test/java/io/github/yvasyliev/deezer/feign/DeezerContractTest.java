@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyMap;
@@ -66,7 +66,7 @@ class DeezerContractTest {
         void testMethod(@Param(value = "arg", expander = TestExpander.class) String arg);
     }
 
-    private static class TestExpander implements Param.Expander {
+    private static final class TestExpander implements Param.Expander {
         @Override
         public String expand(Object value) {
             return "expanded:" + value;

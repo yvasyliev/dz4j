@@ -4,9 +4,6 @@
         "https://checkstyle.org/dtds/suppressions_1_2.dtd">
 <suppressions>
     <suppress
-            checks="JavadocPackage|MagicNumber|MultipleStringLiterals|VariableDeclarationUsageDistance|LambdaBodyLength"
-            files="[/\\]test[/\\]"/>
-    <suppress
-            checks="JavadocPackage|MagicNumber|MultipleStringLiterals|VariableDeclarationUsageDistance|LambdaBodyLength"
-            files="[/\\]integrationTest[/\\]"/>
+            checks="JavadocPackage|MissingJavadocType|MagicNumber|MultipleStringLiterals|VariableDeclarationUsageDistance|LambdaBodyLength"
+            files="[/\\](?:test|integrationTest)[/\\]"/>
 </suppressions>
