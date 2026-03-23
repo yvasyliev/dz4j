@@ -1,7 +1,7 @@
 plugins {
     id 'java-library'
     id 'checkstyle'
-    id 'io.freefair.lombok' version '9.1.0'
+    id 'io.freefair.lombok' version '9.2.0'
     id 'jacoco'
 }
 
@@ -19,13 +19,13 @@ repositories {
 }
 
 dependencies {
-    implementation platform('io.github.openfeign:feign-bom:13.6')
-    implementation platform('tools.jackson:jackson-bom:3.0.3')
+    implementation platform('io.github.openfeign:feign-bom:13.11')
+    implementation platform('tools.jackson:jackson-bom:3.1.0')
 
     api 'io.github.openfeign:feign-form'
     api 'tools.jackson.core:jackson-databind'
 
-    checkstyle 'com.puppycrawl.tools:checkstyle:12.3.1'
+    checkstyle 'com.puppycrawl.tools:checkstyle:13.3.0'
     checkstyle 'com.github.sevntu-checkstyle:sevntu-checks:1.44.1'
 }
 
@@ -36,7 +36,7 @@ testing {
 
             dependencies {
                 implementation platform('org.junit:junit-bom:6.0.3')
-                implementation platform('org.mockito:mockito-bom:5.22.0')
+                implementation platform('org.mockito:mockito-bom:5.23.0')
                 implementation platform('org.assertj:assertj-bom:3.27.7')
 
                 implementation 'org.junit.jupiter:junit-jupiter'
@@ -92,4 +92,10 @@ integrationTest {
 
 checkstyle {
     maxWarnings = 0
+}
+
+tasks.withType(Checkstyle).configureEach {
+    javaLauncher = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
