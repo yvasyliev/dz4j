@@ -31,6 +31,7 @@ dependencies {
     checkstyle 'com.github.sevntu-checkstyle:sevntu-checks:1.44.1'
 
     errorprone 'com.google.errorprone:error_prone_core:2.48.0'
+    errorprone 'com.uber.nullaway:nullaway:0.13.1'
 }
 
 testing {
@@ -104,6 +105,11 @@ tasks.withType(JavaCompile).configureEach {
     options.release = 17
     options.errorprone {
         disable 'DirectInvocationOnMock', 'OperatorPrecedence'
+        option 'NullAway:OnlyNullMarked', 'true'
+        error 'NullAway'
+    }
+
+    if (project.hasProperty("strict")) {
+        options.compilerArgs << '-Werror'
     }
 }
-

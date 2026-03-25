@@ -3,6 +3,7 @@ package io.github.yvasyliev.deezer.authorization;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.Nullable;
 
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -41,7 +42,7 @@ public class TokenManager<T> {
             }
         }
 
-        return localToken.thenApply(tokenMapper);
+        return Objects.requireNonNull(localToken).thenApply(tokenMapper);
     }
 
     private boolean isInvalid(@Nullable CompletableFuture<T> tokenFuture) {

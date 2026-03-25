@@ -82,7 +82,6 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> addAlbums(String userId, Collection<Long> albumIds) {
-        //noinspection ConstantConditions
         return createDeezerRequest(userId, albumIds, userService::addAlbums);
     }
 
@@ -133,7 +132,6 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> addArtists(String userId, Collection<Long> artistIds) {
-        //noinspection ConstantConditions
         return createDeezerRequest(userId, artistIds, userService::addArtists);
     }
 
@@ -163,7 +161,6 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<NotificationResult> addNotification(String userId, String message) {
-        //noinspection ConstantConditions
         return createDeezerRequest(userId, message, userService::addNotification);
     }
 
@@ -214,7 +211,6 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> addPlaylists(String userId, Collection<Long> playlistIds) {
-        //noinspection ConstantConditions
         return createDeezerRequest(userId, playlistIds, userService::addPlaylists);
     }
 
@@ -244,7 +240,6 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> addPodcast(String userId, long podcastId) {
-        //noinspection ConstantConditions
         return createDeezerRequest(userId, podcastId, userService::addPodcast);
     }
 
@@ -274,7 +269,6 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> addRadio(String userId, long radioId) {
-        //noinspection ConstantConditions
         return createDeezerRequest(userId, radioId, userService::addRadio);
     }
 
@@ -325,7 +319,6 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> addTracks(String userId, Collection<Long> trackIds) {
-        //noinspection ConstantConditions
         return createDeezerRequest(userId, trackIds, userService::addTracks);
     }
 
@@ -384,7 +377,6 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> followUser(String userId, long followeeId) {
-        //noinspection ConstantConditions
         return createDeezerRequest(userId, followeeId, userService::followUser);
     }
 
@@ -1062,7 +1054,6 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> removeAlbum(String userId, long albumId) {
-        //noinspection ConstantConditions
         return createDeezerRequest(userId, albumId, userService::removeAlbum);
     }
 
@@ -1092,7 +1083,6 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> removeArtist(String userId, long artistId) {
-        //noinspection ConstantConditions
         return createDeezerRequest(userId, artistId, userService::removeArtist);
     }
 
@@ -1122,7 +1112,6 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> removePlaylist(String userId, long playlistId) {
-        //noinspection ConstantConditions
         return createDeezerRequest(userId, playlistId, userService::removePlaylist);
     }
 
@@ -1152,7 +1141,6 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> removePodcast(String userId, long podcastId) {
-        //noinspection ConstantConditions
         return createDeezerRequest(userId, podcastId, userService::removePodcast);
     }
 
@@ -1182,7 +1170,6 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> removeRadio(String userId, long radioId) {
-        //noinspection ConstantConditions
         return createDeezerRequest(userId, radioId, userService::removeRadio);
     }
 
@@ -1212,7 +1199,6 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> removeTrack(String userId, long trackId) {
-        //noinspection ConstantConditions
         return createDeezerRequest(userId, trackId, userService::removeTrack);
     }
 
@@ -1242,7 +1228,6 @@ public class UserRequestFactory {
     }
 
     private DeezerRequest<Boolean> unfollowUser(String userId, long followeeId) {
-        //noinspection ConstantConditions
         return createDeezerRequest(userId, followeeId, userService::unfollowUser);
     }
 

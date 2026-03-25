@@ -22,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
 @Accessors(fluent = true)
 public class GetByIdPagingDeezerRequest<T, R> extends AbstractDeezerRequest<R> implements PagingDeezerRequest<R> {
     private final T id;
-    private final TriFunction<T, Integer, Integer, CompletableFuture<R>> asyncMethod;
+    private final TriFunction<T, @Nullable Integer, @Nullable Integer, CompletableFuture<R>> asyncMethod;
     @Nullable private Integer index;
     @Nullable private Integer limit;
 
@@ -39,7 +39,7 @@ public class GetByIdPagingDeezerRequest<T, R> extends AbstractDeezerRequest<R> i
     public GetByIdPagingDeezerRequest(
             T id,
             TokenManager<AccessToken> accessTokenManager,
-            QuadFunction<T, String, Integer, Integer, CompletableFuture<R>> asyncMethod
+            QuadFunction<T, @Nullable String, Integer, Integer, CompletableFuture<R>> asyncMethod
     ) {
         this(
                 id,

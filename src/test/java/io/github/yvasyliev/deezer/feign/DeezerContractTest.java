@@ -50,13 +50,16 @@ class DeezerContractTest {
     @Test
     void shouldUseDefaultExpander() {
         var expected = List.of("Hello", "World");
-        var actual = DeezerContract.builder()
+        var expander = DeezerContract.builder()
                 .build()
                 .parseAndValidateMetadata(TestClient.class)
                 .get(0)
                 .indexToExpander()
-                .get(0)
-                .expand(expected);
+                .get(0);
+
+        assertNotNull(expander);
+
+        var actual = expander.expand(expected);
 
         assertEquals(expected.toString(), actual);
     }

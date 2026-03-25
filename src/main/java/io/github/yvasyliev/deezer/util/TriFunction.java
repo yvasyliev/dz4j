@@ -1,6 +1,6 @@
 package io.github.yvasyliev.deezer.util;
 
-import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 /**
  * Represents a function that accepts three arguments and produces a result.
@@ -10,6 +10,7 @@ import org.jspecify.annotations.Nullable;
  * @param <V> the type of the third argument to the function
  * @param <R> the type of the result of the function
  */
+@NullUnmarked
 @FunctionalInterface
 public interface TriFunction<T, U, V, R> {
     /**
@@ -20,5 +21,5 @@ public interface TriFunction<T, U, V, R> {
      * @param v the third function argument
      * @return the function result
      */
-    R apply(T t, @Nullable U u, @Nullable V v);
+    R apply(T t, U u, V v);
 }

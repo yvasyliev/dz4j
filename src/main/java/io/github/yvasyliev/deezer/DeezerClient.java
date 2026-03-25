@@ -154,6 +154,7 @@ public class DeezerClient {
      * API for configuring the client and supports dynamic authorization by allowing the access token supplier to be set
      * at runtime.
      */
+    @SuppressWarnings("NullAway.Init")
     public static class DeezerClientBuilder {
         private Function<OAuthRequestFactory, CompletableFuture<AccessToken>> accessTokenSupplierFactory =
                 AccessTokenSuppliers.EMPTY_ACCESS_TOKEN_SUPPLIER_FACTORY;

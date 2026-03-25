@@ -7,6 +7,7 @@ import io.github.yvasyliev.deezer.model.AccessToken;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * Validates the access token response to ensure it is not an HTML error page.
@@ -29,7 +30,10 @@ public class AccessTokenValidator implements ResponseValidator {
     }
 
     private boolean isTextHtml(Response response) {
-        return response.headers().get("content-type").stream().anyMatch(ct -> ct.startsWith("text/html"));
+        return response.headers()
+                .getOrDefault("content-type", List.of())
+                .stream()
+                .anyMatch(ct -> ct.startsWith("text/html"));
     }
 
     private AccessTokenResponseException buildAccessTokenException(Response response) {
