@@ -47,7 +47,7 @@ class TokenManagerTest {
 
         when(tokenSupplier.get()).thenReturn(invalidTokenFuture);
 
-        tokenManager.getToken();
+        assertThat(tokenManager.getToken()).isCompleted();
 
         when(tokenSupplier.get()).thenReturn(CompletableFuture.completedFuture(validToken));
         when(tokenMapper.apply(validToken)).thenReturn(expected);
@@ -65,7 +65,7 @@ class TokenManagerTest {
 
         when(tokenSupplier.get()).thenReturn(tokenFuture);
 
-        tokenManager.getToken();
+        assertThat(tokenManager.getToken()).isCompleted();
 
         when(tokenValidator.test(tokenFuture)).thenReturn(true);
         when(tokenMapper.apply(token)).thenReturn(expected);
@@ -85,7 +85,7 @@ class TokenManagerTest {
 
         when(tokenSupplier.get()).thenReturn(tokenFuture);
 
-        tokenManager.getToken();
+        assertThat(tokenManager.getToken()).isCompleted();
 
         when(tokenValidator.test(tokenFuture)).thenAnswer(invocation -> validationCount.getAndIncrement() != 0);
         when(tokenMapper.apply(token)).thenReturn(expected);

@@ -18,7 +18,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 class QueryExpanderTest {
     private static final Param.Expander EXPANDER = new QueryExpander(new JsonMapper());
 
-    @SuppressWarnings("checkstyle:ConstantName")
+    @SuppressWarnings({"checkstyle:ConstantName", "unused", "UnnecessaryLambda"})
     private static final Supplier<Stream<Arguments>> testExpand = () -> Stream.of(
             arguments(new SimpleQuery("test query"), "test query"),
             arguments(

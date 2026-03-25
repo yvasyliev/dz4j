@@ -19,7 +19,7 @@ class ExpiresConverterTest {
     private static final Clock CLOCK = Clock.fixed(Instant.now(), ZoneId.systemDefault());
     private static final StdConverter<Duration, Instant> CONVERTER = new ExpiresConverter(CLOCK);
 
-    @SuppressWarnings("checkstyle:ConstantName")
+    @SuppressWarnings({"checkstyle:ConstantName", "unused", "UnnecessaryLambda"})
     private static final Supplier<Stream<Arguments>> testConvert = () -> {
         var duration = Duration.ofSeconds(10);
 

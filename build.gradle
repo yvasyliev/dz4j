@@ -3,6 +3,7 @@ plugins {
     id 'checkstyle'
     id 'io.freefair.lombok' version '9.2.0'
     id 'jacoco'
+    id 'net.ltgt.errorprone' version '5.1.0'
 }
 
 group = 'io.github.yvasyliev.deezer'
@@ -10,7 +11,7 @@ version = '3.0.0'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -28,6 +29,8 @@ dependencies {
 
     checkstyle 'com.puppycrawl.tools:checkstyle:13.3.0'
     checkstyle 'com.github.sevntu-checkstyle:sevntu-checks:1.44.1'
+
+    errorprone 'com.google.errorprone:error_prone_core:2.48.0'
 }
 
 testing {
@@ -78,8 +81,8 @@ jacocoTestReport {
     dependsOn test, integrationTest
 
     executionData(
-            tasks.named('test').get().extensions.getByType(JacocoTaskExtension).destinationFile,
-            tasks.named('integrationTest').get().extensions.getByType(JacocoTaskExtension).destinationFile
+            tasks.test.extensions.getByType(JacocoTaskExtension).destinationFile,
+            tasks.integrationTest.extensions.getByType(JacocoTaskExtension).destinationFile
     )
 
     reports {
@@ -95,8 +98,12 @@ checkstyle {
     maxWarnings = 0
 }
 
-tasks.withType(Checkstyle).configureEach {
-    javaLauncher = javaToolchains.launcherFor {
-        languageVersion = JavaLanguageVersion.of(21)
+tasks.withType(JavaCompile).configureEach {
+    sourceCompatibility = '17'
+    targetCompatibility = '17'
+    options.release = 17
+    options.errorprone {
+        disable 'DirectInvocationOnMock', 'OperatorPrecedence'
     }
 }
+

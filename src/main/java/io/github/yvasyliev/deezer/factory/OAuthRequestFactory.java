@@ -21,8 +21,6 @@ import java.util.stream.Collectors;
  */
 @RequiredArgsConstructor
 public class OAuthRequestFactory {
-    private static final String LOGIN_URL_TEMPLATE =
-            "https://connect.deezer.com/oauth/auth.php?app_id=%d&redirect_uri=%s&perms=%s";
     private final OAuthService oauthService;
 
     /**
@@ -49,7 +47,7 @@ public class OAuthRequestFactory {
     public URL getLoginUrl(int appId, String redirectUri, Collection<Permission> permissions)
             throws DeezerException {
         var perms = permissions.stream().map(Permission::getValue).collect(Collectors.joining(","));
-        var loginUrl = LOGIN_URL_TEMPLATE.formatted(
+        var loginUrl = "https://connect.deezer.com/oauth/auth.php?app_id=%d&redirect_uri=%s&perms=%s".formatted(
                 appId,
                 URLEncoder.encode(redirectUri, StandardCharsets.UTF_8),
                 URLEncoder.encode(perms, StandardCharsets.UTF_8)

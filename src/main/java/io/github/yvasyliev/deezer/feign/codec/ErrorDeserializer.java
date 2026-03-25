@@ -23,21 +23,24 @@ public class ErrorDeserializer implements JsonNodeDeserializer {
      *
      * @param node {@inheritDoc}
      * @param type {@inheritDoc}
-     * @param <T>  {@inheritDoc}
      * @return {@code null} if the node does not contain an {@code error} object
      * @throws JacksonException           {@inheritDoc}
      * @throws AbstractDeezerApiException {@inheritDoc}
      */
     @Override
     @Nullable
-    public <T> T deserialize(JsonNode node, Type type) throws JacksonException, AbstractDeezerApiException {
+    public Object deserialize(JsonNode node, Type type) throws JacksonException, AbstractDeezerApiException {
         var error = node.path("error");
 
         if (error.isMissingNode() || !error.isObject()) {
             return null;
         }
 
-        throw (AbstractDeezerApiException) Objects.requireNonNull(delegate.deserialize(
+        throw deserialize(error);
+    }
+
+    private AbstractDeezerApiException deserialize(JsonNode error) {
+        return (AbstractDeezerApiException) Objects.requireNonNull(delegate.deserialize(
                 error,
                 AbstractDeezerApiException.class
         ));

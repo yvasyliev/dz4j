@@ -57,7 +57,7 @@ public record Infos(
      * @param images the images host URL
      */
     @Experimental
-    public record Hosts(@JsonProperty("stream") URL stream, @JsonProperty("images") URL images) {}
+    public record Hosts(@JsonProperty("stream") String stream, @JsonProperty("images") URL images) {}
 
     /**
      * An ads object.

@@ -23,6 +23,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class TokenManagersTest {
     @Test
+    @SuppressWarnings("DuplicateAssertion")
     void testAccessTokenManager() {
         var expected = "token";
         var accessTokenManager = TokenManagers.accessTokenManager(

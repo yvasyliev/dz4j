@@ -62,6 +62,7 @@ class DeezerContractTest {
     }
 
     private interface TestClient {
+        @SuppressWarnings("unused")
         @RequestLine("GET /test?arg={arg}")
         void testMethod(@Param(value = "arg", expander = TestExpander.class) String arg);
     }

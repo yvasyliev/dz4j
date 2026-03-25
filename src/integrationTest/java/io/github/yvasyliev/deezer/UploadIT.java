@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aMultipart;
@@ -54,7 +55,10 @@ class UploadIT extends AbstractIT {
 
         stubUploadPlaylistCover(playlistId, fileName, cover, body);
 
-        assertEquals(expected, deezerClient.upload().uploadPlaylistCover(playlistId, cover.getBytes(), fileName));
+        assertEquals(
+                expected,
+                deezerClient.upload().uploadPlaylistCover(playlistId, cover.getBytes(StandardCharsets.UTF_8), fileName)
+        );
     }
 
     private void stubUploadPlaylistCover(long playlistId, String fileName, String fileContent, String responseBody)

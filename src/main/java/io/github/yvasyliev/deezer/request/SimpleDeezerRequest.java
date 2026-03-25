@@ -4,6 +4,7 @@ import io.github.yvasyliev.deezer.authorization.TokenManager;
 import io.github.yvasyliev.deezer.model.AccessToken;
 import io.github.yvasyliev.deezer.model.Infos;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
@@ -46,12 +47,15 @@ public class SimpleDeezerRequest<T> extends AbstractDeezerRequest<T> {
     public SimpleDeezerRequest(
             TokenManager<AccessToken> accessTokenManager,
             TokenManager<Infos> uploadTokenManager,
-            BiFunction<String, String, CompletableFuture<T>> asyncMethod
+            BiFunction<@Nullable String, @Nullable String, CompletableFuture<T>> asyncMethod
     ) {
-        this(() -> accessTokenManager.getToken()
-                .thenCombine(uploadTokenManager.getToken(), asyncMethod)
-                .thenCompose(Function.identity())
-        );
+        this(() -> {
+            var accessTokenFuture = accessTokenManager.getToken();
+            var uploadTokenFuture = uploadTokenManager.getToken();
+
+            return CompletableFuture.allOf(accessTokenFuture, uploadTokenFuture)
+                    .thenCompose(ignored -> asyncMethod.apply(accessTokenFuture.join(), uploadTokenFuture.join()));
+        });
     }
 
     @Override

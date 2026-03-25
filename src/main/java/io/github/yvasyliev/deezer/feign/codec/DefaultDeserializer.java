@@ -19,12 +19,11 @@ public class DefaultDeserializer implements JsonNodeDeserializer {
      *
      * @param body {@inheritDoc}
      * @param type {@inheritDoc}
-     * @param <T>  {@inheritDoc}
      * @return {@inheritDoc}
      * @throws JacksonException {@inheritDoc}
      */
     @Override
-    public <T> T deserialize(JsonNode body, Type type) throws JacksonException {
+    public Object deserialize(JsonNode body, Type type) throws JacksonException {
         return jsonMapper.treeToValue(body, jsonMapper.constructType(type));
     }
 }
