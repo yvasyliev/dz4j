@@ -13,7 +13,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
 
 class InfosIT extends AbstractIT {
     @Test
-    void shouldReturnInofs(WireMockRuntimeInfo wmRuntimeInfo) throws IOException {
+    void shouldReturnInfos(WireMockRuntimeInfo wmRuntimeInfo) throws IOException {
         var body = read("/response/infos/get-infos.json");
         var expected = MAPPER.readValue(body, Infos.class);
         var deezerClient = DeezerClient.builder()
@@ -27,7 +27,7 @@ class InfosIT extends AbstractIT {
     }
 
     @Test
-    void shouldReturnInofsWithAccessToken(WireMockRuntimeInfo wmRuntimeInfo) throws IOException {
+    void shouldReturnInfosWithAccessToken(WireMockRuntimeInfo wmRuntimeInfo) throws IOException {
         var body = read("/response/infos/get-infos.json");
         var expected = MAPPER.readValue(body, Infos.class);
         var deezerClient = DeezerClient.builder()

@@ -1,5 +1,7 @@
 package io.github.yvasyliev.deezer.factory;
 
+import feign.CollectionFormat;
+import feign.RequestTemplate;
 import io.github.yvasyliev.deezer.exception.DeezerException;
 import io.github.yvasyliev.deezer.model.AccessToken;
 import io.github.yvasyliev.deezer.model.Permission;
@@ -11,10 +13,8 @@ import lombok.RequiredArgsConstructor;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 /**
  * Factory for creating OAuth-related requests.
@@ -44,17 +44,21 @@ public class OAuthRequestFactory {
      * @return the login URL
      * @throws DeezerException if URL generation fails
      */
-    public URL getLoginUrl(int appId, String redirectUri, Collection<Permission> permissions)
+    public URL getLoginUrl(int appId, URI redirectUri, Collection<Permission> permissions)
             throws DeezerException {
-        var perms = permissions.stream().map(Permission::getValue).collect(Collectors.joining(","));
-        var loginUrl = "https://connect.deezer.com/oauth/auth.php?app_id=%d&redirect_uri=%s&perms=%s".formatted(
-                appId,
-                URLEncoder.encode(redirectUri, StandardCharsets.UTF_8),
-                URLEncoder.encode(perms, StandardCharsets.UTF_8)
-        );
+        var url = new RequestTemplate()
+                .target("https://connect.deezer.com")
+                .uri("/oauth/auth.php?app_id={app-id}&redirect_uri={redirect-uri}&perms={perms}")
+                .collectionFormat(CollectionFormat.CSV)
+                .resolve(Map.of(
+                        "app-id", appId,
+                        "redirect-uri", redirectUri,
+                        "perms", permissions.stream().map(Permission::getValue).toList()
+                ))
+                .url();
 
         try {
-            return URI.create(loginUrl).toURL();
+            return URI.create(url).toURL();
         } catch (MalformedURLException e) {
             throw new DeezerException("Failed to generate login URL", e);
         }

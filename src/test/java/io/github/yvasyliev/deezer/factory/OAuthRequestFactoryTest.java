@@ -48,7 +48,7 @@ class OAuthRequestFactoryTest {
     @Test
     void testGetLoginUrl() throws DeezerException {
         var appId = 123;
-        var redirectUri = "https://example.com/callback";
+        var redirectUri = URI.create("https://example.com/callback");
         var permissions = List.of(Permission.BASIC_ACCESS, Permission.EMAIL);
 
         var actual = oAuthRequestFactory.getLoginUrl(appId, redirectUri, permissions);
@@ -59,7 +59,7 @@ class OAuthRequestFactoryTest {
                 .hasNoPort()
                 .hasPath("/oauth/auth.php")
                 .hasParameter("app_id", String.valueOf(appId))
-                .hasParameter("redirect_uri", redirectUri)
+                .hasParameter("redirect_uri", redirectUri.toString())
                 .hasParameter("perms", "basic_access,email");
     }
 
@@ -73,7 +73,7 @@ class OAuthRequestFactoryTest {
 
         assertThrows(DeezerException.class, () -> oAuthRequestFactory.getLoginUrl(
                         123,
-                        "https://example.com/callback",
+                        URI.create("https://example.com/callback"),
                         List.of(Permission.BASIC_ACCESS)
                 )
         );
