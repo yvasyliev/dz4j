@@ -31,6 +31,6 @@ jobs:
         uses: googleapis/release-please-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          release-type: 'java-yoshi'
+          release-type: 'java'
           # Package name shown in the release PR and used by the action
 #          package-name: 'deezer-api'
