@@ -1,0 +1,51 @@
+name: Create Release PR (release-please)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  actions: read
+
+concurrency:
+  group: release-please
+  cancel-in-progress: true
+
+jobs:
+  release:
+    name: Create Release PR
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Create release PR with release-please
+        # Use the official Google GitHub Actions release-please implementation.
+        # Note: the repository has been published under `google-github-actions/release-please-action`.
+        uses: google-github-actions/release-please-action@v3
+        with:
+          # For a Gradle based project use 'gradle' so release-please will update `build.gradle`.
+          release-type: 'gradle'
+          # Package name shown in the release PR and used by the action
+          package-name: 'deezer-api'
+          # Path to the project root where build.gradle lives
+          path: '.'
+          # Keep pre-major version bumps as minor (useful if you adopt 0.y.z -> 1.0.0 policies)
+          bump-minor-pre-major: 'true'
+          # We only want a release PR created; the publish/release step can be done later by a maintainer or another workflow
+          create-release: 'false'
+          token: ${{ secrets.GITHUB_TOKEN }}
+

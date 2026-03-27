@@ -6,7 +6,7 @@ plugins {
     id 'net.ltgt.errorprone' version '5.1.0'
 }
 
-group = 'io.github.yvasyliev.deezer'
+group = 'io.github.yvasyliev'
 version = '3.0.0'
 
 java {
