@@ -33,13 +33,16 @@ A Java implementation of [Deezer API](https://developers.deezer.com/api).
 ## Quickstart
 
 1. Add to your `pom.xml`:
-    ```xml
-    <dependency>
-        <groupId>com.github.yvasyliev</groupId>
-        <artifactId>deezer-api</artifactId>
-        <version>2.1.2</version>
-    </dependency>
-    ```
+
+   [//]: # (x-release-please-start-version)
+   ```xml
+   <dependency>
+       <groupId>com.github.yvasyliev</groupId>
+       <artifactId>deezer-api</artifactId>
+       <version>2.1.2</version>
+   </dependency>
+   ```
+   [//]: # (x-release-please-end)
 2. Use `DeezerApi` instance to execute Deezer API requests:
    ```java
    public class DeezerApp {
