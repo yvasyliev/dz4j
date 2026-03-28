@@ -39,7 +39,7 @@ A Java implementation of [Deezer API](https://developers.deezer.com/api).
    <dependency>
        <groupId>com.github.yvasyliev</groupId>
        <artifactId>deezer-api</artifactId>
-       <version>2.1.2</version>
+       <version>2.1.3-SNAPSHOT</version>
    </dependency>
    ```
    [//]: # (x-release-please-end)
