@@ -4,6 +4,10 @@ import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 import feign.form.FormData;
+import io.github.yvasyliev.dz4j.feign.AccessTokenExpander;
+import io.github.yvasyliev.dz4j.feign.UploadTokenExpander;
+import io.github.yvasyliev.dz4j.model.AccessToken;
+import io.github.yvasyliev.dz4j.model.Infos;
 import org.jspecify.annotations.Nullable;
 
 import java.io.File;
@@ -19,7 +23,7 @@ public interface UploadService {
      *
      * @param playlistId  the playlist ID
      * @param accessToken the access token for authentication
-     * @param uploadToken the upload token for authentication
+     * @param infos       the upload token for authentication
      * @param cover       the cover image file to upload
      * @return {@code true} if the upload was successful
      */
@@ -27,8 +31,8 @@ public interface UploadService {
     @Headers("Content-Type: multipart/form-data")
     CompletableFuture<Boolean> uploadPlaylistCover(
             @Param("playlistId") long playlistId,
-            @Param("access_token") @Nullable String accessToken,
-            @Param("upload_token") String uploadToken,
+            @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
+            @Param(value = "upload_token", expander = UploadTokenExpander.class) Infos infos,
             @Param("file") File cover
     );
 
@@ -37,7 +41,7 @@ public interface UploadService {
      *
      * @param playlistId  the playlist ID
      * @param accessToken the access token for authentication
-     * @param uploadToken the upload token for authentication
+     * @param infos       the upload token for authentication
      * @param cover       the cover image file to upload
      * @return {@code true} if the upload was successful
      */
@@ -45,8 +49,8 @@ public interface UploadService {
     @Headers("Content-Type: multipart/form-data")
     CompletableFuture<Boolean> uploadPlaylistCover(
             @Param("playlistId") long playlistId,
-            @Param("access_token") @Nullable String accessToken,
-            @Param("upload_token") String uploadToken,
+            @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
+            @Param(value = "upload_token", expander = UploadTokenExpander.class) Infos infos,
             @Param("file") FormData cover
     );
 }

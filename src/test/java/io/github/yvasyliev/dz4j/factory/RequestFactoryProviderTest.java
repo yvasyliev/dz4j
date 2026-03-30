@@ -1,8 +1,8 @@
 package io.github.yvasyliev.dz4j.factory;
 
 import feign.AsyncFeign;
+import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.configuration.BaseUrls;
-import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.service.AlbumService;
 import io.github.yvasyliev.dz4j.service.ArtistService;
 import io.github.yvasyliev.dz4j.service.ChartService;
@@ -25,16 +25,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Supplier;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class RequestFactoryProviderTest {
     @Mock private AsyncFeign.AsyncBuilder<Object> builder;
-    @Mock private Supplier<CompletableFuture<AccessToken>> accessTokenSupplier;
+    @Mock private AuthorizationManager authorizationManager;
 
     @Test
     void testRequestFactoryProvider() {
@@ -48,7 +45,7 @@ class RequestFactoryProviderTest {
                         .oauth(oauthBaseUrl)
                         .upload(uploadBaseUrl)
                         .build(),
-                accessTokenSupplier
+                authorizationManager
         );
 
         assertThat(requestFactoryProvider).hasNoNullFieldsOrProperties();

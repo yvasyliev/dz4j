@@ -1,7 +1,6 @@
 package io.github.yvasyliev.dz4j.request;
 
-import io.github.yvasyliev.dz4j.authorization.TokenManager;
-import io.github.yvasyliev.dz4j.model.AccessToken;
+import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.service.TrackService;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -19,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
 @Accessors(fluent = true)
 public class UpdateTrackDeezerRequest extends AbstractDeezerRequest<Boolean> {
     private final long trackId;
-    private final TokenManager<AccessToken> accessTokenManager;
+    private final AuthorizationManager authorizationManager;
     private final TrackService trackService;
     @Nullable private String title;
     @Nullable private String artist;
@@ -27,7 +26,7 @@ public class UpdateTrackDeezerRequest extends AbstractDeezerRequest<Boolean> {
 
     @Override
     protected CompletableFuture<Boolean> doExecuteAsync() {
-        return accessTokenManager.getToken()
+        return authorizationManager.getToken()
                 .thenCompose(accessToken -> trackService.updateTrack(trackId, accessToken, title, artist, album));
     }
 }

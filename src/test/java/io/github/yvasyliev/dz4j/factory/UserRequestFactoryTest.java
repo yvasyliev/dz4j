@@ -1,6 +1,6 @@
 package io.github.yvasyliev.dz4j.factory;
 
-import io.github.yvasyliev.dz4j.authorization.TokenManager;
+import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Album;
 import io.github.yvasyliev.dz4j.model.Artist;
@@ -30,15 +30,15 @@ import static org.mockito.Mockito.when;
 class UserRequestFactoryTest {
     @InjectMocks private UserRequestFactory userRequestFactory;
     @Mock private UserService userService;
-    @Mock private TokenManager<AccessToken> accessTokenManager;
+    @Mock private AuthorizationManager authorizationManager;
 
     @Test
     void testAddAlbumsWithVarargs() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var albumIds = List.of(123L, 456L);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.addAlbums("me", token, albumIds)).thenReturn(CompletableFuture.completedFuture(true));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.addAlbums("me", accessToken, albumIds)).thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.addAlbums(albumIds.toArray(Long[]::new)).execute();
 
@@ -47,11 +47,11 @@ class UserRequestFactoryTest {
 
     @Test
     void testAddAlbumsWithCollection() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var albumIds = List.of(123L, 456L);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.addAlbums("me", token, albumIds)).thenReturn(CompletableFuture.completedFuture(true));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.addAlbums("me", accessToken, albumIds)).thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.addAlbums(albumIds).execute();
 
@@ -61,11 +61,11 @@ class UserRequestFactoryTest {
     @Test
     void testAddAlbumsWithUserIdAndVarargs() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var albumIds = List.of(456L, 789L);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.addAlbums(String.valueOf(userId), token, albumIds))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.addAlbums(String.valueOf(userId), accessToken, albumIds))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.addAlbums(userId, albumIds.toArray(Long[]::new)).execute();
@@ -76,11 +76,11 @@ class UserRequestFactoryTest {
     @Test
     void testAddAlbumsWithUserIdAndCollection() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var albumIds = List.of(456L, 789L);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.addAlbums(String.valueOf(userId), token, albumIds))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.addAlbums(String.valueOf(userId), accessToken, albumIds))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.addAlbums(userId, albumIds).execute();
@@ -90,11 +90,11 @@ class UserRequestFactoryTest {
 
     @Test
     void testAddArtistsWithVarargs() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var artistIds = List.of(123L, 456L);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.addArtists("me", token, artistIds)).thenReturn(CompletableFuture.completedFuture(true));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.addArtists("me", accessToken, artistIds)).thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.addArtists(artistIds.toArray(Long[]::new)).execute();
 
@@ -103,11 +103,11 @@ class UserRequestFactoryTest {
 
     @Test
     void testAddArtistsWithCollection() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var artistIds = List.of(123L, 456L);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.addArtists("me", token, artistIds)).thenReturn(CompletableFuture.completedFuture(true));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.addArtists("me", accessToken, artistIds)).thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.addArtists(artistIds).execute();
 
@@ -117,11 +117,11 @@ class UserRequestFactoryTest {
     @Test
     void testAddArtistsWithUserIdAndVarargs() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var artistIds = List.of(456L, 789L);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.addArtists(String.valueOf(userId), token, artistIds))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.addArtists(String.valueOf(userId), accessToken, artistIds))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.addArtists(userId, artistIds.toArray(Long[]::new)).execute();
@@ -132,11 +132,11 @@ class UserRequestFactoryTest {
     @Test
     void testAddArtistsWithUserIdAndCollection() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var artistIds = List.of(456L, 789L);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.addArtists(String.valueOf(userId), token, artistIds))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.addArtists(String.valueOf(userId), accessToken, artistIds))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.addArtists(userId, artistIds).execute();
@@ -146,12 +146,13 @@ class UserRequestFactoryTest {
 
     @Test
     void testAddNotification() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var message = "test message";
         var expected = new NotificationResult(true);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.addNotification("me", token, message)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.addNotification("me", accessToken, message))
+                .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.addNotification(message).execute();
 
@@ -161,12 +162,12 @@ class UserRequestFactoryTest {
     @Test
     void testAddNotificationWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var message = "test message";
         var expected = new NotificationResult(true);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.addNotification(String.valueOf(userId), token, message))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.addNotification(String.valueOf(userId), accessToken, message))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.addNotification(userId, message).execute();
@@ -176,11 +177,12 @@ class UserRequestFactoryTest {
 
     @Test
     void testAddPlaylistsWithVarargs() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var playlistIds = List.of(123L, 456L);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.addPlaylists("me", token, playlistIds)).thenReturn(CompletableFuture.completedFuture(true));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.addPlaylists("me", accessToken, playlistIds))
+                .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.addPlaylists(playlistIds.toArray(Long[]::new)).execute();
 
@@ -189,11 +191,12 @@ class UserRequestFactoryTest {
 
     @Test
     void testAddPlaylistsWithCollection() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var playlistIds = List.of(123L, 456L);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.addPlaylists("me", token, playlistIds)).thenReturn(CompletableFuture.completedFuture(true));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.addPlaylists("me", accessToken, playlistIds))
+                .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.addPlaylists(playlistIds).execute();
 
@@ -203,11 +206,11 @@ class UserRequestFactoryTest {
     @Test
     void testAddPlaylistsWithUserIdAndVarargs() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var playlistIds = List.of(456L, 789L);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.addPlaylists(String.valueOf(userId), token, playlistIds))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.addPlaylists(String.valueOf(userId), accessToken, playlistIds))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.addPlaylists(userId, playlistIds.toArray(Long[]::new)).execute();
@@ -218,11 +221,11 @@ class UserRequestFactoryTest {
     @Test
     void testAddPlaylistsWithUserIdAndCollection() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var playlistIds = List.of(456L, 789L);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.addPlaylists(String.valueOf(userId), token, playlistIds))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.addPlaylists(String.valueOf(userId), accessToken, playlistIds))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.addPlaylists(userId, playlistIds).execute();
@@ -233,10 +236,10 @@ class UserRequestFactoryTest {
     @Test
     void testAddPodcast() {
         var podcastId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.addPodcast("me", token, podcastId)).thenReturn(CompletableFuture.completedFuture(true));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.addPodcast("me", accessToken, podcastId)).thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.addPodcast(podcastId).execute();
 
@@ -247,10 +250,10 @@ class UserRequestFactoryTest {
     void testAddPodcastWithUserId() {
         var userId = 123L;
         var podcastId = 456L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.addPodcast(String.valueOf(userId), token, podcastId))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.addPodcast(String.valueOf(userId), accessToken, podcastId))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.addPodcast(userId, podcastId).execute();
@@ -261,10 +264,10 @@ class UserRequestFactoryTest {
     @Test
     void testAddRadio() {
         var radioId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.addRadio("me", token, radioId)).thenReturn(CompletableFuture.completedFuture(true));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.addRadio("me", accessToken, radioId)).thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.addRadio(radioId).execute();
 
@@ -275,10 +278,10 @@ class UserRequestFactoryTest {
     void testAddRadioWithUserId() {
         var userId = 123L;
         var radioId = 456L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.addRadio(String.valueOf(userId), token, radioId))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.addRadio(String.valueOf(userId), accessToken, radioId))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.addRadio(userId, radioId).execute();
@@ -288,11 +291,11 @@ class UserRequestFactoryTest {
 
     @Test
     void testAddTracksWithVarargs() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var trackIds = List.of(123L, 456L);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.addTracks("me", token, trackIds)).thenReturn(CompletableFuture.completedFuture(true));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.addTracks("me", accessToken, trackIds)).thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.addTracks(trackIds.toArray(Long[]::new)).execute();
 
@@ -301,11 +304,11 @@ class UserRequestFactoryTest {
 
     @Test
     void testAddTracksWithCollection() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var trackIds = List.of(123L, 456L);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.addTracks("me", token, trackIds)).thenReturn(CompletableFuture.completedFuture(true));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.addTracks("me", accessToken, trackIds)).thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.addTracks(trackIds).execute();
 
@@ -315,11 +318,11 @@ class UserRequestFactoryTest {
     @Test
     void testAddTracksWithUserIdAndVarargs() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var trackIds = List.of(456L, 789L);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.addTracks(String.valueOf(userId), token, trackIds))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.addTracks(String.valueOf(userId), accessToken, trackIds))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.addTracks(userId, trackIds.toArray(Long[]::new)).execute();
@@ -330,11 +333,11 @@ class UserRequestFactoryTest {
     @Test
     void testAddTracksWithUserIdAndCollection() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var trackIds = List.of(456L, 789L);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.addTracks(String.valueOf(userId), token, trackIds))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.addTracks(String.valueOf(userId), accessToken, trackIds))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.addTracks(userId, trackIds).execute();
@@ -344,12 +347,12 @@ class UserRequestFactoryTest {
 
     @Test
     void testCreatePlaylist() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var title = "My playlist";
         var expected = Playlist.builder().id(123L).build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.createPlaylist("me", token, title, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.createPlaylist("me", accessToken, title, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.createPlaylist(title).execute();
@@ -360,12 +363,12 @@ class UserRequestFactoryTest {
     @Test
     void testCreatePlaylistWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var title = "My playlist";
         var expected = Playlist.builder().id(456L).build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.createPlaylist(String.valueOf(userId), token, title, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.createPlaylist(String.valueOf(userId), accessToken, title, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.createPlaylist(userId, title).execute();
@@ -376,10 +379,10 @@ class UserRequestFactoryTest {
     @Test
     void testFollowUser() {
         var followeeId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.followUser("me", token, followeeId)).thenReturn(CompletableFuture.completedFuture(true));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.followUser("me", accessToken, followeeId)).thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.followUser(followeeId).execute();
 
@@ -390,10 +393,10 @@ class UserRequestFactoryTest {
     void testFollowUserWithUserId() {
         var userId = 123L;
         var followeeId = 456L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.followUser(String.valueOf(userId), token, followeeId))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.followUser(String.valueOf(userId), accessToken, followeeId))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.followUser(userId, followeeId).execute();
@@ -403,13 +406,13 @@ class UserRequestFactoryTest {
 
     @Test
     void testGetAlbumChart() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Album>builder()
                 .data(Album.builder().id(123L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getAlbumChart("me", token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getAlbumChart("me", accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getAlbumChart().execute();
@@ -420,13 +423,13 @@ class UserRequestFactoryTest {
     @Test
     void testGetAlbumChartWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Album>builder()
                 .data(Album.builder().id(456L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getAlbumChart(String.valueOf(userId), token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getAlbumChart(String.valueOf(userId), accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getAlbumChart(userId).execute();
@@ -436,13 +439,13 @@ class UserRequestFactoryTest {
 
     @Test
     void testGetAlbumRecommendations() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Album>builder()
                 .data(Album.builder().id(123L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getAlbumRecommendations("me", token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getAlbumRecommendations("me", accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getAlbumRecommendations().execute();
@@ -453,13 +456,13 @@ class UserRequestFactoryTest {
     @Test
     void testGetAlbumRecommendationsWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Album>builder()
                 .data(Album.builder().id(456L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getAlbumRecommendations(String.valueOf(userId), token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getAlbumRecommendations(String.valueOf(userId), accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getAlbumRecommendations(userId).execute();
@@ -469,13 +472,13 @@ class UserRequestFactoryTest {
 
     @Test
     void testGetArtistChart() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Artist>builder()
                 .data(Artist.builder().id(123L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getArtistChart("me", token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getArtistChart("me", accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getArtistChart().execute();
@@ -486,13 +489,13 @@ class UserRequestFactoryTest {
     @Test
     void testGetArtistChartWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Artist>builder()
                 .data(Artist.builder().id(456L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getArtistChart(String.valueOf(userId), token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getArtistChart(String.valueOf(userId), accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getArtistChart(userId).execute();
@@ -502,13 +505,13 @@ class UserRequestFactoryTest {
 
     @Test
     void testGetArtistRecommendations() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Artist>builder()
                 .data(Artist.builder().id(123L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getArtistRecommendations("me", token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getArtistRecommendations("me", accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getArtistRecommendations().execute();
@@ -519,13 +522,13 @@ class UserRequestFactoryTest {
     @Test
     void testGetArtistRecommendationsWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Artist>builder()
                 .data(Artist.builder().id(456L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getArtistRecommendations(String.valueOf(userId), token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getArtistRecommendations(String.valueOf(userId), accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getArtistRecommendations(userId).execute();
@@ -535,13 +538,14 @@ class UserRequestFactoryTest {
 
     @Test
     void testGetArtists() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Artist>builder()
                 .data(Artist.builder().id(123L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getArtists("me", token, null, null)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getArtists("me", accessToken, null, null))
+                .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getArtists().execute();
 
@@ -551,13 +555,13 @@ class UserRequestFactoryTest {
     @Test
     void testGetArtistsWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Artist>builder()
                 .data(Artist.builder().id(456L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getArtists(String.valueOf(userId), token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getArtists(String.valueOf(userId), accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getArtists(userId).execute();
@@ -567,13 +571,14 @@ class UserRequestFactoryTest {
 
     @Test
     void testGetChart() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Track>builder()
                 .data(Track.builder().id(123L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getChart("me", token, null, null)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getChart("me", accessToken, null, null))
+                .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getChart().execute();
 
@@ -583,13 +588,13 @@ class UserRequestFactoryTest {
     @Test
     void testGetChartWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Track>builder()
                 .data(Track.builder().id(456L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getChart(String.valueOf(userId), token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getChart(String.valueOf(userId), accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getChart(userId).execute();
@@ -599,13 +604,13 @@ class UserRequestFactoryTest {
 
     @Test
     void testGetFlow() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Track>builder()
                 .data(Track.builder().id(123L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getFlow("me", token)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getFlow("me", accessToken)).thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getFlow().execute();
 
@@ -615,13 +620,13 @@ class UserRequestFactoryTest {
     @Test
     void testGetFlowWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Track>builder()
                 .data(Track.builder().id(456L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getFlow(String.valueOf(userId), token))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getFlow(String.valueOf(userId), accessToken))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getFlow(userId).execute();
@@ -631,13 +636,14 @@ class UserRequestFactoryTest {
 
     @Test
     void testGetFollowers() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<User>builder()
                 .data(User.builder().id(123L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getFollowers("me", token, null, null)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getFollowers("me", accessToken, null, null))
+                .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getFollowers().execute();
 
@@ -647,13 +653,13 @@ class UserRequestFactoryTest {
     @Test
     void testGetFollowersWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<User>builder()
                 .data(User.builder().id(456L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getFollowers(String.valueOf(userId), token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getFollowers(String.valueOf(userId), accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getFollowers(userId).execute();
@@ -663,13 +669,13 @@ class UserRequestFactoryTest {
 
     @Test
     void testGetFollowings() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<User>builder()
                 .data(User.builder().id(123L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getFollowings("me", token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getFollowings("me", accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getFollowings().execute();
@@ -680,13 +686,13 @@ class UserRequestFactoryTest {
     @Test
     void testGetFollowingsWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<User>builder()
                 .data(User.builder().id(456L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getFollowings(String.valueOf(userId), token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getFollowings(String.valueOf(userId), accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getFollowings(userId).execute();
@@ -696,13 +702,14 @@ class UserRequestFactoryTest {
 
     @Test
     void testGetHistory() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Track>builder()
                 .data(Track.builder().id(123L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getHistory("me", token, null, null)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getHistory("me", accessToken, null, null))
+                .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getHistory().execute();
 
@@ -712,13 +719,13 @@ class UserRequestFactoryTest {
     @Test
     void testGetHistoryWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Track>builder()
                 .data(Track.builder().id(456L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getHistory(String.valueOf(userId), token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getHistory(String.valueOf(userId), accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getHistory(userId).execute();
@@ -728,11 +735,11 @@ class UserRequestFactoryTest {
 
     @Test
     void testGetOptions() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Options.builder().streaming(true).build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getOptions("me", token)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getOptions("me", accessToken)).thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getOptions().execute();
 
@@ -742,11 +749,11 @@ class UserRequestFactoryTest {
     @Test
     void testGetOptionsWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Options.builder().streaming(false).build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getOptions(String.valueOf(userId), token))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getOptions(String.valueOf(userId), accessToken))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getOptions(userId).execute();
@@ -756,11 +763,11 @@ class UserRequestFactoryTest {
 
     @Test
     void testGetPermissions() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = new PermissionsResponse(PermissionsResponse.Permissions.builder().manageLibrary(true).build());
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getPermissions("me", token)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getPermissions("me", accessToken)).thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getPermissions().execute();
 
@@ -770,11 +777,11 @@ class UserRequestFactoryTest {
     @Test
     void testGetPermissionsWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = new PermissionsResponse(PermissionsResponse.Permissions.builder().manageLibrary(false).build());
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getPermissions(String.valueOf(userId), token))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getPermissions(String.valueOf(userId), accessToken))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getPermissions(userId).execute();
@@ -784,13 +791,13 @@ class UserRequestFactoryTest {
 
     @Test
     void testGetPersonalSongs() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Track>builder()
                 .data(Track.builder().id(123L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getPersonalSongs("me", token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getPersonalSongs("me", accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getPersonalSongs().execute();
@@ -801,13 +808,13 @@ class UserRequestFactoryTest {
     @Test
     void testGetPersonalSongsWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Track>builder()
                 .data(Track.builder().id(456L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getPersonalSongs(String.valueOf(userId), token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getPersonalSongs(String.valueOf(userId), accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getPersonalSongs(userId).execute();
@@ -817,13 +824,13 @@ class UserRequestFactoryTest {
 
     @Test
     void testGetPlaylistChart() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Playlist>builder()
                 .data(Playlist.builder().id(123L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getPlaylistChart("me", token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getPlaylistChart("me", accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getPlaylistChart().execute();
@@ -834,13 +841,13 @@ class UserRequestFactoryTest {
     @Test
     void testGetPlaylistChartWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Playlist>builder()
                 .data(Playlist.builder().id(456L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getPlaylistChart(String.valueOf(userId), token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getPlaylistChart(String.valueOf(userId), accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getPlaylistChart(userId).execute();
@@ -850,13 +857,13 @@ class UserRequestFactoryTest {
 
     @Test
     void testGetPlaylistRecommendations() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Playlist>builder()
                 .data(Playlist.builder().id(123L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getPlaylistRecommendations("me", token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getPlaylistRecommendations("me", accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getPlaylistRecommendations().execute();
@@ -867,13 +874,13 @@ class UserRequestFactoryTest {
     @Test
     void testGetPlaylistRecommendationsWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Playlist>builder()
                 .data(Playlist.builder().id(456L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getPlaylistRecommendations(String.valueOf(userId), token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getPlaylistRecommendations(String.valueOf(userId), accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getPlaylistRecommendations(userId).execute();
@@ -883,13 +890,14 @@ class UserRequestFactoryTest {
 
     @Test
     void testGetPlaylists() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Playlist>builder()
                 .data(Playlist.builder().id(123L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getPlaylists("me", token, null, null)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getPlaylists("me", accessToken, null, null))
+                .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getPlaylists().execute();
 
@@ -899,13 +907,13 @@ class UserRequestFactoryTest {
     @Test
     void testGetPlaylistsWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Playlist>builder()
                 .data(Playlist.builder().id(456L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getPlaylists(String.valueOf(userId), token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getPlaylists(String.valueOf(userId), accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getPlaylists(userId).execute();
@@ -915,13 +923,13 @@ class UserRequestFactoryTest {
 
     @Test
     void testGetRadioRecommendations() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Radio>builder()
                 .data(Radio.builder().id(123L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getRadioRecommendations("me", token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getRadioRecommendations("me", accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getRadioRecommendations().execute();
@@ -932,13 +940,13 @@ class UserRequestFactoryTest {
     @Test
     void testGetRadioRecommendationsWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Radio>builder()
                 .data(Radio.builder().id(456L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getRadioRecommendations(String.valueOf(userId), token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getRadioRecommendations(String.valueOf(userId), accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getRadioRecommendations(userId).execute();
@@ -948,13 +956,14 @@ class UserRequestFactoryTest {
 
     @Test
     void testGetRadios() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Radio>builder()
                 .data(Radio.builder().id(123L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getRadios("me", token, null, null)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getRadios("me", accessToken, null, null))
+                .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getRadios().execute();
 
@@ -964,13 +973,13 @@ class UserRequestFactoryTest {
     @Test
     void testGetRadiosWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Radio>builder()
                 .data(Radio.builder().id(456L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getRadios(String.valueOf(userId), token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getRadios(String.valueOf(userId), accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getRadios(userId).execute();
@@ -980,13 +989,13 @@ class UserRequestFactoryTest {
 
     @Test
     void testGetReleaseRecommendations() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Album>builder()
                 .data(Album.builder().id(123L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getReleaseRecommendations("me", token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getReleaseRecommendations("me", accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getReleaseRecommendations().execute();
@@ -997,13 +1006,13 @@ class UserRequestFactoryTest {
     @Test
     void testGetReleaseRecommendationsWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Album>builder()
                 .data(Album.builder().id(456L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getReleaseRecommendations(String.valueOf(userId), token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getReleaseRecommendations(String.valueOf(userId), accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getReleaseRecommendations(userId).execute();
@@ -1013,13 +1022,13 @@ class UserRequestFactoryTest {
 
     @Test
     void testGetTrackChart() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Track>builder()
                 .data(Track.builder().id(123L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getTrackChart("me", token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getTrackChart("me", accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getTrackChart().execute();
@@ -1030,13 +1039,13 @@ class UserRequestFactoryTest {
     @Test
     void testGetTrackChartWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Track>builder()
                 .data(Track.builder().id(456L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getTrackChart(String.valueOf(userId), token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getTrackChart(String.valueOf(userId), accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getTrackChart(userId).execute();
@@ -1046,13 +1055,14 @@ class UserRequestFactoryTest {
 
     @Test
     void testGetTrackRecommendations() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Track>builder()
                 .data(Track.builder().id(123L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getTrackRecommendations("me", token)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getTrackRecommendations("me", accessToken))
+                .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getTrackRecommendations().execute();
 
@@ -1062,13 +1072,13 @@ class UserRequestFactoryTest {
     @Test
     void testGetTrackRecommendationsWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Track>builder()
                 .data(Track.builder().id(456L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getTrackRecommendations(String.valueOf(userId), token))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getTrackRecommendations(String.valueOf(userId), accessToken))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getTrackRecommendations(userId).execute();
@@ -1078,13 +1088,14 @@ class UserRequestFactoryTest {
 
     @Test
     void testGetTracks() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Track>builder()
                 .data(Track.builder().id(123L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getTracks("me", token, null, null)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getTracks("me", accessToken, null, null))
+                .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getTracks().execute();
 
@@ -1094,13 +1105,13 @@ class UserRequestFactoryTest {
     @Test
     void testGetTracksWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Track>builder()
                 .data(Track.builder().id(456L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getTracks(String.valueOf(userId), token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getTracks(String.valueOf(userId), accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getTracks(userId).execute();
@@ -1110,11 +1121,11 @@ class UserRequestFactoryTest {
 
     @Test
     void testGetUser() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = User.builder().id(123L).build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getUser("me", token)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getUser("me", accessToken)).thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getUser().execute();
 
@@ -1124,11 +1135,11 @@ class UserRequestFactoryTest {
     @Test
     void testGetUserWithUserId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = User.builder().id(456L).build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getUser(String.valueOf(userId), token))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getUser(String.valueOf(userId), accessToken))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getUser(userId).execute();
@@ -1138,13 +1149,13 @@ class UserRequestFactoryTest {
 
     @Test
     void testGetAlbums() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Album>builder()
                 .data(Album.builder().id(123L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getAlbums("me", token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getAlbums("me", accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getAlbums().execute();
@@ -1155,13 +1166,13 @@ class UserRequestFactoryTest {
     @Test
     void testGetAlbumsWithId() {
         var userId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Album>builder()
                 .data(Album.builder().id(456L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.getAlbums(String.valueOf(userId), token, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.getAlbums(String.valueOf(userId), accessToken, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = userRequestFactory.getAlbums(userId).execute();
@@ -1172,10 +1183,10 @@ class UserRequestFactoryTest {
     @Test
     void testRemoveAlbum() {
         var albumId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.removeAlbum("me", token, albumId)).thenReturn(CompletableFuture.completedFuture(true));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.removeAlbum("me", accessToken, albumId)).thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.removeAlbum(albumId).execute();
 
@@ -1186,10 +1197,10 @@ class UserRequestFactoryTest {
     void testRemoveAlbumWithUserId() {
         var userId = 123L;
         var albumId = 456L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.removeAlbum(String.valueOf(userId), token, albumId))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.removeAlbum(String.valueOf(userId), accessToken, albumId))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.removeAlbum(userId, albumId).execute();
@@ -1200,10 +1211,10 @@ class UserRequestFactoryTest {
     @Test
     void testRemoveArtist() {
         var artistId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.removeArtist("me", token, artistId)).thenReturn(CompletableFuture.completedFuture(true));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.removeArtist("me", accessToken, artistId)).thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.removeArtist(artistId).execute();
 
@@ -1214,10 +1225,10 @@ class UserRequestFactoryTest {
     void testRemoveArtistWithUserId() {
         var userId = 123L;
         var artistId = 456L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.removeArtist(String.valueOf(userId), token, artistId))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.removeArtist(String.valueOf(userId), accessToken, artistId))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.removeArtist(userId, artistId).execute();
@@ -1228,10 +1239,11 @@ class UserRequestFactoryTest {
     @Test
     void testRemovePlaylist() {
         var playlistId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.removePlaylist("me", token, playlistId)).thenReturn(CompletableFuture.completedFuture(true));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.removePlaylist("me", accessToken, playlistId))
+                .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.removePlaylist(playlistId).execute();
 
@@ -1242,10 +1254,10 @@ class UserRequestFactoryTest {
     void testRemovePlaylistWithUserId() {
         var userId = 123L;
         var playlistId = 456L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.removePlaylist(String.valueOf(userId), token, playlistId))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.removePlaylist(String.valueOf(userId), accessToken, playlistId))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.removePlaylist(userId, playlistId).execute();
@@ -1256,10 +1268,11 @@ class UserRequestFactoryTest {
     @Test
     void testRemovePodcast() {
         var podcastId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.removePodcast("me", token, podcastId)).thenReturn(CompletableFuture.completedFuture(true));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.removePodcast("me", accessToken, podcastId))
+                .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.removePodcast(podcastId).execute();
 
@@ -1270,10 +1283,10 @@ class UserRequestFactoryTest {
     void testRemovePodcastWithUserId() {
         var userId = 123L;
         var podcastId = 456L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.removePodcast(String.valueOf(userId), token, podcastId))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.removePodcast(String.valueOf(userId), accessToken, podcastId))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.removePodcast(userId, podcastId).execute();
@@ -1284,10 +1297,10 @@ class UserRequestFactoryTest {
     @Test
     void testRemoveRadio() {
         var radioId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.removeRadio("me", token, radioId)).thenReturn(CompletableFuture.completedFuture(true));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.removeRadio("me", accessToken, radioId)).thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.removeRadio(radioId).execute();
 
@@ -1298,10 +1311,10 @@ class UserRequestFactoryTest {
     void testRemoveRadioWithUserId() {
         var userId = 123L;
         var radioId = 456L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.removeRadio(String.valueOf(userId), token, radioId))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.removeRadio(String.valueOf(userId), accessToken, radioId))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.removeRadio(userId, radioId).execute();
@@ -1312,10 +1325,10 @@ class UserRequestFactoryTest {
     @Test
     void testRemoveTrack() {
         var trackId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.removeTrack("me", token, trackId)).thenReturn(CompletableFuture.completedFuture(true));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.removeTrack("me", accessToken, trackId)).thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.removeTrack(trackId).execute();
 
@@ -1326,10 +1339,10 @@ class UserRequestFactoryTest {
     void testRemoveTrackWithUserId() {
         var userId = 123L;
         var trackId = 456L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.removeTrack(String.valueOf(userId), token, trackId))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.removeTrack(String.valueOf(userId), accessToken, trackId))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.removeTrack(userId, trackId).execute();
@@ -1340,10 +1353,11 @@ class UserRequestFactoryTest {
     @Test
     void testUnfollowUser() {
         var followeeId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.unfollowUser("me", token, followeeId)).thenReturn(CompletableFuture.completedFuture(true));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.unfollowUser("me", accessToken, followeeId))
+                .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.unfollowUser(followeeId).execute();
 
@@ -1354,10 +1368,10 @@ class UserRequestFactoryTest {
     void testUnfollowUserWithUserId() {
         var userId = 123L;
         var followeeId = 456L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(userService.unfollowUser(String.valueOf(userId), token, followeeId))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(userService.unfollowUser(String.valueOf(userId), accessToken, followeeId))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = userRequestFactory.unfollowUser(userId, followeeId).execute();

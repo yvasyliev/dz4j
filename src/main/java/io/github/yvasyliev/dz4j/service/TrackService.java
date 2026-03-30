@@ -3,6 +3,8 @@ package io.github.yvasyliev.dz4j.service;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
+import io.github.yvasyliev.dz4j.feign.AccessTokenExpander;
+import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Track;
 import org.jspecify.annotations.Nullable;
 
@@ -36,7 +38,7 @@ public interface TrackService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> updateTrack(
             @Param("trackId") long trackId,
-            @Param("access_token") @Nullable String accessToken,
+            @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("title") @Nullable String title,
             @Param("artist") @Nullable String artist,
             @Param("album") @Nullable String album

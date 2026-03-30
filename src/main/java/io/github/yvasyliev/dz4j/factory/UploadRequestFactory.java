@@ -1,7 +1,8 @@
 package io.github.yvasyliev.dz4j.factory;
 
 import feign.form.FormData;
-import io.github.yvasyliev.dz4j.authorization.TokenManager;
+import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
+import io.github.yvasyliev.dz4j.authorization.UploadTokenManager;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Infos;
 import io.github.yvasyliev.dz4j.request.DeezerRequest;
@@ -19,8 +20,8 @@ import java.util.concurrent.CompletableFuture;
 @RequiredArgsConstructor
 public class UploadRequestFactory {
     private final UploadService uploadService;
-    private final TokenManager<AccessToken> accessTokenManager;
-    private final TokenManager<Infos> uploadTokenManager;
+    private final AuthorizationManager authorizationManager;
+    private final UploadTokenManager uploadTokenManager;
 
     /**
      * Creates a request to upload a cover image for the specified playlist.
@@ -48,12 +49,12 @@ public class UploadRequestFactory {
     private <T> DeezerRequest<Boolean> uploadPlaylistCover(
             long playlistId,
             T cover,
-            QuadFunction<Long, String, String, T, CompletableFuture<Boolean>> asyncMethod
+            QuadFunction<Long, AccessToken, Infos, T, CompletableFuture<Boolean>> asyncMethod
     ) {
         return new SimpleDeezerRequest<>(
-                accessTokenManager,
+                authorizationManager,
                 uploadTokenManager,
-                (accessToken, uploadToken) -> asyncMethod.apply(playlistId, accessToken, uploadToken, cover)
+                (accessToken, infos) -> asyncMethod.apply(playlistId, accessToken, infos, cover)
         );
     }
 }

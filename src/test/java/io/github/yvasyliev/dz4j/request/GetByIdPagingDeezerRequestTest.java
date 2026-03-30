@@ -1,6 +1,6 @@
 package io.github.yvasyliev.dz4j.request;
 
-import io.github.yvasyliev.dz4j.authorization.TokenManager;
+import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.util.QuadFunction;
 import io.github.yvasyliev.dz4j.util.TriFunction;
@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 import java.util.concurrent.CompletableFuture;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class GetByIdPagingDeezerRequestTest {
@@ -34,17 +35,17 @@ class GetByIdPagingDeezerRequestTest {
     @Test
     void shouldExecuteMethodWithAccessToken() {
         var id = 123L;
-        var accessTokenManager = Mockito.<TokenManager<AccessToken>>mock();
-        var asyncMethod = Mockito.<QuadFunction<Long, String, Integer, Integer, CompletableFuture<String>>>mock();
-        var accessToken = "access_token";
+        var authorizationManager = mock(AuthorizationManager.class);
+        var asyncMethod = Mockito.<QuadFunction<Long, AccessToken, Integer, Integer, CompletableFuture<String>>>mock();
+        var accessToken = new AccessToken("test-token");
         var index = 1;
         var limit = 10;
         var expected = "result";
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
         when(asyncMethod.apply(id, accessToken, index, limit)).thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = new GetByIdPagingDeezerRequest<>(id, accessTokenManager, asyncMethod)
+        var actual = new GetByIdPagingDeezerRequest<>(id, authorizationManager, asyncMethod)
                 .index(index)
                 .limit(limit)
                 .execute();

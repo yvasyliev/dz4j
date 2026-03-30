@@ -4,6 +4,8 @@ import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 import io.github.yvasyliev.dz4j.annotation.Experimental;
+import io.github.yvasyliev.dz4j.feign.AccessTokenExpander;
+import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Album;
 import io.github.yvasyliev.dz4j.model.Artist;
 import io.github.yvasyliev.dz4j.model.NotificationResult;
@@ -37,7 +39,7 @@ public interface UserService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addAlbums(
             @Param("userId") String userId,
-            @Param("access_token") @Nullable String accessToken,
+            @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("album_ids") @Experimental Collection<Long> albumIds
     );
 
@@ -53,7 +55,7 @@ public interface UserService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addArtists(
             @Param("userId") String userId,
-            @Param("access_token") @Nullable String accessToken,
+            @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("artist_ids") @Experimental Collection<Long> artistIds
     );
 
@@ -69,7 +71,7 @@ public interface UserService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<NotificationResult> addNotification(
             @Param("userId") String userId,
-            @Param("access_token") @Nullable String accessToken,
+            @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("message") String message
     );
 
@@ -85,7 +87,7 @@ public interface UserService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addPlaylists(
             @Param("userId") String userId,
-            @Param("access_token") @Nullable String accessToken,
+            @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("playlist_ids") Collection<Long> playlistIds
     );
 
@@ -101,7 +103,7 @@ public interface UserService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addPodcast(
             @Param("userId") String userId,
-            @Param("access_token") @Nullable String accessToken,
+            @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("podcast_id") long podcastId
     );
 
@@ -117,7 +119,7 @@ public interface UserService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addRadio(
             @Param("userId") String userId,
-            @Param("access_token") @Nullable String accessToken,
+            @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("radio_id") long radioId
     );
 
@@ -133,7 +135,7 @@ public interface UserService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addTracks(
             @Param("userId") String userId,
-            @Param("access_token") @Nullable String accessToken,
+            @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("track_ids") Collection<Long> trackIds
     );
 
@@ -150,7 +152,7 @@ public interface UserService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Playlist> createPlaylist(
             @Param("userId") String userId,
-            @Param("access_token") @Nullable String accessToken,
+            @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("title") String title,
             @Param("description") @Experimental @Nullable String description
     );
@@ -167,7 +169,7 @@ public interface UserService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> followUser(
             @Param("userId") String userId,
-            @Param("access_token") @Nullable String accessToken,
+            @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("user_id") long followeeId
     );
 
@@ -183,7 +185,7 @@ public interface UserService {
     @RequestLine("GET /user/{userId:\\d+|me}/charts/albums?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Album>> getAlbumChart(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
             @Param("limit") @Nullable Integer limit
     );
@@ -202,7 +204,7 @@ public interface UserService {
     )
     CompletableFuture<Page<Album>> getAlbumRecommendations(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
             @Param("limit") @Nullable Integer limit
     );
@@ -219,7 +221,7 @@ public interface UserService {
     @RequestLine("GET /user/{userId:\\d+|me}/charts/artists?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Artist>> getArtistChart(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
             @Param("limit") @Nullable Integer limit
     );
@@ -238,7 +240,7 @@ public interface UserService {
     )
     CompletableFuture<Page<Artist>> getArtistRecommendations(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
             @Param("limit") @Nullable Integer limit
     );
@@ -255,7 +257,7 @@ public interface UserService {
     @RequestLine("GET /user/{userId:\\d+|me}/artists?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Artist>> getArtists(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
             @Param("limit") @Nullable Integer limit
     );
@@ -272,7 +274,7 @@ public interface UserService {
     @RequestLine("GET /user/{userId:\\d+|me}/charts?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Track>> getChart(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
             @Param("limit") @Nullable Integer limit
     );
@@ -287,7 +289,7 @@ public interface UserService {
     @RequestLine("GET /user/{userId:\\d+|me}/flow?access_token={accessToken}")
     CompletableFuture<Page<Track>> getFlow(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken
     );
 
     /**
@@ -302,7 +304,7 @@ public interface UserService {
     @RequestLine("GET /user/{userId:\\d+|me}/followers?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<User>> getFollowers(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
             @Param("limit") @Nullable Integer limit
     );
@@ -319,7 +321,7 @@ public interface UserService {
     @RequestLine("GET /user/{userId:\\d+|me}/followings?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<User>> getFollowings(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
             @Param("limit") @Nullable Integer limit
     );
@@ -336,7 +338,7 @@ public interface UserService {
     @RequestLine("GET /user/{userId:\\d+|me}/history?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Track>> getHistory(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
             @Param("limit") @Nullable Integer limit
     );
@@ -351,7 +353,7 @@ public interface UserService {
     @RequestLine("GET /user/{userId:\\d+|me}/options?access_token={accessToken}")
     CompletableFuture<Options> getOptions(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken
     );
 
     /**
@@ -364,7 +366,7 @@ public interface UserService {
     @RequestLine("GET /user/{userId:\\d+|me}/permissions?access_token={accessToken}")
     CompletableFuture<PermissionsResponse> getPermissions(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken
     );
 
     /**
@@ -379,7 +381,7 @@ public interface UserService {
     @RequestLine("GET /user/{userId:\\d+|me}/personal_songs?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Track>> getPersonalSongs(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
             @Param("limit") @Nullable Integer limit
     );
@@ -396,7 +398,7 @@ public interface UserService {
     @RequestLine("GET /user/{userId:\\d+|me}/charts/playlists?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Playlist>> getPlaylistChart(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
             @Param("limit") @Nullable Integer limit
     );
@@ -414,7 +416,7 @@ public interface UserService {
             + "/user/{userId:\\d+|me}/recommendations/playlists?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Playlist>> getPlaylistRecommendations(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
             @Param("limit") @Nullable Integer limit
     );
@@ -431,7 +433,7 @@ public interface UserService {
     @RequestLine("GET /user/{userId:\\d+|me}/playlists?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Playlist>> getPlaylists(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
             @Param("limit") @Nullable Integer limit
     );
@@ -450,7 +452,7 @@ public interface UserService {
     )
     CompletableFuture<Page<Radio>> getRadioRecommendations(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
             @Param("limit") @Nullable Integer limit
     );
@@ -467,7 +469,7 @@ public interface UserService {
     @RequestLine("GET /user/{userId:\\d+|me}/radios?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Radio>> getRadios(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
             @Param("limit") @Nullable Integer limit
     );
@@ -486,7 +488,7 @@ public interface UserService {
     )
     CompletableFuture<Page<Album>> getReleaseRecommendations(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
             @Param("limit") @Nullable Integer limit
     );
@@ -503,7 +505,7 @@ public interface UserService {
     @RequestLine("GET /user/{userId:\\d+|me}/charts/tracks?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Track>> getTrackChart(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
             @Param("limit") @Nullable Integer limit
     );
@@ -518,7 +520,7 @@ public interface UserService {
     @RequestLine("GET /user/{userId:\\d+|me}/recommendations/tracks?access_token={accessToken}")
     CompletableFuture<Page<Track>> getTrackRecommendations(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken
     );
 
     /**
@@ -533,7 +535,7 @@ public interface UserService {
     @RequestLine("GET /user/{userId:\\d+|me}/tracks?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Track>> getTracks(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
             @Param("limit") @Nullable Integer limit
     );
@@ -548,7 +550,7 @@ public interface UserService {
     @RequestLine("GET /user/{userId:\\d+|me}?access_token={accessToken}")
     CompletableFuture<User> getUser(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken
     );
 
     /**
@@ -563,7 +565,7 @@ public interface UserService {
     @RequestLine("GET /user/{userId:\\d+|me}/albums?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Album>> getAlbums(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
             @Param("limit") @Nullable Integer limit
     );
@@ -579,7 +581,7 @@ public interface UserService {
     @RequestLine("DELETE /user/{userId:\\d+|me}/albums?access_token={accessToken}&album_id={albumId}")
     CompletableFuture<Boolean> removeAlbum(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("albumId") long albumId
     );
 
@@ -594,7 +596,7 @@ public interface UserService {
     @RequestLine("DELETE /user/{userId:\\d+|me}/artists?access_token={accessToken}&artist_id={artistId}")
     CompletableFuture<Boolean> removeArtist(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("artistId") long artistId
     );
 
@@ -609,7 +611,7 @@ public interface UserService {
     @RequestLine("DELETE /user/{userId:\\d+|me}/playlists?access_token={accessToken}&playlist_id={playlistId}")
     CompletableFuture<Boolean> removePlaylist(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("playlistId") long playlistId
     );
 
@@ -624,7 +626,7 @@ public interface UserService {
     @RequestLine("DELETE /user/{userId:\\d+|me}/podcasts?access_token={accessToken}&podcast_id={podcastId}")
     CompletableFuture<Boolean> removePodcast(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("podcastId") long podcastId
     );
 
@@ -639,7 +641,7 @@ public interface UserService {
     @RequestLine("DELETE /user/{userId:\\d+|me}/radios?access_token={accessToken}&radio_id={radioId}")
     CompletableFuture<Boolean> removeRadio(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("radioId") long radioId
     );
 
@@ -654,7 +656,7 @@ public interface UserService {
     @RequestLine("DELETE /user/{userId:\\d+|me}/tracks?access_token={accessToken}&track_id={trackId}")
     CompletableFuture<Boolean> removeTrack(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("trackId") long trackId
     );
 
@@ -669,7 +671,7 @@ public interface UserService {
     @RequestLine("DELETE /user/{userId:\\d+|me}/followings?access_token={accessToken}&user_id={followeeId}")
     CompletableFuture<Boolean> unfollowUser(
             @Param("userId") String userId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("followeeId") long followeeId
     );
 }

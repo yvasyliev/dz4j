@@ -3,6 +3,8 @@ package io.github.yvasyliev.dz4j.service;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
+import io.github.yvasyliev.dz4j.feign.AccessTokenExpander;
+import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.BookmarkResponse;
 import io.github.yvasyliev.dz4j.model.Episode;
 import org.jspecify.annotations.Nullable;
@@ -26,7 +28,7 @@ public interface EpisodeService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<BookmarkResponse> bookmarkEpisode(
             @Param("episodeId") long episodeId,
-            @Param("access_token") @Nullable String accessToken,
+            @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("offset") int offset
     );
 
@@ -40,7 +42,7 @@ public interface EpisodeService {
     @RequestLine("GET /episode/{episodeId}?access_token={accessToken}")
     CompletableFuture<Episode> getEpisode(
             @Param("episodeId") long episodeId,
-            @Param("accessToken") @Nullable String accessToken
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken
     );
 
     /**
@@ -53,6 +55,6 @@ public interface EpisodeService {
     @RequestLine("DELETE /episode/{episodeId}/bookmark?access_token={accessToken}")
     CompletableFuture<BookmarkResponse> unbookmarkEpisode(
             @Param("episodeId") long episodeId,
-            @Param("accessToken") @Nullable String accessToken
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken
     );
 }

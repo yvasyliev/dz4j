@@ -3,6 +3,8 @@ package io.github.yvasyliev.dz4j.service;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
+import io.github.yvasyliev.dz4j.feign.AccessTokenExpander;
+import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Episode;
 import io.github.yvasyliev.dz4j.model.Page;
 import io.github.yvasyliev.dz4j.model.Podcast;
@@ -25,7 +27,7 @@ public interface PodcastService {
     @RequestLine("GET /podcast/{podcastId}/episodes?access_token={accessToken}")
     CompletableFuture<Page<Episode>> getEpisodes(
             @Param("podcastId") long podcastId,
-            @Param("accessToken") @Nullable String accessToken
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken
     );
 
     /**
@@ -38,6 +40,6 @@ public interface PodcastService {
     @RequestLine("GET /podcast/{podcastId}?access_token={accessToken}")
     CompletableFuture<Podcast> getPodcast(
             @Param("podcastId") long podcastId,
-            @Param("accessToken") @Nullable String accessToken
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken
     );
 }

@@ -18,7 +18,6 @@ class OptionsIT extends AbstractIT {
         var expected = MAPPER.readValue(body, Options.class);
         var deezerClient = DeezerClient.builder()
                 .baseUrl(baseUrls -> baseUrls.api(wmRuntimeInfo.getHttpBaseUrl()))
-                .authorization(ACCESS_TOKEN)
                 .build();
 
         stubFor(get(urlPathEqualTo("/options")).willReturn(okJson(body)));

@@ -1,9 +1,9 @@
 package io.github.yvasyliev.dz4j.factory;
 
 import feign.AsyncFeign;
-import io.github.yvasyliev.dz4j.authorization.TokenManager;
+import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
+import io.github.yvasyliev.dz4j.authorization.UploadTokenManager;
 import io.github.yvasyliev.dz4j.configuration.BaseUrls;
-import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.service.AlbumService;
 import io.github.yvasyliev.dz4j.service.ArtistService;
 import io.github.yvasyliev.dz4j.service.ChartService;
@@ -21,15 +21,12 @@ import io.github.yvasyliev.dz4j.service.SearchService;
 import io.github.yvasyliev.dz4j.service.TrackService;
 import io.github.yvasyliev.dz4j.service.UploadService;
 import io.github.yvasyliev.dz4j.service.UserService;
-import io.github.yvasyliev.dz4j.util.TokenManagers;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 
-import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * Provider of request factories for different Deezer API endpoints.
@@ -59,19 +56,19 @@ public class RequestFactoryProvider {
     /**
      * Constructs a new {@link RequestFactoryProvider}.
      *
-     * @param builder             the Feign async builder to use for creating service clients
-     * @param baseUrls            the base URLs for the Deezer API endpoints
-     * @param accessTokenSupplier an access token supplier
+     * @param builder              the Feign async builder to use for creating service clients
+     * @param baseUrls             the base URLs for the Deezer API endpoints
+     * @param authorizationManager the authorization manager
      */
     public RequestFactoryProvider(
             AsyncFeign.AsyncBuilder<Object> builder,
             BaseUrls baseUrls,
-            Supplier<CompletableFuture<AccessToken>> accessTokenSupplier
+            AuthorizationManager authorizationManager
     ) {
         var assembler = new RequestFactoryAssembler(
                 builder,
                 baseUrls.api(),
-                TokenManagers.accessTokenManager(accessTokenSupplier)
+                authorizationManager
         );
 
         album = assembler.assemble(AlbumRequestFactory::new, AlbumService.class);
@@ -97,19 +94,19 @@ public class RequestFactoryProvider {
     private static class RequestFactoryAssembler {
         private final AsyncFeign.AsyncBuilder<Object> builder;
         private final String baseUrl;
-        private final TokenManager<AccessToken> accessTokenManager;
+        private final AuthorizationManager authorizationManager;
 
         private <T, R> R assemble(Function<T, R> factory, Class<T> target) {
             return assemble(factory, target, baseUrl);
         }
 
-        private <T, R> R assemble(BiFunction<T, TokenManager<AccessToken>, R> factory, Class<T> target) {
-            return assemble(t -> factory.apply(t, accessTokenManager), target);
+        private <T, R> R assemble(BiFunction<T, AuthorizationManager, R> factory, Class<T> target) {
+            return assemble(t -> factory.apply(t, authorizationManager), target);
         }
 
         private UploadRequestFactory assemble(InfosRequestFactory infos, String url) {
             return assemble(
-                    t -> new UploadRequestFactory(t, accessTokenManager, TokenManagers.uploadTokenManager(infos)),
+                    t -> new UploadRequestFactory(t, authorizationManager, new UploadTokenManager(infos)),
                     UploadService.class,
                     url
             );

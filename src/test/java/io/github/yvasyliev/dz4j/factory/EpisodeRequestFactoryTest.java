@@ -1,6 +1,6 @@
 package io.github.yvasyliev.dz4j.factory;
 
-import io.github.yvasyliev.dz4j.authorization.TokenManager;
+import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.BookmarkResponse;
 import io.github.yvasyliev.dz4j.model.Episode;
@@ -20,17 +20,17 @@ import static org.mockito.Mockito.when;
 class EpisodeRequestFactoryTest {
     @InjectMocks private EpisodeRequestFactory episodeRequestFactory;
     @Mock private EpisodeService episodeService;
-    @Mock private TokenManager<AccessToken> accessTokenManager;
+    @Mock private AuthorizationManager authorizationManager;
 
     @Test
     void testBookmarkEpisode() {
         var episodeId = 123L;
         var offset = 30;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = new BookmarkResponse(true);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(episodeService.bookmarkEpisode(episodeId, token, offset))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(episodeService.bookmarkEpisode(episodeId, accessToken, offset))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = episodeRequestFactory.bookmarkEpisode(episodeId, offset).execute();
@@ -41,11 +41,11 @@ class EpisodeRequestFactoryTest {
     @Test
     void testGetEpisode() {
         var episodeId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Episode.builder().id(456L).build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(episodeService.getEpisode(episodeId, token)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(episodeService.getEpisode(episodeId, accessToken)).thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = episodeRequestFactory.getEpisode(episodeId).execute();
 
@@ -55,11 +55,11 @@ class EpisodeRequestFactoryTest {
     @Test
     void testUnbookmarkEpisode() {
         var episodeId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-accessToken");
         var expected = new BookmarkResponse(false);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(episodeService.unbookmarkEpisode(episodeId, token))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(episodeService.unbookmarkEpisode(episodeId, accessToken))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = episodeRequestFactory.unbookmarkEpisode(episodeId).execute();

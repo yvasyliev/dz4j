@@ -1,6 +1,6 @@
 package io.github.yvasyliev.dz4j.request;
 
-import io.github.yvasyliev.dz4j.authorization.TokenManager;
+import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Playlist;
 import io.github.yvasyliev.dz4j.service.UserService;
@@ -16,22 +16,22 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class CreatePlaylistDeezerRequestTest {
-    @Mock private TokenManager<AccessToken> accessTokenManager;
+    @Mock private AuthorizationManager authorizationManager;
     @Mock private UserService userService;
 
     @Test
     void shouldReturnPlaylist() {
         var userId = "123";
-        var accessToken = "access_token";
+        var accessToken = new AccessToken("test-token");
         var title = "My Playlist";
         var description = "My favorite songs";
         var expected = Playlist.builder().id(456L).build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
         when(userService.createPlaylist(userId, accessToken, title, description))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
-        var actual = new CreatePlaylistDeezerRequest(userId, accessTokenManager, title, userService)
+        var actual = new CreatePlaylistDeezerRequest(userId, authorizationManager, title, userService)
                 .description(description)
                 .execute();
 

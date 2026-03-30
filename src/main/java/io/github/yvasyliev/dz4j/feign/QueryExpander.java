@@ -29,15 +29,7 @@ public class QueryExpander implements Param.Expander {
     @Override
     @Nullable
     public String expand(Object value) {
-        if (value instanceof SimpleQuery query) {
-            return query.query();
-        }
-
-        if (value instanceof AdvancedQuery query) {
-            return expand(query);
-        }
-
-        return null;
+        return value instanceof SimpleQuery query ? query.query() : expand((AdvancedQuery) value);
     }
 
     private String expand(AdvancedQuery query) {

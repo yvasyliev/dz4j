@@ -1,7 +1,6 @@
 package io.github.yvasyliev.dz4j.request;
 
-import io.github.yvasyliev.dz4j.authorization.TokenManager;
-import io.github.yvasyliev.dz4j.model.AccessToken;
+import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.model.Playlist;
 import io.github.yvasyliev.dz4j.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -19,14 +18,14 @@ import java.util.concurrent.CompletableFuture;
 @Accessors(fluent = true)
 public class CreatePlaylistDeezerRequest extends AbstractDeezerRequest<Playlist> {
     private final String userId;
-    private final TokenManager<AccessToken> accessTokenManager;
+    private final AuthorizationManager authorizationManager;
     private final String title;
     private final UserService userService;
     @Nullable private String description;
 
     @Override
     protected CompletableFuture<Playlist> doExecuteAsync() {
-        return accessTokenManager.getToken()
+        return authorizationManager.getToken()
                 .thenCompose(accessToken -> userService.createPlaylist(userId, accessToken, title, description));
     }
 }

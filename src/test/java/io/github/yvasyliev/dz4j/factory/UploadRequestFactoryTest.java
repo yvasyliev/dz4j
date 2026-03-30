@@ -1,13 +1,14 @@
 package io.github.yvasyliev.dz4j.factory;
 
 import feign.form.FormData;
-import io.github.yvasyliev.dz4j.authorization.TokenManager;
+import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
+import io.github.yvasyliev.dz4j.authorization.UploadTokenManager;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Infos;
 import io.github.yvasyliev.dz4j.service.UploadService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -19,26 +20,21 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class UploadRequestFactoryTest {
+    @InjectMocks private UploadRequestFactory uploadRequestFactory;
     @Mock private UploadService uploadService;
-    @Mock private TokenManager<AccessToken> accessTokenManager;
-    @Mock private TokenManager<Infos> uploadTokenManager;
-    private UploadRequestFactory uploadRequestFactory;
-
-    @BeforeEach
-    void setUp() {
-        uploadRequestFactory = new UploadRequestFactory(uploadService, accessTokenManager, uploadTokenManager);
-    }
+    @Mock private AuthorizationManager authorizationManager;
+    @Mock private UploadTokenManager uploadTokenManager;
 
     @Test
     void testUploadPlaylistCoverWithFile() {
         var playlistId = 123L;
         var cover = new File("cover.jpg");
-        var accessToken = "access-token";
-        var uploadToken = "upload-token";
+        var accessToken = new AccessToken("access-token");
+        var infos = Infos.builder().uploadToken("upload-token").build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
-        when(uploadTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(uploadToken));
-        when(uploadService.uploadPlaylistCover(playlistId, accessToken, uploadToken, cover))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(uploadTokenManager.getUploadToken()).thenReturn(CompletableFuture.completedFuture(infos));
+        when(uploadService.uploadPlaylistCover(playlistId, accessToken, infos, cover))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = uploadRequestFactory.uploadPlaylistCover(playlistId, cover).execute();
@@ -51,15 +47,15 @@ class UploadRequestFactoryTest {
         var playlistId = 123L;
         var cover = new byte[]{0x01, 0x02, 0x03};
         var fileName = "cover.jpg";
-        var accessToken = "access-token";
-        var uploadToken = "upload-token";
+        var accessToken = new AccessToken("access-token");
+        var infos = Infos.builder().uploadToken("upload-token").build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
-        when(uploadTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(uploadToken));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(uploadTokenManager.getUploadToken()).thenReturn(CompletableFuture.completedFuture(infos));
         when(uploadService.uploadPlaylistCover(
                 playlistId,
                 accessToken,
-                uploadToken,
+                infos,
                 new FormData(null, fileName, cover)
         )).thenReturn(CompletableFuture.completedFuture(true));
 

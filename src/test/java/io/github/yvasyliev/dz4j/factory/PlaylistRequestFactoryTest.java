@@ -1,6 +1,6 @@
 package io.github.yvasyliev.dz4j.factory;
 
-import io.github.yvasyliev.dz4j.authorization.TokenManager;
+import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Page;
 import io.github.yvasyliev.dz4j.model.Playlist;
@@ -25,17 +25,17 @@ import static org.mockito.Mockito.when;
 class PlaylistRequestFactoryTest {
     @InjectMocks private PlaylistRequestFactory playlistRequestFactory;
     @Mock private PlaylistService playlistService;
-    @Mock private TokenManager<AccessToken> accessTokenManager;
+    @Mock private AuthorizationManager authorizationManager;
 
     @Test
     void testAddTracksWithCollection() {
         var playlistId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var trackIds = List.of(456L, 789L);
         var expected = true;
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(playlistService.addTracks(playlistId, token, trackIds))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(playlistService.addTracks(playlistId, accessToken, trackIds))
                 .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = playlistRequestFactory.addTracks(playlistId, trackIds).execute();
@@ -46,11 +46,11 @@ class PlaylistRequestFactoryTest {
     @Test
     void testAddTracksWithVarargs() {
         var playlistId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var trackIds = List.of(456L, 789L);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(playlistService.addTracks(playlistId, token, trackIds))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(playlistService.addTracks(playlistId, accessToken, trackIds))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = playlistRequestFactory.addTracks(playlistId, trackIds.toArray(Long[]::new)).execute();
@@ -61,10 +61,11 @@ class PlaylistRequestFactoryTest {
     @Test
     void testDeletePlaylist() {
         var playlistId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(playlistService.deletePlaylist(playlistId, token)).thenReturn(CompletableFuture.completedFuture(true));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(playlistService.deletePlaylist(playlistId, accessToken))
+                .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = playlistRequestFactory.deletePlaylist(playlistId).execute();
 
@@ -74,11 +75,11 @@ class PlaylistRequestFactoryTest {
     @Test
     void testDeleteTracksWithCollection() {
         var playlistId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var trackIds = List.of(456L, 789L);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(playlistService.deleteTracks(playlistId, token, trackIds))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(playlistService.deleteTracks(playlistId, accessToken, trackIds))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = playlistRequestFactory.deleteTracks(playlistId, trackIds).execute();
@@ -89,11 +90,11 @@ class PlaylistRequestFactoryTest {
     @Test
     void testDeleteTracksWithVarargs() {
         var playlistId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var trackIds = List.of(456L, 789L);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(playlistService.deleteTracks(playlistId, token, trackIds))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(playlistService.deleteTracks(playlistId, accessToken, trackIds))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = playlistRequestFactory.deleteTracks(playlistId, trackIds.toArray(Long[]::new)).execute();
@@ -159,10 +160,10 @@ class PlaylistRequestFactoryTest {
     @Test
     void testMarkAsSeen() {
         var playlistId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(playlistService.markAsSeen(playlistId, token)).thenReturn(CompletableFuture.completedFuture(true));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(playlistService.markAsSeen(playlistId, accessToken)).thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = playlistRequestFactory.markAsSeen(playlistId).execute();
 
@@ -172,11 +173,11 @@ class PlaylistRequestFactoryTest {
     @Test
     void testOrderTracksWithCollection() {
         var playlistId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var trackIds = List.of(456L, 789L);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(playlistService.orderTracks(playlistId, token, trackIds))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(playlistService.orderTracks(playlistId, accessToken, trackIds))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = playlistRequestFactory.orderTracks(playlistId, trackIds).execute();
@@ -187,11 +188,11 @@ class PlaylistRequestFactoryTest {
     @Test
     void testOrderTracksWithVarargs() {
         var playlistId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var trackIds = List.of(456L, 789L);
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(playlistService.orderTracks(playlistId, token, trackIds))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(playlistService.orderTracks(playlistId, accessToken, trackIds))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = playlistRequestFactory.orderTracks(playlistId, trackIds.toArray(Long[]::new)).execute();
@@ -202,10 +203,10 @@ class PlaylistRequestFactoryTest {
     @Test
     void testUpdatePlaylist() {
         var playlistId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(playlistService.updatePlaylist(playlistId, token, null, null, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(playlistService.updatePlaylist(playlistId, accessToken, null, null, null, null))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = playlistRequestFactory.updatePlaylist(playlistId).execute();

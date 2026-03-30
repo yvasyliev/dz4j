@@ -3,6 +3,8 @@ package io.github.yvasyliev.dz4j.service;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
+import io.github.yvasyliev.dz4j.feign.AccessTokenExpander;
+import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Infos;
 import org.jspecify.annotations.Nullable;
 
@@ -20,5 +22,7 @@ public interface InfosService {
      * @return the information about the API in the current country
      */
     @RequestLine("GET /infos?access_token={accessToken}")
-    CompletableFuture<Infos> getInfos(@Param("accessToken") @Nullable String accessToken);
+    CompletableFuture<Infos> getInfos(
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken
+    );
 }

@@ -1,6 +1,6 @@
 package io.github.yvasyliev.dz4j.factory;
 
-import io.github.yvasyliev.dz4j.authorization.TokenManager;
+import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Page;
 import io.github.yvasyliev.dz4j.model.Playlist;
@@ -27,7 +27,7 @@ import java.util.function.BiFunction;
 @RequiredArgsConstructor
 public class PlaylistRequestFactory {
     private final PlaylistService playlistService;
-    private final TokenManager<AccessToken> accessTokenManager;
+    private final AuthorizationManager authorizationManager;
 
     /**
      * Creates a request to add tracks to the playlist.
@@ -162,7 +162,7 @@ public class PlaylistRequestFactory {
      * @return a request that, when executed, will update the playlist
      */
     public DeezerRequest<Boolean> updatePlaylist(long playlistId) {
-        return new UpdatePlaylistDeezerRequest(playlistId, accessTokenManager, playlistService);
+        return new UpdatePlaylistDeezerRequest(playlistId, authorizationManager, playlistService);
     }
 
     private <T> PagingDeezerRequest<T> createPagingDeezerRequest(
@@ -174,15 +174,18 @@ public class PlaylistRequestFactory {
 
     private DeezerRequest<Boolean> createDeezerRequest(
             long playlistId,
-            BiFunction<Long, String, CompletableFuture<Boolean>> asyncMethod
+            BiFunction<Long, AccessToken, CompletableFuture<Boolean>> asyncMethod
     ) {
-        return new SimpleDeezerRequest<>(accessTokenManager, accessToken -> asyncMethod.apply(playlistId, accessToken));
+        return new SimpleDeezerRequest<>(
+                authorizationManager,
+                accessToken -> asyncMethod.apply(playlistId, accessToken)
+        );
     }
 
     private DeezerRequest<Boolean> createDeezerRequest(
             long playlistId,
             Collection<Long> trackIds,
-            TriFunction<Long, String, Collection<Long>, CompletableFuture<Boolean>> asyncMethod
+            TriFunction<Long, AccessToken, Collection<Long>, CompletableFuture<Boolean>> asyncMethod
     ) {
         return createDeezerRequest(
                 playlistId,

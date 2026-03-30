@@ -1,6 +1,6 @@
 package io.github.yvasyliev.dz4j.factory;
 
-import io.github.yvasyliev.dz4j.authorization.TokenManager;
+import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Episode;
 import io.github.yvasyliev.dz4j.model.Page;
@@ -19,7 +19,7 @@ import java.util.function.BiFunction;
 @RequiredArgsConstructor
 public class PodcastRequestFactory {
     private final PodcastService podcastService;
-    private final TokenManager<AccessToken> accessTokenManager;
+    private final AuthorizationManager authorizationManager;
 
     /**
      * Creates a request to get a list of podcast's episodes.
@@ -43,8 +43,8 @@ public class PodcastRequestFactory {
 
     private <T> DeezerRequest<T> createDeezerRequest(
             long podcastId,
-            BiFunction<Long, String, CompletableFuture<T>> asyncMethod
+            BiFunction<Long, AccessToken, CompletableFuture<T>> asyncMethod
     ) {
-        return new IdDeezerRequest<>(podcastId, accessTokenManager, asyncMethod);
+        return new IdDeezerRequest<>(podcastId, authorizationManager, asyncMethod);
     }
 }

@@ -1,6 +1,6 @@
 package io.github.yvasyliev.dz4j.factory;
 
-import io.github.yvasyliev.dz4j.authorization.TokenManager;
+import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.BookmarkResponse;
 import io.github.yvasyliev.dz4j.model.Episode;
@@ -18,7 +18,7 @@ import java.util.function.BiFunction;
 @RequiredArgsConstructor
 public class EpisodeRequestFactory {
     private final EpisodeService episodeService;
-    private final TokenManager<AccessToken> accessTokenManager;
+    private final AuthorizationManager authorizationManager;
 
     /**
      * Creates a request to bookmark an episode.
@@ -53,8 +53,8 @@ public class EpisodeRequestFactory {
 
     private <T> DeezerRequest<T> createDeezerRequest(
             long episodeId,
-            BiFunction<Long, String, CompletableFuture<T>> asyncMethod
+            BiFunction<Long, AccessToken, CompletableFuture<T>> asyncMethod
     ) {
-        return new IdDeezerRequest<>(episodeId, accessTokenManager, asyncMethod);
+        return new IdDeezerRequest<>(episodeId, authorizationManager, asyncMethod);
     }
 }

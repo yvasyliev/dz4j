@@ -1,6 +1,7 @@
 package io.github.yvasyliev.dz4j.request;
 
-import io.github.yvasyliev.dz4j.authorization.TokenManager;
+import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
+import io.github.yvasyliev.dz4j.authorization.UploadTokenManager;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Infos;
 import lombok.RequiredArgsConstructor;
@@ -24,34 +25,36 @@ public class SimpleDeezerRequest<T> extends AbstractDeezerRequest<T> {
      * Constructs a new {@link SimpleDeezerRequest} with the specified access token manager and asynchronous method to
      * execute.
      *
-     * @param accessTokenManager an access token manager to retrieve the token for the request
-     * @param asyncMethod        a function that takes the access token as a parameter and returns a
-     *                           {@link CompletableFuture} that will be completed with the response from the Deezer API
+     * @param authorizationManager an authorization manager
+     * @param asyncMethod          a function that takes the access token as a parameter and returns a
+     *                             {@link CompletableFuture} that will be completed with the response from the Deezer
+     *                             API
      */
     public SimpleDeezerRequest(
-            TokenManager<AccessToken> accessTokenManager,
-            Function<String, CompletableFuture<T>> asyncMethod
+            AuthorizationManager authorizationManager,
+            Function<AccessToken, CompletableFuture<T>> asyncMethod
     ) {
-        this(() -> accessTokenManager.getToken().thenCompose(asyncMethod));
+        this(() -> authorizationManager.getToken().thenCompose(asyncMethod));
     }
 
     /**
      * Constructs a new {@link SimpleDeezerRequest} with the specified access token manager, upload token manager, and
      * asynchronous method to execute.
      *
-     * @param accessTokenManager an access token manager to retrieve the access token for the request
-     * @param uploadTokenManager an upload token manager to retrieve the upload token for the request
-     * @param asyncMethod        a function that takes the access token and upload token as parameters and returns a
-     *                           {@link CompletableFuture} that will be completed with the response from the Deezer API
+     * @param authorizationManager an authorization manager
+     * @param uploadTokenManager   an upload token manager to retrieve the upload token for the request
+     * @param asyncMethod          a function that takes the access token and upload token as parameters and returns a
+     *                             {@link CompletableFuture} that will be completed with the response from the Deezer
+     *                             API
      */
     public SimpleDeezerRequest(
-            TokenManager<AccessToken> accessTokenManager,
-            TokenManager<Infos> uploadTokenManager,
-            BiFunction<@Nullable String, @Nullable String, CompletableFuture<T>> asyncMethod
+            AuthorizationManager authorizationManager,
+            UploadTokenManager uploadTokenManager,
+            BiFunction<@Nullable AccessToken, Infos, CompletableFuture<T>> asyncMethod
     ) {
         this(() -> {
-            var accessTokenFuture = accessTokenManager.getToken();
-            var uploadTokenFuture = uploadTokenManager.getToken();
+            var accessTokenFuture = authorizationManager.getToken();
+            var uploadTokenFuture = uploadTokenManager.getUploadToken();
 
             return CompletableFuture.allOf(accessTokenFuture, uploadTokenFuture)
                     .thenCompose(ignored -> asyncMethod.apply(accessTokenFuture.join(), uploadTokenFuture.join()));

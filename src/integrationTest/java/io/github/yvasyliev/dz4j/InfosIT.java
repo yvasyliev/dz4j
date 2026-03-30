@@ -1,6 +1,8 @@
 package io.github.yvasyliev.dz4j;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
+import io.github.yvasyliev.dz4j.authorization.Authorization;
+import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Infos;
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +35,7 @@ class InfosIT extends AbstractIT {
         var deezerClient = DeezerClient.builder()
                 .baseUrl(baseUrls -> baseUrls.api(wmRuntimeInfo.getHttpBaseUrl()))
                 .config(config -> config.jsonMapper(AbstractIT::testJsonMapper))
-                .authorization(ACCESS_TOKEN)
+                .authorization(Authorization.of(new AccessToken(ACCESS_TOKEN)))
                 .build();
 
         stubFor(get(urlPathEqualTo("/infos"))

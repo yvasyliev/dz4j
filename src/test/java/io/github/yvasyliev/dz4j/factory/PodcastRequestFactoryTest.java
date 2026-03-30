@@ -1,6 +1,6 @@
 package io.github.yvasyliev.dz4j.factory;
 
-import io.github.yvasyliev.dz4j.authorization.TokenManager;
+import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Episode;
 import io.github.yvasyliev.dz4j.model.Page;
@@ -21,18 +21,19 @@ import static org.mockito.Mockito.when;
 class PodcastRequestFactoryTest {
     @InjectMocks private PodcastRequestFactory podcastRequestFactory;
     @Mock private PodcastService podcastService;
-    @Mock private TokenManager<AccessToken> accessTokenManager;
+    @Mock private AuthorizationManager authorizationManager;
 
     @Test
     void testGetEpisodes() {
         var podcastId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Page.<Episode>builder()
                 .data(Episode.builder().id(456L).build())
                 .build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(podcastService.getEpisodes(podcastId, token)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(podcastService.getEpisodes(podcastId, accessToken))
+                .thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = podcastRequestFactory.getEpisodes(podcastId).execute();
 
@@ -42,11 +43,11 @@ class PodcastRequestFactoryTest {
     @Test
     void testGetPodcast() {
         var podcastId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Podcast.builder().id(podcastId).build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(podcastService.getPodcast(podcastId, token)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(podcastService.getPodcast(podcastId, accessToken)).thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = podcastRequestFactory.getPodcast(podcastId).execute();
 

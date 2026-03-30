@@ -1,6 +1,6 @@
 package io.github.yvasyliev.dz4j.factory;
 
-import io.github.yvasyliev.dz4j.authorization.TokenManager;
+import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Infos;
 import io.github.yvasyliev.dz4j.service.InfosService;
@@ -19,15 +19,15 @@ import static org.mockito.Mockito.when;
 class InfosRequestFactoryTest {
     @InjectMocks private InfosRequestFactory infosRequestFactory;
     @Mock private InfosService infosService;
-    @Mock private TokenManager<AccessToken> accessTokenManager;
+    @Mock private AuthorizationManager authorizationManager;
 
     @Test
     void testGetInfos() {
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
         var expected = Infos.builder().countryIso("US").build();
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(infosService.getInfos(token)).thenReturn(CompletableFuture.completedFuture(expected));
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(infosService.getInfos(accessToken)).thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = infosRequestFactory.getInfos().execute();
 

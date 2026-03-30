@@ -1,7 +1,6 @@
 package io.github.yvasyliev.dz4j.factory;
 
-import io.github.yvasyliev.dz4j.authorization.TokenManager;
-import io.github.yvasyliev.dz4j.model.AccessToken;
+import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.model.Track;
 import io.github.yvasyliev.dz4j.request.DeezerRequest;
 import io.github.yvasyliev.dz4j.request.IdDeezerRequest;
@@ -15,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TrackRequestFactory {
     private final TrackService trackService;
-    private final TokenManager<AccessToken> accessTokenManager;
+    private final AuthorizationManager authorizationManager;
 
     /**
      * Creates a request to get a track.
@@ -34,6 +33,6 @@ public class TrackRequestFactory {
      * @return request to update a track
      */
     public UpdateTrackDeezerRequest updateTrack(long trackId) {
-        return new UpdateTrackDeezerRequest(trackId, accessTokenManager, trackService);
+        return new UpdateTrackDeezerRequest(trackId, authorizationManager, trackService);
     }
 }

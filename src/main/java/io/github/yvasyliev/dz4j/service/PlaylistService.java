@@ -5,6 +5,8 @@ import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 import io.github.yvasyliev.dz4j.annotation.Experimental;
+import io.github.yvasyliev.dz4j.feign.AccessTokenExpander;
+import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Page;
 import io.github.yvasyliev.dz4j.model.Playlist;
 import io.github.yvasyliev.dz4j.model.Track;
@@ -32,7 +34,7 @@ public interface PlaylistService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> addTracks(
             @Param("playlistId") long playlistId,
-            @Param("access_token") @Nullable String accessToken,
+            @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("songs") Collection<Long> trackIds
     );
 
@@ -46,7 +48,7 @@ public interface PlaylistService {
     @RequestLine("DELETE /playlist/{playlistId}?access_token={accessToken}")
     CompletableFuture<Boolean> deletePlaylist(
             @Param("playlistId") long playlistId,
-            @Param("accessToken") @Nullable String accessToken
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken
     );
 
     /**
@@ -63,7 +65,7 @@ public interface PlaylistService {
     )
     CompletableFuture<Boolean> deleteTracks(
             @Param("playlistId") long playlistId,
-            @Param("accessToken") @Nullable String accessToken,
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("songs") Collection<Long> trackIds
     );
 
@@ -132,7 +134,7 @@ public interface PlaylistService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> markAsSeen(
             @Param("playlistId") long playlistId,
-            @Param("access_token") @Nullable String accessToken
+            @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken
     );
 
     /**
@@ -147,7 +149,7 @@ public interface PlaylistService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> orderTracks(
             @Param("playlistId") long playlistId,
-            @Param("access_token") @Nullable String accessToken,
+            @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("order") Collection<Long> trackIds
     );
 
@@ -166,7 +168,7 @@ public interface PlaylistService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> updatePlaylist(
             @Param("playlistId") long playlistId,
-            @Param("access_token") @Nullable String accessToken,
+            @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("title") @Experimental @Nullable String title,
             @Param("description") @Experimental @Nullable String description,
             @Param("public") @Experimental @Nullable Boolean isPublic,

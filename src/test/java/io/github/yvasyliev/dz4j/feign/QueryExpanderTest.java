@@ -35,8 +35,7 @@ class QueryExpanderTest {
                     """
                     artist:"test artist" album:"test album" track:"test track" label:"test label" dur_min:120"""
                             + " dur_max:180 bpm_min:85 bpm_max:145"
-            ),
-            arguments(new Object(), null)
+            )
     );
 
     @ParameterizedTest

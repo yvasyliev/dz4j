@@ -1,6 +1,6 @@
 package io.github.yvasyliev.dz4j.request;
 
-import io.github.yvasyliev.dz4j.authorization.TokenManager;
+import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.util.QuadFunction;
 import io.github.yvasyliev.dz4j.util.TriFunction;
@@ -30,20 +30,20 @@ public class GetByIdPagingDeezerRequest<T, R> extends AbstractDeezerRequest<R> i
      * Constructs a new {@link GetByIdPagingDeezerRequest} with the specified ID, access token manager, and asynchronous
      * method to retrieve the resource.
      *
-     * @param id                 a resource ID
-     * @param accessTokenManager an access token manager to retrieve the access token for the request
-     * @param asyncMethod        a function that takes the resource ID, access token, index, and limit as parameters and
-     *                           returns a {@link CompletableFuture} that will be completed with the response from the
-     *                           Deezer API
+     * @param id                   a resource ID
+     * @param authorizationManager an authorization manager
+     * @param asyncMethod          a function that takes the resource ID, access token, index, and limit as parameters
+     *                             and returns a {@link CompletableFuture} that will be completed with the response from
+     *                             the Deezer API
      */
     public GetByIdPagingDeezerRequest(
             T id,
-            TokenManager<AccessToken> accessTokenManager,
-            QuadFunction<T, @Nullable String, Integer, Integer, CompletableFuture<R>> asyncMethod
+            AuthorizationManager authorizationManager,
+            QuadFunction<T, @Nullable AccessToken, Integer, Integer, CompletableFuture<R>> asyncMethod
     ) {
         this(
                 id,
-                (objId, idx, lmt) -> accessTokenManager.getToken()
+                (objId, idx, lmt) -> authorizationManager.getToken()
                         .thenCompose(accessToken -> asyncMethod.apply(id, accessToken, idx, lmt))
         );
     }

@@ -1,6 +1,8 @@
 package io.github.yvasyliev.dz4j;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
+import io.github.yvasyliev.dz4j.authorization.Authorization;
+import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.BookmarkResponse;
 import io.github.yvasyliev.dz4j.model.Episode;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +24,7 @@ class EpisodeIT extends AbstractIT {
     void setUp(WireMockRuntimeInfo wmRuntimeInfo) {
         deezerClient = DeezerClient.builder()
                 .baseUrl(baseUrls -> baseUrls.api(wmRuntimeInfo.getHttpBaseUrl()))
-                .authorization(ACCESS_TOKEN)
+                .authorization(Authorization.of(new AccessToken(ACCESS_TOKEN)))
                 .build();
     }
 

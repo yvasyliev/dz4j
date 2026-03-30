@@ -1,6 +1,6 @@
 package io.github.yvasyliev.dz4j.factory;
 
-import io.github.yvasyliev.dz4j.authorization.TokenManager;
+import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Track;
 import io.github.yvasyliev.dz4j.service.TrackService;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 class TrackRequestFactoryTest {
     @InjectMocks private TrackRequestFactory trackRequestFactory;
     @Mock private TrackService trackService;
-    @Mock private TokenManager<AccessToken> accessTokenManager;
+    @Mock private AuthorizationManager authorizationManager;
 
     @Test
     void testGetTrack() {
@@ -37,10 +37,10 @@ class TrackRequestFactoryTest {
     @Test
     void testUpdateTrack() {
         var trackId = 123L;
-        var token = "test-token";
+        var accessToken = new AccessToken("test-token");
 
-        when(accessTokenManager.getToken()).thenReturn(CompletableFuture.completedFuture(token));
-        when(trackService.updateTrack(trackId, token, null, null, null))
+        when(authorizationManager.getToken()).thenReturn(CompletableFuture.completedFuture(accessToken));
+        when(trackService.updateTrack(trackId, accessToken, null, null, null))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         var actual = trackRequestFactory.updateTrack(trackId).execute();

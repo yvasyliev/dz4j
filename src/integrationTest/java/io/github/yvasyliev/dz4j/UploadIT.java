@@ -2,6 +2,8 @@ package io.github.yvasyliev.dz4j;
 
 import com.github.tomakehurst.wiremock.common.ContentTypes;
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
+import io.github.yvasyliev.dz4j.authorization.Authorization;
+import io.github.yvasyliev.dz4j.model.AccessToken;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +30,7 @@ class UploadIT extends AbstractIT {
                 .baseUrl(baseUrls -> baseUrls.api(wmRuntimeInfo.getHttpBaseUrl())
                         .upload(wmRuntimeInfo.getHttpBaseUrl())
                 )
-                .authorization(ACCESS_TOKEN)
+                .authorization(Authorization.of(new AccessToken(ACCESS_TOKEN)))
                 .build();
     }
 

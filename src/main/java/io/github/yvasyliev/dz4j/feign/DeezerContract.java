@@ -32,6 +32,8 @@ public class DeezerContract implements Contract {
     ) {
         this(new DefaultContract(), new HashMap<>());
 
+        this.expanders.put(AccessTokenExpander.class, new AccessTokenExpander());
+        this.expanders.put(UploadTokenExpander.class, new UploadTokenExpander());
         this.expanders.put(QueryExpander.class, new QueryExpander(jsonMapper));
         this.expanders.put(StrictExpander.class, new StrictExpander());
 

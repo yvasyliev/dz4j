@@ -1,7 +1,6 @@
 package io.github.yvasyliev.dz4j.request;
 
-import io.github.yvasyliev.dz4j.authorization.TokenManager;
-import io.github.yvasyliev.dz4j.model.AccessToken;
+import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.service.PlaylistService;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -18,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
 @Accessors(fluent = true)
 public class UpdatePlaylistDeezerRequest extends AbstractDeezerRequest<Boolean> {
     private final long playlistId;
-    private final TokenManager<AccessToken> accessTokenManager;
+    private final AuthorizationManager authorizationManager;
     private final PlaylistService playlistService;
     @Nullable private String title;
     @Nullable private String description;
@@ -27,7 +26,7 @@ public class UpdatePlaylistDeezerRequest extends AbstractDeezerRequest<Boolean> 
 
     @Override
     protected CompletableFuture<Boolean> doExecuteAsync() {
-        return accessTokenManager.getToken().thenCompose(accessToken -> playlistService.updatePlaylist(
+        return authorizationManager.getToken().thenCompose(accessToken -> playlistService.updatePlaylist(
                 playlistId,
                 accessToken,
                 title,

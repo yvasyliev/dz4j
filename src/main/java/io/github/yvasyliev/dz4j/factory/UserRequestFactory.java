@@ -1,6 +1,6 @@
 package io.github.yvasyliev.dz4j.factory;
 
-import io.github.yvasyliev.dz4j.authorization.TokenManager;
+import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Album;
 import io.github.yvasyliev.dz4j.model.Artist;
@@ -35,7 +35,7 @@ import java.util.function.BiFunction;
 public class UserRequestFactory {
     private static final String ME = "me";
     private final UserService userService;
-    private final TokenManager<AccessToken> accessTokenManager;
+    private final AuthorizationManager authorizationManager;
 
     //region addAlbums
 
@@ -348,7 +348,7 @@ public class UserRequestFactory {
     }
 
     private CreatePlaylistDeezerRequest createPlaylist(String userId, String title) {
-        return new CreatePlaylistDeezerRequest(userId, accessTokenManager, title, userService);
+        return new CreatePlaylistDeezerRequest(userId, authorizationManager, title, userService);
     }
 
     //endregion
@@ -1235,15 +1235,15 @@ public class UserRequestFactory {
 
     private <T> DeezerRequest<T> createDeezerRequest(
             String userId,
-            BiFunction<String, String, CompletableFuture<T>> asyncMethod
+            BiFunction<String, AccessToken, CompletableFuture<T>> asyncMethod
     ) {
-        return new SimpleDeezerRequest<>(accessTokenManager, accessToken -> asyncMethod.apply(userId, accessToken));
+        return new SimpleDeezerRequest<>(authorizationManager, accessToken -> asyncMethod.apply(userId, accessToken));
     }
 
     private <T, R> DeezerRequest<R> createDeezerRequest(
             String userId,
             T argument,
-            TriFunction<String, String, T, CompletableFuture<R>> asyncMethod
+            TriFunction<String, AccessToken, T, CompletableFuture<R>> asyncMethod
     ) {
         return createDeezerRequest(
                 userId,
@@ -1253,8 +1253,8 @@ public class UserRequestFactory {
 
     private <T> PagingDeezerRequest<Page<T>> createPagingDeezerRequest(
             String userId,
-            QuadFunction<String, String, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod
+            QuadFunction<String, AccessToken, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod
     ) {
-        return new GetByIdPagingDeezerRequest<>(userId, accessTokenManager, asyncMethod);
+        return new GetByIdPagingDeezerRequest<>(userId, authorizationManager, asyncMethod);
     }
 }
