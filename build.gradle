@@ -7,7 +7,7 @@ plugins {
 }
 
 group = 'io.github.yvasyliev'
-version = '3.0.0'
+version = '3.0.0-SNAPSHOT'
 
 java {
     toolchain {
@@ -37,7 +37,17 @@ dependencies {
 testing {
     suites {
         configureEach {
+            configurations {
+                mockitoAgent
+            }
+
             useJUnitJupiter()
+
+            targets.configureEach {
+                testTask.configure {
+                    jvmArgs += "-javaagent:${configurations.mockitoAgent.asPath}"
+                }
+            }
 
             dependencies {
                 implementation platform('org.junit:junit-bom:6.0.3')
@@ -49,6 +59,11 @@ testing {
                 implementation 'org.assertj:assertj-core'
 
                 runtimeOnly 'org.junit.platform:junit-platform-launcher'
+
+                project.dependencies.add('mockitoAgent', platform('org.mockito:mockito-bom:5.23.0'))
+                project.dependencies.add('mockitoAgent', 'org.mockito:mockito-core') {
+                    transitive = false
+                }
             }
         }
 
