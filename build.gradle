@@ -7,6 +7,7 @@ plugins {
     id 'io.freefair.lombok' version '9.2.0'
     id 'net.ltgt.errorprone' version '5.1.0'
     id 'com.vanniktech.maven.publish' version '0.36.0'
+    id 'com.gradleup.shadow' version '9.4.1'
 }
 
 group = 'io.github.yvasyliev'
@@ -35,6 +36,10 @@ dependencies {
 
     errorprone 'com.google.errorprone:error_prone_core:2.48.0'
     errorprone 'com.uber.nullaway:nullaway:0.13.1'
+}
+
+checkstyle {
+    maxWarnings = 0
 }
 
 testing {
@@ -96,10 +101,6 @@ check {
     dependsOn integrationTest
 }
 
-checkstyle {
-    maxWarnings = 0
-}
-
 tasks.withType(JavaCompile).configureEach {
     sourceCompatibility = '17'
     targetCompatibility = '17'
@@ -137,6 +138,8 @@ afterEvaluate {
     publishing {
         publications {
             withType(MavenPublication).configureEach {
+                artifacts.removeAll { it.classifier == 'all' }
+
                 versionMapping {
                     allVariants {
                         fromResolutionResult()
@@ -172,7 +175,7 @@ mavenPublishing {
 
     pom {
         name = 'Dz4j'
-        description = 'A Java wrapper for the Deezer API'
+        description = 'An unofficial Java wrapper for the Deezer API'
         inceptionYear = '2022'
         url = 'https://github.com/yvasyliev/dz4j'
 
@@ -211,4 +214,14 @@ mavenPublishing {
 
 tasks.withType(GenerateModuleMetadata).configureEach {
     enabled = false
+}
+
+tasks.register('signShadowJar', Sign) {
+    description = 'Signs the shadow JAR artifact.'
+    dependsOn shadowJar
+    sign(tasks.named('shadowJar').get().archiveFile.get().asFile)
+}
+
+tasks.withType(AbstractPublishToMaven).configureEach {
+    dependsOn tasks.named('signShadowJar')
 }
