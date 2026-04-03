@@ -1,0 +1,14 @@
+name: Build with Gradle
+
+description: Builds the project with Gradle
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Gradle
+      uses: ./.github/actions/setup-gradle
+
+    #TODO: sonar
+    - name: Build with Gradle
+      run: ./gradlew build
+      shell: bash

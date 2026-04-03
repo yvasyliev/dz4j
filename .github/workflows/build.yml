@@ -7,10 +7,6 @@ permissions:
 on:
   workflow_dispatch:
 
-  push:
-    branches:
-      - master
-
   pull_request:
     types:
       - opened
@@ -28,10 +24,5 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Gradle
-        uses: ./.github/actions/setup-gradle
-
-      #TODO: sonar
       - name: Build with Gradle
-        run: ./gradlew build
-        shell: bash
+        uses: ./.github/actions/build-with-gradle
