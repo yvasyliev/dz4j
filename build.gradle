@@ -165,7 +165,7 @@ afterEvaluate {
 }
 
 mavenPublishing {
-    publishToMavenCentral(false, DeploymentValidation.VALIDATED)
+    publishToMavenCentral(false, DeploymentValidation.NONE)
     signAllPublications()
 
     coordinates project.group.toString(), project.name, project.version.toString()
