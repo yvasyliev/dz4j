@@ -1,0 +1,37 @@
+name: Build
+
+permissions:
+  pull-requests: write
+  contents: write
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - master
+
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Gradle
+        uses: ./.github/actions/setup-gradle
+
+      #TODO: sonar
+      - name: Build with Gradle
+        run: ./gradlew build
+        shell: bash
