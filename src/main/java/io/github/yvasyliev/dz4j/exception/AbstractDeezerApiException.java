@@ -25,7 +25,14 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public abstract class AbstractDeezerApiException extends DeezerException {
+    /**
+     * A message field.
+     */
     protected static final String MESSAGE = "message";
+
+    /**
+     * A code field.
+     */
     protected static final String CODE = "code";
 
     private final ErrorCode code;

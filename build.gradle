@@ -1,9 +1,12 @@
+import com.vanniktech.maven.publish.DeploymentValidation
+
 plugins {
     id 'java-library'
     id 'checkstyle'
-    id 'io.freefair.lombok' version '9.2.0'
     id 'jacoco'
+    id 'io.freefair.lombok' version '9.2.0'
     id 'net.ltgt.errorprone' version '5.1.0'
+    id 'com.vanniktech.maven.publish' version '0.36.0'
 }
 
 group = 'io.github.yvasyliev'
@@ -93,23 +96,6 @@ check {
     dependsOn integrationTest
 }
 
-jacocoTestReport {
-    dependsOn test, integrationTest
-
-    executionData(
-            tasks.test.extensions.getByType(JacocoTaskExtension).destinationFile,
-            tasks.integrationTest.extensions.getByType(JacocoTaskExtension).destinationFile
-    )
-
-    reports {
-        xml.required = true
-    }
-}
-
-integrationTest {
-    finalizedBy jacocoTestReport
-}
-
 checkstyle {
     maxWarnings = 0
 }
@@ -127,4 +113,102 @@ tasks.withType(JavaCompile).configureEach {
     if (project.hasProperty("strict")) {
         options.compilerArgs << '-Werror'
     }
+}
+
+jacocoTestReport {
+    dependsOn test, integrationTest
+
+    executionData(
+            tasks.test.extensions.getByType(JacocoTaskExtension).destinationFile,
+            tasks.integrationTest.extensions.getByType(JacocoTaskExtension).destinationFile
+    )
+
+    reports {
+        xml.required = true
+    }
+}
+
+integrationTest {
+    finalizedBy jacocoTestReport
+}
+
+//TODO: move 'publishing' outside the `afterEvaluate` block once the relocation is no longer needed
+afterEvaluate {
+    publishing {
+        publications {
+            withType(MavenPublication).configureEach {
+                versionMapping {
+                    allVariants {
+                        fromResolutionResult()
+                    }
+                }
+            }
+
+            //TODO: remove the 'relocation' block once the artifact is relocated to the new coordinates
+//            relocation(MavenPublication) {
+//                groupId = 'com.github.yvasyliev'
+//                artifactId = 'deezer-api'
+//                version = '3.0.0-SNAPSHOT'
+//
+//                pom {
+//                    distributionManagement {
+//                        relocation {
+//                            groupId = 'io.github.yvasyliev'
+//                            artifactId = 'dz4j'
+//                            message = 'This artifact has been relocated to io.github.yvasyliev:dz4j'
+//                        }
+//                    }
+//                }
+//            }
+        }
+    }
+}
+
+mavenPublishing {
+    publishToMavenCentral(false, DeploymentValidation.VALIDATED)
+    signAllPublications()
+
+    coordinates project.group.toString(), project.name, project.version.toString()
+
+    pom {
+        name = 'Dz4j'
+        description = 'A Java wrapper for the Deezer API'
+        inceptionYear = '2022'
+        url = 'https://github.com/yvasyliev/dz4j'
+
+        licenses {
+            license {
+                name = 'MIT License'
+                url = 'https://www.opensource.org/licenses/mit-license.php'
+                distribution = 'repo'
+            }
+        }
+
+        developers {
+            developer {
+                id = 'yvasyliev'
+                name = 'Yevhen Vasyliev'
+                email = 'ye.vasyliev@gmail.com'
+                url = 'https://github.com/yvasyliev'
+                organization = 'yvasyliev'
+                organizationUrl = 'https://github.com/yvasyliev'
+                roles = ['owner', 'architect', 'developer', 'maintainer']
+                timezone = 'Europe/Kyiv'
+            }
+        }
+
+        scm {
+            url = 'https://github.com/yvasyliev/dz4j'
+            connection = 'scm:git:ssh://github.com/yvasyliev/dz4j.git'
+            developerConnection = 'scm:git:ssh://github.com/yvasyliev/dz4j.git'
+        }
+
+        withXml {
+            asNode().get('dependencyManagement').each { it.parent().remove(it) }
+        }
+    }
+}
+
+tasks.withType(GenerateModuleMetadata).configureEach {
+    enabled = false
 }
