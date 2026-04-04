@@ -3,6 +3,8 @@
     ".": {
       "release-type": "java",
       "skip-changelog": true,
+      "draft": true,
+      "include-component-in-tag": false,
       "extra-files": [
         "build.gradle"
       ]
