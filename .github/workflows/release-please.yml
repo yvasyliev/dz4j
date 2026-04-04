@@ -1,4 +1,4 @@
-name: Publish Snapshot
+name: Release Please
 
 on:
   workflow_dispatch:
@@ -7,8 +7,16 @@ on:
     branches:
       - master
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: release-${{ github.ref }}
+
 jobs:
-  publish-snapshot:
+  release-please:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
@@ -19,23 +27,11 @@ jobs:
       - name: Build with Gradle
         uses: ./.github/actions/build-with-gradle
 
-      - name: Check snapshot version
-        id: check-snapshot
-        run: |
-          if grep -E -q "version\s+=\s+'([0-9]+\.){2}[0-9]+-SNAPSHOT'" build.gradle; then
-            echo "has-snapshot=true" >> $GITHUB_OUTPUT
-          else
-            echo "has-snapshot=false" >> $GITHUB_OUTPUT
-          fi
+      - name: Create Release Pull Request
+        id: release
+        uses: googleapis/release-please-action@v4
 
-      - name: Write snapshot result to job summary
-        run: |
-          echo "- \`has-snapshot\`: \`$HAS_SNAPSHOT\`" >> $GITHUB_STEP_SUMMARY
-        env:
-          HAS_SNAPSHOT: ${{ steps.check-snapshot.outputs.has-snapshot }}
-
-      - name: Publish Snapshot
-        if: steps.check-snapshot.outputs.has-snapshot == 'true'
+      - name: Publish to Central Repository
         run: ./gradlew publish
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_USERNAME }}
@@ -43,3 +39,10 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.GPG_PRIVATE_KEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.GPG_KEY_ID }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: Upload Release Artifacts
+        if: ${{ steps.release.outputs.release_created }}
+        run: gh release upload "$TAG" build/libs/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.release.outputs.tag_name }}
