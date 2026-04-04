@@ -25,7 +25,7 @@ jobs:
       - name: Build with Gradle
         uses: ./.github/actions/build-with-gradle
 
-      - uses: google-github-actions/release-please-action@v4
+      - uses: googleapis/release-please-action@v4
         id: release
 
       - name: Publish to Central Repository
