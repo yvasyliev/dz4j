@@ -6,7 +6,7 @@ on:
   push:
     branches:
       - main
-      - feature/v3-main
+      - feature/v3-main #TODO: remove
 
 permissions:
   contents: write
