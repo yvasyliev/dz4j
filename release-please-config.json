@@ -1,0 +1,11 @@
+{
+  "packages": {
+    ".": {
+      "release-type": "java",
+      "skip-changelog": true,
+      "extra-files": [
+        "build.gradle"
+      ]
+    }
+  }
+}

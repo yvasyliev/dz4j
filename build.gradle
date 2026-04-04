@@ -11,7 +11,7 @@ plugins {
 }
 
 group = 'io.github.yvasyliev'
-version = '3.0.0-SNAPSHOT'
+version = '3.0.0-SNAPSHOT' // x-release-please-version
 
 java {
     toolchain {

@@ -1,14 +1,20 @@
-name: Publish Snapshot
+name: Release Please
 
 on:
   workflow_dispatch:
 
   push:
     branches:
-      - master
+      - main
+      - feature/v3-main
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
 
 jobs:
-  publish-snapshot:
+  release-please:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
@@ -16,18 +22,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Check snapshot version
-        id: check-snapshot
-        run: |
-          if grep -E -q "version\s+=\s+'([0-9]+\.){2}[0-9]+-SNAPSHOT'" build.gradle; then
-            echo "No snapshot version found in build.gradle — failing workflow"
-            exit 1
-          fi
-
       - name: Build with Gradle
         uses: ./.github/actions/build-with-gradle
 
-      - name: Publish Snapshot
+      - uses: google-github-actions/release-please-action@v4
+        id: release
+
+      - name: Publish to Central Repository
         run: ./gradlew publish
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_USERNAME }}
