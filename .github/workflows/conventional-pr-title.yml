@@ -41,6 +41,8 @@ jobs:
       - name: Set PR label
         if: steps.validate-pr-title.outputs.error_message == null
         uses: srvaroa/labeler@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Comment on PR title lint error
         if: steps.validate-pr-title.outputs.error_message
