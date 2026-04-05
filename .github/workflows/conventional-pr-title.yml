@@ -25,6 +25,8 @@ jobs:
         id: validate-pr-title
         uses: amannn/action-semantic-pull-request@v6
         continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Remove PR labels
         if: steps.validate-pr-title.outputs.error_message == null
