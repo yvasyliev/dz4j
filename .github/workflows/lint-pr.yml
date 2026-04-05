@@ -1,6 +1,14 @@
 name: Lint PR
 
 on:
+  pull_request:
+    types:
+      - opened
+      - edited
+    branches:
+      - master
+      - feature/v3 #TODO: remove
+
   pull_request_target:
     types:
       - opened
