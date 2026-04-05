@@ -1,0 +1,11 @@
+version: 1
+
+labels:
+  - label: feature
+    title: ^feat.*
+  - label: fix
+    title: ^fix.*
+  - label: documentation
+    title: ^docs.*
+  - label: cicd
+    title: ^ci.*

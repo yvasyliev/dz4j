@@ -1,0 +1,59 @@
+name: Lint PR
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+    branches:
+      - master
+      - feature/v3 #TODO: remove
+
+permissions:
+  pull-requests: write
+
+concurrency:
+  group: label-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  conventional-pr-title:
+    if: github.event.action == 'opened' || github.event.action == 'edited' && github.event.changes.title.from
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate PR title
+        id: validate-pr-title
+        uses: amannn/action-semantic-pull-request@v6
+        continue-on-error: true
+
+      - name: Remove PR labels
+        if: steps.validate-pr-title.outputs.error_message == null
+        run: gh pr edit "$PR_NUMBER" --remove-label "feature,fix,documentation,cicd"
+        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+
+      - name: Set PR label
+        if: steps.validate-pr-title.outputs.error_message == null
+        uses: srvaroa/labeler@v1
+
+      - name: Comment on PR title lint error
+        if: steps.validate-pr-title.outputs.error_message
+        uses: marocchino/sticky-pull-request-comment@v3
+        with:
+          header: pr-title-lint-error
+          message: |
+            👋 Hey @${{ github.event.pull_request.user.login }}, it looks like the PR title doesn't follow the [Conventional Commits](https://www.conventionalcommits.org) format.
+            
+            While it's not a blocker for this PR, following the conventional commits format helps us to automatically calculate next release version, categorize changes and generate changelog.
+            
+            Good candidates might be `feat: ${{ github.event.pull_request.title }}` or `fix: ${{ github.event.pull_request.title }}`. You can also add `!` to indicate a breaking change, e.g. `feat!: ${{ github.event.pull_request.title }}`.
+            
+            For more details and examples please visit [Conventional Commits](https://www.conventionalcommits.org). 🙌
+
+      - name: Remove PR title lint error comment
+        if: steps.validate-pr-title.outputs.error_message == null
+        uses: marocchino/sticky-pull-request-comment@v3
+        with:
+          header: pr-title-lint-error
+          delete: true
