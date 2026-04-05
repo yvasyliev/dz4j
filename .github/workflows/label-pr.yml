@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Update PR labels
         id: update-pr-labels
-        uses: ytanikin/pr-conventional-commits@v1.5.2
+        uses: ytanikin/pr-conventional-commits@1.5.2
         with:
           task_types: '["feat","fix","docs","ci"]'
         continue-on-error: true
