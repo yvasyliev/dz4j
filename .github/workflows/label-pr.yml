@@ -7,7 +7,7 @@ on:
       - edited
     branches:
       - master
-      - feature/v3-pr-label #TODO: remove
+      - feature/v3 #TODO: remove
 
 concurrency:
   group: label-pr-${{ github.event.pull_request.number }}
