@@ -7,6 +7,7 @@ on:
       - edited
     branches:
       - master
+      - feature/v3 #TODO: remove
 
 permissions:
   pull-requests: write
