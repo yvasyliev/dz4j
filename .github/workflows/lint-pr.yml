@@ -1,7 +1,7 @@
 name: Lint PR
 
 on:
-  pull_request:
+  pull_request_target:
     types:
       - opened
       - edited
@@ -11,6 +11,7 @@ on:
 
 permissions:
   pull-requests: write
+  issues: write
 
 concurrency:
   group: label-pr-${{ github.event.pull_request.number }}
@@ -18,7 +19,7 @@ concurrency:
 
 jobs:
   conventional-pr-title:
-    if: github.event.action == 'opened' || github.event.action == 'edited' && github.event.changes.title.from
+    if: github.event.action == 'opened' || (github.event.action == 'edited' && github.event.changes.title.from)
     runs-on: ubuntu-latest
     steps:
       - name: Validate PR title
