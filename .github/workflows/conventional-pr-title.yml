@@ -29,7 +29,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Remove PR labels
-        if: steps.validate-pr-title.outputs.error_message == null
         run: |
           for label in feature fix documentation cicd; do
             gh pr edit "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --remove-label "$label" || true
