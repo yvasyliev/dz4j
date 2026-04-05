@@ -27,7 +27,7 @@ jobs:
 
       - name: Warn about invalid PR title
         if: steps.update-pr-labels.outcome == 'failure'
-        run: gh pr comment "$PR_NUMBER" --body "$BODY"
+        run: gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body "$BODY"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
