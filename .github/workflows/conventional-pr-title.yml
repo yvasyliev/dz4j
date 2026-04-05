@@ -30,7 +30,7 @@ jobs:
         if: steps.validate-pr-title.outputs.error_message == null
         run: gh pr edit "$PR_NUMBER" --remove-label "feature,fix,documentation,cicd"
         env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
 
       - name: Set PR label
