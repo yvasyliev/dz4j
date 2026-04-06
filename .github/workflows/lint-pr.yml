@@ -40,9 +40,9 @@ jobs:
 
       - name: Set PR labels
         run: |
-          eval "$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json labels --jq '
+          eval "$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json labels --jq --arg target_label "$LABEL" '
             ["feat", "fix", "docs", "ci"] as $allowed |
-            ($LABEL // "") as $target |
+            ($target_label // "") as $target |
             [.labels[].name] as $current |
             ($current | map(select(inside($allowed) and . != $target)) | join(",")) as $removals |
             ($target != "" and ($current | all(. != $target))) as $add |
