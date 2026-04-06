@@ -83,23 +83,30 @@ jobs:
       - name: Comment on PR if no type found
         if: ${{ !steps.get-pr-type.outputs.type }}
         run: |
-          gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body "$BODY"
+          # Use sed to escape all Markdown-specific characters in the PR title
+          ESCAPED_TITLE=$(printf "%s" "$PR_TITLE" | sed -e 's/\([\\`*_{}[\]()#+-.!<>|]\)/\\\1/g')
+          
+          # Replace the __TITLE__ placeholder with the fully escaped title
+          FINAL_BODY="${BODY//__TITLE__/$ESCAPED_TITLE}"
+          
+          # Post the comment
+          gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body "$FINAL_BODY"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           BODY: >
             👋 Hey @${{ github.event.pull_request.user.login }}, it looks like the PR title doesn't follow the
             [Conventional Commits](https://www.conventionalcommits.org) format.
-            
-            
-            While it's not a blocker for this PR, the PR will be squashed and merged using the PR title as commit
-            message. Following the conventional commits format helps us to automatically calculate next release version,
-            categorize changes and generate changelog.
-            
-            
-            Good candidates might be `feat: ${{ '${{ github.event.pull_request.title }}' }}` or
-            `fix: ${{ '${{ github.event.pull_request.title }}' }}`. You can also add `!` to indicate a breaking change, e.g.
-            `feat!: ${{ '${{ github.event.pull_request.title }}' }}`.
-            
-            
-            For more details and examples please visit [Conventional Commits](https://www.conventionalcommits.org). 🙌
+
+
+            While it's not a blocker for this PR, the PR will be squashed and merged using the PR title as the commit
+            message. Following the conventional commits format helps us automatically calculate the next release version,
+            categorize changes, and generate a changelog.
+
+
+            Good candidates might be `feat: __TITLE__` or
+            `fix: __TITLE__`. You can also add `!` to indicate a breaking change, e.g.
+            `feat!: __TITLE__`.
+
+
+            For more details and examples, please visit [Conventional Commits](https://www.conventionalcommits.org). 🙌
