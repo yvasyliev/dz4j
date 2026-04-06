@@ -40,7 +40,7 @@ jobs:
 
       - name: Set PR labels
         run: |
-          eval "$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json labels --jq --arg target_label "$LABEL" '
+          eval "$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json labels --arg target_label "$LABEL" --jq '
             ["feat", "fix", "docs", "ci"] as $allowed |
             ($target_label // "") as $target |
             [.labels[].name] as $current |
