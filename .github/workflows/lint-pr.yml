@@ -40,18 +40,33 @@ jobs:
 
       - name: Set PR labels
         run: |
-          eval "$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json labels --jq '
-            ["feat", "fix", "docs", "ci"] as $allowed |
-            (env.LABEL // "") as $target |
-            [.labels[].name] as $current |
-            ($current | map(select(. as $c | ($allowed | contains([$c])) and $c != $target)) | join(",")) as $removals |
-            ($target != "" and ($current | contains([$target]) | not)) as $add |
-            "REMOVALS=\"" + $removals + "\"; ADD_REQUIRED=" + ($add | tostring)
-          ')"
+          CURRENT_LABELS=$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json labels --jq '.labels[].name')
+          
+          REMOVALS=""
+          ADD_REQUIRED="true"
+          
+          # If target LABEL is empty, we don't need to add anything
+          if [[ -z "$LABEL" ]]; then
+            ADD_REQUIRED="false"
+          fi
+          
+          # Evaluate current labels
+          for current in $CURRENT_LABELS; do
+            if [[ "$current" == "$LABEL" ]]; then
+              ADD_REQUIRED="false"
+            elif [[ "$current" =~ ^(feat|fix|docs|ci)$ ]]; then
+              REMOVALS+="${current},"
+            fi
+          done
+          
+          # Remove trailing comma from REMOVALS
+          REMOVALS="${REMOVALS%,}"
           
           OPTS=()
           [[ -n "$REMOVALS" ]] && OPTS+=(--remove-label "$REMOVALS")
           [[ "$ADD_REQUIRED" == "true" ]] && OPTS+=(--add-label "$LABEL")
+          
+          # Apply changes if needed
           [[ ${#OPTS[@]} -gt 0 ]] && gh pr edit "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" "${OPTS[@]}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
