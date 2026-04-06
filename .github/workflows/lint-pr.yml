@@ -105,9 +105,9 @@ jobs:
             categorize changes, and generate a changelog.
 
 
-            Good candidates might be `feat: __TITLE__` or
-            `fix: __TITLE__`. You can also add `!` to indicate a breaking change, e.g.
-            `feat!: __TITLE__`.
+            Good candidates might be ``feat: __TITLE__`` or
+            ``fix: __TITLE__``. You can also add `!` to indicate a breaking change, e.g.
+            ``feat!: __TITLE__``.
 
 
             For more details and examples, please visit [Conventional Commits](https://www.conventionalcommits.org). 🙌
