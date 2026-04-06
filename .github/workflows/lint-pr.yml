@@ -40,7 +40,7 @@ jobs:
 
       - name: Set PR labels
         run: |
-          eval "$(gh pr view "$PR_NUMBER" --json labels --jq '
+          eval "$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json labels --jq '
             ["feat", "fix", "docs", "ci"] as $allowed |
             ($LABEL // "") as $target |
             [.labels[].name] as $current |
@@ -52,7 +52,7 @@ jobs:
           OPTS=()
           [[ -n "$REMOVALS" ]] && OPTS+=(--remove-label "$REMOVALS")
           [[ "$ADD_REQUIRED" == "true" ]] && OPTS+=(--add-label "$LABEL")
-          [[ ${#OPTS[@]} -gt 0 ]] && gh pr edit "$PR_NUMBER" "${OPTS[@]}"
+          [[ ${#OPTS[@]} -gt 0 ]] && gh pr edit "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" "${OPTS[@]}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
@@ -61,7 +61,7 @@ jobs:
       - name: Comment on PR if no type found
         if: ${{ !steps.get-pr-type.outputs.type }}
         run: |
-          gh pr comment "$PR_NUMBER" --body "$BODY"
+          gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body "$BODY"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
