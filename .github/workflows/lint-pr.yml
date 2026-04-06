@@ -97,9 +97,9 @@ jobs:
             categorize changes and generate changelog.
             
             
-            Good candidates might be `feat: ${{ github.event.pull_request.title }}` or
-            `fix: ${{ github.event.pull_request.title }}`. You can also add `!` to indicate a breaking change, e.g.
-            `feat!: ${{ github.event.pull_request.title }}`.
+            Good candidates might be `feat: ${{ '${{ github.event.pull_request.title }}' }}` or
+            `fix: ${{ '${{ github.event.pull_request.title }}' }}`. You can also add `!` to indicate a breaking change, e.g.
+            `feat!: ${{ '${{ github.event.pull_request.title }}' }}`.
             
             
             For more details and examples please visit [Conventional Commits](https://www.conventionalcommits.org). 🙌
