@@ -63,11 +63,18 @@ jobs:
           REMOVALS="${REMOVALS%,}"
           
           OPTS=()
-          [[ -n "$REMOVALS" ]] && OPTS+=(--remove-label "$REMOVALS")
-          [[ "$ADD_REQUIRED" == "true" ]] && OPTS+=(--add-label "$LABEL")
+          if [[ -n "$REMOVALS" ]]; then
+            OPTS+=(--remove-label "$REMOVALS")
+          fi
+          
+          if [[ "$ADD_REQUIRED" == "true" ]]; then
+            OPTS+=(--add-label "$LABEL")
+          fi
           
           # Apply changes if needed
-          [[ ${#OPTS[@]} -gt 0 ]] && gh pr edit "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" "${OPTS[@]}"
+          if [[ ${#OPTS[@]} -gt 0 ]]; then
+            gh pr edit "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" "${OPTS[@]}"
+          fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
