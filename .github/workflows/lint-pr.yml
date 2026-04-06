@@ -44,8 +44,8 @@ jobs:
             ["feat", "fix", "docs", "ci"] as $allowed |
             (env.LABEL // "") as $target |
             [.labels[].name] as $current |
-            ($current | map(select(. as $x | ($allowed | index($x) != null) and $x != $target)) | join(",")) as $removals |
-            ($target != "" and ($current | all(. != $target))) as $add |
+            ($current | map(select(. as $c | ($allowed | contains([$c])) and $c != $target)) | join(",")) as $removals |
+            ($target != "" and ($current | contains([$target]) | not)) as $add |
             "REMOVALS=\"" + $removals + "\"; ADD_REQUIRED=" + ($add | tostring)
           ')"
           
