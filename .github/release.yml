@@ -2,19 +2,19 @@ changelog:
   categories:
     - title: 🎉 Exciting New Features
       labels:
-        - feature
+        - feat
     - title: 🐛 Bug Fixes
       labels:
         - fix
+    - title: 📝 Documentation
+      labels:
+        - docs
+    - title: ⚙️ CI/CD
+      labels:
+        - ci
     - title: ⬆️ Dependencies
       labels:
         - dependencies
-    - title: 📝 Documentation
-      labels:
-        - documentation
-    - title: ⚙️ CI/CD
-      labels:
-        - ci/cd
     - title: 🧩 Other Changes
       labels:
         - "*"
