@@ -40,38 +40,37 @@ jobs:
 
       - name: Set PR labels
         run: |
-          CURRENT_LABELS=$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json labels --jq '.labels[].name')
+          readarray -t CURRENT_LABELS < <(gh pr view "$PR_NUMBER" \
+            --repo "$GITHUB_REPOSITORY" \
+            --json labels \
+            --jq '.labels[].name'
+          )
           
-          REMOVALS=""
+          REMOVALS=()
           ADD_REQUIRED="true"
           
-          # If target LABEL is empty, we don't need to add anything
           if [[ -z "$LABEL" ]]; then
             ADD_REQUIRED="false"
           fi
           
-          # Evaluate current labels
-          for current in $CURRENT_LABELS; do
+          for current in "${CURRENT_LABELS[@]}"; do
             if [[ "$current" == "$LABEL" ]]; then
               ADD_REQUIRED="false"
             elif [[ "$current" =~ ^(feat|fix|docs|ci)$ ]]; then
-              REMOVALS+="${current},"
+              REMOVALS+=("$current")
             fi
           done
           
-          # Remove trailing comma from REMOVALS
-          REMOVALS="${REMOVALS%,}"
-          
           OPTS=()
-          if [[ -n "$REMOVALS" ]]; then
-            OPTS+=(--remove-label "$REMOVALS")
+          if [[ ${#REMOVALS[@]} -gt 0 ]]; then
+            REMOVAL_STR=$(IFS=,; echo "${REMOVALS[*]}")
+            OPTS+=(--remove-label "$REMOVAL_STR")
           fi
           
           if [[ "$ADD_REQUIRED" == "true" ]]; then
             OPTS+=(--add-label "$LABEL")
           fi
           
-          # Apply changes if needed
           if [[ ${#OPTS[@]} -gt 0 ]]; then
             gh pr edit "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" "${OPTS[@]}"
           fi
