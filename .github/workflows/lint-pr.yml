@@ -91,13 +91,13 @@ jobs:
 
 
             While it's not a blocker for this PR, the PR will be squashed and merged using the PR title as the commit
-            message. Following the conventional commits format helps us automatically calculate the next release version,
-            categorize changes, and generate a changelog.
+            message. Following the conventional commits format helps us automatically calculate the next release
+            version, categorize changes, and generate a changelog.
 
 
             Good candidates might be <code>feat: ${{ github.event.pull_request.title }}</code> or
-            <code>fix: ${{ github.event.pull_request.title }}</code>. You can also add `!` to indicate a breaking change, e.g.
-            <code>feat!: ${{ github.event.pull_request.title }}</code>.
+            <code>fix: ${{ github.event.pull_request.title }}</code>. You can also add `!` to indicate a breaking
+            change, e.g. <code>feat!: ${{ github.event.pull_request.title }}</code>.
 
 
             For more details and examples, please visit [Conventional Commits](https://www.conventionalcommits.org). 🙌
