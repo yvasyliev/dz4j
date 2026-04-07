@@ -47,7 +47,8 @@ class OEmbedDeezerRequestTest {
     @Test
     void shouldThrowDeezerExceptionWhenUrlIsInvalid() {
         var url = "example.com";
+        var request = new OEmbedDeezerRequest(url, oEmbedService);
 
-        assertThrows(DeezerException.class, () -> new OEmbedDeezerRequest(url, oEmbedService).execute());
+        assertThrows(DeezerException.class, request::execute);
     }
 }

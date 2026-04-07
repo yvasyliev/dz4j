@@ -43,7 +43,7 @@ public abstract class AbstractDeezerApiException extends DeezerException {
      * @param message the detail message explaining the reason for the exception
      * @param code    the error code associated with the exception
      */
-    public AbstractDeezerApiException(String message, ErrorCode code) {
+    protected AbstractDeezerApiException(String message, ErrorCode code) {
         super(message);
         this.code = code;
     }
