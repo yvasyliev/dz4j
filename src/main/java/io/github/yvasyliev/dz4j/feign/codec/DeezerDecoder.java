@@ -61,7 +61,6 @@ public class DeezerDecoder implements Decoder {
      *                          the response body
      */
     @Override
-    @Nullable
     public Object decode(Response response, Type type) throws IOException, JacksonException, DeezerException {
         responseValidators.forEach(validator -> validator.validate(response, type));
 

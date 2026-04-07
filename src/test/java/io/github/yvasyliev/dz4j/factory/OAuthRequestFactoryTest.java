@@ -66,16 +66,16 @@ class OAuthRequestFactoryTest {
     @Test
     void shouldThrowDeezerExceptionWhenLoginUrlIsMalformed() throws MalformedURLException {
         var loginUri = mock(URI.class);
+        var redirectUri = URI.create("https://example.com/callback");
         @Cleanup var uri = mockStatic(URI.class);
 
         uri.when(() -> URI.create(any())).thenReturn(loginUri);
         when(loginUri.toURL()).thenThrow(MalformedURLException.class);
 
         assertThrows(DeezerException.class, () -> oAuthRequestFactory.getLoginUrl(
-                        123,
-                        URI.create("https://example.com/callback"),
-                        List.of(Permission.BASIC_ACCESS)
-                )
-        );
+                123,
+                redirectUri,
+                List.of(Permission.BASIC_ACCESS)
+        ));
     }
 }

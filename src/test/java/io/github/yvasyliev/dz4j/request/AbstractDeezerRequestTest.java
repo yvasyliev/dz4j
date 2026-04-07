@@ -8,8 +8,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
 import java.util.function.Supplier;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 @SuppressWarnings("checkstyle:AbstractClassName")
-class AbstractDeezerRequestTest {
+class  AbstractDeezerRequestTest {
     @Mock private Supplier<CompletableFuture<String>> asyncMethod;
     private DeezerRequest<String> request;
 
@@ -68,9 +68,12 @@ class AbstractDeezerRequestTest {
     void shouldRethrowDeezerExceptionAsync() {
         when(asyncMethod.get()).thenReturn(CompletableFuture.failedFuture(mock(DeezerException.class)));
 
-        var e = assertThrows(CompletionException.class, () -> request.executeAsync().join());
+        var actual = request.executeAsync();
 
-        assertThat(e).hasCauseInstanceOf(DeezerException.class);
+        assertThat(actual)
+                .completesExceptionallyWithin(Duration.ofSeconds(1))
+                .withThrowableThat()
+                .withCauseInstanceOf(DeezerException.class);
     }
 
     @Test
@@ -84,9 +87,12 @@ class AbstractDeezerRequestTest {
     void shouldRethrowDeezerExceptionCauseAsync() {
         when(asyncMethod.get()).thenReturn(CompletableFuture.failedFuture(new Exception(new DeezerException("boom"))));
 
-        var e = assertThrows(CompletionException.class, () -> request.executeAsync().join());
+        var actual = request.executeAsync();
 
-        assertThat(e).hasCauseInstanceOf(DeezerException.class);
+        assertThat(actual)
+                .completesExceptionallyWithin(Duration.ofSeconds(1))
+                .withThrowableThat()
+                .withCauseInstanceOf(DeezerException.class);
     }
 
     @Test
@@ -100,8 +106,11 @@ class AbstractDeezerRequestTest {
     void shouldWrapOtherExceptionsAsync() {
         when(asyncMethod.get()).thenReturn(CompletableFuture.failedFuture(new Exception("boom")));
 
-        var e = assertThrows(CompletionException.class, () -> request.executeAsync().join());
+        var actual = request.executeAsync();
 
-        assertThat(e).hasCauseInstanceOf(DeezerException.class);
+        assertThat(actual)
+                .completesExceptionallyWithin(Duration.ofSeconds(1))
+                .withThrowableThat()
+                .withCauseInstanceOf(DeezerException.class);
     }
 }
