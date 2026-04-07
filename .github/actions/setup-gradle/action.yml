@@ -15,7 +15,3 @@ runs:
       uses: gradle/actions/setup-gradle@v5
       with:
         add-job-summary-as-pr-comment: 'always'
-
-    - name: Make Gradle Wrapper Executable
-      run: chmod +x ./gradlew
-      shell: bash
