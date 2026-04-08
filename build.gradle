@@ -230,5 +230,6 @@ tasks.withType(AbstractPublishToMaven).configureEach {
 sonar {
     properties {
         property 'sonar.organization', 'yvasyliev'
+        properties['sonar.tests'] += sourceSets.integrationTest.allSource.srcDirs
     }
 }
