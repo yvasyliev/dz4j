@@ -33,7 +33,7 @@ jobs:
 
       - name: Build and Analyze
         run: >
-          ./gradlew build sonar 
+          ./gradlew build sonar
           -Dsonar.pullrequest.key="$PULL_REQUEST_NUMBER"
           -Dsonar.pullrequest.branch="$PULL_REQUEST_BRANCH"
           -Dsonar.pullrequest.base="$PULL_REQUEST_BASE"

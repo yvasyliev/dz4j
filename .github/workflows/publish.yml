@@ -1,10 +1,15 @@
-name: Release Please
+name: Publish
 
 on:
   workflow_dispatch:
     inputs:
       release-please:
         description: Execute Release Please Action
+        required: true
+        type: boolean
+        default: false
+      publish:
+        description: Publish to Central Repository
         required: true
         type: boolean
         default: false
@@ -33,20 +38,25 @@ jobs:
       - name: Setup Gradle
         uses: ./.github/actions/setup-gradle
 
+      - name: Build and Scan
+        run: ./gradlew build sonar
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
       - name: Create Release Pull Request
         id: release
         if: github.event_name != 'workflow_dispatch' || inputs.release-please == 'true'
         uses: googleapis/release-please-action@v4
 
       - name: Publish to Central Repository
-        run: ./gradlew build sonar publish
+        if: github.event_name != 'workflow_dispatch' || inputs.publish == 'true'
+        run: ./gradlew publish
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_USERNAME }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_PASSWORD }}
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.GPG_PRIVATE_KEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.GPG_KEY_ID }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.GPG_PASSPHRASE }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Upload Release Artifacts
         if: ${{ steps.release.outputs.release_created }}
