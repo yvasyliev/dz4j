@@ -8,7 +8,7 @@ import lombok.Getter;
  */
 @Getter
 public class ResponseException extends DeezerException {
-    private transient final Response response;
+    private final transient Response response;
 
     /**
      * Constructs a new {@link ResponseException} with the specified message and response.

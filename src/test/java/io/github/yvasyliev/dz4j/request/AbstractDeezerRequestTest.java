@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 @SuppressWarnings("checkstyle:AbstractClassName")
-class  AbstractDeezerRequestTest {
+class AbstractDeezerRequestTest {
     @Mock private Supplier<CompletableFuture<String>> asyncMethod;
     private DeezerRequest<String> request;
 
