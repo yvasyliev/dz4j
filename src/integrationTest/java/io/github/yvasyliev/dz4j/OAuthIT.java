@@ -6,7 +6,7 @@ import io.github.yvasyliev.dz4j.model.AccessToken;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.concurrent.CompletionException;
+import java.time.Duration;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.ok;
@@ -14,10 +14,11 @@ import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
 import static com.github.tomakehurst.wiremock.common.ContentTypes.CONTENT_TYPE;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mock;
 
-public class OAuthIT extends AbstractIT {
+class OAuthIT extends AbstractIT {
     @Test
     void shouldReturnAccessToken(WireMockRuntimeInfo wmRuntimeInfo) throws IOException {
         var appId = 123;
@@ -62,8 +63,9 @@ public class OAuthIT extends AbstractIT {
                 .isInstanceOf(AccessTokenResponseException.class)
                 .hasMessage(expected);
 
-        assertThatThrownBy(() -> request.executeAsync().join())
-                .isInstanceOf(CompletionException.class)
-                .hasCause(new AccessTokenResponseException(expected, mock()));
+        assertThat(request.executeAsync())
+                .failsWithin(Duration.ofSeconds(1))
+                .withThrowableThat()
+                .withCause(new AccessTokenResponseException(expected, mock()));
     }
 }

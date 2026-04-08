@@ -1,4 +1,4 @@
-name: Sonar Scan
+name: Sonar PR Scan
 
 on:
   pull_request_target:
@@ -11,6 +11,10 @@ on:
 
 permissions:
   pull-requests: write
+
+concurrency:
+  group: sonar-scan-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 jobs:
   sonar:

@@ -14,11 +14,12 @@ import tools.jackson.databind.json.JsonMapper;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.Clock;
+import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Objects;
-import java.util.concurrent.CompletionException;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @WireMockTest
@@ -47,10 +48,11 @@ abstract class AbstractIT {
                 .usingRecursiveComparison()
                 .isEqualTo(expected);
 
-        assertThatThrownBy(() -> request.executeAsync().join())
-                .isInstanceOf(CompletionException.class)
-                .hasCauseInstanceOf(AbstractDeezerApiException.class)
-                .cause()
+        assertThat(request.executeAsync())
+                .failsWithin(Duration.ofSeconds(1))
+                .withThrowableThat()
+                .withCauseInstanceOf(AbstractDeezerApiException.class)
+                .havingCause()
                 .usingRecursiveComparison()
                 .isEqualTo(expected);
     }
