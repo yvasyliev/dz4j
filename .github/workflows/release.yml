@@ -2,6 +2,12 @@ name: Release Please
 
 on:
   workflow_dispatch:
+    inputs:
+      skip-release:
+        description: Set to "true" to skip the Create Release Pull Request step when manually triggered
+        required: true
+        type: boolean
+        default: true
 
   push:
     branches:
@@ -18,27 +24,30 @@ concurrency:
 jobs:
   release-please:
     runs-on: ubuntu-latest
+    environment: sonar
     steps:
       - name: Checkout sources
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
-      - name: Build with Gradle
-        uses: ./.github/actions/build-with-gradle
+      - name: Setup Gradle
+        uses: ./.github/actions/setup-gradle
 
       - name: Create Release Pull Request
         id: release
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.skip-release }}
         uses: googleapis/release-please-action@v4
 
       - name: Publish to Central Repository
-        run: ./gradlew publish
+        run: ./gradlew build sonar publish
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_USERNAME }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_PASSWORD }}
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.GPG_PRIVATE_KEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.GPG_KEY_ID }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.GPG_PASSPHRASE }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Upload Release Artifacts
         if: ${{ steps.release.outputs.release_created }}
