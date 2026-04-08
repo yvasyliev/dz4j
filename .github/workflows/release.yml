@@ -3,11 +3,11 @@ name: Release Please
 on:
   workflow_dispatch:
     inputs:
-      skip-release:
-        description: Set to "true" to skip the Create Release Pull Request step when manually triggered
+      release-please:
+        description: Execute Release Please Action
         required: true
         type: boolean
-        default: true
+        default: false
 
   push:
     branches:
@@ -24,7 +24,6 @@ concurrency:
 jobs:
   release-please:
     runs-on: ubuntu-latest
-    environment: sonar
     steps:
       - name: Checkout sources
         uses: actions/checkout@v6
@@ -36,7 +35,7 @@ jobs:
 
       - name: Create Release Pull Request
         id: release
-        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.skip-release }}
+        if: github.event_name != 'workflow_dispatch' || github.event.inputs.release-please
         uses: googleapis/release-please-action@v4
 
       - name: Publish to Central Repository
