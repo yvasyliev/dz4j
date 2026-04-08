@@ -35,7 +35,7 @@ jobs:
 
       - name: Create Release Pull Request
         id: release
-        if: github.event_name != 'workflow_dispatch' || github.event.inputs.release-please
+        if: github.event_name != 'workflow_dispatch' || inputs.release-please == 'true'
         uses: googleapis/release-please-action@v4
 
       - name: Publish to Central Repository
