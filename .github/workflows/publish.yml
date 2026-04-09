@@ -39,7 +39,7 @@ jobs:
         uses: ./.github/actions/setup-gradle
 
       - name: Build and Scan
-        run: ./gradlew build sonar
+        run: ./gradlew build sonar -Pstrict
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 

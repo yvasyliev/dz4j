@@ -217,14 +217,24 @@ tasks.withType(GenerateModuleMetadata).configureEach {
     enabled = false
 }
 
+tasks.withType(AbstractArchiveTask).configureEach {
+    into('META-INF') {
+        from rootProject.files('LICENSE', 'NOTICE')
+
+        if (name == 'shadowJar') {
+            rename '(LICENSE|NOTICE)', 'dz4j-$1'
+        }
+    }
+}
+
 tasks.register('signShadowJar', Sign) {
     description = 'Signs the shadow JAR artifact.'
     dependsOn shadowJar
-    sign(tasks.named('shadowJar').get().archiveFile.get().asFile)
+    sign(tasks.shadowJar.archiveFile.get().asFile)
 }
 
 tasks.withType(AbstractPublishToMaven).configureEach {
-    dependsOn tasks.named('signShadowJar')
+    dependsOn tasks.signShadowJar
 }
 
 sonar {
