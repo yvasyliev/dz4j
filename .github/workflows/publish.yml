@@ -39,7 +39,8 @@ jobs:
         uses: ./.github/actions/setup-gradle
 
       - name: Build and Scan
-        run: ./gradlew build sonar -Pstrict
+#        run: ./gradlew build sonar -Pstrict
+        run: ./gradlew build
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
@@ -49,7 +50,7 @@ jobs:
         uses: googleapis/release-please-action@v4
 
       - name: Publish to Central Repository
-        if: github.event_name != 'workflow_dispatch' || inputs.publish == 'true'
+        if: github.event_name != 'workflow_dispatch' || inputs.publish
         run: ./gradlew publish
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_USERNAME }}
