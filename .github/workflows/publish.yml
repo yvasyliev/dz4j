@@ -48,6 +48,13 @@ jobs:
         if: github.event_name != 'workflow_dispatch' || inputs.release-please
         uses: googleapis/release-please-action@v4
 
+      - name: Upload Release Artifacts
+        if: ${{ steps.release.outputs.release_created }}
+        run: gh release upload "$TAG" build/libs/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.release.outputs.tag_name }}
+
       - name: Publish to Central Repository
         if: github.event_name != 'workflow_dispatch' || inputs.publish
         run: ./gradlew publish
@@ -57,10 +64,3 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.GPG_PRIVATE_KEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.GPG_KEY_ID }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.GPG_PASSPHRASE }}
-
-      - name: Upload Release Artifacts
-        if: ${{ steps.release.outputs.release_created }}
-        run: gh release upload "$TAG" build/libs/*
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG: ${{ steps.release.outputs.tag_name }}
