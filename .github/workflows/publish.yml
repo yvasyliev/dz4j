@@ -39,14 +39,13 @@ jobs:
         uses: ./.github/actions/setup-gradle
 
       - name: Build and Scan
-#        run: ./gradlew build sonar -Pstrict
-        run: ./gradlew build
+        run: ./gradlew build sonar -Pstrict
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Create Release Pull Request
         id: release
-        if: github.event_name != 'workflow_dispatch' || inputs.release-please == 'true'
+        if: github.event_name != 'workflow_dispatch' || inputs.release-please
         uses: googleapis/release-please-action@v4
 
       - name: Publish to Central Repository
