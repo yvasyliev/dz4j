@@ -161,7 +161,7 @@ public class PlaylistRequestFactory {
      * @param playlistId playlist ID
      * @return a request that, when executed, will update the playlist
      */
-    public DeezerRequest<Boolean> updatePlaylist(long playlistId) {
+    public UpdatePlaylistDeezerRequest updatePlaylist(long playlistId) {
         return new UpdatePlaylistDeezerRequest(playlistId, authorizationManager, playlistService);
     }
 
