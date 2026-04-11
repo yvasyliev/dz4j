@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 
@@ -33,6 +34,19 @@ public class OAuthRequestFactory {
      */
     public DeezerRequest<AccessToken> getAccessToken(int appId, String secret, String code) {
         return new SimpleDeezerRequest<>(() -> oauthService.getAccessTokenAsync(appId, secret, code));
+    }
+
+    /**
+     * Generates the login URL for the OAuth flow.
+     *
+     * @param appId       the application ID
+     * @param redirectUri the URI to redirect to after login
+     * @param permissions the permissions to request
+     * @return the login URL
+     * @throws DeezerException if URL generation fails
+     */
+    public URL getLoginUrl(int appId, URI redirectUri, Permission... permissions) {
+        return getLoginUrl(appId, redirectUri, Arrays.asList(permissions));
     }
 
     /**
