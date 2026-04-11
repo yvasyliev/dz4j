@@ -154,6 +154,35 @@ public class QuickStart {
 }
 ```
 
+## Customization
+
+`DeezerClient` is built on top of the [Feign Client](https://github.com/OpenFeign/feign) and by default uses
+`java.net.HttpURLConnection` for HTTP operations.
+
+### Switching the HTTP client
+
+If you want to use a different HTTP client, for example `OkHttp`, add the `io.github.openfeign:feign-okhttp`
+dependency and configure the client like this:
+
+```java
+var deezerClient = DeezerClient.builder()
+        .config(config -> config.feign(feign -> feign.client(new OkHttpClient())))
+        .build();
+```
+
+### Enabling request/response logging
+
+If you want to enable request/response logging, for example with `SLF4J`, add the `io.github.openfeign:feign-slf4j`
+dependency and configure the client like this:
+
+```java
+var deezerClient = DeezerClient.builder()
+        .config(config -> config.feign(feign -> feign.logger(new Slf4jLogger())))
+        .build();
+```
+
+Follow the [Feign Client](https://github.com/OpenFeign/feign) documentation to discover more customization options.
+
 ## Authorization (OAuth)
 
 Some Deezer endpoints are public, while others require user authorization.
