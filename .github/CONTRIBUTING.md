@@ -38,6 +38,7 @@ disclose them responsibly.
 * Leverage Java 17 language features to write clean and expressive code. Use the `var` keyword for type inference,
   `java.util.stream.Stream` and lambda expressions over traditional for loops, switch expressions, and pattern matching
   where applicable.
+* It is recommended to use Lombok annotations where appropriate to reduce boilerplate code.
 * The project relies on [JSpecify](https://jspecify.dev/) annotations to prevent null pointer exceptions. When creating
   a new package, add a `package-info.java` file annotated with `@NullMarked`. Use `@Nullable` annotations on parameters
   and return types where null values are acceptable.
