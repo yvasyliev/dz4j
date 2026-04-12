@@ -1,7 +1,7 @@
 package io.github.yvasyliev.dz4j.exception;
 
 /**
- * Base exception class for all exceptions related to Deezer4J.
+ * Base exception class for all exceptions related to Dz4j.
  */
 public class DeezerException extends RuntimeException {
     /**

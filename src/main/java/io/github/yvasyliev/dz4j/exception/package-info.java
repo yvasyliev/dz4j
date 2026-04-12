@@ -1,5 +1,5 @@
 /**
- * Exceptions related to the Deezer4J.
+ * Exceptions related to the Dz4j.
  */
 @NullMarked
 package io.github.yvasyliev.dz4j.exception;

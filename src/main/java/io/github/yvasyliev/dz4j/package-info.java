@@ -1,5 +1,5 @@
 /**
- * Deezer4J core classes.
+ * Dz4j core classes.
  */
 @NullMarked
 package io.github.yvasyliev.dz4j;

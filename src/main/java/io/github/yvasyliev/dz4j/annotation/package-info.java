@@ -1,4 +1,4 @@
 /**
- * Annotations for the Deezer4J library.
+ * Annotations for the Dz4j library.
  */
 package io.github.yvasyliev.dz4j.annotation;

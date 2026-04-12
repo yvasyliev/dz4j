@@ -1,5 +1,5 @@
 /**
- * Configuration classes for Deezer4J.
+ * Configuration classes for Dz4j.
  */
 @NullMarked
 package io.github.yvasyliev.dz4j.configuration;
