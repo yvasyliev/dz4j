@@ -196,7 +196,7 @@ mavenPublishing {
                 url = 'https://github.com/yvasyliev'
                 organization = 'yvasyliev'
                 organizationUrl = 'https://github.com/yvasyliev'
-                roles = ['owner', 'architect', 'developer', 'maintainer']
+                roles = ['developer']
                 timezone = 'Europe/Kyiv'
             }
         }
