@@ -760,8 +760,12 @@ System.out.println("Tracks added (async): " + addTracksResultFuture.join());
 #### Delete tracks from playlist
 
 ```java
-var deleteTracksResult = deezerClient.playlist().deleteTracks(10517702202L, 1807705517L, 1808237467L).execute();
-var deleteTracksResultFuture = deezerClient.playlist().deleteTracks(10517702202L, 1807705517L, 1808237467L).executeAsync();
+var deleteTracksResult = deezerClient.playlist()
+        .deleteTracks(10517702202L, 1807705517L, 1808237467L)
+        .execute();
+var deleteTracksResultFuture = deezerClient.playlist()
+        .deleteTracks(10517702202L, 1807705517L, 1808237467L)
+        .executeAsync();
 
 System.out.println("Tracks deleted: " + deleteTracksResult);
 System.out.println("Tracks deleted (async): " + deleteTracksResultFuture.join());
@@ -770,8 +774,12 @@ System.out.println("Tracks deleted (async): " + deleteTracksResultFuture.join())
 #### Order playlist tracks
 
 ```java
-var orderTracksResult = deezerClient.playlist().orderTracks(10517702202L, 1808237467L, 1807705517L).execute();
-var orderTracksResultFuture = deezerClient.playlist().orderTracks(10517702202L, 1808237467L, 1807705517L).executeAsync();
+var orderTracksResult = deezerClient.playlist()
+        .orderTracks(10517702202L, 1808237467L, 1807705517L)
+        .execute();
+var orderTracksResultFuture = deezerClient.playlist()
+        .orderTracks(10517702202L, 1808237467L, 1807705517L)
+        .executeAsync();
 
 System.out.println("Tracks ordered: " + orderTracksResult);
 System.out.println("Tracks ordered (async): " + orderTracksResultFuture.join());
@@ -1007,8 +1015,12 @@ System.out.println("Track updated (async): " + updateResultFuture.join());
 #### Upload playlist cover
 
 ```java
-var uploadResult = deezerClient.upload().uploadPlaylistCover(10517702202L, new File("cover.jpg")).execute();
-var uploadResultFuture = deezerClient.upload().uploadPlaylistCover(10517702202L, new File("cover.jpg")).executeAsync();
+var uploadResult = deezerClient.upload()
+        .uploadPlaylistCover(10517702202L, new File("cover.jpg"))
+        .execute();
+var uploadResultFuture = deezerClient.upload()
+        .uploadPlaylistCover(10517702202L, new File("cover.jpg"))
+        .executeAsync();
 
 System.out.println("Playlist cover uploaded: " + uploadResult);
 System.out.println("Playlist cover uploaded (async): " + uploadResultFuture.join());
