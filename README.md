@@ -201,7 +201,7 @@ Example:
 package com.example;
 
 import io.github.yvasyliev.dz4j.DeezerClient;
-import io.github.yvasyliev.dz4j.authorization.Authorization;
+import io.github.yvasyliev.dz4j.authorization.AuthorizationCodeFlow;
 import io.github.yvasyliev.dz4j.model.Permission;
 
 import java.net.URI;
@@ -218,17 +218,24 @@ public class OAuthExample {
 
         // https://connect.deezer.com/oauth/auth.php?app_id=123456&
         // redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fcallback&perms=basic_access
-        var loginUrl = deezerClient.oauth().getLoginUrl(appId, redirectUri, Permission.BASIC_ACCESS);
-        System.out.println("Open the following link in your browser and log in to Deezer:" + loginUrl);
+        var loginUrl = deezerClient.oauth().getLoginUrl(
+                appId,
+                redirectUri,
+                Permission.BASIC_ACCESS
+        );
+        System.out.println(
+                "Open the following link in your browser and log in to Deezer: " + loginUrl
+        );
 
         // http://localhost:8080/callback?code=A_CODE_GENERATED_BY_DEEZER
-        System.out.println("Enter a code from your browser URL bar when the login is completed: ");
+        System.out.println(
+                "Enter a `code` from your browser URL bar when the login is completed: "
+        );
 
         try (var scanner = new Scanner(System.in)) {
             var code = scanner.next();
-            var accessToken = deezerClient.oauth().getAccessToken(appId, secret, code).execute();
 
-            deezerClient.authorization(Authorization.of(accessToken));
+            deezerClient.authorization(new AuthorizationCodeFlow(appId, secret, code));
         }
 
         // Now deezerClient is authorized and you can make authorized requests
@@ -549,8 +556,12 @@ System.out.println("Bookmark response (async): " + bookmarkResponseFuture.join()
 #### Unbookmark episode
 
 ```java
-var unbookmarkResponse = deezerClient.episode().unbookmarkEpisode(605632582).execute();
-var unbookmarkResponseFuture = deezerClient.episode().unbookmarkEpisode(605632582).executeAsync();
+var unbookmarkResponse = deezerClient.episode()
+        .unbookmarkEpisode(605632582)
+        .execute();
+var unbookmarkResponseFuture = deezerClient.episode()
+        .unbookmarkEpisode(605632582)
+        .executeAsync();
 
 System.out.println("Unbookmark response: " + unbookmarkResponse);
 System.out.println("Unbookmark response (async): " + unbookmarkResponseFuture.join());
@@ -615,8 +626,12 @@ System.out.println("Infos (async): " + infosFuture.join());
 #### Get access token
 
 ```java
-var accessToken = deezerClient.oauth().getAccessToken(123456, "your-app-secret", "your-code").execute();
-var accessTokenFuture = deezerClient.oauth().getAccessToken(123456, "your-app-secret", "your-code").executeAsync();
+var accessToken = deezerClient.oauth()
+        .getAccessToken(123456, "your-app-secret", "your-code")
+        .execute();
+var accessTokenFuture = deezerClient.oauth()
+        .getAccessToken(123456, "your-app-secret", "your-code")
+        .executeAsync();
 
 System.out.println("Access token: " + accessToken);
 System.out.println("Access token (async): " + accessTokenFuture.join());
@@ -625,8 +640,11 @@ System.out.println("Access token (async): " + accessTokenFuture.join());
 #### Get login URL
 
 ```java
-var loginUrl = deezerClient.oauth()
-        .getLoginUrl(123456, URI.create("http://localhost:8080/callback"), Permission.BASIC_ACCESS);
+var loginUrl = deezerClient.oauth().getLoginUrl(
+        123456,
+        URI.create("http://localhost:8080/callback"), 
+        Permission.BASIC_ACCESS
+);
 
 System.out.println("Login URL: " + loginUrl);
 ```
@@ -656,8 +674,12 @@ System.out.println("Episode oEmbed (async): " + episodeOEmbedFuture.join());
 #### Get playlist oEmbed
 
 ```java
-var playlistOEmbed = deezerClient.oEmbed().getPlaylistOEmbed(11278651204L).execute();
-var playlistOEmbedFuture = deezerClient.oEmbed().getPlaylistOEmbed(11278651204L).executeAsync();
+var playlistOEmbed = deezerClient.oEmbed()
+        .getPlaylistOEmbed(11278651204L)
+        .execute();
+var playlistOEmbedFuture = deezerClient.oEmbed()
+        .getPlaylistOEmbed(11278651204L)
+        .executeAsync();
 
 System.out.println("Playlist oEmbed: " + playlistOEmbed);
 System.out.println("Playlist oEmbed (async): " + playlistOEmbedFuture.join());
@@ -1239,8 +1261,12 @@ System.out.println("User track chart (async): " + trackChartFuture.join());
 #### Get album recommendations
 
 ```java
-var albumRecommendations = deezerClient.user().getAlbumRecommendations().execute();
-var albumRecommendationsFuture = deezerClient.user().getAlbumRecommendations().executeAsync();
+var albumRecommendations = deezerClient.user()
+        .getAlbumRecommendations()
+        .execute();
+var albumRecommendationsFuture = deezerClient.user()
+        .getAlbumRecommendations()
+        .executeAsync();
 
 System.out.println("Album recommendations: " + albumRecommendations);
 System.out.println("Album recommendations (async): " + albumRecommendationsFuture.join());
@@ -1249,8 +1275,12 @@ System.out.println("Album recommendations (async): " + albumRecommendationsFutur
 #### Get artist recommendations
 
 ```java
-var artistRecommendations = deezerClient.user().getArtistRecommendations().execute();
-var artistRecommendationsFuture = deezerClient.user().getArtistRecommendations().executeAsync();
+var artistRecommendations = deezerClient.user()
+        .getArtistRecommendations()
+        .execute();
+var artistRecommendationsFuture = deezerClient.user()
+        .getArtistRecommendations()
+        .executeAsync();
 
 System.out.println("Artist recommendations: " + artistRecommendations);
 System.out.println("Artist recommendations (async): " + artistRecommendationsFuture.join());
@@ -1259,8 +1289,12 @@ System.out.println("Artist recommendations (async): " + artistRecommendationsFut
 #### Get playlist recommendations
 
 ```java
-var playlistRecommendations = deezerClient.user().getPlaylistRecommendations().execute();
-var playlistRecommendationsFuture = deezerClient.user().getPlaylistRecommendations().executeAsync();
+var playlistRecommendations = deezerClient.user()
+        .getPlaylistRecommendations()
+        .execute();
+var playlistRecommendationsFuture = deezerClient.user()
+        .getPlaylistRecommendations()
+        .executeAsync();
 
 System.out.println("Playlist recommendations: " + playlistRecommendations);
 System.out.println("Playlist recommendations (async): " + playlistRecommendationsFuture.join());
@@ -1269,8 +1303,12 @@ System.out.println("Playlist recommendations (async): " + playlistRecommendation
 #### Get radio recommendations
 
 ```java
-var radioRecommendations = deezerClient.user().getRadioRecommendations().execute();
-var radioRecommendationsFuture = deezerClient.user().getRadioRecommendations().executeAsync();
+var radioRecommendations = deezerClient.user()
+        .getRadioRecommendations()
+        .execute();
+var radioRecommendationsFuture = deezerClient.user()
+        .getRadioRecommendations()
+        .executeAsync();
 
 System.out.println("Radio recommendations: " + radioRecommendations);
 System.out.println("Radio recommendations (async): " + radioRecommendationsFuture.join());
@@ -1279,8 +1317,12 @@ System.out.println("Radio recommendations (async): " + radioRecommendationsFutur
 #### Get release recommendations
 
 ```java
-var releaseRecommendations = deezerClient.user().getReleaseRecommendations().execute();
-var releaseRecommendationsFuture = deezerClient.user().getReleaseRecommendations().executeAsync();
+var releaseRecommendations = deezerClient.user()
+        .getReleaseRecommendations()
+        .execute();
+var releaseRecommendationsFuture = deezerClient.user()
+        .getReleaseRecommendations()
+        .executeAsync();
 
 System.out.println("Release recommendations: " + releaseRecommendations);
 System.out.println("Release recommendations (async): " + releaseRecommendationsFuture.join());
@@ -1289,8 +1331,12 @@ System.out.println("Release recommendations (async): " + releaseRecommendationsF
 #### Get track recommendations
 
 ```java
-var trackRecommendations = deezerClient.user().getTrackRecommendations().execute();
-var trackRecommendationsFuture = deezerClient.user().getTrackRecommendations().executeAsync();
+var trackRecommendations = deezerClient.user()
+        .getTrackRecommendations()
+        .execute();
+var trackRecommendationsFuture = deezerClient.user()
+        .getTrackRecommendations()
+        .executeAsync();
 
 System.out.println("Track recommendations: " + trackRecommendations);
 System.out.println("Track recommendations (async): " + trackRecommendationsFuture.join());
@@ -1399,8 +1445,12 @@ System.out.println("Track removed (async): " + removeTrackResultFuture.join());
 #### Remove playlist from favorites
 
 ```java
-var removePlaylistResult = deezerClient.user().removePlaylist(10517702202L).execute();
-var removePlaylistResultFuture = deezerClient.user().removePlaylist(10517702202L).executeAsync();
+var removePlaylistResult = deezerClient.user()
+        .removePlaylist(10517702202L)
+        .execute();
+var removePlaylistResultFuture = deezerClient.user()
+        .removePlaylist(10517702202L)
+        .executeAsync();
 
 System.out.println("Playlist removed: " + removePlaylistResult);
 System.out.println("Playlist removed (async): " + removePlaylistResultFuture.join());
