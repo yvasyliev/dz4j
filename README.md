@@ -750,8 +750,12 @@ System.out.println("Playlist radio (async): " + radioFuture.join());
 #### Add tracks to playlist
 
 ```java
-var addTracksResult = deezerClient.playlist().addTracks(10517702202L, 1807705517L, 1808237467L).execute();
-var addTracksResultFuture = deezerClient.playlist().addTracks(10517702202L, 1807705517L, 1808237467L).executeAsync();
+var addTracksResult = deezerClient.playlist()
+        .addTracks(10517702202L, 1807705517L, 1808237467L)
+        .execute();
+var addTracksResultFuture = deezerClient.playlist()
+        .addTracks(10517702202L, 1807705517L, 1808237467L)
+        .executeAsync();
 
 System.out.println("Tracks added: " + addTracksResult);
 System.out.println("Tracks added (async): " + addTracksResultFuture.join());
@@ -798,8 +802,14 @@ System.out.println("Playlist marked as seen (async): " + markAsSeenResultFuture.
 #### Update playlist
 
 ```java
-var updateResult = deezerClient.playlist().updatePlaylist(10517702202L).title("New Title").execute();
-var updateResultFuture = deezerClient.playlist().updatePlaylist(10517702202L).title("New Title").executeAsync();
+var updateResult = deezerClient.playlist()
+        .updatePlaylist(10517702202L)
+        .title("New Title")
+        .execute();
+var updateResultFuture = deezerClient.playlist()
+        .updatePlaylist(10517702202L)
+        .title("New Title")
+        .executeAsync();
 
 System.out.println("Playlist updated: " + updateResult);
 System.out.println("Playlist updated (async): " + updateResultFuture.join());
@@ -911,8 +921,16 @@ System.out.println("Search results (async): " + tracksFuture.join());
 
 ```java
 var query = AdvancedQuery.builder().track("Lose Yourself").build();
-var tracks = deezerClient.search().search(query).strict(true).order(Order.DURATION_DESC).execute();
-var tracksFuture = deezerClient.search().search(query).strict(true).order(Order.DURATION_DESC).executeAsync();
+var tracks = deezerClient.search()
+        .search(query)
+        .strict(true)
+        .order(Order.DURATION_DESC)
+        .execute();
+var tracksFuture = deezerClient.search()
+        .search(query)
+        .strict(true)
+        .order(Order.DURATION_DESC)
+        .executeAsync();
 
 System.out.println("Advanced search results: " + tracks);
 System.out.println("Advanced search results (async): " + tracksFuture.join());
