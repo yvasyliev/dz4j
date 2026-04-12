@@ -28,5 +28,5 @@
     }
   ],
   "total": 150,
-  "next": "https://api.deezer.com/search/playlist?limit=1&q=eminem&strinct=on&order=DURATION_DESC&index=1"
+  "next": "https://api.deezer.com/search/playlist?limit=1&q=eminem&strict=on&order=DURATION_DESC&index=1"
 }

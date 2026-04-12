@@ -13,5 +13,5 @@
     }
   ],
   "total": 143,
-  "next": "https://api.deezer.com/search/user?q=eminem&strinct=on&order=DURATION_DESC&limit=1&index=1"
+  "next": "https://api.deezer.com/search/user?q=eminem&strict=on&order=DURATION_DESC&limit=1&index=1"
 }
