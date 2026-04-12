@@ -1002,6 +1002,18 @@ System.out.println("Track updated: " + updateResult);
 System.out.println("Track updated (async): " + updateResultFuture.join());
 ```
 
+### Upload
+
+#### Upload playlist cover
+
+```java
+var uploadResult = deezerClient.upload().uploadPlaylistCover(10517702202L, new File("cover.jpg")).execute();
+var uploadResultFuture = deezerClient.upload().uploadPlaylistCover(10517702202L, new File("cover.jpg")).executeAsync();
+
+System.out.println("Playlist cover uploaded: " + uploadResult);
+System.out.println("Playlist cover uploaded (async): " + uploadResultFuture.join());
+```
+
 ### User
 
 #### Get current user
