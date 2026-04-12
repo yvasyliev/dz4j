@@ -1,4 +1,4 @@
-name: Sonar PR Scan
+name: PR Build
 
 on:
   pull_request_target:
@@ -19,7 +19,6 @@ concurrency:
 jobs:
   sonar:
     runs-on: ubuntu-latest
-    environment: sonar
     steps:
       - name: Checkout sources
         uses: actions/checkout@v6
