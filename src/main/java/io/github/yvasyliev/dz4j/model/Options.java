@@ -36,4 +36,3 @@ public record Options(
         @JsonProperty("preview") Boolean preview,
         @JsonProperty("radio") Boolean radio
 ) {}
-

@@ -14,6 +14,10 @@
         <property name="max" value="120"/>
     </module>
     <module name="NewlineAtEndOfFile"/>
+    <module name="RegexpMultiline">
+        <property name="format" value="\R{2,}\z"/>
+        <property name="message" value="File must end with exactly one newline."/>
+    </module>
     <module name="SuppressWarningsFilter"/>
     <module name="TreeWalker">
         <module name="SuppressionXpathFilter">

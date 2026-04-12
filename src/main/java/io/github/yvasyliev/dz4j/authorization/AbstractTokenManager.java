@@ -36,5 +36,3 @@ public abstract class AbstractTokenManager<T> {
         return Objects.requireNonNull(localToken);
     }
 }
-
-

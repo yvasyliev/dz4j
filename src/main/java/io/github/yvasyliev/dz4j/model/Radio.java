@@ -36,4 +36,3 @@ public record Radio(
         @JsonProperty("tracklist") URL tracklist,
         @JsonProperty("md5_image") @Experimental String md5Image
 ) {}
-
