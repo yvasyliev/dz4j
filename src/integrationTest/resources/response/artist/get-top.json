@@ -1,0 +1,72 @@
+{
+  "data": [
+    {
+      "id": 3027969021,
+      "readable": true,
+      "title": "Staying Power",
+      "title_short": "Staying Power",
+      "title_version": "",
+      "link": "https://www.deezer.com/track/3027969021",
+      "duration": 159,
+      "rank": 183884,
+      "explicit_lyrics": false,
+      "explicit_content_lyrics": 0,
+      "explicit_content_cover": 2,
+      "preview": "https://cdnt-preview.dzcdn.net/api/1/1/6/2/9/0/6296055d4c887c606f5238503929bdd1.mp3?hdnea=exp=1769112416~acl=/api/1/1/6/2/9/0/6296055d4c887c606f5238503929bdd1.mp3*~data=user_id=0,application_id=42~hmac=91708f79ad2070724ca5a5ff374924e782b70cd2f3c97d8d5183f997a31f5901",
+      "contributors": [
+        {
+          "id": 5587890,
+          "name": "Allie X",
+          "link": "https://www.deezer.com/artist/5587890",
+          "share": "https://www.deezer.com/artist/5587890?utm_source=deezer&utm_content=artist-5587890&utm_term=0_1769111516&utm_medium=web",
+          "picture": "https://api.deezer.com/artist/5587890/image",
+          "picture_small": "https://cdn-images.dzcdn.net/images/artist/a9930a572b350ac62c6578bbef58f9b6/56x56-000000-80-0-0.jpg",
+          "picture_medium": "https://cdn-images.dzcdn.net/images/artist/a9930a572b350ac62c6578bbef58f9b6/250x250-000000-80-0-0.jpg",
+          "picture_big": "https://cdn-images.dzcdn.net/images/artist/a9930a572b350ac62c6578bbef58f9b6/500x500-000000-80-0-0.jpg",
+          "picture_xl": "https://cdn-images.dzcdn.net/images/artist/a9930a572b350ac62c6578bbef58f9b6/1000x1000-000000-80-0-0.jpg",
+          "radio": true,
+          "tracklist": "https://api.deezer.com/artist/5587890/top?limit=50",
+          "type": "artist",
+          "role": "Main"
+        },
+        {
+          "id": 187635847,
+          "name": "Dionnysuss",
+          "link": "https://www.deezer.com/artist/187635847",
+          "share": "https://www.deezer.com/artist/187635847?utm_source=deezer&utm_content=artist-187635847&utm_term=0_1769111516&utm_medium=web",
+          "picture": "https://api.deezer.com/artist/187635847/image",
+          "picture_small": "https://cdn-images.dzcdn.net/images/artist/be194695cd74ae845f85b698101bab9f/56x56-000000-80-0-0.jpg",
+          "picture_medium": "https://cdn-images.dzcdn.net/images/artist/be194695cd74ae845f85b698101bab9f/250x250-000000-80-0-0.jpg",
+          "picture_big": "https://cdn-images.dzcdn.net/images/artist/be194695cd74ae845f85b698101bab9f/500x500-000000-80-0-0.jpg",
+          "picture_xl": "https://cdn-images.dzcdn.net/images/artist/be194695cd74ae845f85b698101bab9f/1000x1000-000000-80-0-0.jpg",
+          "radio": true,
+          "tracklist": "https://api.deezer.com/artist/187635847/top?limit=50",
+          "type": "artist",
+          "role": "Main"
+        }
+      ],
+      "md5_image": "a9c91824254065c34f457783eeba1a47",
+      "artist": {
+        "id": 5587890,
+        "name": "Allie X",
+        "tracklist": "https://api.deezer.com/artist/5587890/top?limit=50",
+        "type": "artist"
+      },
+      "album": {
+        "id": 651326441,
+        "title": "Girl With No Face (Deluxe)",
+        "cover": "https://api.deezer.com/album/651326441/image",
+        "cover_small": "https://cdn-images.dzcdn.net/images/cover/a9c91824254065c34f457783eeba1a47/56x56-000000-80-0-0.jpg",
+        "cover_medium": "https://cdn-images.dzcdn.net/images/cover/a9c91824254065c34f457783eeba1a47/250x250-000000-80-0-0.jpg",
+        "cover_big": "https://cdn-images.dzcdn.net/images/cover/a9c91824254065c34f457783eeba1a47/500x500-000000-80-0-0.jpg",
+        "cover_xl": "https://cdn-images.dzcdn.net/images/cover/a9c91824254065c34f457783eeba1a47/1000x1000-000000-80-0-0.jpg",
+        "md5_image": "a9c91824254065c34f457783eeba1a47",
+        "tracklist": "https://api.deezer.com/album/651326441/tracks",
+        "type": "album"
+      },
+      "type": "track"
+    }
+  ],
+  "total": 63,
+  "next": "https://api.deezer.com/artist/5587890/top?limit=1&index=1"
+}

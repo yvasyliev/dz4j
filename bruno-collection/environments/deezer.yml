@@ -1,0 +1,16 @@
+name: deezer
+variables:
+  - name: oauth-host
+    value: https://connect.deezer.com
+  - name: api-host
+    value: https://api.deezer.com
+  - name: upload-host
+    value: https://upload.deezer.com
+  - secret: true
+    name: access-token
+  - secret: true
+    name: app-id
+  - secret: true
+    name: redirect-uri
+  - secret: true
+    name: secret

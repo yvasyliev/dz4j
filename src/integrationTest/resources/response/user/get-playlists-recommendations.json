@@ -1,0 +1,30 @@
+{
+  "data": [
+    {
+      "id": 1413309725,
+      "title": "80s Pop Rock",
+      "public": true,
+      "nb_tracks": 50,
+      "link": "https://www.deezer.com/playlist/1413309725",
+      "picture": "https://api.deezer.com/playlist/1413309725/image",
+      "picture_small": "https://cdn-images.dzcdn.net/images/playlist/ff411c2e1f8aaa6d883a7d3eb53093b8/56x56-000000-80-0-0.jpg",
+      "picture_medium": "https://cdn-images.dzcdn.net/images/playlist/ff411c2e1f8aaa6d883a7d3eb53093b8/250x250-000000-80-0-0.jpg",
+      "picture_big": "https://cdn-images.dzcdn.net/images/playlist/ff411c2e1f8aaa6d883a7d3eb53093b8/500x500-000000-80-0-0.jpg",
+      "picture_xl": "https://cdn-images.dzcdn.net/images/playlist/ff411c2e1f8aaa6d883a7d3eb53093b8/1000x1000-000000-80-0-0.jpg",
+      "checksum": "fcdcd1c517556365070a2c7d398f4019",
+      "tracklist": "https://api.deezer.com/playlist/1413309725/tracks",
+      "creation_date": "0000-00-00 00:00:00",
+      "add_date": "0000-00-00 00:00:00",
+      "mod_date": "0000-00-00 00:00:00",
+      "md5_image": "ff411c2e1f8aaa6d883a7d3eb53093b8",
+      "picture_type": "playlist",
+      "user": {
+        "id": 753566875,
+        "name": "Rod - Deezer Rock Editor",
+        "tracklist": "https://api.deezer.com/user/753566875/flow",
+        "type": "user"
+      },
+      "type": "playlist"
+    }
+  ]
+}

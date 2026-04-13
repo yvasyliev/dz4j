@@ -1,0 +1,12 @@
+info:
+  name: oembed
+  type: folder
+  seq: 9
+
+request:
+  auth: inherit
+  variables:
+    - name: show-id
+      value: "1447162"
+    - name: page-id
+      value: x9rprkWwJGdWxbe86

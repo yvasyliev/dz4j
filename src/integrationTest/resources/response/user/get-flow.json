@@ -1,0 +1,42 @@
+{
+  "data": [
+    {
+      "id": 3129547,
+      "readable": true,
+      "title": "Such a Shame (Original Version)",
+      "title_short": "Such a Shame",
+      "title_version": "(Original Version)",
+      "duration": 266,
+      "rank": 678230,
+      "explicit_lyrics": false,
+      "explicit_content_lyrics": 0,
+      "explicit_content_cover": 2,
+      "preview": "https://cdnt-preview.dzcdn.net/api/1/1/e/6/e/0/e6e2edbaf2a59daf196be175ece98b44.mp3?hdnea=exp=1769107912~acl=/api/1/1/e/6/e/0/e6e2edbaf2a59daf196be175ece98b44.mp3*~data=user_id=0,application_id=42~hmac=102b001269d9037d62192618f38fa3e33beca7c9b68f6981461d8f59e6b3441a",
+      "md5_image": "f258b1f28efc318baf8f507839f1dcbc",
+      "artist": {
+        "id": 8215,
+        "name": "Talk Talk",
+        "picture": "https://api.deezer.com/artist/8215/image",
+        "picture_small": "https://cdn-images.dzcdn.net/images/artist/5bbae9e22630546133e3bc8470c90276/56x56-000000-80-0-0.jpg",
+        "picture_medium": "https://cdn-images.dzcdn.net/images/artist/5bbae9e22630546133e3bc8470c90276/250x250-000000-80-0-0.jpg",
+        "picture_big": "https://cdn-images.dzcdn.net/images/artist/5bbae9e22630546133e3bc8470c90276/500x500-000000-80-0-0.jpg",
+        "picture_xl": "https://cdn-images.dzcdn.net/images/artist/5bbae9e22630546133e3bc8470c90276/1000x1000-000000-80-0-0.jpg",
+        "tracklist": "https://api.deezer.com/artist/8215/top?limit=50",
+        "type": "artist"
+      },
+      "album": {
+        "id": 301761,
+        "title": "The Very Best Of",
+        "cover": "https://api.deezer.com/album/301761/image",
+        "cover_small": "https://cdn-images.dzcdn.net/images/cover/f258b1f28efc318baf8f507839f1dcbc/56x56-000000-80-0-0.jpg",
+        "cover_medium": "https://cdn-images.dzcdn.net/images/cover/f258b1f28efc318baf8f507839f1dcbc/250x250-000000-80-0-0.jpg",
+        "cover_big": "https://cdn-images.dzcdn.net/images/cover/f258b1f28efc318baf8f507839f1dcbc/500x500-000000-80-0-0.jpg",
+        "cover_xl": "https://cdn-images.dzcdn.net/images/cover/f258b1f28efc318baf8f507839f1dcbc/1000x1000-000000-80-0-0.jpg",
+        "md5_image": "f258b1f28efc318baf8f507839f1dcbc",
+        "tracklist": "https://api.deezer.com/album/301761/tracks",
+        "type": "album"
+      },
+      "type": "track"
+    }
+  ]
+}

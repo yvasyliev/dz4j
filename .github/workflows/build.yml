@@ -1,0 +1,66 @@
+name: Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      release-please:
+        description: Execute Release Please Action
+        required: true
+        type: boolean
+        default: false
+      publish:
+        description: Publish to Central Repository
+        required: true
+        type: boolean
+        default: false
+
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: release-${{ github.ref }}
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Gradle
+        uses: ./.github/actions/setup-gradle
+
+      - name: Build and Scan
+        run: ./gradlew build sonar -Pstrict
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Create Release Pull Request
+        id: release
+        if: github.event_name != 'workflow_dispatch' || inputs.release-please
+        uses: googleapis/release-please-action@v4
+
+      - name: Upload Release Artifacts
+        if: ${{ steps.release.outputs.release_created }}
+        run: gh release upload "$TAG" build/libs/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.release.outputs.tag_name }}
+
+      - name: Publish to Central Repository
+        if: github.event_name != 'workflow_dispatch' || inputs.publish
+        run: ./gradlew publish
+        env:
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.GPG_PRIVATE_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.GPG_KEY_ID }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.GPG_PASSPHRASE }}

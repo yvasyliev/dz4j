@@ -1,0 +1,7 @@
+{
+  "error": {
+    "type": "SimpleApiHttpException",
+    "message": "APPLICATION_ERROR",
+    "code": 50
+  }
+}

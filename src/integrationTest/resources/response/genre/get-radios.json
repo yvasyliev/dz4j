@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "id": 37645,
+      "title": "Summer afternoon",
+      "picture": "https://api.deezer.com/radio/37645/image",
+      "picture_small": "https://cdn-images.dzcdn.net/images/misc/af12c35bc5022b545ab67d1afe85d26e/56x56-000000-80-0-0.jpg",
+      "picture_medium": "https://cdn-images.dzcdn.net/images/misc/af12c35bc5022b545ab67d1afe85d26e/250x250-000000-80-0-0.jpg",
+      "picture_big": "https://cdn-images.dzcdn.net/images/misc/af12c35bc5022b545ab67d1afe85d26e/500x500-000000-80-0-0.jpg",
+      "picture_xl": "https://cdn-images.dzcdn.net/images/misc/af12c35bc5022b545ab67d1afe85d26e/1000x1000-000000-80-0-0.jpg",
+      "tracklist": "https://api.deezer.com/radio/37645/tracks",
+      "md5_image": "af12c35bc5022b545ab67d1afe85d26e",
+      "type": "radio"
+    }
+  ]
+}

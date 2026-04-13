@@ -1,0 +1,43 @@
+name: PR Build
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    branches:
+      - master
+
+permissions:
+  pull-requests: write
+
+concurrency:
+  group: sonar-scan-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  pr-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v6
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: Setup Gradle
+        uses: ./.github/actions/setup-gradle
+
+      - name: Build and Analyze
+        run: >
+          ./gradlew build sonar -Pstrict
+          -Dsonar.pullrequest.key="$PULL_REQUEST_NUMBER"
+          -Dsonar.pullrequest.branch="$PULL_REQUEST_BRANCH"
+          -Dsonar.pullrequest.base="$PULL_REQUEST_BASE"
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          PULL_REQUEST_NUMBER: ${{ github.event.pull_request.number }}
+          PULL_REQUEST_BRANCH: ${{ github.event.pull_request.head.ref }}
+          PULL_REQUEST_BASE: ${{ github.event.pull_request.base.ref }}

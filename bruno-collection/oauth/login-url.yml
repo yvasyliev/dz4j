@@ -1,0 +1,25 @@
+info:
+  name: login-url
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{oauth-host}}/oauth/auth.php?app_id={{app-id}}&redirect_uri={{redirect-uri}}&perms=offline_access,delete_library"
+  params:
+    - name: app_id
+      value: "{{app-id}}"
+      type: query
+    - name: redirect_uri
+      value: "{{redirect-uri}}"
+      type: query
+    - name: perms
+      value: offline_access,delete_library
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

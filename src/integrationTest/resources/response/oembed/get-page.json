@@ -1,0 +1,18 @@
+{
+  "version": "1.0",
+  "type": "rich",
+  "cache_age": 86400,
+  "provider_name": "Deezer",
+  "provider_url": "https://www.deezer.com",
+  "entity": "playlist",
+  "id": 11278651204,
+  "url": "https://www.deezer.com/en/playlist/11278651204",
+  "author_name": "Médiathèque Françoise Sagan",
+  "title": "Musiques libérées",
+  "thumbnail_url": "https://cdn-images.dzcdn.net/images/playlist/b5258ccab9fd64468381ab93cea8c6f6/1000x1000.jpg",
+  "thumbnail_width": 1000,
+  "thumbnail_height": 1000,
+  "width": 420,
+  "height": 420,
+  "html": "<iframe id=\"deezer-widget\" src=\"https://widget.deezer.com/widget/dark/playlist/11278651204?app_id=457142&autoplay=false&radius=true&tracklist=true\" width=\"420\" height=\"420\" allowtransparency=\"true\" allowfullscreen=\"true\" allow=\"encrypted-media\"></iframe>"
+}

@@ -1,0 +1,26 @@
+changelog:
+  categories:
+    - title: 🎉 Exciting New Features
+      labels:
+        - feat
+    - title: 🐛 Bug Fixes
+      labels:
+        - fix
+    - title: 📝 Documentation
+      labels:
+        - docs
+    - title: ⚙️ CI/CD
+      labels:
+        - ci
+    - title: ⬆️ Dependencies
+      labels:
+        - dependencies
+    - title: 🧩 Other Changes
+      labels:
+        - "*"
+  exclude:
+    labels:
+      - "autorelease: pending"
+      - "autorelease: published"
+      - "autorelease: tagged"
+      - "autorelease: snapshot"

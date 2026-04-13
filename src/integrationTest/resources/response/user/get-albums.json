@@ -1,0 +1,37 @@
+{
+  "data": [
+    {
+      "id": 14509546,
+      "title": "Ftl: Faster Than Light - Original Soundtrack",
+      "link": "https://www.deezer.com/album/14509546",
+      "cover": "https://api.deezer.com/album/14509546/image",
+      "cover_small": "https://cdn-images.dzcdn.net/images/cover/3136a749edee8741a9e36b69f1ee8f86/56x56-000000-80-0-0.jpg",
+      "cover_medium": "https://cdn-images.dzcdn.net/images/cover/3136a749edee8741a9e36b69f1ee8f86/250x250-000000-80-0-0.jpg",
+      "cover_big": "https://cdn-images.dzcdn.net/images/cover/3136a749edee8741a9e36b69f1ee8f86/500x500-000000-80-0-0.jpg",
+      "cover_xl": "https://cdn-images.dzcdn.net/images/cover/3136a749edee8741a9e36b69f1ee8f86/1000x1000-000000-80-0-0.jpg",
+      "md5_image": "3136a749edee8741a9e36b69f1ee8f86",
+      "nb_tracks": 29,
+      "release_date": "2013-06-26",
+      "record_type": "album",
+      "available": true,
+      "tracklist": "https://api.deezer.com/album/14509546/tracks",
+      "explicit_lyrics": false,
+      "time_add": 1769159981,
+      "artist": {
+        "id": 5037647,
+        "name": "Ben Prunty",
+        "picture": "https://api.deezer.com/artist/5037647/image",
+        "picture_small": "https://cdn-images.dzcdn.net/images/artist/3136a749edee8741a9e36b69f1ee8f86/56x56-000000-80-0-0.jpg",
+        "picture_medium": "https://cdn-images.dzcdn.net/images/artist/3136a749edee8741a9e36b69f1ee8f86/250x250-000000-80-0-0.jpg",
+        "picture_big": "https://cdn-images.dzcdn.net/images/artist/3136a749edee8741a9e36b69f1ee8f86/500x500-000000-80-0-0.jpg",
+        "picture_xl": "https://cdn-images.dzcdn.net/images/artist/3136a749edee8741a9e36b69f1ee8f86/1000x1000-000000-80-0-0.jpg",
+        "tracklist": "https://api.deezer.com/artist/5037647/top?limit=50",
+        "type": "artist"
+      },
+      "type": "album"
+    }
+  ],
+  "checksum": "3f870a4c41c3a5582cc5d7acb2ea38da",
+  "total": 49,
+  "next": "https://api.deezer.com/user/me/albums?access_token=RLAP1ir5PDaBZJPVRF4jvaVgMf83h2D8DmjUA0aprq5b6n10Jg&limit=1&index=1"
+}

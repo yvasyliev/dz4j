@@ -1,0 +1,7 @@
+{
+  "error": {
+    "type": "DataException",
+    "message": "DATA_NOT_FOUND",
+    "code": 800
+  }
+}

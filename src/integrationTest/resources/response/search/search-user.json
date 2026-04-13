@@ -1,0 +1,17 @@
+{
+  "data": [
+    {
+      "id": 7380218,
+      "name": "eminem01",
+      "picture": "https://api.deezer.com/user/7380218/image",
+      "picture_small": "https://cdn-images.dzcdn.net/images/user/c9a8cc8596ee93782d531dc19b9c92d3/56x56-000000-80-0-0.jpg",
+      "picture_medium": "https://cdn-images.dzcdn.net/images/user/c9a8cc8596ee93782d531dc19b9c92d3/250x250-000000-80-0-0.jpg",
+      "picture_big": "https://cdn-images.dzcdn.net/images/user/c9a8cc8596ee93782d531dc19b9c92d3/500x500-000000-80-0-0.jpg",
+      "picture_xl": "https://cdn-images.dzcdn.net/images/user/c9a8cc8596ee93782d531dc19b9c92d3/1000x1000-000000-80-0-0.jpg",
+      "tracklist": "https://api.deezer.com/user/7380218/flow",
+      "type": "user"
+    }
+  ],
+  "total": 143,
+  "next": "https://api.deezer.com/search/user?q=eminem&strict=on&order=DURATION_DESC&limit=1&index=1"
+}

@@ -1,0 +1,22 @@
+info:
+  name: get-fans
+  type: http
+  seq: 3
+
+http:
+  method: GET
+  url: "{{api-host}}/artist/{{artist-id}}/fans?index=0&limit=1"
+  params:
+    - name: index
+      value: "0"
+      type: query
+    - name: limit
+      value: "1"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

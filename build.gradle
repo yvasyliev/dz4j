@@ -1,0 +1,246 @@
+import com.vanniktech.maven.publish.DeploymentValidation
+
+plugins {
+    id 'java-library'
+    id 'checkstyle'
+    id 'jacoco'
+    id 'io.freefair.lombok' version '9.2.0'
+    id 'net.ltgt.errorprone' version '5.1.0'
+    id 'com.vanniktech.maven.publish' version '0.36.0'
+    id 'com.gradleup.shadow' version '9.4.1'
+    id 'org.sonarqube' version '7.2.3.7755'
+}
+
+group = 'io.github.yvasyliev'
+version = '2.1.2' // x-release-please-version
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation platform('io.github.openfeign:feign-bom:13.11')
+    implementation platform('tools.jackson:jackson-bom:3.1.0')
+
+    api 'io.github.openfeign:feign-form'
+    api 'tools.jackson.core:jackson-databind'
+    api 'org.jspecify:jspecify:1.0.0'
+
+    checkstyle 'com.puppycrawl.tools:checkstyle:13.3.0'
+    checkstyle 'com.github.sevntu-checkstyle:sevntu-checks:1.44.1'
+
+    errorprone 'com.google.errorprone:error_prone_core:2.48.0'
+    errorprone 'com.uber.nullaway:nullaway:0.13.1'
+}
+
+checkstyle {
+    maxWarnings = 0
+}
+
+testing {
+    suites {
+        configureEach {
+            configurations {
+                mockitoAgent
+            }
+
+            useJUnitJupiter()
+
+            targets.configureEach {
+                testTask.configure {
+                    jvmArgs += "-javaagent:${configurations.mockitoAgent.asPath}"
+                }
+            }
+
+            dependencies {
+                implementation platform('org.junit:junit-bom:6.0.3')
+                implementation platform('org.mockito:mockito-bom:5.23.0')
+                implementation platform('org.assertj:assertj-bom:3.27.7')
+
+                implementation 'org.junit.jupiter:junit-jupiter'
+                implementation 'org.mockito:mockito-junit-jupiter'
+                implementation 'org.assertj:assertj-core'
+
+                runtimeOnly 'org.junit.platform:junit-platform-launcher'
+
+                project.dependencies.add('mockitoAgent', platform('org.mockito:mockito-bom:5.23.0'))
+                project.dependencies.add('mockitoAgent', 'org.mockito:mockito-core') {
+                    transitive = false
+                }
+            }
+        }
+
+        integrationTest(JvmTestSuite) {
+            configurations.named(sources.implementationConfigurationName) {
+                extendsFrom(configurations.implementation)
+            }
+
+            dependencies {
+                implementation project()
+
+                implementation 'org.wiremock:wiremock:3.13.2'
+            }
+
+            targets {
+                configureEach {
+                    testTask.configure {
+                        shouldRunAfter(test)
+                    }
+                }
+            }
+        }
+    }
+}
+
+check {
+    dependsOn integrationTest
+}
+
+tasks.withType(JavaCompile).configureEach {
+    sourceCompatibility = '17'
+    targetCompatibility = '17'
+    options.release = 17
+
+    options.errorprone {
+        disable 'DirectInvocationOnMock', 'OperatorPrecedence'
+        option 'NullAway:OnlyNullMarked', 'true'
+        error 'NullAway'
+    }
+
+    if (project.hasProperty("strict")) {
+        options.compilerArgs << '-Werror'
+    }
+}
+
+jacocoTestReport {
+    dependsOn test, integrationTest
+
+    executionData(
+            tasks.test.extensions.getByType(JacocoTaskExtension).destinationFile,
+            tasks.integrationTest.extensions.getByType(JacocoTaskExtension).destinationFile
+    )
+
+    reports {
+        xml.required = true
+    }
+}
+
+integrationTest {
+    finalizedBy jacocoTestReport
+}
+
+//TODO: move 'publishing' outside the `afterEvaluate` block once the relocation is no longer needed
+afterEvaluate {
+    publishing {
+        publications {
+            withType(MavenPublication).configureEach {
+                artifacts.removeAll { it.classifier == 'all' }
+
+                versionMapping {
+                    allVariants {
+                        fromResolutionResult()
+                    }
+                }
+            }
+
+            //TODO: remove the 'relocation' block once the artifact is relocated to the new coordinates
+//            relocation(MavenPublication) {
+//                groupId = 'com.github.yvasyliev'
+//                artifactId = 'deezer-api'
+//                version = '3.0.0'
+//
+//                pom {
+//                    distributionManagement {
+//                        relocation {
+//                            groupId = 'io.github.yvasyliev'
+//                            artifactId = 'dz4j'
+//                            message = 'This artifact has been relocated to io.github.yvasyliev:dz4j'
+//                        }
+//                    }
+//                }
+//            }
+        }
+    }
+}
+
+mavenPublishing {
+    publishToMavenCentral(false, DeploymentValidation.NONE)
+    signAllPublications()
+
+    coordinates project.group.toString(), project.name, project.version.toString()
+
+    pom {
+        name = 'Dz4j'
+        description = 'An unofficial Java wrapper for the Deezer API'
+        inceptionYear = '2021'
+        url = 'https://github.com/yvasyliev/dz4j'
+
+        licenses {
+            license {
+                name = 'MIT License'
+                url = 'https://www.opensource.org/licenses/mit-license.php'
+                distribution = 'repo'
+            }
+        }
+
+        developers {
+            developer {
+                id = 'yvasyliev'
+                name = 'Yevhen Vasyliev'
+                email = 'ye.vasyliev@gmail.com'
+                url = 'https://github.com/yvasyliev'
+                organization = 'yvasyliev'
+                organizationUrl = 'https://github.com/yvasyliev'
+                roles = ['developer']
+                timezone = 'Europe/Kyiv'
+            }
+        }
+
+        scm {
+            url = 'https://github.com/yvasyliev/dz4j'
+            connection = 'scm:git:ssh://github.com/yvasyliev/dz4j.git'
+            developerConnection = 'scm:git:ssh://github.com/yvasyliev/dz4j.git'
+        }
+
+        withXml {
+            asNode().get('dependencyManagement').each { it.parent().remove(it) }
+        }
+    }
+}
+
+tasks.withType(GenerateModuleMetadata).configureEach {
+    enabled = false
+}
+
+tasks.withType(AbstractArchiveTask).configureEach {
+    into('META-INF') {
+        from rootProject.files('LICENSE', 'NOTICE')
+
+        if (name == 'shadowJar') {
+            rename '(LICENSE|NOTICE)', 'dz4j-$1'
+        }
+    }
+}
+
+tasks.register('signShadowJar', Sign) {
+    description = 'Signs the shadow JAR artifact.'
+    dependsOn shadowJar
+    sign(tasks.shadowJar.archiveFile.get().asFile)
+}
+
+tasks.withType(AbstractPublishToMaven).configureEach {
+    dependsOn tasks.signShadowJar
+}
+
+sonar {
+    properties {
+        property 'sonar.organization', 'yvasyliev'
+        properties['sonar.tests'] += sourceSets.integrationTest.allSource.srcDirs
+    }
+}

@@ -1,0 +1,22 @@
+info:
+  name: remove-playlist
+  type: http
+  seq: 39
+
+http:
+  method: DELETE
+  url: "{{api-host}}/user/me/playlists?access_token={{access-token}}&playlist_id={{playlist-id}}"
+  params:
+    - name: access_token
+      value: "{{access-token}}"
+      type: query
+    - name: playlist_id
+      value: "{{playlist-id}}"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

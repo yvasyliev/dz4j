@@ -1,0 +1,42 @@
+{
+  "data": [
+    {
+      "id": 3389903,
+      "readable": true,
+      "title": "Tarzan Boy",
+      "duration": 378,
+      "rank": 759475,
+      "explicit_lyrics": false,
+      "explicit_content_lyrics": 0,
+      "explicit_content_cover": 0,
+      "preview": "https://cdnt-preview.dzcdn.net/api/1/1/9/6/f/0/96f9bb021411836210e8c21f64a82f0f.mp3?hdnea=exp=1769860137~acl=/api/1/1/9/6/f/0/96f9bb021411836210e8c21f64a82f0f.mp3*~data=user_id=0,application_id=42~hmac=3a075c5625697468a3b96cbad9edba1021ded5d017cfd70b8624d26d26809095",
+      "md5_image": "ee8a88e9c4d227a32819f3b1a4fa6100",
+      "artist": {
+        "id": 12794,
+        "name": "Baltimora",
+        "picture": "https://api.deezer.com/artist/12794/image",
+        "picture_small": "https://cdn-images.dzcdn.net/images/artist/55149131f47e06a46b3c2c724f999294/56x56-000000-80-0-0.jpg",
+        "picture_medium": "https://cdn-images.dzcdn.net/images/artist/55149131f47e06a46b3c2c724f999294/250x250-000000-80-0-0.jpg",
+        "picture_big": "https://cdn-images.dzcdn.net/images/artist/55149131f47e06a46b3c2c724f999294/500x500-000000-80-0-0.jpg",
+        "picture_xl": "https://cdn-images.dzcdn.net/images/artist/55149131f47e06a46b3c2c724f999294/1000x1000-000000-80-0-0.jpg",
+        "tracklist": "https://api.deezer.com/artist/12794/top?limit=50",
+        "type": "artist"
+      },
+      "album": {
+        "id": 322239,
+        "title": "Living In The Background",
+        "cover": "https://api.deezer.com/album/322239/image",
+        "cover_small": "https://cdn-images.dzcdn.net/images/cover/ee8a88e9c4d227a32819f3b1a4fa6100/56x56-000000-80-0-0.jpg",
+        "cover_medium": "https://cdn-images.dzcdn.net/images/cover/ee8a88e9c4d227a32819f3b1a4fa6100/250x250-000000-80-0-0.jpg",
+        "cover_big": "https://cdn-images.dzcdn.net/images/cover/ee8a88e9c4d227a32819f3b1a4fa6100/500x500-000000-80-0-0.jpg",
+        "cover_xl": "https://cdn-images.dzcdn.net/images/cover/ee8a88e9c4d227a32819f3b1a4fa6100/1000x1000-000000-80-0-0.jpg",
+        "md5_image": "ee8a88e9c4d227a32819f3b1a4fa6100",
+        "tracklist": "https://api.deezer.com/album/322239/tracks",
+        "type": "album"
+      },
+      "type": "track"
+    }
+  ],
+  "total": 100,
+  "next": "https://api.deezer.com/user/me/charts?access_token=RLAP1ir5PDaBZJPVRF4jvaVgMf83h2D8DmjUA0aprq5b6n10Jg&limit=1&index=1"
+}

@@ -1,0 +1,22 @@
+info:
+  name: delete-tracks
+  type: http
+  seq: 3
+
+http:
+  method: DELETE
+  url: "{{api-host}}/playlist/{{user-playlist-id}}/tracks?access_token={{access-token}}&songs={{songs}}"
+  params:
+    - name: access_token
+      value: "{{access-token}}"
+      type: query
+    - name: songs
+      value: "{{songs}}"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

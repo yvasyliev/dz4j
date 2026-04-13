@@ -1,0 +1,18 @@
+info:
+  name: user
+  type: folder
+  seq: 16
+
+request:
+  auth: inherit
+  variables:
+    - name: artist-id
+      value: "172"
+    - name: album-id
+      value: "301275"
+    - name: user-id
+      value: "753543485"
+    - name: playlist-id
+      value: "10517702202"
+    - name: track-id
+      value: "646326522"

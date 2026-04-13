@@ -1,0 +1,22 @@
+info:
+  name: add-notification
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: "{{api-host}}/user/me/notifications"
+  body:
+    type: form-urlencoded
+    data:
+      - name: access_token
+        value: "{{access-token}}"
+      - name: message
+        value: Notification message.
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

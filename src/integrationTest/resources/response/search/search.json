@@ -1,0 +1,46 @@
+{
+  "data": [
+    {
+      "id": 1109731,
+      "readable": true,
+      "title": "Lose Yourself",
+      "title_short": "Lose Yourself",
+      "title_version": "",
+      "link": "https://www.deezer.com/track/1109731",
+      "duration": 326,
+      "rank": 980436,
+      "explicit_lyrics": true,
+      "explicit_content_lyrics": 1,
+      "explicit_content_cover": 0,
+      "preview": "https://cdnt-preview.dzcdn.net/api/1/1/2/7/a/0/27a14827ff1e82c5e40e8b6a934a8637.mp3?hdnea=exp=1769111047~acl=/api/1/1/2/7/a/0/27a14827ff1e82c5e40e8b6a934a8637.mp3*~data=user_id=0,application_id=42~hmac=98318592701b7360148641b6645fe995b01c90ada5bed18eb960bd375d91a4a8",
+      "md5_image": "e2b36a9fda865cb2e9ed1476b6291a7d",
+      "artist": {
+        "id": 13,
+        "name": "Eminem",
+        "link": "https://www.deezer.com/artist/13",
+        "picture": "https://api.deezer.com/artist/13/image",
+        "picture_small": "https://cdn-images.dzcdn.net/images/artist/0f30bbd33a680030054af004d698d6ac/56x56-000000-80-0-0.jpg",
+        "picture_medium": "https://cdn-images.dzcdn.net/images/artist/0f30bbd33a680030054af004d698d6ac/250x250-000000-80-0-0.jpg",
+        "picture_big": "https://cdn-images.dzcdn.net/images/artist/0f30bbd33a680030054af004d698d6ac/500x500-000000-80-0-0.jpg",
+        "picture_xl": "https://cdn-images.dzcdn.net/images/artist/0f30bbd33a680030054af004d698d6ac/1000x1000-000000-80-0-0.jpg",
+        "tracklist": "https://api.deezer.com/artist/13/top?limit=50",
+        "type": "artist"
+      },
+      "album": {
+        "id": 119606,
+        "title": "Curtain Call: The Hits",
+        "cover": "https://api.deezer.com/album/119606/image",
+        "cover_small": "https://cdn-images.dzcdn.net/images/cover/e2b36a9fda865cb2e9ed1476b6291a7d/56x56-000000-80-0-0.jpg",
+        "cover_medium": "https://cdn-images.dzcdn.net/images/cover/e2b36a9fda865cb2e9ed1476b6291a7d/250x250-000000-80-0-0.jpg",
+        "cover_big": "https://cdn-images.dzcdn.net/images/cover/e2b36a9fda865cb2e9ed1476b6291a7d/500x500-000000-80-0-0.jpg",
+        "cover_xl": "https://cdn-images.dzcdn.net/images/cover/e2b36a9fda865cb2e9ed1476b6291a7d/1000x1000-000000-80-0-0.jpg",
+        "md5_image": "e2b36a9fda865cb2e9ed1476b6291a7d",
+        "tracklist": "https://api.deezer.com/album/119606/tracks",
+        "type": "album"
+      },
+      "type": "track"
+    }
+  ],
+  "total": 210,
+  "next": "https://api.deezer.com/search?q=eminem&strict=on&order=DURATION_DESC&limit=1&index=1"
+}

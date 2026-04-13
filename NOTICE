@@ -1,0 +1,60 @@
+Dz4j
+Copyright (c) 2021 Yevhen Vasyliev
+
+Dz4j is distributed under the MIT License. See the accompanying LICENSE file.
+
+This NOTICE file is provided for attribution purposes. It focuses on third-party
+components that are redistributed with Dz4j artifacts.
+
+Artifact scope
+--------------
+- The regular dz4j JAR contains Dz4j code plus this project's LICENSE and NOTICE files.
+- The shaded dz4j-all JAR additionally bundles third-party components listed below.
+- Build plugins, BOMs, static-analysis tools, and test-only dependencies are not
+  redistributed in the published runtime artifacts and are therefore omitted from
+  this NOTICE.
+
+Bundled third-party components in the shaded JAR
+------------------------------------------------
+- OpenFeign
+  Modules: io.github.openfeign:feign-form, io.github.openfeign:feign-core
+  License: Apache License 2.0
+
+- Jackson
+  Modules: tools.jackson.core:jackson-databind, tools.jackson.core:jackson-core,
+  com.fasterxml.jackson.core:jackson-annotations
+  License: Apache License 2.0
+
+- JSpecify
+  Module: org.jspecify:jspecify
+  License: Apache License 2.0
+
+Apache notice carried forward from bundled Jackson components
+------------------------------------------------------------
+Jackson JSON processor
+
+Jackson is a high-performance, Free/Open Source JSON processing library.
+It was originally written by Tatu Saloranta (tatu.saloranta@iki.fi), and has
+been in development since 2007.
+It is currently developed by a community of developers.
+
+Copyright
+Copyright 2007-, Tatu Saloranta (tatu.saloranta@iki.fi)
+
+Licensing
+Jackson 3.x core and extension components are licensed under Apache License 2.0.
+See the accompanying license files in the distributed artifact for details.
+
+Credits
+A list of contributors may be found from the CREDITS file in Jackson source
+repositories and source distributions.
+
+FastDoubleParser
+jackson-core bundles a shaded copy of FastDoubleParser
+(https://github.com/wrandelshofer/FastDoubleParser).
+That code is available under the MIT license under the following copyright:
+
+Copyright 2023 Werner Randelshofer, Switzerland.
+
+See the accompanying FastDoubleParser notice and license files in the
+distributed artifact for additional details.

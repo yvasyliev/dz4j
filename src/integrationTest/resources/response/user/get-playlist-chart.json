@@ -1,0 +1,32 @@
+{
+  "data": [
+    {
+      "id": 2526335528,
+      "title": "Valiant Hearts: The Great War",
+      "public": true,
+      "nb_tracks": 20,
+      "link": "https://www.deezer.com/playlist/2526335528",
+      "picture": "https://api.deezer.com/playlist/2526335528/image",
+      "picture_small": "https://cdn-images.dzcdn.net/images/cover/37afdf2b68f6a5a3c0171a7ebaabdce8/56x56-000000-80-0-0.jpg",
+      "picture_medium": "https://cdn-images.dzcdn.net/images/cover/37afdf2b68f6a5a3c0171a7ebaabdce8/250x250-000000-80-0-0.jpg",
+      "picture_big": "https://cdn-images.dzcdn.net/images/cover/37afdf2b68f6a5a3c0171a7ebaabdce8/500x500-000000-80-0-0.jpg",
+      "picture_xl": "https://cdn-images.dzcdn.net/images/cover/37afdf2b68f6a5a3c0171a7ebaabdce8/1000x1000-000000-80-0-0.jpg",
+      "checksum": "018c4b18bb86508ecfbcfe404f0b0aeb",
+      "tracklist": "https://api.deezer.com/playlist/2526335528/tracks",
+      "creation_date": "2016-12-06 03:23:46",
+      "add_date": "2016-12-06 03:23:46",
+      "mod_date": "2016-12-06 03:23:46",
+      "md5_image": "37afdf2b68f6a5a3c0171a7ebaabdce8",
+      "picture_type": "cover",
+      "user": {
+        "id": 773405387,
+        "name": "maria jose",
+        "tracklist": "https://api.deezer.com/user/773405387/flow",
+        "type": "user"
+      },
+      "type": "playlist"
+    }
+  ],
+  "total": 10,
+  "next": "https://api.deezer.com/user/me/charts/playlists?access_token=RLAP1ir5PDaBZJPVRF4jvaVgMf83h2D8DmjUA0aprq5b6n10Jg&limit=1&index=1"
+}

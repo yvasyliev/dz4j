@@ -1,0 +1,39 @@
+{
+  "data": [
+    {
+      "id": 3125441,
+      "readable": true,
+      "title": "Whip It",
+      "duration": 158,
+      "rank": 654888,
+      "explicit_lyrics": false,
+      "explicit_content_lyrics": 0,
+      "explicit_content_cover": 0,
+      "md5_image": "aadcdf3167d082e76dad29165cb3f784",
+      "album": {
+        "id": 301477,
+        "title": "Hot Potatoes: The Best Of Devo",
+        "cover": "https://api.deezer.com/album/301477/image",
+        "cover_small": "https://cdn-images.dzcdn.net/images/cover/aadcdf3167d082e76dad29165cb3f784/56x56-000000-80-0-0.jpg",
+        "cover_medium": "https://cdn-images.dzcdn.net/images/cover/aadcdf3167d082e76dad29165cb3f784/250x250-000000-80-0-0.jpg",
+        "cover_big": "https://cdn-images.dzcdn.net/images/cover/aadcdf3167d082e76dad29165cb3f784/500x500-000000-80-0-0.jpg",
+        "cover_xl": "https://cdn-images.dzcdn.net/images/cover/aadcdf3167d082e76dad29165cb3f784/1000x1000-000000-80-0-0.jpg",
+        "md5_image": "aadcdf3167d082e76dad29165cb3f784",
+        "tracklist": "https://api.deezer.com/album/301477/tracks",
+        "type": "album"
+      },
+      "artist": {
+        "id": 1494,
+        "name": "Devo",
+        "picture": "https://api.deezer.com/artist/1494/image",
+        "picture_small": "https://cdn-images.dzcdn.net/images/artist/737d33694d4e139ca0bc0e8a5e87033f/56x56-000000-80-0-0.jpg",
+        "picture_medium": "https://cdn-images.dzcdn.net/images/artist/737d33694d4e139ca0bc0e8a5e87033f/250x250-000000-80-0-0.jpg",
+        "picture_big": "https://cdn-images.dzcdn.net/images/artist/737d33694d4e139ca0bc0e8a5e87033f/500x500-000000-80-0-0.jpg",
+        "picture_xl": "https://cdn-images.dzcdn.net/images/artist/737d33694d4e139ca0bc0e8a5e87033f/1000x1000-000000-80-0-0.jpg",
+        "tracklist": "https://api.deezer.com/artist/1494/top?limit=50",
+        "type": "artist"
+      },
+      "type": "track"
+    }
+  ]
+}

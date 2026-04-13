@@ -1,0 +1,32 @@
+{
+  "data": [
+    {
+      "id": -3141162703,
+      "readable": true,
+      "title": "Daydream",
+      "isrc": "",
+      "link": "https://www.deezer.com/track/-3141162703",
+      "duration": 170,
+      "rank": 0,
+      "explicit_lyrics": false,
+      "explicit_content_lyrics": 0,
+      "explicit_content_cover": 0,
+      "md5_image": "",
+      "artist": {
+        "name": "Atch",
+        "tracklist": "",
+        "type": "artist"
+      },
+      "album": {
+        "id": 0,
+        "title": "Daydream",
+        "link": "https://www.deezer.com/album/0",
+        "md5_image": "",
+        "tracklist": "",
+        "type": "album"
+      },
+      "type": "track"
+    }
+  ],
+  "total": 1
+}

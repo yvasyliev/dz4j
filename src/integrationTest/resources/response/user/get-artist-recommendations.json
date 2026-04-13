@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "id": 882121,
+      "name": "Parlor Snakes",
+      "picture": "https://api.deezer.com/artist/882121/image",
+      "picture_small": "https://cdn-images.dzcdn.net/images/artist/0dc145947c6f750eb88cbfba07253331/56x56-000000-80-0-0.jpg",
+      "picture_medium": "https://cdn-images.dzcdn.net/images/artist/0dc145947c6f750eb88cbfba07253331/250x250-000000-80-0-0.jpg",
+      "picture_big": "https://cdn-images.dzcdn.net/images/artist/0dc145947c6f750eb88cbfba07253331/500x500-000000-80-0-0.jpg",
+      "picture_xl": "https://cdn-images.dzcdn.net/images/artist/0dc145947c6f750eb88cbfba07253331/1000x1000-000000-80-0-0.jpg",
+      "radio": true,
+      "tracklist": "https://api.deezer.com/artist/882121/top?limit=50",
+      "type": "artist"
+    }
+  ]
+}

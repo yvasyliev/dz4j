@@ -1,0 +1,32 @@
+{
+  "data": [
+    {
+      "id": 3645740262,
+      "title": "100% Eminem",
+      "public": true,
+      "nb_tracks": 40,
+      "link": "https://www.deezer.com/playlist/3645740262",
+      "picture": "https://api.deezer.com/playlist/3645740262/image",
+      "picture_small": "https://cdn-images.dzcdn.net/images/playlist/9066bf8e1e68febbb1dd68a2d6c194cf/56x56-000000-80-0-0.jpg",
+      "picture_medium": "https://cdn-images.dzcdn.net/images/playlist/9066bf8e1e68febbb1dd68a2d6c194cf/250x250-000000-80-0-0.jpg",
+      "picture_big": "https://cdn-images.dzcdn.net/images/playlist/9066bf8e1e68febbb1dd68a2d6c194cf/500x500-000000-80-0-0.jpg",
+      "picture_xl": "https://cdn-images.dzcdn.net/images/playlist/9066bf8e1e68febbb1dd68a2d6c194cf/1000x1000-000000-80-0-0.jpg",
+      "checksum": "fa76035f55b75243d1dbb276bf7185e8",
+      "tracklist": "https://api.deezer.com/playlist/3645740262/tracks",
+      "creation_date": "2017-10-02 11:07:26",
+      "add_date": "2026-01-17 06:42:48",
+      "mod_date": "2026-01-17 06:42:48",
+      "md5_image": "9066bf8e1e68febbb1dd68a2d6c194cf",
+      "picture_type": "playlist",
+      "user": {
+        "id": 1990304482,
+        "name": "Deezer Artist Editor",
+        "tracklist": "https://api.deezer.com/user/1990304482/flow",
+        "type": "user"
+      },
+      "type": "playlist"
+    }
+  ],
+  "total": 150,
+  "next": "https://api.deezer.com/search/playlist?limit=1&q=eminem&strict=on&order=DURATION_DESC&index=1"
+}

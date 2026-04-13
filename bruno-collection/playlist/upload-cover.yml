@@ -1,0 +1,28 @@
+info:
+  name: upload-cover
+  type: http
+  seq: 11
+
+http:
+  method: POST
+  url: "{{upload-host}}/playlist/{{user-playlist-id}}"
+  body:
+    type: multipart-form
+    data:
+      - name: access_token
+        type: text
+        value: "{{access-token}}"
+      - name: upload_token
+        type: text
+        value: "{{upload-token}}"
+      - name: file
+        type: file
+        value:
+          - ..\assets\stan-bonke-LIjUr3B9IXE-unsplash.jpg
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

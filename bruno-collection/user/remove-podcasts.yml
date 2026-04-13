@@ -1,0 +1,22 @@
+info:
+  name: remove-podcasts
+  type: http
+  seq: 40
+
+http:
+  method: DELETE
+  url: "{{api-host}}/user/me/podcasts?access_token={{access-token}}&podcast_id={{podcast-id}}"
+  params:
+    - name: access_token
+      value: "{{access-token}}"
+      type: query
+    - name: podcast_id
+      value: "{{podcast-id}}"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

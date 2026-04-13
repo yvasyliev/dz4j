@@ -1,0 +1,22 @@
+info:
+  name: remove-artist
+  type: http
+  seq: 38
+
+http:
+  method: DELETE
+  url: "{{api-host}}/user/me/artists?access_token={{access-token}}&artist_id={{artist-id}}"
+  params:
+    - name: access_token
+      value: "{{access-token}}"
+      type: query
+    - name: artist_id
+      value: "{{artist-id}}"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,45 @@
+opencollection: 1.0.0
+
+info:
+  name: deezer
+config:
+  proxy:
+    inherit: true
+    config:
+      protocol: http
+      hostname: ""
+      port: ""
+      auth:
+        username: ""
+        password: ""
+      bypassProxy: ""
+
+request:
+  headers:
+    - name: Accept
+      value: application/json
+  variables:
+    - name: playlist-id
+      value: "10517702202"
+    - name: podcast-id
+      value: "1447162"
+    - name: radio-id
+      value: "38305"
+    - name: genre-id
+      value: "152"
+    - name: album-id
+      value: "500138701"
+    - name: episode-id
+      value: "605632582"
+    - name: track-id
+      value: "541999"
+bundled: false
+extensions:
+  ignore:
+    - node_modules
+    - .git
+    - assets
+  presets:
+    request:
+      type: http
+      url: "{{api-host}}"

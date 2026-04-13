@@ -1,0 +1,7 @@
+{
+  "error": {
+    "type": "IndividualAccountChangedNotAllowedException",
+    "message": "INDIVIDUAL_ACCOUNT_NOT_ALLOWED",
+    "code": 901
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "data": [
+    {
+      "id": 533131372,
+      "title": "Suicide Squad: Kill the Justice League (Original Video Game Soundtrack)",
+      "link": "https://www.deezer.com/album/533131372",
+      "cover": "https://api.deezer.com/album/533131372/image",
+      "cover_small": "https://cdn-images.dzcdn.net/images/cover/c1d214c608a4d352d064428ab615b735/56x56-000000-80-0-0.jpg",
+      "cover_medium": "https://cdn-images.dzcdn.net/images/cover/c1d214c608a4d352d064428ab615b735/250x250-000000-80-0-0.jpg",
+      "cover_big": "https://cdn-images.dzcdn.net/images/cover/c1d214c608a4d352d064428ab615b735/500x500-000000-80-0-0.jpg",
+      "cover_xl": "https://cdn-images.dzcdn.net/images/cover/c1d214c608a4d352d064428ab615b735/1000x1000-000000-80-0-0.jpg",
+      "md5_image": "c1d214c608a4d352d064428ab615b735",
+      "nb_tracks": 26,
+      "record_type": "album",
+      "tracklist": "https://api.deezer.com/album/533131372/tracks",
+      "explicit_lyrics": false,
+      "artist": {
+        "id": 5609613,
+        "name": "Rupert Cross",
+        "picture": "https://api.deezer.com/artist/5609613/image",
+        "picture_small": "https://cdn-images.dzcdn.net/images/artist/94e7e5d83d219ec4b909a8fce62481cb/56x56-000000-80-0-0.jpg",
+        "picture_medium": "https://cdn-images.dzcdn.net/images/artist/94e7e5d83d219ec4b909a8fce62481cb/250x250-000000-80-0-0.jpg",
+        "picture_big": "https://cdn-images.dzcdn.net/images/artist/94e7e5d83d219ec4b909a8fce62481cb/500x500-000000-80-0-0.jpg",
+        "picture_xl": "https://cdn-images.dzcdn.net/images/artist/94e7e5d83d219ec4b909a8fce62481cb/1000x1000-000000-80-0-0.jpg",
+        "tracklist": "https://api.deezer.com/artist/5609613/top?limit=50",
+        "type": "artist"
+      },
+      "type": "album"
+    }
+  ],
+  "total": 20,
+  "next": "https://api.deezer.com/user/me/charts/albums?access_token=RLAP1ir5PDaBZJPVRF4jvaVgMf83h2D8DmjUA0aprq5b6n10Jg&limit=1&index=1"
+}

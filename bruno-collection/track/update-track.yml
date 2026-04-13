@@ -1,0 +1,26 @@
+info:
+  name: update-track
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{api-host}}/track/{{user-track}}"
+  body:
+    type: form-urlencoded
+    data:
+      - name: access_token
+        value: "{{access-token}}"
+      - name: title
+        value: Daydream
+      - name: artist
+        value: Atch
+      - name: album
+        value: Daydream
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

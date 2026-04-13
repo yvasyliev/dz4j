@@ -1,0 +1,42 @@
+{
+  "data": [
+    {
+      "id": 621146212,
+      "readable": true,
+      "title": "The Only Thing I Know For Real (Maniac Agenda Mix)",
+      "duration": 146,
+      "rank": 424228,
+      "explicit_lyrics": false,
+      "explicit_content_lyrics": 0,
+      "explicit_content_cover": 2,
+      "preview": "https://cdnt-preview.dzcdn.net/api/1/1/5/8/7/0/58717ccc4d5459a69ac31e8cef5ccff7.mp3?hdnea=exp=1769947623~acl=/api/1/1/5/8/7/0/58717ccc4d5459a69ac31e8cef5ccff7.mp3*~data=user_id=0,application_id=42~hmac=3b6ca6308f2c5e4de3722178de8875a253c4e1fd745024a9004585788791afda",
+      "md5_image": "9532b38bb322c1ef55001b573219630f",
+      "artist": {
+        "id": 2866121,
+        "name": "Tyson Yen",
+        "picture": "https://api.deezer.com/artist/2866121/image",
+        "picture_small": "https://cdn-images.dzcdn.net/images/artist/3e943f4d81540c0f45884674e34b608c/56x56-000000-80-0-0.jpg",
+        "picture_medium": "https://cdn-images.dzcdn.net/images/artist/3e943f4d81540c0f45884674e34b608c/250x250-000000-80-0-0.jpg",
+        "picture_big": "https://cdn-images.dzcdn.net/images/artist/3e943f4d81540c0f45884674e34b608c/500x500-000000-80-0-0.jpg",
+        "picture_xl": "https://cdn-images.dzcdn.net/images/artist/3e943f4d81540c0f45884674e34b608c/1000x1000-000000-80-0-0.jpg",
+        "tracklist": "https://api.deezer.com/artist/2866121/top?limit=50",
+        "type": "artist"
+      },
+      "album": {
+        "id": 85049452,
+        "title": "METAL GEAR RISING REVENGEANCE Vocal Tracks Selection",
+        "cover": "https://api.deezer.com/album/85049452/image",
+        "cover_small": "https://cdn-images.dzcdn.net/images/cover/9532b38bb322c1ef55001b573219630f/56x56-000000-80-0-0.jpg",
+        "cover_medium": "https://cdn-images.dzcdn.net/images/cover/9532b38bb322c1ef55001b573219630f/250x250-000000-80-0-0.jpg",
+        "cover_big": "https://cdn-images.dzcdn.net/images/cover/9532b38bb322c1ef55001b573219630f/500x500-000000-80-0-0.jpg",
+        "cover_xl": "https://cdn-images.dzcdn.net/images/cover/9532b38bb322c1ef55001b573219630f/1000x1000-000000-80-0-0.jpg",
+        "md5_image": "9532b38bb322c1ef55001b573219630f",
+        "tracklist": "https://api.deezer.com/album/85049452/tracks",
+        "type": "album"
+      },
+      "type": "track"
+    }
+  ],
+  "total": 100,
+  "next": "https://api.deezer.com/user/me/charts/tracks?access_token=RLAP1ir5PDaBZJPVRF4jvaVgMf83h2D8DmjUA0aprq5b6n10Jg&limit=1&index=1"
+}

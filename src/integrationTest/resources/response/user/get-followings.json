@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "id": 753546365,
+      "name": "Laeti - Deezer Pop Editor",
+      "picture": "https://api.deezer.com/user/753546365/image",
+      "picture_small": "https://cdn-images.dzcdn.net/images/user/9ddf1356db4f37d98546c024c37bbe8d/56x56-000000-80-0-0.jpg",
+      "picture_medium": "https://cdn-images.dzcdn.net/images/user/9ddf1356db4f37d98546c024c37bbe8d/250x250-000000-80-0-0.jpg",
+      "picture_big": "https://cdn-images.dzcdn.net/images/user/9ddf1356db4f37d98546c024c37bbe8d/500x500-000000-80-0-0.jpg",
+      "picture_xl": "https://cdn-images.dzcdn.net/images/user/9ddf1356db4f37d98546c024c37bbe8d/1000x1000-000000-80-0-0.jpg",
+      "tracklist": "https://api.deezer.com/user/753546365/flow",
+      "type": "user"
+    }
+  ],
+  "total": 1
+}

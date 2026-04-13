@@ -1,0 +1,12 @@
+info:
+  name: playlist
+  type: folder
+  seq: 11
+
+request:
+  auth: inherit
+  variables:
+    - name: songs
+      value: 65121042,646326522
+    - name: order
+      value: 646326522,65121042

@@ -1,0 +1,23 @@
+{
+  "data": [
+    {
+      "id": 12833659,
+      "name": "GRLwood",
+      "link": "https://www.deezer.com/artist/12833659",
+      "picture": "https://api.deezer.com/artist/12833659/image",
+      "picture_small": "https://cdn-images.dzcdn.net/images/artist/d3b799fe40277adf47bb7505485794d0/56x56-000000-80-0-0.jpg",
+      "picture_medium": "https://cdn-images.dzcdn.net/images/artist/d3b799fe40277adf47bb7505485794d0/250x250-000000-80-0-0.jpg",
+      "picture_big": "https://cdn-images.dzcdn.net/images/artist/d3b799fe40277adf47bb7505485794d0/500x500-000000-80-0-0.jpg",
+      "picture_xl": "https://cdn-images.dzcdn.net/images/artist/d3b799fe40277adf47bb7505485794d0/1000x1000-000000-80-0-0.jpg",
+      "nb_album": 25,
+      "nb_fan": 18526,
+      "radio": true,
+      "tracklist": "https://api.deezer.com/artist/12833659/top?limit=50",
+      "time_add": 1764580985,
+      "type": "artist"
+    }
+  ],
+  "checksum": "854a17c81b7f06c6853636791e9dfb6b",
+  "total": 78,
+  "next": "https://api.deezer.com/user/me/artists?access_token=RLAP1ir5PDaBZJPVRF4jvaVgMf83h2D8DmjUA0aprq5b6n10Jg&limit=1&index=1"
+}

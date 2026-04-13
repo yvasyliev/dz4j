@@ -1,0 +1,102 @@
+name: PR Lint
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+    branches:
+      - master
+
+permissions:
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: label-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  pr-lint:
+    if: github.event.action == 'opened' || github.event.changes.title.from
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get PR type
+        id: get-pr-type
+        run: |
+          if [[ "$PR_TITLE" =~ $REGEX ]]; then
+            echo "type=${BASH_REMATCH[1]}" >> $GITHUB_OUTPUT
+          
+            case "${BASH_REMATCH[1]}" in
+              feat|fix|docs|ci)
+                echo "label=${BASH_REMATCH[1]}" >> $GITHUB_OUTPUT
+                ;;
+            esac
+          fi
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          REGEX: ^(build|chore|ci|docs|feat|fix|perf|refactor|style|test)(\(.+\))?!?:\s.+
+
+      - name: Set PR labels
+        run: |
+          readarray -t CURRENT_LABELS < <(gh pr view "$PR_NUMBER" \
+            --repo "$GITHUB_REPOSITORY" \
+            --json labels \
+            --jq '.labels[].name'
+          )
+          
+          REMOVALS=()
+          ADD_REQUIRED="true"
+          
+          if [[ -z "$LABEL" ]]; then
+            ADD_REQUIRED="false"
+          fi
+          
+          for current in "${CURRENT_LABELS[@]}"; do
+            if [[ "$current" == "$LABEL" ]]; then
+              ADD_REQUIRED="false"
+            elif [[ "$current" =~ ^(feat|fix|docs|ci)$ ]]; then
+              REMOVALS+=("$current")
+            fi
+          done
+          
+          OPTS=()
+          if [[ ${#REMOVALS[@]} -gt 0 ]]; then
+            REMOVAL_STR=$(IFS=,; echo "${REMOVALS[*]}")
+            OPTS+=(--remove-label "$REMOVAL_STR")
+          fi
+          
+          if [[ "$ADD_REQUIRED" == "true" ]]; then
+            OPTS+=(--add-label "$LABEL")
+          fi
+          
+          if [[ ${#OPTS[@]} -gt 0 ]]; then
+            gh pr edit "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" "${OPTS[@]}"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          LABEL: ${{ steps.get-pr-type.outputs.label }}
+
+      - name: Comment on PR if no type found
+        if: ${{ !steps.get-pr-type.outputs.type }}
+        run: gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body "$BODY"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          BODY: >
+            👋 Hey @${{ github.event.pull_request.user.login }}, it looks like the PR title doesn't follow the
+            [Conventional Commits](https://www.conventionalcommits.org) format.
+
+
+            While it's not a blocker for this PR, the PR will be squashed and merged using the PR title as the commit
+            message. Following the conventional commits format helps us automatically calculate the next release
+            version, categorize changes, and generate a changelog.
+
+
+            Good candidates might be <code>feat: ${{ github.event.pull_request.title }}</code> or
+            <code>fix: ${{ github.event.pull_request.title }}</code>. You can also add `!` to indicate a breaking
+            change, e.g. <code>feat!: ${{ github.event.pull_request.title }}</code>.
+
+
+            For more details and examples, please visit [Conventional Commits](https://www.conventionalcommits.org). 🙌

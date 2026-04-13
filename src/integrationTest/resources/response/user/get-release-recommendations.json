@@ -1,0 +1,33 @@
+{
+  "data": [
+    {
+      "id": 903334192,
+      "title": "Boys Don’t Cry (86 Mix)",
+      "link": "https://www.deezer.com/album/903334192",
+      "cover": "https://api.deezer.com/album/903334192/image",
+      "cover_small": "https://cdn-images.dzcdn.net/images/cover/f5cad4a1fd2a5056f0ea8c86ea4f9e84/56x56-000000-80-0-0.jpg",
+      "cover_medium": "https://cdn-images.dzcdn.net/images/cover/f5cad4a1fd2a5056f0ea8c86ea4f9e84/250x250-000000-80-0-0.jpg",
+      "cover_big": "https://cdn-images.dzcdn.net/images/cover/f5cad4a1fd2a5056f0ea8c86ea4f9e84/500x500-000000-80-0-0.jpg",
+      "cover_xl": "https://cdn-images.dzcdn.net/images/cover/f5cad4a1fd2a5056f0ea8c86ea4f9e84/1000x1000-000000-80-0-0.jpg",
+      "md5_image": "f5cad4a1fd2a5056f0ea8c86ea4f9e84",
+      "nb_tracks": 5,
+      "record_type": "single",
+      "tracklist": "https://api.deezer.com/album/903334192/tracks",
+      "explicit_lyrics": false,
+      "timestamp": 1769946625,
+      "artist": {
+        "id": 381,
+        "name": "The Cure",
+        "picture": "https://api.deezer.com/artist/381/image",
+        "picture_small": "https://cdn-images.dzcdn.net/images/artist/8c9afdb1385ece7ddf2f2c923c70c0bc/56x56-000000-80-0-0.jpg",
+        "picture_medium": "https://cdn-images.dzcdn.net/images/artist/8c9afdb1385ece7ddf2f2c923c70c0bc/250x250-000000-80-0-0.jpg",
+        "picture_big": "https://cdn-images.dzcdn.net/images/artist/8c9afdb1385ece7ddf2f2c923c70c0bc/500x500-000000-80-0-0.jpg",
+        "picture_xl": "https://cdn-images.dzcdn.net/images/artist/8c9afdb1385ece7ddf2f2c923c70c0bc/1000x1000-000000-80-0-0.jpg",
+        "tracklist": "https://api.deezer.com/artist/381/top?limit=50",
+        "type": "artist"
+      },
+      "type": "album"
+    }
+  ],
+  "total": 1
+}

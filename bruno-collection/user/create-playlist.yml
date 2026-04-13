@@ -1,0 +1,36 @@
+info:
+  name: create-playlist
+  type: http
+  seq: 8
+
+http:
+  method: POST
+  url: "{{api-host}}/user/me/playlists"
+  params:
+  body:
+    type: form-urlencoded
+    data:
+      - name: access_token
+        value: "{{access-token}}"
+      - name: title
+        value: Test playlist
+      - name: description
+        value: A playlist created via Deezer API
+  auth: inherit
+
+runtime:
+  actions:
+    - type: set-variable
+      phase: after-response
+      selector:
+        expression: res.body.id
+        method: jsonq
+      variable:
+        name: user-playlist-id
+        scope: runtime
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

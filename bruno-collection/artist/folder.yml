@@ -1,0 +1,10 @@
+info:
+  name: artist
+  type: folder
+  seq: 2
+
+request:
+  auth: inherit
+  variables:
+    - name: artist-id
+      value: "5587890"

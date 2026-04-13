@@ -1,0 +1,43 @@
+{
+  "data": [
+    {
+      "id": 9440521,
+      "readable": true,
+      "title": "Black Gloves (The Bloody Beetroots Remix)",
+      "title_short": "Black Gloves",
+      "title_version": "(The Bloody Beetroots Remix)",
+      "link": "https://www.deezer.com/track/9440521",
+      "duration": 240,
+      "rank": 143255,
+      "explicit_lyrics": false,
+      "explicit_content_lyrics": 0,
+      "explicit_content_cover": 2,
+      "preview": "https://cdnt-preview.dzcdn.net/api/1/1/5/0/c/0/50c173ffe00b1d30a550fa5a45cf265e.mp3?hdnea=exp=1769948266~acl=/api/1/1/5/0/c/0/50c173ffe00b1d30a550fa5a45cf265e.mp3*~data=user_id=0,application_id=42~hmac=4cee8100fb87b7da1f7f406f1c74a72cd508eb90cb1eee7cf8937f579d448b3e",
+      "md5_image": "b151983936ee81914078588b0e201fe4",
+      "timestamp": 1769946980,
+      "artist": {
+        "id": 15718,
+        "name": "GOOSE",
+        "link": "https://www.deezer.com/artist/15718",
+        "tracklist": "https://api.deezer.com/artist/15718/top?limit=50",
+        "type": "artist"
+      },
+      "album": {
+        "id": 864419,
+        "title": "Best of …Remixes",
+        "link": "https://www.deezer.com/album/864419",
+        "cover": "https://api.deezer.com/album/864419/image",
+        "cover_small": "https://cdn-images.dzcdn.net/images/cover/b151983936ee81914078588b0e201fe4/56x56-000000-80-0-0.jpg",
+        "cover_medium": "https://cdn-images.dzcdn.net/images/cover/b151983936ee81914078588b0e201fe4/250x250-000000-80-0-0.jpg",
+        "cover_big": "https://cdn-images.dzcdn.net/images/cover/b151983936ee81914078588b0e201fe4/500x500-000000-80-0-0.jpg",
+        "cover_xl": "https://cdn-images.dzcdn.net/images/cover/b151983936ee81914078588b0e201fe4/1000x1000-000000-80-0-0.jpg",
+        "md5_image": "b151983936ee81914078588b0e201fe4",
+        "tracklist": "https://api.deezer.com/album/864419/tracks",
+        "type": "album"
+      },
+      "type": "track"
+    }
+  ],
+  "total": 94,
+  "next": "https://api.deezer.com/user/me/history?access_token=RLAP1ir5PDaBZJPVRF4jvaVgMf83h2D8DmjUA0aprq5b6n10Jg&limit=1&index=1"
+}

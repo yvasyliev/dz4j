@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "id": 38305,
+      "title": "The '80s",
+      "picture": "https://api.deezer.com/radio/38305/image",
+      "picture_small": "https://cdn-images.dzcdn.net/images/misc/8b9faa4bff0892283000a53b0d85eb73/56x56-000000-80-0-0.jpg",
+      "picture_medium": "https://cdn-images.dzcdn.net/images/misc/8b9faa4bff0892283000a53b0d85eb73/250x250-000000-80-0-0.jpg",
+      "picture_big": "https://cdn-images.dzcdn.net/images/misc/8b9faa4bff0892283000a53b0d85eb73/500x500-000000-80-0-0.jpg",
+      "picture_xl": "https://cdn-images.dzcdn.net/images/misc/8b9faa4bff0892283000a53b0d85eb73/1000x1000-000000-80-0-0.jpg",
+      "tracklist": "https://api.deezer.com/radio/38305/tracks",
+      "md5_image": "8b9faa4bff0892283000a53b0d85eb73",
+      "type": "radio"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+info:
+  name: follow-user
+  type: http
+  seq: 11
+
+http:
+  method: POST
+  url: "{{api-host}}/user/me/followings"
+  body:
+    type: form-urlencoded
+    data:
+      - name: access_token
+        value: "{{access-token}}"
+      - name: user_id
+        value: "{{user-id}}"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,15 @@
+{
+  "streaming": true,
+  "streaming_duration": 0,
+  "offline": true,
+  "hq": true,
+  "ads_display": false,
+  "ads_audio": false,
+  "too_many_devices": false,
+  "can_subscribe": false,
+  "radio_skips": 0,
+  "lossless": false,
+  "preview": true,
+  "radio": true,
+  "type": "options"
+}

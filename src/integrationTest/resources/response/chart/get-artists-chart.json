@@ -1,0 +1,19 @@
+{
+  "data": [
+    {
+      "id": 92,
+      "name": "Linkin Park",
+      "link": "https://www.deezer.com/artist/92",
+      "picture": "https://api.deezer.com/artist/92/image",
+      "picture_small": "https://cdn-images.dzcdn.net/images/artist/4886905210739af3438990897bad3a98/56x56-000000-80-0-0.jpg",
+      "picture_medium": "https://cdn-images.dzcdn.net/images/artist/4886905210739af3438990897bad3a98/250x250-000000-80-0-0.jpg",
+      "picture_big": "https://cdn-images.dzcdn.net/images/artist/4886905210739af3438990897bad3a98/500x500-000000-80-0-0.jpg",
+      "picture_xl": "https://cdn-images.dzcdn.net/images/artist/4886905210739af3438990897bad3a98/1000x1000-000000-80-0-0.jpg",
+      "radio": true,
+      "tracklist": "https://api.deezer.com/artist/92/top?limit=50",
+      "position": 1,
+      "type": "artist"
+    }
+  ],
+  "total": 1
+}

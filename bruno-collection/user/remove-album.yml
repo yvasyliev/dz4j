@@ -1,0 +1,22 @@
+info:
+  name: remove-album
+  type: http
+  seq: 37
+
+http:
+  method: DELETE
+  url: "{{api-host}}/user/me/albums?access_token={{access-token}}&album_id={{album-id}}"
+  params:
+    - name: access_token
+      value: "{{access-token}}"
+      type: query
+    - name: album_id
+      value: "{{album-id}}"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

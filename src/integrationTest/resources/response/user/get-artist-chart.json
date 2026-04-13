@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "id": 116123,
+      "name": "Health",
+      "link": "https://www.deezer.com/artist/116123",
+      "picture": "https://api.deezer.com/artist/116123/image",
+      "picture_small": "https://cdn-images.dzcdn.net/images/artist/36aab9e1e3e9559da2d08bcc0cfde19e/56x56-000000-80-0-0.jpg",
+      "picture_medium": "https://cdn-images.dzcdn.net/images/artist/36aab9e1e3e9559da2d08bcc0cfde19e/250x250-000000-80-0-0.jpg",
+      "picture_big": "https://cdn-images.dzcdn.net/images/artist/36aab9e1e3e9559da2d08bcc0cfde19e/500x500-000000-80-0-0.jpg",
+      "nb_album": 53,
+      "nb_fan": 21477,
+      "radio": true,
+      "tracklist": "https://api.deezer.com/artist/116123/top?limit=50",
+      "type": "artist"
+    }
+  ],
+  "total": 20,
+  "next": "https://api.deezer.com/user/me/charts/artists?access_token=RLAP1ir5PDaBZJPVRF4jvaVgMf83h2D8DmjUA0aprq5b6n10Jg&limit=1&index=1"
+}

@@ -1,0 +1,34 @@
+{
+  "data": [
+    {
+      "id": 902129562,
+      "title": "Megadeth",
+      "link": "https://www.deezer.com/album/902129562",
+      "cover": "https://api.deezer.com/album/902129562/image",
+      "cover_small": "https://cdn-images.dzcdn.net/images/cover/fbcd14353a18c1f7c98ed750b1ff2e2e/56x56-000000-80-0-0.jpg",
+      "cover_medium": "https://cdn-images.dzcdn.net/images/cover/fbcd14353a18c1f7c98ed750b1ff2e2e/250x250-000000-80-0-0.jpg",
+      "cover_big": "https://cdn-images.dzcdn.net/images/cover/fbcd14353a18c1f7c98ed750b1ff2e2e/500x500-000000-80-0-0.jpg",
+      "cover_xl": "https://cdn-images.dzcdn.net/images/cover/fbcd14353a18c1f7c98ed750b1ff2e2e/1000x1000-000000-80-0-0.jpg",
+      "md5_image": "fbcd14353a18c1f7c98ed750b1ff2e2e",
+      "record_type": "album",
+      "tracklist": "https://api.deezer.com/album/902129562/tracks",
+      "explicit_lyrics": false,
+      "position": 1,
+      "artist": {
+        "id": 3487,
+        "name": "Megadeth",
+        "link": "https://www.deezer.com/artist/3487",
+        "picture": "https://api.deezer.com/artist/3487/image",
+        "picture_small": "https://cdn-images.dzcdn.net/images/artist/cff12b4ef973a62d886d69bf056941ec/56x56-000000-80-0-0.jpg",
+        "picture_medium": "https://cdn-images.dzcdn.net/images/artist/cff12b4ef973a62d886d69bf056941ec/250x250-000000-80-0-0.jpg",
+        "picture_big": "https://cdn-images.dzcdn.net/images/artist/cff12b4ef973a62d886d69bf056941ec/500x500-000000-80-0-0.jpg",
+        "picture_xl": "https://cdn-images.dzcdn.net/images/artist/cff12b4ef973a62d886d69bf056941ec/1000x1000-000000-80-0-0.jpg",
+        "radio": true,
+        "tracklist": "https://api.deezer.com/artist/3487/top?limit=50",
+        "type": "artist"
+      },
+      "type": "album"
+    }
+  ],
+  "total": 1
+}
