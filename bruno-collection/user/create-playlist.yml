@@ -7,9 +7,6 @@ http:
   method: POST
   url: "{{api-host}}/user/me/playlists"
   params:
-    - name: ""
-      value: ""
-      type: query
   body:
     type: form-urlencoded
     data:

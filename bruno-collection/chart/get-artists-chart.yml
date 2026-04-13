@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: "{{api-host}}/chart/{{genre-id}}/albums?index=0&limit=1"
+  url: "{{api-host}}/chart/{{genre-id}}/artists?index=0&limit=1"
   params:
     - name: index
       value: "0"
