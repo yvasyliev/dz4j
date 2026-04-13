@@ -3,8 +3,6 @@
     ".": {
       "release-type": "java",
       "skip-changelog": true,
-      "draft": true,
-      "force-tag-creation": true,
       "include-component-in-tag": false,
       "changelog-type": "github",
       "extra-files": [
