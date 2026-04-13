@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * A genre object.
  *
- * @param id            the editorial's Deezer id
- * @param name          the editorial's name
+ * @param id            the genre id
+ * @param name          the genre name
  * @param picture       the url of the genre picture. Add {@code size} parameter to the url to change size. Can be
  *                      {@code small}, {@code medium}, {@code big}, {@code xl}
  * @param pictureSmall  the url of the genre picture in size small.
