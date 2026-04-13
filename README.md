@@ -69,7 +69,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'io.github.yvasyliev:dz4j:2.1.2-SNAPSHOT'
+    implementation 'io.github.yvasyliev:dz4j:2.1.3-SNAPSHOT'
 }
 ```
 
@@ -109,7 +109,7 @@ Snapshot:
     <dependency>
         <groupId>io.github.yvasyliev</groupId>
         <artifactId>dz4j</artifactId>
-        <version>2.1.2-SNAPSHOT</version>
+        <version>2.1.3-SNAPSHOT</version>
     </dependency>
 </dependencies>
 ```
