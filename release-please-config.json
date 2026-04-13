@@ -7,7 +7,8 @@
       "include-component-in-tag": false,
       "changelog-type": "github",
       "extra-files": [
-        "build.gradle"
+        "build.gradle",
+        "README.md"
       ]
     }
   }

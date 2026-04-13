@@ -106,6 +106,7 @@ tasks.withType(JavaCompile).configureEach {
     sourceCompatibility = '17'
     targetCompatibility = '17'
     options.release = 17
+
     options.errorprone {
         disable 'DirectInvocationOnMock', 'OperatorPrecedence'
         option 'NullAway:OnlyNullMarked', 'true'
@@ -152,7 +153,7 @@ afterEvaluate {
 //            relocation(MavenPublication) {
 //                groupId = 'com.github.yvasyliev'
 //                artifactId = 'deezer-api'
-//                version = '3.0.0-SNAPSHOT'
+//                version = '3.0.0'
 //
 //                pom {
 //                    distributionManagement {
@@ -177,7 +178,7 @@ mavenPublishing {
     pom {
         name = 'Dz4j'
         description = 'An unofficial Java wrapper for the Deezer API'
-        inceptionYear = '2022'
+        inceptionYear = '2021'
         url = 'https://github.com/yvasyliev/dz4j'
 
         licenses {
