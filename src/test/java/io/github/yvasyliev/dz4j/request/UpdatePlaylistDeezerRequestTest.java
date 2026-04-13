@@ -41,4 +41,3 @@ class UpdatePlaylistDeezerRequestTest {
         assertThat(actual).isTrue();
     }
 }
-

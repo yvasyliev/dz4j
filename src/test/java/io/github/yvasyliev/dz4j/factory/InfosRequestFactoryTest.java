@@ -34,4 +34,3 @@ class InfosRequestFactoryTest {
         assertEquals(expected, actual);
     }
 }
-

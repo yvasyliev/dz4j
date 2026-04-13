@@ -94,4 +94,3 @@ class EditorialRequestFactoryTest {
         assertEquals(expected, actual);
     }
 }
-

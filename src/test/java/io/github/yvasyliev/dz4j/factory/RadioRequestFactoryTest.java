@@ -86,4 +86,3 @@ class RadioRequestFactoryTest {
         assertEquals(expected, actual);
     }
 }
-

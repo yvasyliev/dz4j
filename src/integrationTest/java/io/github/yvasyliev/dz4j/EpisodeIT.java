@@ -75,4 +75,3 @@ class EpisodeIT extends AbstractIT {
         assertEquals(expected, deezerClient.episode().unbookmarkEpisode(episodeId));
     }
 }
-

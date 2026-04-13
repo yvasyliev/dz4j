@@ -118,4 +118,3 @@ class RadioIT extends AbstractIT {
         assertEquals(expected, deezerClient.radio().getTracks(radioId).index(index).limit(limit));
     }
 }
-

@@ -304,4 +304,3 @@ class SearchIT extends AbstractIT {
         );
     }
 }
-

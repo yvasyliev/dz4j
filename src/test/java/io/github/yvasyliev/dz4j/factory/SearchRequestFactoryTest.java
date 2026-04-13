@@ -236,4 +236,3 @@ class SearchRequestFactoryTest {
         assertEquals(expected, actual);
     }
 }
-

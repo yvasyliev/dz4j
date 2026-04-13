@@ -39,4 +39,3 @@ class UpdateTrackDeezerRequestTest {
         assertThat(actual).isTrue();
     }
 }
-

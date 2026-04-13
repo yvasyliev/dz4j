@@ -69,7 +69,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'io.github.yvasyliev:dz4j:2.1.3-SNAPSHOT'
+    implementation 'io.github.yvasyliev:dz4j:2.1.2-SNAPSHOT'
 }
 ```
 
@@ -126,15 +126,15 @@ Linux/MacOS:
 ./gradlew build
 ```
 
-Windows PowerShell:
+Windows:
 
 ```powershell
 .\gradlew.bat build
 ```
 
 > [!TIP]
-> After a successful build, the plain JAR and fat (shadow) JAR are created in the `build/libs` directory (for example,
-> `dz4j-<version>.jar` and `dz4j-<version>-all.jar`).
+> Running the commands above will compile the code, run the tests, and create both the regular JAR and a fat (shadow)
+> JAR in the `build/libs` directory (for example, `dz4j-<version>.jar` and `dz4j-<version>-all.jar`).
 
 ## Quick Start
 

@@ -68,4 +68,3 @@ class RequestFactoryProviderTest {
         verify(builder).target(UploadService.class, uploadBaseUrl);
     }
 }
-

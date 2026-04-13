@@ -110,4 +110,3 @@ class ChartRequestFactoryTest {
         assertEquals(expected, actual);
     }
 }
-
