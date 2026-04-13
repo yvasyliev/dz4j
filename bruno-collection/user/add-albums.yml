@@ -15,17 +15,6 @@ http:
         value: "{{album-id}}"
   auth: inherit
 
-runtime:
-  actions:
-    - type: set-variable
-      phase: after-response
-      selector:
-        expression: res.body.id
-        method: jsonq
-      variable:
-        name: playlist-id
-        scope: runtime
-
 settings:
   encodeUrl: true
   timeout: 0

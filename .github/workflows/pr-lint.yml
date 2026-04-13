@@ -1,4 +1,4 @@
-name: Lint PR
+name: PR Lint
 
 on:
   pull_request_target:
@@ -17,7 +17,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lint-pr:
+  pr-lint:
     if: github.event.action == 'opened' || github.event.changes.title.from
     runs-on: ubuntu-latest
     steps:

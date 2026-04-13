@@ -17,7 +17,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  sonar:
+  pr-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources

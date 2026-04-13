@@ -6,10 +6,6 @@ info:
 http:
   method: POST
   url: "{{api-host}}/episode/{{episode-id}}/bookmark"
-  params:
-    - name: ""
-      value: ""
-      type: query
   body:
     type: form-urlencoded
     data:
