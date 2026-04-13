@@ -150,21 +150,21 @@ afterEvaluate {
             }
 
             //TODO: remove the 'relocation' block once the artifact is relocated to the new coordinates
-//            relocation(MavenPublication) {
-//                groupId = 'com.github.yvasyliev'
-//                artifactId = 'deezer-api'
-//                version = '3.0.0'
-//
-//                pom {
-//                    distributionManagement {
-//                        relocation {
-//                            groupId = 'io.github.yvasyliev'
-//                            artifactId = 'dz4j'
-//                            message = 'This artifact has been relocated to io.github.yvasyliev:dz4j'
-//                        }
-//                    }
-//                }
-//            }
+            relocation(MavenPublication) {
+                groupId = 'com.github.yvasyliev'
+                artifactId = 'deezer-api'
+                version = '3.0.0'
+
+                pom {
+                    distributionManagement {
+                        relocation {
+                            groupId = 'io.github.yvasyliev'
+                            artifactId = 'dz4j'
+                            message = 'This artifact has been relocated to io.github.yvasyliev:dz4j'
+                        }
+                    }
+                }
+            }
         }
     }
 }
