@@ -118,6 +118,12 @@ tasks.withType(JavaCompile).configureEach {
     }
 }
 
+javadoc {
+    options {
+        tags 'implNote:a:Implementation Note:'
+    }
+}
+
 jacocoTestReport {
     dependsOn test, integrationTest
 
