@@ -16,7 +16,7 @@ version = '3.0.1-SNAPSHOT' // x-release-please-version
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of 21
     }
 }
 
@@ -69,7 +69,7 @@ testing {
 
                 runtimeOnly 'org.junit.platform:junit-platform-launcher'
 
-                project.dependencies.add('mockitoAgent', platform('org.mockito:mockito-bom:5.23.0'))
+                project.dependencies.add 'mockitoAgent', platform('org.mockito:mockito-bom:5.23.0')
                 project.dependencies.add('mockitoAgent', 'org.mockito:mockito-core') {
                     transitive = false
                 }
@@ -78,7 +78,7 @@ testing {
 
         integrationTest(JvmTestSuite) {
             configurations.named(sources.implementationConfigurationName) {
-                extendsFrom(configurations.implementation)
+                extendsFrom configurations.implementation
             }
 
             dependencies {
@@ -90,7 +90,7 @@ testing {
             targets {
                 configureEach {
                     testTask.configure {
-                        shouldRunAfter(test)
+                        shouldRunAfter test
                     }
                 }
             }
@@ -113,7 +113,7 @@ tasks.withType(JavaCompile).configureEach {
         error 'NullAway'
     }
 
-    if (project.hasProperty("strict")) {
+    if (project.hasProperty 'strict') {
         options.compilerArgs << '-Werror'
     }
 }
@@ -135,44 +135,22 @@ integrationTest {
     finalizedBy jacocoTestReport
 }
 
-//TODO: move 'publishing' outside the `afterEvaluate` block once the relocation is no longer needed
-afterEvaluate {
-    publishing {
-        publications {
-            withType(MavenPublication).configureEach {
-                artifacts.removeAll { it.classifier == 'all' }
+publishing {
+    publications {
+        withType(MavenPublication).configureEach {
+            artifacts.removeAll { it.classifier == 'all' }
 
-                versionMapping {
-                    allVariants {
-                        fromResolutionResult()
-                    }
+            versionMapping {
+                allVariants {
+                    fromResolutionResult()
                 }
             }
-
-//            publications.removeAll { it.name != 'relocation' }
-//
-//            //TODO: remove the 'relocation' block once the artifact is relocated to the new coordinates
-//            relocation(MavenPublication) {
-//                groupId = 'com.github.yvasyliev'
-//                artifactId = 'deezer-api'
-//                version = '3.0.0'
-//
-//                pom {
-//                    distributionManagement {
-//                        relocation {
-//                            groupId = 'io.github.yvasyliev'
-//                            artifactId = 'dz4j'
-//                            message = 'This artifact has been relocated to io.github.yvasyliev:dz4j'
-//                        }
-//                    }
-//                }
-//            }
         }
     }
 }
 
 mavenPublishing {
-    publishToMavenCentral(false, DeploymentValidation.NONE)
+    publishToMavenCentral false, DeploymentValidation.NONE
     signAllPublications()
 
     coordinates project.group.toString(), project.name, project.version.toString()
@@ -211,7 +189,7 @@ mavenPublishing {
         }
 
         withXml {
-            asNode().get('dependencyManagement').each { it.parent().remove(it) }
+            asNode().get('dependencyManagement').each { it.parent().remove it }
         }
     }
 }
@@ -233,7 +211,7 @@ tasks.withType(AbstractArchiveTask).configureEach {
 tasks.register('signShadowJar', Sign) {
     description = 'Signs the shadow JAR artifact.'
     dependsOn shadowJar
-    sign(tasks.shadowJar.archiveFile.get().asFile)
+    sign tasks.shadowJar.archiveFile.get().asFile
 }
 
 tasks.withType(AbstractPublishToMaven).configureEach {
