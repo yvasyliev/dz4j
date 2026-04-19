@@ -118,7 +118,8 @@ Snapshot:
 
 ## Build From Source
 
-JDK 21 is required for local builds.
+> [!IMPORTANT]
+> JDK 21 is required for local builds.
 
 Linux/MacOS:
 
@@ -192,8 +193,9 @@ For protected endpoints, provide a valid `access_token` obtained through Deezer 
 2. Generate login URL with `deezerClient.oauth().getLoginUrl(...)`.
 3. Open it in a browser and complete login/consent.
 4. Copy `code` value from the browser URL bar.
-5. Exchange it with `deezerClient.oauth().getAccessToken(...)`.
-6. Set authorization via `deezerClient.authorization(...)`.
+5. Set authorization via `deezerClient.authorization(new AuthorizationCodeFlow(appId, secret, code))`.
+
+`AuthorizationCodeFlow` exchanges the authorization code for an `access_token` automatically when it is needed.
 
 Example:
 
@@ -246,7 +248,7 @@ public class OAuthExample {
 ```
 
 > [!WARNING]
-> Deezer API does not provide automatic token refresh in this flow. Repeat the authorization process (steps 2-6) when
+> Deezer API does not provide automatic token refresh in this flow. Repeat the authorization process (steps 2-5) when
 > the token expires.
 
 > [!TIP]
