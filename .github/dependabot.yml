@@ -5,6 +5,9 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    commit-message:
+      prefix: "deps"
+      include: "scope"
     assignees:
       - "yvasyliev"
 
@@ -12,5 +15,8 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
     assignees:
       - "yvasyliev"
