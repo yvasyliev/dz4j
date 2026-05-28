@@ -6,7 +6,7 @@ updates:
     schedule:
       interval: "daily"
     commit-message:
-      prefix: "deps"
+      prefix: "build"
       include: "scope"
     assignees:
       - "yvasyliev"
