@@ -138,8 +138,6 @@ integrationTest {
 publishing {
     publications {
         withType(MavenPublication).configureEach {
-            artifacts.removeAll { it.classifier == 'all' }
-
             versionMapping {
                 allVariants {
                     fromResolutionResult()
@@ -147,6 +145,10 @@ publishing {
             }
         }
     }
+}
+
+shadow {
+    addShadowVariantIntoJavaComponent = false
 }
 
 mavenPublishing {
