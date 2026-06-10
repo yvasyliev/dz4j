@@ -1,14 +1,16 @@
 {
   "packages": {
     ".": {
-      "release-type": "java",
-      "skip-changelog": true,
-      "include-component-in-tag": false,
       "changelog-type": "github",
+      "draft": true,
       "extra-files": [
         "build.gradle",
         "README.md"
-      ]
+      ],
+      "force-tag-creation": true,
+      "include-component-in-tag": false,
+      "release-type": "java",
+      "skip-changelog": true
     }
   }
 }
