@@ -19,6 +19,7 @@ concurrency:
 jobs:
   pr-build:
     runs-on: ubuntu-latest
+    environment: pr-review
     steps:
       - name: Checkout sources
         uses: actions/checkout@v7
