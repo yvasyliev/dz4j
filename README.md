@@ -50,7 +50,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'io.github.yvasyliev:dz4j:3.0.3'
+    implementation 'io.github.yvasyliev:dz4j:3.0.4'
 }
 ```
 
@@ -69,7 +69,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'io.github.yvasyliev:dz4j:3.0.4-SNAPSHOT'
+    implementation 'io.github.yvasyliev:dz4j:3.0.4'
 }
 ```
 
@@ -86,7 +86,7 @@ Release:
     <dependency>
         <groupId>io.github.yvasyliev</groupId>
         <artifactId>dz4j</artifactId>
-        <version>3.0.3</version>
+        <version>3.0.4</version>
     </dependency>
 </dependencies>
 ```
@@ -109,7 +109,7 @@ Snapshot:
     <dependency>
         <groupId>io.github.yvasyliev</groupId>
         <artifactId>dz4j</artifactId>
-        <version>3.0.4-SNAPSHOT</version>
+        <version>3.0.4</version>
     </dependency>
 </dependencies>
 ```
