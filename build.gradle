@@ -12,7 +12,7 @@ plugins {
 }
 
 group = 'io.github.yvasyliev'
-version = '3.0.4' // x-release-please-version
+version = '3.0.5-SNAPSHOT' // x-release-please-version
 
 java {
     toolchain {
