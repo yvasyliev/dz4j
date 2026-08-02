@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public enum Country {
     /**
+     * Andorra.
+     */
+    @JsonProperty("AD")
+    ANDORRA,
+
+    /**
      * United Arab Emirates.
      */
     @JsonProperty("AE")
@@ -49,10 +55,22 @@ public enum Country {
     ANGOLA,
 
     /**
+     * Antarctica.
+     */
+    @JsonProperty("AQ")
+    ANTARCTICA,
+
+    /**
      * Argentina.
      */
     @JsonProperty("AR")
     ARGENTINA,
+
+    /**
+     * American Samoa.
+     */
+    @JsonProperty("AS")
+    AMERICAN_SAMOA,
 
     /**
      * Austria.
@@ -65,6 +83,18 @@ public enum Country {
      */
     @JsonProperty("AU")
     AUSTRALIA,
+
+    /**
+     * Aruba.
+     */
+    @JsonProperty("AW")
+    ARUBA,
+
+    /**
+     * Aland Islands.
+     */
+    @JsonProperty("AX")
+    ALAND_ISLANDS,
 
     /**
      * Azerbaijan.
@@ -127,6 +157,18 @@ public enum Country {
     BENIN,
 
     /**
+     * Saint Barthelemy.
+     */
+    @JsonProperty("BL")
+    SAINT_BARTHELEMY,
+
+    /**
+     * Bermuda.
+     */
+    @JsonProperty("BM")
+    BERMUDA,
+
+    /**
      * Brunei.
      */
     @JsonProperty("BN")
@@ -151,10 +193,22 @@ public enum Country {
     BRAZIL,
 
     /**
+     * Bahamas.
+     */
+    @JsonProperty("BS")
+    BAHAMAS,
+
+    /**
      * Bhutan.
      */
     @JsonProperty("BT")
     BHUTAN,
+
+    /**
+     * Bouvet Island.
+     */
+    @JsonProperty("BV")
+    BOUVET_ISLAND,
 
     /**
      * Botswana.
@@ -167,6 +221,12 @@ public enum Country {
      */
     @JsonProperty("BY")
     BELARUS,
+
+    /**
+     * Belize.
+     */
+    @JsonProperty("BZ")
+    BELIZE,
 
     /**
      * Canada.
@@ -385,6 +445,12 @@ public enum Country {
     FEDERATED_STATES_OF_MICRONESIA,
 
     /**
+     * Faroe Islands.
+     */
+    @JsonProperty("FO")
+    FAROE_ISLANDS,
+
+    /**
      * France.
      */
     @JsonProperty("FR")
@@ -415,10 +481,34 @@ public enum Country {
     GEORGIA,
 
     /**
+     * French Guiana.
+     */
+    @JsonProperty("GF")
+    FRENCH_GUIANA,
+
+    /**
+     * Guernsey.
+     */
+    @JsonProperty("GG")
+    GUERNSEY,
+
+    /**
      * Ghana.
      */
     @JsonProperty("GH")
     GHANA,
+
+    /**
+     * Gibraltar.
+     */
+    @JsonProperty("GI")
+    GIBRALTAR,
+
+    /**
+     * Greenland.
+     */
+    @JsonProperty("GL")
+    GREENLAND,
 
     /**
      * Gambia.
@@ -433,6 +523,12 @@ public enum Country {
     GUINEA,
 
     /**
+     * Guadeloupe.
+     */
+    @JsonProperty("GP")
+    GUADELOUPE,
+
+    /**
      * Equatorial Guinea.
      */
     @JsonProperty("GQ")
@@ -445,10 +541,22 @@ public enum Country {
     GREECE,
 
     /**
+     * South Georgia and the South Sandwich Islands.
+     */
+    @JsonProperty("GS")
+    SOUTH_GEORGIA_AND_THE_SOUTH_SANDWICH_ISLANDS,
+
+    /**
      * Guatemala.
      */
     @JsonProperty("GT")
     GUATEMALA,
+
+    /**
+     * Guam.
+     */
+    @JsonProperty("GU")
+    GUAM,
 
     /**
      * Guinea-Bissau.
@@ -457,10 +565,22 @@ public enum Country {
     GUINEA_BISSAU,
 
     /**
+     * Guyana.
+     */
+    @JsonProperty("GY")
+    GUYANA,
+
+    /**
      * Hong Kong.
      */
     @JsonProperty("HK")
     HONG_KONG,
+
+    /**
+     * Heard Island and McDonald Islands.
+     */
+    @JsonProperty("HM")
+    HEARD_ISLAND_AND_MCDONALD_ISLANDS,
 
     /**
      * Honduras.
@@ -473,6 +593,12 @@ public enum Country {
      */
     @JsonProperty("HR")
     CROATIA,
+
+    /**
+     * Haiti.
+     */
+    @JsonProperty("HT")
+    HAITI,
 
     /**
      * Hungary.
@@ -497,6 +623,12 @@ public enum Country {
      */
     @JsonProperty("IL")
     ISRAEL,
+
+    /**
+     * Isle of Man.
+     */
+    @JsonProperty("IM")
+    ISLE_OF_MAN,
 
     /**
      * India.
@@ -533,6 +665,12 @@ public enum Country {
      */
     @JsonProperty("IT")
     ITALY,
+
+    /**
+     * Jersey.
+     */
+    @JsonProperty("JE")
+    JERSEY,
 
     /**
      * Jamaica.
@@ -589,6 +727,12 @@ public enum Country {
     SAINT_KITTS_AND_NEVIS,
 
     /**
+     * North Korea.
+     */
+    @JsonProperty("KP")
+    NORTH_KOREA,
+
+    /**
      * South Korea.
      */
     @JsonProperty("KR")
@@ -629,6 +773,12 @@ public enum Country {
      */
     @JsonProperty("LC")
     SAINT_LUCIA,
+
+    /**
+     * Liechtenstein.
+     */
+    @JsonProperty("LI")
+    LIECHTENSTEIN,
 
     /**
      * Sri Lanka.
@@ -679,6 +829,12 @@ public enum Country {
     MOROCCO,
 
     /**
+     * Monaco.
+     */
+    @JsonProperty("MC")
+    MONACO,
+
+    /**
      * Moldova.
      */
     @JsonProperty("MD")
@@ -689,6 +845,12 @@ public enum Country {
      */
     @JsonProperty("ME")
     MONTENEGRO,
+
+    /**
+     * Saint Martin.
+     */
+    @JsonProperty("MF")
+    SAINT_MARTIN,
 
     /**
      * Madagascar.
@@ -715,10 +877,34 @@ public enum Country {
     MALI,
 
     /**
+     * Myanmar.
+     */
+    @JsonProperty("MM")
+    MYANMAR,
+
+    /**
      * Mongolia.
      */
     @JsonProperty("MN")
     MONGOLIA,
+
+    /**
+     * Macao.
+     */
+    @JsonProperty("MO")
+    MACAO,
+
+    /**
+     * Northern Mariana Islands.
+     */
+    @JsonProperty("MP")
+    NORTHERN_MARIANA_ISLANDS,
+
+    /**
+     * Martinique.
+     */
+    @JsonProperty("MQ")
+    MARTINIQUE,
 
     /**
      * Mauritania.
@@ -779,6 +965,12 @@ public enum Country {
      */
     @JsonProperty("NA")
     NAMIBIA,
+
+    /**
+     * New Caledonia.
+     */
+    @JsonProperty("NC")
+    NEW_CALEDONIA,
 
     /**
      * Niger.
@@ -859,6 +1051,12 @@ public enum Country {
     PERU,
 
     /**
+     * French Polynesia.
+     */
+    @JsonProperty("PF")
+    FRENCH_POLYNESIA,
+
+    /**
      * Papua New Guinea.
      */
     @JsonProperty("PG")
@@ -883,10 +1081,22 @@ public enum Country {
     POLAND,
 
     /**
+     * Saint Pierre and Miquelon.
+     */
+    @JsonProperty("PM")
+    SAINT_PIERRE_AND_MIQUELON,
+
+    /**
      * Pitcairn Islands.
      */
     @JsonProperty("PN")
     PITCAIRN_ISLANDS,
+
+    /**
+     * Puerto Rico.
+     */
+    @JsonProperty("PR")
+    PUERTO_RICO,
 
     /**
      * Palestine.
@@ -917,6 +1127,12 @@ public enum Country {
      */
     @JsonProperty("QA")
     QATAR,
+
+    /**
+     * Reunion.
+     */
+    @JsonProperty("RE")
+    REUNION,
 
     /**
      * Romania.
@@ -979,6 +1195,12 @@ public enum Country {
     SINGAPORE,
 
     /**
+     * Saint Helena, Ascension and Tristan da Cunha.
+     */
+    @JsonProperty("SH")
+    SAINT_HELENA_ASCENSION_AND_TRISTAN_DA_CUNHA,
+
+    /**
      * Slovenia.
      */
     @JsonProperty("SI")
@@ -1003,6 +1225,12 @@ public enum Country {
     SIERRA_LEONE,
 
     /**
+     * San Marino.
+     */
+    @JsonProperty("SM")
+    SAN_MARINO,
+
+    /**
      * Senegal.
      */
     @JsonProperty("SN")
@@ -1013,6 +1241,12 @@ public enum Country {
      */
     @JsonProperty("SO")
     SOMALIA,
+
+    /**
+     * Suriname.
+     */
+    @JsonProperty("SR")
+    SURINAME,
 
     /**
      * South Sudan.
@@ -1039,6 +1273,12 @@ public enum Country {
     SINT_MAARTEN,
 
     /**
+     * Syria.
+     */
+    @JsonProperty("SY")
+    SYRIA,
+
+    /**
      * Swaziland.
      */
     @JsonProperty("SZ")
@@ -1055,6 +1295,12 @@ public enum Country {
      */
     @JsonProperty("TD")
     CHAD,
+
+    /**
+     * French Southern Territories.
+     */
+    @JsonProperty("TF")
+    FRENCH_SOUTHERN_TERRITORIES,
 
     /**
      * Togo.
@@ -1111,16 +1357,22 @@ public enum Country {
     TURKEY,
 
     /**
-     * Taiwan.
+     * Trinidad and Tobago.
      */
-    @JsonProperty("TW")
-    TAIWAN,
+    @JsonProperty("TT")
+    TRINIDAD_AND_TOBAGO,
 
     /**
      * Tuvalu.
      */
     @JsonProperty("TV")
     TUVALU,
+
+    /**
+     * Taiwan.
+     */
+    @JsonProperty("TW")
+    TAIWAN,
 
     /**
      * Tanzania.
@@ -1141,6 +1393,12 @@ public enum Country {
     UGANDA,
 
     /**
+     * United States Minor Outlying Islands.
+     */
+    @JsonProperty("UM")
+    UNITED_STATES_MINOR_OUTLYING_ISLANDS,
+
+    /**
      * United States of America.
      */
     @JsonProperty("US")
@@ -1157,6 +1415,12 @@ public enum Country {
      */
     @JsonProperty("UZ")
     UZBEKISTAN,
+
+    /**
+     * Vatican City.
+     */
+    @JsonProperty("VA")
+    VATICAN_CITY,
 
     /**
      * Saint Vincent and the Grenadines.
@@ -1177,6 +1441,12 @@ public enum Country {
     BRITISH_VIRGIN_ISLANDS,
 
     /**
+     * United States Virgin Islands.
+     */
+    @JsonProperty("VI")
+    UNITED_STATES_VIRGIN_ISLANDS,
+
+    /**
      * Vietnam.
      */
     @JsonProperty("VN")
@@ -1189,6 +1459,12 @@ public enum Country {
     VANUATU,
 
     /**
+     * Wallis and Futuna.
+     */
+    @JsonProperty("WF")
+    WALLIS_AND_FUTUNA,
+
+    /**
      * Samoa.
      */
     @JsonProperty("WS")
@@ -1199,6 +1475,12 @@ public enum Country {
      */
     @JsonProperty("YE")
     YEMEN,
+
+    /**
+     * Mayotte.
+     */
+    @JsonProperty("YT")
+    MAYOTTE,
 
     /**
      * South Africa.

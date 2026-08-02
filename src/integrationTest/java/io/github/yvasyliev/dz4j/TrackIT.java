@@ -5,6 +5,7 @@ import io.github.yvasyliev.dz4j.authorization.Authorization;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Track;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -28,16 +29,13 @@ class TrackIT extends AbstractIT {
 
     @Test
     void shouldReturnTrack() throws IOException {
-        var trackId = 541999L;
-        var body = read("/response/track/get-track.json");
-        var expected = MAPPER.readValue(body, Track.class);
+        shouldReturnTrack(541999L, "/response/track/get-track.json");
+    }
 
-        stubFor(get(urlPathTemplate("/track/{trackId}"))
-                .withPathParam("trackId", equalTo(trackId))
-                .willReturn(okJson(body))
-        );
-
-        assertEquals(expected, deezerClient.track().getTrack(trackId));
+    @Test
+    @DisplayName("GH-204: should return track for id=3135556")
+    void shouldReturn3135556Track() throws IOException {
+        shouldReturnTrack(3135556L, "/response/track/get-3135556-track.json");
     }
 
     @Test
@@ -62,5 +60,18 @@ class TrackIT extends AbstractIT {
                 expected,
                 deezerClient.track().updateTrack(trackId).title(title).artist(artist).album(album)
         );
+    }
+
+    @SuppressWarnings("checkstyle:OverloadMethodsDeclarationOrder")
+    private void shouldReturnTrack(long trackId, String file) throws IOException {
+        var body = read(file);
+        var expected = MAPPER.readValue(body, Track.class);
+
+        stubFor(get(urlPathTemplate("/track/{trackId}"))
+                .withPathParam("trackId", equalTo(trackId))
+                .willReturn(okJson(body))
+        );
+
+        assertEquals(expected, deezerClient.track().getTrack(trackId));
     }
 }
