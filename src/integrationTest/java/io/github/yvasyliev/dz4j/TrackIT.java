@@ -6,6 +6,8 @@ import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Track;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.io.IOException;
 
@@ -26,10 +28,13 @@ class TrackIT extends AbstractIT {
                 .build();
     }
 
-    @Test
-    void shouldReturnTrack() throws IOException {
-        var trackId = 541999L;
-        var body = read("/response/track/get-track.json");
+    @ParameterizedTest
+    @CsvSource(textBlock = """
+                           541999, /response/track/get-track-maneater.json
+                           3135556, /response/track/get-track-harder-better-faster-stronger.json
+                           """)
+    void shouldReturnTrack(long trackId, String file) throws IOException {
+        var body = read(file);
         var expected = MAPPER.readValue(body, Track.class);
 
         stubFor(get(urlPathTemplate("/track/{trackId}"))
