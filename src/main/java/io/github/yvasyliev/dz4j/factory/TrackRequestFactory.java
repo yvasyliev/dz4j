@@ -4,6 +4,7 @@ import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.model.Track;
 import io.github.yvasyliev.dz4j.request.DeezerRequest;
 import io.github.yvasyliev.dz4j.request.IdDeezerRequest;
+import io.github.yvasyliev.dz4j.request.SimpleDeezerRequest;
 import io.github.yvasyliev.dz4j.request.UpdateTrackDeezerRequest;
 import io.github.yvasyliev.dz4j.service.TrackService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,16 @@ public class TrackRequestFactory {
      */
     public DeezerRequest<Track> getTrack(long trackId) {
         return new IdDeezerRequest<>(trackId, trackService::getTrack);
+    }
+
+    /**
+     * Creates a request to get a track by its ISRC (International Standard Recording Code).
+     *
+     * @param isrc track ISRC
+     * @return request to get a track
+     */
+    public DeezerRequest<Track> getTrackByIsrc(String isrc) {
+        return new SimpleDeezerRequest<>(() -> trackService.getTrackByIsrc(isrc));
     }
 
     /**

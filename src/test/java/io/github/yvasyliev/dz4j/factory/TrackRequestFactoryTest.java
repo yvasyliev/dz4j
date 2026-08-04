@@ -35,6 +35,18 @@ class TrackRequestFactoryTest {
     }
 
     @Test
+    void testGetTrackByIsrc() {
+        var isrc = "USRC18207933";
+        var expected = Track.builder().isrc(isrc).build();
+
+        when(trackService.getTrackByIsrc(isrc)).thenReturn(CompletableFuture.completedFuture(expected));
+
+        var actual = trackRequestFactory.getTrackByIsrc(isrc).execute();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
     void testUpdateTrack() {
         var trackId = 123L;
         var accessToken = new AccessToken("test-token");
