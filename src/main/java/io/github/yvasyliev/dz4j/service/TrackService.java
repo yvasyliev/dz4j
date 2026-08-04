@@ -25,6 +25,15 @@ public interface TrackService {
     CompletableFuture<Track> getTrack(@Param("trackId") long trackId);
 
     /**
+     * Returns a track by its ISRC (International Standard Recording Code).
+     *
+     * @param isrc the track's ISRC
+     * @return a track
+     */
+    @RequestLine("GET /track/isrc:{isrc}")
+    CompletableFuture<Track> getTrackByIsrc(@Param("isrc") String isrc);
+
+    /**
      * Updates a user's track information.
      *
      * @param trackId     the track ID

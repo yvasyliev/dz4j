@@ -46,6 +46,20 @@ class TrackIT extends AbstractIT {
     }
 
     @Test
+    void shouldReturnTrackByIsrc() throws IOException {
+        var isrc = "USRC18207933";
+        var body = read("/response/track/get-track-maneater.json");
+        var expected = MAPPER.readValue(body, Track.class);
+
+        stubFor(get(urlPathTemplate("/track/isrc:{isrc}"))
+                .withPathParam("isrc", equalTo(isrc))
+                .willReturn(okJson(body))
+        );
+
+        assertEquals(expected, deezerClient.track().getTrackByIsrc(isrc));
+    }
+
+    @Test
     void shouldUpdateTrack() throws IOException {
         var trackId = 541999L;
         var title = "My Track";
