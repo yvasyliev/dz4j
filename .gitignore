@@ -38,3 +38,6 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+# Added by ggshield
+.cache_ggshield
