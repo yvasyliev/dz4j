@@ -1,0 +1,46 @@
+name: First Interaction
+
+on:
+  issues:
+    types:
+      - opened
+  pull_request:
+    types:
+      - opened
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  welcome:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/first-interaction@v3
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          issue_message: |
+            👋 Welcome! Thank you for opening your first issue in **dz4j**.
+
+            We appreciate you taking the time to help improve the library! 
+
+            Before moving forward:
+
+            - Please check if a similar issue wasn't already reported by searching both [open and closed issues](https://github.com/yvasyliev/dz4j/issues?q=is%3Aissue).
+            - Take a moment to review our [Contribution Guidelines](https://github.com/yvasyliev/dz4j/blob/master/.github/CONTRIBUTING.md).
+            - If this is a **bug report**, please ensure you've included reproduction steps, environment details, and relevant logs.
+            - If this is a **feature request**, feel free to elaborate on your use case so we can better evaluate it.
+
+            Someone will review this shortly!
+
+          pr_message: |
+            🎉 Thank you for opening your first Pull Request in **dz4j**!
+
+            We really appreciate your contribution. To help us review your PR smoothly, please ensure you've followed our [Contribution Guidelines](https://github.com/yvasyliev/dz4j/blob/master/.github/CONTRIBUTING.md).
+
+            Quick checklist:
+
+            - Make sure all build checks and tests pass (`./gradlew build`).
+            - Ensure your changes align with the existing code style and architecture.
+
+            Thank you again for contributing! 🚀
