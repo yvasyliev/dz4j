@@ -7,6 +7,10 @@
         <property name="file" value="${config_loc}/checkstyle-suppressions.xml"/>
     </module>
 
+    <module name="SuppressionSingleFilter">
+        <property name="message" value="Unknown tag '(implNote|implSpec|apiNote)'"/>
+    </module>
+
     <module name="FileLength"/>
     <module name="FileTabCharacter"/>
     <module name="JavadocPackage"/>
@@ -40,6 +44,9 @@
                             @throws,
                             @author,
                             @version,
+                            @implNote,
+                            @implSpec,
+                            @apiNote,
                             @since"/>
         </module>
         <module name="AvoidNestedBlocks">
