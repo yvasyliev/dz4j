@@ -41,11 +41,11 @@ class ErrorDeserializerTest {
     @Test
     void shouldThrowDeezerApiException() {
         var node = JsonNodeFactory.instance.objectNode();
+        var e = mock(DeezerApiResponseException.class);
 
         node.putObject("error");
 
-        when(delegate.deserialize(node.path("error"), AbstractDeezerApiException.class))
-                .thenReturn(mock(DeezerApiResponseException.class));
+        when(delegate.deserialize(node.path("error"), AbstractDeezerApiException.class)).thenReturn(e);
 
         assertThrows(AbstractDeezerApiException.class, () -> deserializer.deserialize(node, Object.class));
     }

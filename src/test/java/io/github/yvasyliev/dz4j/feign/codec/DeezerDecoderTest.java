@@ -103,10 +103,11 @@ class DeezerDecoderTest {
         @Cleanup var response = Response.builder().request(mock()).body(body).build();
         var type = mock(Type.class);
         var e = mock(JacksonException.class);
+        var cause = mock(IOException.class);
 
         when(body.asInputStream()).thenReturn(inputStream);
         when(jsonMapper.readTree(inputStream)).thenThrow(e);
-        when(e.getCause()).thenReturn(mock(IOException.class));
+        when(e.getCause()).thenReturn(cause);
 
         assertThrows(IOException.class, () -> decoder.decode(response, type));
     }
@@ -131,9 +132,10 @@ class DeezerDecoderTest {
         @Cleanup var inputStream = mock(InputStream.class);
         @Cleanup var response = Response.builder().request(mock()).body(body).build();
         var type = mock(Type.class);
+        var jsonNode = mock(JsonNode.class);
 
         when(body.asInputStream()).thenReturn(inputStream);
-        when(jsonMapper.readTree(inputStream)).thenReturn(mock(JsonNode.class));
+        when(jsonMapper.readTree(inputStream)).thenReturn(jsonNode);
 
         assertThrows(DeezerException.class, () -> decoder.decode(response, type));
     }
