@@ -174,16 +174,8 @@ mavenPublishing {
             connection = 'scm:git:ssh://github.com/yvasyliev/dz4j.git'
             developerConnection = 'scm:git:ssh://github.com/yvasyliev/dz4j.git'
         }
-
-//        withXml {
-//            asNode().get('dependencyManagement').each { it.parent().remove it }
-//        }
     }
 }
-
-//tasks.withType(GenerateModuleMetadata).configureEach {
-//    enabled = false
-//}
 
 tasks.withType(AbstractArchiveTask).configureEach {
     into('META-INF') {
