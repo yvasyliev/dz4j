@@ -4,6 +4,7 @@ plugins {
     id 'java-library'
     id 'checkstyle'
     id 'jacoco'
+
     alias libs.plugins.lombok
     alias libs.plugins.errorprone
     alias libs.plugins.maven.publish
