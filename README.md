@@ -301,7 +301,7 @@ public class ExceptionHandling {
 ```
 
 Check the
-[io.github.yvasyliev.dz4j.exception](https://javadoc.io/doc/io.github.yvasyliev/dz4j/io/github/yvasyliev/dz4j/exception/package-summary.html)
+[io.github.yvasyliev.dz4j.exception](https://javadoc.io/doc/io.github.yvasyliev/dz4j/latest/io/github/yvasyliev/dz4j/exception/package-summary.html)
 package for all available exceptions.
 
 ## Available API Methods
