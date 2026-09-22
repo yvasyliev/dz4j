@@ -70,7 +70,9 @@
         <module name="ClassFanOutComplexity"/>
         <module name="CommentsIndentation"/>
         <module name="ConstantName"/>
-        <module name="ConstructorsDeclarationGrouping"/>
+        <module name="ConstructorsDeclarationGrouping">
+            <property name="orderByIncreasingParameterCount" value="true"/>
+        </module>
         <module name="CustomImportOrder">
             <property name="customImportOrderRules" value="THIRD_PARTY_PACKAGE, STANDARD_JAVA_PACKAGE, STATIC"/>
         </module>
