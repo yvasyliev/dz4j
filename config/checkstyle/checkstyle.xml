@@ -93,6 +93,7 @@
         <module name="FallThrough"/>
         <module name="FinalClass"/>
         <module name="GenericWhitespace"/>
+        <module name="GoogleRightCurly"/>
         <module name="HiddenField">
             <property name="ignoreAbstractMethods" value="true"/>
             <property name="ignoreConstructorParameter" value="true"/>
@@ -118,6 +119,7 @@
         <module name="JavadocMissingLeadingAsterisk"/>
         <module name="JavadocMissingWhitespaceAfterAsterisk"/>
         <module name="JavadocParagraph"/>
+        <module name="JavadocSeeTagOrder"/>
         <module name="JavadocTagContinuationIndentation"/>
         <module name="JavadocType"/>
         <module name="JavadocVariable">
