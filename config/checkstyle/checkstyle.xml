@@ -175,6 +175,9 @@
         <module name="RecordComponentName"/>
         <module name="RedundantImport"/>
         <module name="RedundantModifier"/>
+        <module name="RedundantThis">
+            <property name="checkMethods" value="true"/>
+        </module>
         <module name="RequireEmptyLineBeforeBlockTagGroup"/>
         <module name="RightCurly"/>
         <module name="SealedShouldHavePermitsList"/>
