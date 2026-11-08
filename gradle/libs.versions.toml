@@ -1,7 +1,7 @@
 [versions]
 assertj = "3.27.7"
 checkstyle = "14.4.0"
-errorprone = "2.51.0"
+errorprone = "2.52.0"
 errorpronePlugin = "5.2.0"
 feign = "13.17"
 jackson = "3.2.4"
