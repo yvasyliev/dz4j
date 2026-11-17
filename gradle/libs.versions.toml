@@ -13,7 +13,7 @@ mockito = "5.24.0"
 nullaway = "0.14.3"
 sevntuCheckstyle = "1.44.1"
 shadow = "9.6.1"
-sonarqube = "7.5.0.8588"
+sonarqube = "7.6.0.18749"
 wiremock = "3.13.2"
 
 [plugins]
