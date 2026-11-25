@@ -31,6 +31,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@SuppressWarnings("UnnecessarilyFullyQualified")
 class DeezerDecoderTest {
     @Mock private ResponseValidator responseValidator;
     @Mock private JsonNodeDeserializer jsonNodeDeserializer;

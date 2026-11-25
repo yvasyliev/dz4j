@@ -102,17 +102,18 @@ tasks.withType(JavaCompile).configureEach {
     options.errorprone {
         allDisabledChecksAsWarnings = true
         disable(
+                'AddNullMarkedToClass',
+                'BooleanParameter',
+                'CanIgnoreReturnValueSuggester',
                 'DirectInvocationOnMock',
-                'OperatorPrecedence',
-                'VarWithPrimitive',
+                'ImmutableMemberCollection',
                 'Java8ApiChecker',
+                'OperatorPrecedence',
                 'TraditionalJavadocToMarkdown',
                 'UnnecessarySemicolon', // Disabled till https://github.com/google/error-prone/issues/6233 is resolved
-                'AddNullMarkedToClass',
-                'ImmutableMemberCollection',
-                'CanIgnoreReturnValueSuggester',
+                'Var',
+                'VarWithPrimitive',
                 'YodaCondition',
-                'Var'
         )
         excludedPaths = '.*model.package-info[.]java'
         option 'NullAway:OnlyNullMarked', 'true'

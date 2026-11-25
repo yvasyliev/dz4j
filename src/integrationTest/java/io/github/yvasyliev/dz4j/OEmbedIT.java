@@ -12,8 +12,38 @@ import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
 
+@SuppressWarnings("IdentifierName")
 class OEmbedIT extends AbstractIT {
     private DeezerClient deezerClient;
+
+    private static void stubOEmbed(String url, String body) {
+        stubFor(get(urlPathEqualTo("/oembed"))
+                .withQueryParam("format", equalTo("json"))
+                .withQueryParam("url", equalTo(url))
+                .willReturn(okJson(body))
+        );
+    }
+
+    private static void stubOEmbedWithOptions(
+            String url,
+            boolean autoplay,
+            int maxWidth,
+            int maxHeight,
+            boolean radius,
+            boolean tracklist,
+            String body
+    ) {
+        stubFor(get(urlPathEqualTo("/oembed"))
+                .withQueryParam("format", equalTo("json"))
+                .withQueryParam("url", equalTo(url))
+                .withQueryParam("autoplay", equalTo(autoplay))
+                .withQueryParam("maxwidth", equalTo(maxWidth))
+                .withQueryParam("maxheight", equalTo(maxHeight))
+                .withQueryParam("radius", equalTo(radius))
+                .withQueryParam("tracklist", equalTo(tracklist))
+                .willReturn(okJson(body))
+        );
+    }
 
     @BeforeEach
     void setUp(WireMockRuntimeInfo wmRuntimeInfo) {
@@ -260,34 +290,5 @@ class OEmbedIT extends AbstractIT {
                 .maxHeight(maxHeight)
                 .radius(radius)
                 .tracklist(tracklist));
-    }
-
-    private void stubOEmbed(String url, String body) {
-        stubFor(get(urlPathEqualTo("/oembed"))
-                .withQueryParam("format", equalTo("json"))
-                .withQueryParam("url", equalTo(url))
-                .willReturn(okJson(body))
-        );
-    }
-
-    private void stubOEmbedWithOptions(
-            String url,
-            boolean autoplay,
-            int maxWidth,
-            int maxHeight,
-            boolean radius,
-            boolean tracklist,
-            String body
-    ) {
-        stubFor(get(urlPathEqualTo("/oembed"))
-                .withQueryParam("format", equalTo("json"))
-                .withQueryParam("url", equalTo(url))
-                .withQueryParam("autoplay", equalTo(autoplay))
-                .withQueryParam("maxwidth", equalTo(maxWidth))
-                .withQueryParam("maxheight", equalTo(maxHeight))
-                .withQueryParam("radius", equalTo(radius))
-                .withQueryParam("tracklist", equalTo(tracklist))
-                .willReturn(okJson(body))
-        );
     }
 }

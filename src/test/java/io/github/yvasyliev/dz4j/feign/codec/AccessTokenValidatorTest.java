@@ -18,6 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@SuppressWarnings("UnnecessarilyFullyQualified")
 class AccessTokenValidatorTest {
     private static final ResponseValidator VALIDATOR = new AccessTokenValidator();
 

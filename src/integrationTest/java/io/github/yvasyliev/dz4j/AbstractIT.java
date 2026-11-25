@@ -23,6 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @WireMockTest
+@SuppressWarnings("IdentifierName")
 abstract class AbstractIT {
     private static final Clock CLOCK = Clock.fixed(Instant.now(), ZoneId.systemDefault());
 
@@ -37,12 +38,12 @@ abstract class AbstractIT {
         builder.handlerInstantiator(hi -> hi.expiresConverter(converter -> converter.clock(CLOCK)));
     }
 
-    protected <T> void assertEquals(T expected, DeezerRequest<T> request) {
+    protected static <T> void assertEquals(T expected, DeezerRequest<T> request) {
         Assertions.assertEquals(expected, request.execute());
         Assertions.assertEquals(expected, request.executeAsync().join());
     }
 
-    protected void assertThrows(AbstractDeezerApiException expected, DeezerRequest<?> request) {
+    protected static void assertThrows(AbstractDeezerApiException expected, DeezerRequest<?> request) {
         assertThatThrownBy(request::execute)
                 .isInstanceOf(AbstractDeezerApiException.class)
                 .usingRecursiveComparison()
@@ -57,12 +58,13 @@ abstract class AbstractIT {
                 .isEqualTo(expected);
     }
 
-    protected StringValuePattern equalTo(Object value) {
+    protected static StringValuePattern equalTo(Object value) {
         return WireMock.equalTo(String.valueOf(value));
     }
 
-    protected String read(String file) throws IOException {
-        @Cleanup var inputStream = Objects.requireNonNull(this.getClass().getResourceAsStream(file));
+    @SuppressWarnings("UnnecessarilyFullyQualified")
+    protected static String read(String file) throws IOException {
+        @Cleanup var inputStream = Objects.requireNonNull(AbstractIT.class.getResourceAsStream(file));
 
         return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
     }

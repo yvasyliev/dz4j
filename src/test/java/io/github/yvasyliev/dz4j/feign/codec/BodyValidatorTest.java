@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
+@SuppressWarnings("UnnecessarilyFullyQualified")
 class BodyValidatorTest {
     private static final ResponseValidator VALIDATOR = new BodyValidator();
 

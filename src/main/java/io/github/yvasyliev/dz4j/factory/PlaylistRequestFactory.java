@@ -182,6 +182,7 @@ public class PlaylistRequestFactory {
         );
     }
 
+    @SuppressWarnings("InconsistentOverloads")
     private DeezerRequest<Boolean> createDeezerRequest(
             long playlistId,
             Collection<Long> trackIds,

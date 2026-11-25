@@ -29,9 +29,40 @@ import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@SuppressWarnings("UnnecessarilyFullyQualified")
 class OAuthRequestFactoryTest {
     @InjectMocks private OAuthRequestFactory oAuthRequestFactory;
     @Mock private OAuthService oAuthService;
+
+    private static void testGetLoginUrl(QuadFunction<Integer, URI, Permission, Permission, URL> method) {
+        var appId = 123;
+        var redirectUri = URI.create("https://example.com/callback");
+
+        var actual = method.apply(appId, redirectUri, Permission.BASIC_ACCESS, Permission.EMAIL);
+
+        assertThat(actual)
+                .hasProtocol("https")
+                .hasHost("connect.deezer.com")
+                .hasNoPort()
+                .hasPath("/oauth/auth.php")
+                .hasParameter("app_id", String.valueOf(appId))
+                .hasParameter("redirect_uri", redirectUri.toString())
+                .hasParameter("perms", "basic_access,email");
+    }
+
+    private static void shouldThrowDeezerExceptionWhenLoginUrlIsMalformed(
+            TriFunction<Integer, URI, Permission, URL> method
+    ) throws MalformedURLException {
+        var appId = 123;
+        var redirectUri = URI.create("https://example.com/callback");
+        var loginUri = mock(URI.class);
+        @Cleanup var uri = mockStatic(URI.class);
+
+        uri.when(() -> URI.create(any())).thenReturn(loginUri);
+        when(loginUri.toURL()).thenThrow(MalformedURLException.class);
+
+        assertThrows(DeezerException.class, () -> method.apply(appId, redirectUri, Permission.BASIC_ACCESS));
+    }
 
     @Test
     void testGetAccessToken() {
@@ -79,34 +110,5 @@ class OAuthRequestFactoryTest {
         shouldThrowDeezerExceptionWhenLoginUrlIsMalformed((appId, redirectUri, permission) ->
                 oAuthRequestFactory.getLoginUrl(appId, redirectUri, List.of(permission))
         );
-    }
-
-    private void testGetLoginUrl(QuadFunction<Integer, URI, Permission, Permission, URL> method) {
-        var appId = 123;
-        var redirectUri = URI.create("https://example.com/callback");
-
-        var actual = method.apply(appId, redirectUri, Permission.BASIC_ACCESS, Permission.EMAIL);
-
-        assertThat(actual)
-                .hasProtocol("https")
-                .hasHost("connect.deezer.com")
-                .hasNoPort()
-                .hasPath("/oauth/auth.php")
-                .hasParameter("app_id", String.valueOf(appId))
-                .hasParameter("redirect_uri", redirectUri.toString())
-                .hasParameter("perms", "basic_access,email");
-    }
-
-    private void shouldThrowDeezerExceptionWhenLoginUrlIsMalformed(TriFunction<Integer, URI, Permission, URL> method)
-            throws MalformedURLException {
-        var appId = 123;
-        var redirectUri = URI.create("https://example.com/callback");
-        var loginUri = mock(URI.class);
-        @Cleanup var uri = mockStatic(URI.class);
-
-        uri.when(() -> URI.create(any())).thenReturn(loginUri);
-        when(loginUri.toURL()).thenThrow(MalformedURLException.class);
-
-        assertThrows(DeezerException.class, () -> method.apply(appId, redirectUri, Permission.BASIC_ACCESS));
     }
 }

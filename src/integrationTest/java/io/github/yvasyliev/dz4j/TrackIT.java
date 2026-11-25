@@ -17,6 +17,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
 
+@SuppressWarnings("IdentifierName")
 class TrackIT extends AbstractIT {
     private DeezerClient deezerClient;
 

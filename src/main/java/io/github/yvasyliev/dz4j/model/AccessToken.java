@@ -2,6 +2,7 @@ package io.github.yvasyliev.dz4j.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.yvasyliev.dz4j.databind.util.ExpiresConverter;
+import org.jspecify.annotations.Nullable;
 import tools.jackson.databind.annotation.JsonDeserialize;
 
 import java.time.Instant;
@@ -28,7 +29,7 @@ public record AccessToken(
      *
      * @param token the access token string
      */
-    public AccessToken(String token) {
+    public AccessToken(@Nullable String token) {
         this(token, Instant.MAX);
     }
 

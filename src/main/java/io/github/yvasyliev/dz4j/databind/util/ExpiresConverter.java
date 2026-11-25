@@ -11,6 +11,7 @@ import java.time.Instant;
  * A converter that transforms a {@link Duration} into an {@link Instant} by adding the duration to the current time.
  */
 @Builder
+@SuppressWarnings("UnnecessarilyFullyQualified")
 public class ExpiresConverter extends StdConverter<Duration, Instant> {
     @Builder.Default
     private final Clock clock = Clock.systemDefaultZone();

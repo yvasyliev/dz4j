@@ -11,6 +11,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
+@SuppressWarnings("UnnecessarilyFullyQualified")
 class HeadersValidatorTest {
     private static final ResponseValidator VALIDATOR = new HeadersValidator();
 

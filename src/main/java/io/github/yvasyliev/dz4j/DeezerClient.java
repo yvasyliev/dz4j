@@ -47,6 +47,7 @@ public class DeezerClient {
     }
 
     @Builder
+    @SuppressWarnings("InconsistentOverloads")
     private DeezerClient(
             @Nullable Consumer<DeezerFeignBuilder> config,
             @Nullable Consumer<BaseUrls.BaseUrlsBuilder> baseUrl,

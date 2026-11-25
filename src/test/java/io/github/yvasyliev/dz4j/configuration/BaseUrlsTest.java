@@ -6,6 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class BaseUrlsTest {
+    private static void assertBaseUrls(BaseUrls baseUrls, String api, String oauth, String upload) {
+        assertNotNull(baseUrls);
+        assertEquals(api, baseUrls.api());
+        assertEquals(oauth, baseUrls.oauth());
+        assertEquals(upload, baseUrls.upload());
+    }
+
     @Test
     void shouldInitializeDefaultBaseUrlsByBuilder() {
         var baseUrls = BaseUrls.builder().build();
@@ -35,12 +42,5 @@ class BaseUrlsTest {
                 .build();
 
         assertBaseUrls(baseUrls, api, oauth, upload);
-    }
-
-    private void assertBaseUrls(BaseUrls baseUrls, String api, String oauth, String upload) {
-        assertNotNull(baseUrls);
-        assertEquals(api, baseUrls.api());
-        assertEquals(oauth, baseUrls.oauth());
-        assertEquals(upload, baseUrls.upload());
     }
 }
