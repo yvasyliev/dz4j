@@ -13,6 +13,29 @@ import java.util.List;
  * Validates the access token response to ensure it is not an HTML error page.
  */
 public class AccessTokenValidator implements ResponseValidator {
+    private static boolean isTextHtml(Response response) {
+        return response.headers()
+                .getOrDefault("content-type", List.of())
+                .stream()
+                .anyMatch(ct -> ct.startsWith("text/html"));
+    }
+
+    private static AccessTokenResponseException buildAccessTokenException(Response response) {
+        try {
+            return new AccessTokenResponseException(readBody(response), response);
+        } catch (IOException suppressed) {
+            var e = new AccessTokenResponseException("Invalid access token response", response);
+
+            e.addSuppressed(suppressed);
+
+            return e;
+        }
+    }
+
+    private static String readBody(Response response) throws IOException {
+        return Util.toString(response.body().asReader(response.charset()));
+    }
+
     /**
      * Validates the access token response. If the expected type is {@link AccessToken} and the response content type is
      * {@code text/html}, it throws an {@link AccessTokenResponseException} with the response body as the message.
@@ -27,28 +50,5 @@ public class AccessTokenValidator implements ResponseValidator {
         if (AccessToken.class.equals(type) && isTextHtml(response)) {
             throw buildAccessTokenException(response);
         }
-    }
-
-    private boolean isTextHtml(Response response) {
-        return response.headers()
-                .getOrDefault("content-type", List.of())
-                .stream()
-                .anyMatch(ct -> ct.startsWith("text/html"));
-    }
-
-    private AccessTokenResponseException buildAccessTokenException(Response response) {
-        try {
-            return new AccessTokenResponseException(readBody(response), response);
-        } catch (IOException suppressed) {
-            var e = new AccessTokenResponseException("Invalid access token response", response);
-
-            e.addSuppressed(suppressed);
-
-            return e;
-        }
-    }
-
-    private String readBody(Response response) throws IOException {
-        return Util.toString(response.body().asReader(response.charset()));
     }
 }

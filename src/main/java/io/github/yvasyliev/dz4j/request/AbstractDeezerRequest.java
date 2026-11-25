@@ -16,6 +16,18 @@ import java.util.concurrent.CompletionException;
  * @param <T> the type of the response expected from the Deezer API
  */
 public abstract class AbstractDeezerRequest<T> implements DeezerRequest<T> {
+    private static DeezerException translate(Throwable t) {
+        if (t instanceof DeezerException e) {
+            return e;
+        }
+
+        if (t.getCause() instanceof DeezerException e) {
+            return e;
+        }
+
+        return new DeezerException(t);
+    }
+
     /**
      * Executes the request synchronously by calling the {@link #executeAsync()} method and waiting for its completion.
      *
@@ -45,16 +57,4 @@ public abstract class AbstractDeezerRequest<T> implements DeezerRequest<T> {
     }
 
     protected abstract CompletableFuture<T> doExecuteAsync();
-
-    private DeezerException translate(Throwable t) {
-        if (t instanceof DeezerException e) {
-            return e;
-        }
-
-        if (t.getCause() instanceof DeezerException e) {
-            return e;
-        }
-
-        return new DeezerException(t);
-    }
 }

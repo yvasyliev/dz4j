@@ -5,13 +5,14 @@ import tools.jackson.databind.util.StdConverter;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /**
  * A converter that converts a string to a {@link LocalDateTime}, returning {@code null} if the string is
  * {@code 0000-00-00 00:00:00}.
  */
 public class ZeroToNullLocalDateTimeConverter extends StdConverter<String, LocalDateTime> {
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.ROOT);
 
     /**
      * Converts a string to a {@link LocalDateTime}, returning {@code null} if the string is
