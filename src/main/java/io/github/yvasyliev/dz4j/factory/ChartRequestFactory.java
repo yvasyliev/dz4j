@@ -22,6 +22,13 @@ import java.util.concurrent.CompletableFuture;
 public class ChartRequestFactory {
     private final ChartService chartService;
 
+    private static <T> PagingDeezerRequest<T> createPagingDeezerRequest(
+            long artistId,
+            TriFunction<Long, Integer, Integer, CompletableFuture<T>> asyncMethod
+    ) {
+        return new GetByIdPagingDeezerRequest<>(artistId, asyncMethod);
+    }
+
     /**
      * Creates a request to get a list of top albums in the specified genre.
      *
@@ -80,12 +87,5 @@ public class ChartRequestFactory {
      */
     public PagingDeezerRequest<Page<Track>> getTracksChart(long genreId) {
         return createPagingDeezerRequest(genreId, chartService::getTracksChart);
-    }
-
-    private <T> PagingDeezerRequest<T> createPagingDeezerRequest(
-            long artistId,
-            TriFunction<Long, Integer, Integer, CompletableFuture<T>> asyncMethod
-    ) {
-        return new GetByIdPagingDeezerRequest<>(artistId, asyncMethod);
     }
 }

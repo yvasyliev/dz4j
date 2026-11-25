@@ -16,6 +16,7 @@ public class StrictExpander implements Param.Expander {
      */
     @Override
     @Nullable
+    @SuppressWarnings("YodaCondition")
     public String expand(Object value) {
         return Boolean.TRUE.equals(value) ? "on" : null;
     }

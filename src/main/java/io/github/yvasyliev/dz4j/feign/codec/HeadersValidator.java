@@ -17,7 +17,7 @@ public class HeadersValidator implements ResponseValidator {
      * @throws ResponseException if the {@code Content-Type} header is not present in the response
      */
     @Override
-    public void validate(Response response, Type type) throws ResponseException {
+    public void validate(Response response, Type type) {
         if (!response.headers().containsKey("content-type")) {
             throw new ResponseException("No Content-Type response header present", response);
         }

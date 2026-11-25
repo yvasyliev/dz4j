@@ -25,6 +25,13 @@ import java.util.concurrent.CompletableFuture;
 public class SearchRequestFactory {
     private final SearchService searchService;
 
+    private static <T> SearchDeezerRequest<T> createSearchDeezerRequest(
+            Query query,
+            QuinaryFunction<Query, Boolean, Order, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod
+    ) {
+        return new SearchDeezerRequest<>(query, asyncMethod);
+    }
+
     //region search
 
     /**
@@ -220,11 +227,4 @@ public class SearchRequestFactory {
     }
 
     //endregion
-
-    private <T> SearchDeezerRequest<T> createSearchDeezerRequest(
-            Query query,
-            QuinaryFunction<Query, Boolean, Order, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod
-    ) {
-        return new SearchDeezerRequest<>(query, asyncMethod);
-    }
 }

@@ -21,6 +21,13 @@ import java.util.concurrent.CompletableFuture;
 public class AlbumRequestFactory {
     private final AlbumService albumService;
 
+    private static <T> PagingDeezerRequest<Page<T>> createPagingDeezerRequest(
+            long albumId,
+            TriFunction<Long, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod
+    ) {
+        return new GetByIdPagingDeezerRequest<>(albumId, asyncMethod);
+    }
+
     /**
      * Creates a request to get an album.
      *
@@ -49,12 +56,5 @@ public class AlbumRequestFactory {
      */
     public PagingDeezerRequest<Page<Track>> getTracks(long albumId) {
         return createPagingDeezerRequest(albumId, albumService::getAlbumTracks);
-    }
-
-    private <T> PagingDeezerRequest<Page<T>> createPagingDeezerRequest(
-            long albumId,
-            TriFunction<Long, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod
-    ) {
-        return new GetByIdPagingDeezerRequest<>(albumId, asyncMethod);
     }
 }

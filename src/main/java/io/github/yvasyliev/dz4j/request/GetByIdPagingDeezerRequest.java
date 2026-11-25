@@ -23,8 +23,8 @@ import java.util.concurrent.CompletableFuture;
 public class GetByIdPagingDeezerRequest<T, R> extends AbstractDeezerRequest<R> implements PagingDeezerRequest<R> {
     private final T id;
     private final TriFunction<T, @Nullable Integer, @Nullable Integer, CompletableFuture<R>> asyncMethod;
-    @Nullable private Integer index;
-    @Nullable private Integer limit;
+    private @Nullable Integer index;
+    private @Nullable Integer limit;
 
     /**
      * Constructs a new {@link GetByIdPagingDeezerRequest} with the specified ID, access token manager, and asynchronous

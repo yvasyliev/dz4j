@@ -28,7 +28,7 @@ public class DeezerFormEncoder implements Encoder {
      * @throws EncodeException {@inheritDoc}
      */
     @Override
-    public void encode(Object body, Type bodyType, RequestTemplate template) throws EncodeException {
+    public void encode(Object body, Type bodyType, RequestTemplate template) {
         delegate.encode(transform(body, template), bodyType, template);
     }
 

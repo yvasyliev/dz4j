@@ -58,8 +58,7 @@ public class OAuthRequestFactory {
      * @return the login URL
      * @throws DeezerException if URL generation fails
      */
-    public URL getLoginUrl(int appId, URI redirectUri, Collection<Permission> permissions)
-            throws DeezerException {
+    public URL getLoginUrl(int appId, URI redirectUri, Collection<Permission> permissions) {
         var url = new RequestTemplate()
                 .target("https://connect.deezer.com")
                 .uri("/oauth/auth.php?app_id={app-id}&redirect_uri={redirect-uri}&perms={perms}")

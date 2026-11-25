@@ -28,8 +28,7 @@ public class ErrorDeserializer implements JsonNodeDeserializer {
      * @throws AbstractDeezerApiException {@inheritDoc}
      */
     @Override
-    @Nullable
-    public Object deserialize(JsonNode node, Type type) throws JacksonException, AbstractDeezerApiException {
+    public @Nullable Object deserialize(JsonNode node, Type type) {
         var error = node.path("error");
 
         if (error.isMissingNode() || !error.isObject()) {

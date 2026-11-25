@@ -20,6 +20,13 @@ import java.util.function.Function;
 public class GenreRequestFactory {
     private final GenreService genreService;
 
+    private static <T> DeezerRequest<T> createDeezerRequest(
+            long genreId,
+            Function<Long, CompletableFuture<T>> asyncMethod
+    ) {
+        return new IdDeezerRequest<>(genreId, asyncMethod);
+    }
+
     /**
      * Creates a request to get all artists for a genre.
      *
@@ -57,9 +64,5 @@ public class GenreRequestFactory {
      */
     public DeezerRequest<Page<Radio>> getRadios(long genreId) {
         return createDeezerRequest(genreId, genreService::getRadios);
-    }
-
-    private <T> DeezerRequest<T> createDeezerRequest(long genreId, Function<Long, CompletableFuture<T>> asyncMethod) {
-        return new IdDeezerRequest<>(genreId, asyncMethod);
     }
 }

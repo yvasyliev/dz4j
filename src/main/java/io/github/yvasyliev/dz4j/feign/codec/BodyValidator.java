@@ -18,7 +18,7 @@ public class BodyValidator implements ResponseValidator {
      * @throws ResponseException if the response body is empty
      */
     @Override
-    public void validate(Response response, Type type) throws ResponseException {
+    public void validate(Response response, Type type) {
         if (response.body() == null) {
             throw new ResponseException("Body is empty", response);
         }

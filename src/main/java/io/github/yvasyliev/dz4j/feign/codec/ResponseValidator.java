@@ -17,5 +17,5 @@ public interface ResponseValidator {
      * @param type     the expected type of the response body
      * @throws ResponseException if the response is invalid or cannot be deserialized into the expected type
      */
-    void validate(Response response, Type type) throws ResponseException;
+    void validate(Response response, Type type);
 }

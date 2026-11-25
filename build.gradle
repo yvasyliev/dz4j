@@ -100,7 +100,17 @@ tasks.withType(JavaCompile).configureEach {
     options.release = 17
 
     options.errorprone {
-        disable 'DirectInvocationOnMock', 'OperatorPrecedence'
+        allDisabledChecksAsWarnings = true
+        disable(
+                'DirectInvocationOnMock',
+                'OperatorPrecedence',
+                'VarWithPrimitive',
+                'Java8ApiChecker',
+                'TraditionalJavadocToMarkdown',
+                'UnnecessarySemicolon', // Disabled till https://github.com/google/error-prone/issues/6233 is resolved
+                'AddNullMarkedToClass'
+        )
+        excludedPaths = '.*model.package-info[.]java'
         option 'NullAway:OnlyNullMarked', 'true'
         error 'NullAway'
     }

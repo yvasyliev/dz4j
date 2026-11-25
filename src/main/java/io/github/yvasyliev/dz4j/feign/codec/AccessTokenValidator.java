@@ -23,7 +23,7 @@ public class AccessTokenValidator implements ResponseValidator {
      *                                      response
      */
     @Override
-    public void validate(Response response, Type type) throws AccessTokenResponseException {
+    public void validate(Response response, Type type) {
         if (AccessToken.class.equals(type) && isTextHtml(response)) {
             throw buildAccessTokenException(response);
         }

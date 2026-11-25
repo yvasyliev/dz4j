@@ -49,7 +49,7 @@ class OAuthRequestFactoryTest {
     }
 
     @Test
-    void testGetLoginUrlWithPermissionArray() throws DeezerException {
+    void testGetLoginUrlWithPermissionArray() {
         testGetLoginUrl((appId, redirectUri, permission1, permission2) -> oAuthRequestFactory.getLoginUrl(
                 appId,
                 redirectUri,
@@ -59,7 +59,7 @@ class OAuthRequestFactoryTest {
     }
 
     @Test
-    void testGetLoginUrlWithPermissionList() throws DeezerException {
+    void testGetLoginUrlWithPermissionList() {
         testGetLoginUrl((appId, redirectUri, permission1, permission2) -> oAuthRequestFactory.getLoginUrl(
                 appId,
                 redirectUri,

@@ -23,7 +23,7 @@ public abstract class AbstractDeezerRequest<T> implements DeezerRequest<T> {
      * @throws DeezerException {@inheritDoc}
      */
     @Override
-    public T execute() throws DeezerException {
+    public T execute() {
         try {
             return executeAsync().join();
         } catch (CompletionException e) {

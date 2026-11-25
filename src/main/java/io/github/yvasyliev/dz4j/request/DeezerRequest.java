@@ -19,7 +19,7 @@ public interface DeezerRequest<T> {
      * @return the response from the Deezer API
      * @throws DeezerException if an error occurs during the execution of the request
      */
-    T execute() throws DeezerException;
+    T execute();
 
     /**
      * Executes the request asynchronously and returns a {@link CompletableFuture} that will be completed with the

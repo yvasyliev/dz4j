@@ -23,6 +23,10 @@ import java.util.function.Supplier;
 public class RadioRequestFactory {
     private final RadioService radioService;
 
+    private static <T> DeezerRequest<Page<T>> createDeezerRequest(Supplier<CompletableFuture<Page<T>>> asyncMethod) {
+        return new SimpleDeezerRequest<>(asyncMethod);
+    }
+
     /**
      * Creates a request to get a list of radio genres.
      *
@@ -68,9 +72,5 @@ public class RadioRequestFactory {
      */
     public PagingDeezerRequest<Page<Track>> getTracks(long radioId) {
         return new GetByIdPagingDeezerRequest<>(radioId, radioService::getTracks);
-    }
-
-    private <T> DeezerRequest<Page<T>> createDeezerRequest(Supplier<CompletableFuture<Page<T>>> asyncMethod) {
-        return new SimpleDeezerRequest<>(asyncMethod);
     }
 }
