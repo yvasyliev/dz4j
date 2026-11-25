@@ -12,8 +12,7 @@ import java.util.function.Supplier;
  * @param <T> the type of token managed by this class
  */
 public abstract class AbstractTokenManager<T> {
-    @Nullable
-    private volatile CompletableFuture<T> token;
+    private volatile @Nullable CompletableFuture<T> token;
 
     protected boolean isInvalid(@Nullable CompletableFuture<T> tokenFuture) {
         return tokenFuture == null;

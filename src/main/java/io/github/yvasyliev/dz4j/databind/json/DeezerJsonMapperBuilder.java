@@ -25,9 +25,9 @@ import java.util.function.Consumer;
 @Setter
 @Accessors(fluent = true)
 public class DeezerJsonMapperBuilder {
-    @Nullable private Consumer<SimpleModule> module;
-    @Nullable private Consumer<JsonMapper.Builder> mapper;
-    @Nullable private Consumer<DeezerHandlerInstantiator.DeezerHandlerInstantiatorBuilder> handlerInstantiator;
+    private @Nullable Consumer<SimpleModule> module;
+    private @Nullable Consumer<JsonMapper.Builder> mapper;
+    private @Nullable Consumer<DeezerHandlerInstantiator.DeezerHandlerInstantiatorBuilder> handlerInstantiator;
 
     /**
      * Builds a {@link JsonMapper} with the custom configurations provided through the builder.
