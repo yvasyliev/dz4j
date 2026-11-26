@@ -18,11 +18,11 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@SuppressWarnings("UnnecessarilyFullyQualified")
 class AccessTokenValidatorTest {
     private static final ResponseValidator VALIDATOR = new AccessTokenValidator();
 
     @Test
+    @SuppressWarnings("UnnecessarilyFullyQualified")
     void shouldPassValidationIfTypeIsNotAccessToken() {
         @Cleanup var response = mock(Response.class);
 
@@ -30,6 +30,7 @@ class AccessTokenValidatorTest {
     }
 
     @Test
+    @SuppressWarnings("UnnecessarilyFullyQualified")
     void shouldPassValidationIfContentTypeIsNotTextHtml() {
         @Cleanup var response = Response.builder()
                 .request(mock())
@@ -40,6 +41,7 @@ class AccessTokenValidatorTest {
     }
 
     @Test
+    @SuppressWarnings("UnnecessarilyFullyQualified")
     void shouldFailValidationNormally() {
         @Cleanup var response = Response.builder()
                 .request(mock())
@@ -51,6 +53,7 @@ class AccessTokenValidatorTest {
     }
 
     @Test
+    @SuppressWarnings("UnnecessarilyFullyQualified")
     void shouldFailValidationWithSuppressedException() throws IOException {
         var e = new IOException("Failed to read body");
         @Cleanup var body = mock(Response.Body.class);

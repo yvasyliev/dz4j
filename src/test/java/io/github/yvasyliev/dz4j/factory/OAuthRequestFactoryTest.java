@@ -29,7 +29,6 @@ import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-@SuppressWarnings("UnnecessarilyFullyQualified")
 class OAuthRequestFactoryTest {
     @InjectMocks private OAuthRequestFactory oAuthRequestFactory;
     @Mock private OAuthService oAuthService;
@@ -50,6 +49,7 @@ class OAuthRequestFactoryTest {
                 .hasParameter("perms", "basic_access,email");
     }
 
+    @SuppressWarnings("UnnecessarilyFullyQualified")
     private static void shouldThrowDeezerExceptionWhenLoginUrlIsMalformed(
             TriFunction<Integer, URI, Permission, URL> method
     ) throws MalformedURLException {

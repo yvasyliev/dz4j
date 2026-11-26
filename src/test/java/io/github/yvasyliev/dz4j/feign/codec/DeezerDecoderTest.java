@@ -31,7 +31,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-@SuppressWarnings("UnnecessarilyFullyQualified")
 class DeezerDecoderTest {
     @Mock private ResponseValidator responseValidator;
     @Mock private JsonNodeDeserializer jsonNodeDeserializer;
@@ -59,6 +58,7 @@ class DeezerDecoderTest {
     }
 
     @Test
+    @SuppressWarnings("UnnecessarilyFullyQualified")
     void testDecode() throws IOException {
         var body = mock(Response.Body.class);
         @Cleanup var inputStream = mock(InputStream.class);
@@ -77,6 +77,7 @@ class DeezerDecoderTest {
     }
 
     @Test
+    @SuppressWarnings("UnnecessarilyFullyQualified")
     void shouldThrowResponseException() {
         @Cleanup var response = mock(Response.class);
         var type = mock(Type.class);
@@ -87,6 +88,7 @@ class DeezerDecoderTest {
     }
 
     @Test
+    @SuppressWarnings("UnnecessarilyFullyQualified")
     void shouldThrowIOExceptionWhenReadingBody() throws IOException {
         var body = mock(Response.Body.class);
         @Cleanup var response = Response.builder().request(mock()).body(body).build();
@@ -98,6 +100,7 @@ class DeezerDecoderTest {
     }
 
     @Test
+    @SuppressWarnings("UnnecessarilyFullyQualified")
     void shouldThrowIOExceptionWhenDeserializingBody() throws IOException {
         var body = mock(Response.Body.class);
         @Cleanup var inputStream = mock(InputStream.class);
@@ -114,6 +117,7 @@ class DeezerDecoderTest {
     }
 
     @Test
+    @SuppressWarnings("UnnecessarilyFullyQualified")
     void shouldThrowJacksonExceptionWhenDeserializingBody() throws IOException {
         var body = mock(Response.Body.class);
         @Cleanup var inputStream = mock(InputStream.class);
@@ -128,6 +132,7 @@ class DeezerDecoderTest {
     }
 
     @Test
+    @SuppressWarnings("UnnecessarilyFullyQualified")
     void shouldThrowDeezerExceptionWhenNoDeserializerFound() throws IOException {
         var body = mock(Response.Body.class);
         @Cleanup var inputStream = mock(InputStream.class);

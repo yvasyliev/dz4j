@@ -115,7 +115,7 @@ tasks.withType(JavaCompile).configureEach {
                 'VarWithPrimitive',
                 'YodaCondition',
         )
-        excludedPaths = '.*model.package-info[.]java'
+        excludedPaths = '.*model/package-info[.]java'
         option 'NullAway:OnlyNullMarked', 'true'
         error 'NullAway'
     }

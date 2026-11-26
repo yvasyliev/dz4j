@@ -54,7 +54,7 @@ class FalseToNullDelegatingDeserializerTest {
         var expected = mock(Object.class);
 
         when(jsonParser.currentToken()).thenReturn(JsonToken.VALUE_TRUE);
-        Mockito.<Object>when(delegatee.deserialize(jsonParser, ctxt)).thenReturn(expected);
+        when(delegatee.deserialize(jsonParser, ctxt)).thenReturn(expected);
 
         var actual = deserializer.deserialize(jsonParser, ctxt);
 
