@@ -1,6 +1,15 @@
 package io.github.yvasyliev.dz4j.request;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import io.github.yvasyliev.dz4j.exception.DeezerException;
+import java.time.Duration;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,20 +17,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.Duration;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Supplier;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 @ExtendWith(MockitoExtension.class)
 @SuppressWarnings("checkstyle:AbstractClassName")
 class AbstractDeezerRequestTest {
-    @Mock private Supplier<CompletableFuture<String>> asyncMethod;
+    @Mock
+    private Supplier<CompletableFuture<String>> asyncMethod;
+
     private DeezerRequest<String> request;
 
     @BeforeEach

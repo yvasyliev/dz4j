@@ -9,9 +9,8 @@ import io.github.yvasyliev.dz4j.model.Page;
 import io.github.yvasyliev.dz4j.model.Playlist;
 import io.github.yvasyliev.dz4j.model.Track;
 import io.github.yvasyliev.dz4j.model.User;
-import org.jspecify.annotations.Nullable;
-
 import java.util.concurrent.CompletableFuture;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Service for interacting with artists on Deezer.
@@ -30,8 +29,7 @@ public interface ArtistService {
     CompletableFuture<Page<Album>> getAlbums(
             @Param("artistId") long artistId,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns an artist.
@@ -54,8 +52,7 @@ public interface ArtistService {
     CompletableFuture<Page<User>> getFans(
             @Param("artistId") long artistId,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of artist's playlists.
@@ -69,8 +66,7 @@ public interface ArtistService {
     CompletableFuture<Page<Playlist>> getPlaylists(
             @Param("artistId") long artistId,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of tracks.
@@ -84,8 +80,7 @@ public interface ArtistService {
     CompletableFuture<Page<Track>> getRadio(
             @Param("artistId") long artistId,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of related artists.
@@ -99,8 +94,7 @@ public interface ArtistService {
     CompletableFuture<Page<Artist>> getRelated(
             @Param("artistId") long artistId,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of top tracks.
@@ -114,6 +108,5 @@ public interface ArtistService {
     CompletableFuture<Page<Track>> getTop(
             @Param("artistId") long artistId,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 }

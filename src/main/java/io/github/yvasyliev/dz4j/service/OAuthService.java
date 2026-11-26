@@ -4,7 +4,6 @@ import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 import io.github.yvasyliev.dz4j.model.AccessToken;
-
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -22,8 +21,5 @@ public interface OAuthService {
      */
     @RequestLine("GET /oauth/access_token.php?app_id={appId}&code={code}&secret={secret}&output=json")
     CompletableFuture<AccessToken> getAccessTokenAsync(
-            @Param("appId") int appId,
-            @Param("secret") String secret,
-            @Param("code") String code
-    );
+            @Param("appId") int appId, @Param("secret") String secret, @Param("code") String code);
 }

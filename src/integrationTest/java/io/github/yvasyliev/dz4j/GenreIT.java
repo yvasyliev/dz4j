@@ -1,21 +1,20 @@
 package io.github.yvasyliev.dz4j;
 
-import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
-import io.github.yvasyliev.dz4j.model.Artist;
-import io.github.yvasyliev.dz4j.model.Genre;
-import io.github.yvasyliev.dz4j.model.Page;
-import io.github.yvasyliev.dz4j.model.Radio;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import tools.jackson.core.type.TypeReference;
-
-import java.io.IOException;
-
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
+
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
+import io.github.yvasyliev.dz4j.model.Artist;
+import io.github.yvasyliev.dz4j.model.Genre;
+import io.github.yvasyliev.dz4j.model.Page;
+import io.github.yvasyliev.dz4j.model.Radio;
+import java.io.IOException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import tools.jackson.core.type.TypeReference;
 
 @SuppressWarnings("IdentifierName")
 class GenreIT extends AbstractIT {
@@ -46,8 +45,7 @@ class GenreIT extends AbstractIT {
 
         stubFor(get(urlPathTemplate("/genre/{genreId}"))
                 .withPathParam("genreId", equalTo(genreId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.genre().getGenre(genreId));
     }
@@ -60,8 +58,7 @@ class GenreIT extends AbstractIT {
 
         stubFor(get(urlPathTemplate("/genre/{genreId}/artists"))
                 .withPathParam("genreId", equalTo(genreId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.genre().getArtists(genreId));
     }
@@ -74,8 +71,7 @@ class GenreIT extends AbstractIT {
 
         stubFor(get(urlPathTemplate("/genre/{genreId}/radios"))
                 .withPathParam("genreId", equalTo(genreId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.genre().getRadios(genreId));
     }

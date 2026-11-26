@@ -1,23 +1,25 @@
 package io.github.yvasyliev.dz4j.request;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
 import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Playlist;
 import io.github.yvasyliev.dz4j.service.UserService;
+import java.util.concurrent.CompletableFuture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.concurrent.CompletableFuture;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
-
 @ExtendWith(MockitoExtension.class)
 class CreatePlaylistDeezerRequestTest {
-    @Mock private AuthorizationManager authorizationManager;
-    @Mock private UserService userService;
+    @Mock
+    private AuthorizationManager authorizationManager;
+
+    @Mock
+    private UserService userService;
 
     @Test
     void shouldReturnPlaylist() {

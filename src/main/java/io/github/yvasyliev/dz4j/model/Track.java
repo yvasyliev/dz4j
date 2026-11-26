@@ -2,14 +2,13 @@ package io.github.yvasyliev.dz4j.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.yvasyliev.dz4j.annotation.Experimental;
-import lombok.Builder;
-import lombok.Singular;
-
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.EnumSet;
 import java.util.List;
+import lombok.Builder;
+import lombok.Singular;
 
 /**
  * A track object.
@@ -77,5 +76,4 @@ public record Track(
         @JsonProperty("md5_image") @Experimental String md5Image,
         @JsonProperty("track_token") String trackToken,
         @JsonProperty("artist") Artist artist,
-        @JsonProperty("album") Album album
-) {}
+        @JsonProperty("album") Album album) {}

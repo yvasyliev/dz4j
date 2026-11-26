@@ -1,13 +1,12 @@
 package io.github.yvasyliev.dz4j.request;
 
 import io.github.yvasyliev.dz4j.model.Page;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.BiFunction;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.jspecify.annotations.Nullable;
-
-import java.util.concurrent.CompletableFuture;
-import java.util.function.BiFunction;
 
 /**
  * A simple implementation of a paging request for Deezer resources.

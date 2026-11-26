@@ -1,12 +1,11 @@
 package io.github.yvasyliev.dz4j.model;
 
-import org.junit.jupiter.api.Test;
-
-import java.time.Instant;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.Instant;
+import org.junit.jupiter.api.Test;
 
 class AccessTokenTest {
     @Test

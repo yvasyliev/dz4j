@@ -4,12 +4,11 @@ import io.github.yvasyliev.dz4j.model.Order;
 import io.github.yvasyliev.dz4j.model.Page;
 import io.github.yvasyliev.dz4j.model.Query;
 import io.github.yvasyliev.dz4j.util.QuinaryFunction;
+import java.util.concurrent.CompletableFuture;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.jspecify.annotations.Nullable;
-
-import java.util.concurrent.CompletableFuture;
 
 /**
  * A request to search for resources on Deezer based on a query.

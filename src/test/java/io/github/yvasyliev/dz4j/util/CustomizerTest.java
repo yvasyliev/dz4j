@@ -1,13 +1,12 @@
 package io.github.yvasyliev.dz4j.util;
 
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import java.util.function.Consumer;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+
+import java.util.function.Consumer;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class CustomizerTest {
     @Test

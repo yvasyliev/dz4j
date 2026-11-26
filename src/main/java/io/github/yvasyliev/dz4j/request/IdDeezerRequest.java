@@ -2,12 +2,11 @@ package io.github.yvasyliev.dz4j.request;
 
 import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.model.AccessToken;
-import lombok.RequiredArgsConstructor;
-import org.jspecify.annotations.Nullable;
-
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A request to the Deezer API that retrieves a resource by its ID.
@@ -32,8 +31,7 @@ public class IdDeezerRequest<T> extends AbstractDeezerRequest<T> {
     public IdDeezerRequest(
             long id,
             AuthorizationManager authorizationManager,
-            BiFunction<Long, @Nullable AccessToken, CompletableFuture<T>> asyncMethod
-    ) {
+            BiFunction<Long, @Nullable AccessToken, CompletableFuture<T>> asyncMethod) {
         this(id, objId -> authorizationManager.getToken().thenCompose(token -> asyncMethod.apply(objId, token)));
     }
 

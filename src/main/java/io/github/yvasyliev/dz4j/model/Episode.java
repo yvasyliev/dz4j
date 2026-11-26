@@ -2,11 +2,10 @@ package io.github.yvasyliev.dz4j.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.yvasyliev.dz4j.annotation.Experimental;
-import lombok.Builder;
-
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import lombok.Builder;
 
 /**
  * An episode object.
@@ -44,5 +43,4 @@ public record Episode(
         @JsonProperty("picture_big") URL pictureBig,
         @JsonProperty("picture_xl") URL pictureXl,
         @JsonProperty("track_token") String trackToken,
-        @JsonProperty("podcast") Podcast podcast
-) {}
+        @JsonProperty("podcast") Podcast podcast) {}

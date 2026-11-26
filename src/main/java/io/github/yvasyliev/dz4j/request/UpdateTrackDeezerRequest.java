@@ -2,12 +2,11 @@ package io.github.yvasyliev.dz4j.request;
 
 import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.service.TrackService;
+import java.util.concurrent.CompletableFuture;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.jspecify.annotations.Nullable;
-
-import java.util.concurrent.CompletableFuture;
 
 /**
  * A request to update an existing playlist on Deezer, allowing changes to the title, description, visibility, and
@@ -26,7 +25,8 @@ public class UpdateTrackDeezerRequest extends AbstractDeezerRequest<Boolean> {
 
     @Override
     protected CompletableFuture<Boolean> doExecuteAsync() {
-        return authorizationManager.getToken()
+        return authorizationManager
+                .getToken()
                 .thenCompose(accessToken -> trackService.updateTrack(trackId, accessToken, title, artist, album));
     }
 }

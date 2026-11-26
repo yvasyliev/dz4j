@@ -8,10 +8,9 @@ import io.github.yvasyliev.dz4j.model.Podcast;
 import io.github.yvasyliev.dz4j.request.DeezerRequest;
 import io.github.yvasyliev.dz4j.request.IdDeezerRequest;
 import io.github.yvasyliev.dz4j.service.PodcastService;
-import lombok.RequiredArgsConstructor;
-
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Factory for creating requests related to podcasts.
@@ -42,9 +41,7 @@ public class PodcastRequestFactory {
     }
 
     private <T> DeezerRequest<T> createDeezerRequest(
-            long podcastId,
-            BiFunction<Long, AccessToken, CompletableFuture<T>> asyncMethod
-    ) {
+            long podcastId, BiFunction<Long, AccessToken, CompletableFuture<T>> asyncMethod) {
         return new IdDeezerRequest<>(podcastId, authorizationManager, asyncMethod);
     }
 }

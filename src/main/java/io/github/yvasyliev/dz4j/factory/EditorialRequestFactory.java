@@ -11,10 +11,9 @@ import io.github.yvasyliev.dz4j.request.PagingDeezerRequest;
 import io.github.yvasyliev.dz4j.request.SimplePagingDeezerRequest;
 import io.github.yvasyliev.dz4j.service.EditorialService;
 import io.github.yvasyliev.dz4j.util.TriFunction;
-import lombok.RequiredArgsConstructor;
-
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Factory for creating requests related to editorials.
@@ -24,16 +23,12 @@ public class EditorialRequestFactory {
     private final EditorialService editorialService;
 
     private static <T> DeezerRequest<T> createDeezerRequest(
-            long genreId,
-            Function<Long, CompletableFuture<T>> asyncMethod
-    ) {
+            long genreId, Function<Long, CompletableFuture<T>> asyncMethod) {
         return new IdDeezerRequest<>(genreId, asyncMethod);
     }
 
     private static <T> PagingDeezerRequest<Page<T>> createPagingDeezerRequest(
-            long genreId,
-            TriFunction<Long, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod
-    ) {
+            long genreId, TriFunction<Long, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod) {
         return new GetByIdPagingDeezerRequest<>(genreId, asyncMethod);
     }
 

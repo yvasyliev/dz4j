@@ -24,10 +24,7 @@ public class PageDeserializerModifier extends ValueDeserializerModifier {
      */
     @Override
     public ValueDeserializer<?> modifyDeserializer(
-            DeserializationConfig config,
-            BeanDescription.Supplier beanDescRef,
-            ValueDeserializer<?> deserializer
-    ) {
+            DeserializationConfig config, BeanDescription.Supplier beanDescRef, ValueDeserializer<?> deserializer) {
         return Page.class.isAssignableFrom(beanDescRef.get().getBeanClass())
                 ? new FalseToNullDelegatingDeserializer(deserializer)
                 : super.modifyDeserializer(config, beanDescRef, deserializer);

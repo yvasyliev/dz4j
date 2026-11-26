@@ -1,15 +1,14 @@
 package io.github.yvasyliev.dz4j;
 
-import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
-import io.github.yvasyliev.dz4j.model.Options;
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
+
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
+import io.github.yvasyliev.dz4j.model.Options;
+import java.io.IOException;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("IdentifierName")
 class OptionsIT extends AbstractIT {

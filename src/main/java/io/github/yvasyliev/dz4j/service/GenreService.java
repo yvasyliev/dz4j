@@ -7,7 +7,6 @@ import io.github.yvasyliev.dz4j.model.Artist;
 import io.github.yvasyliev.dz4j.model.Genre;
 import io.github.yvasyliev.dz4j.model.Page;
 import io.github.yvasyliev.dz4j.model.Radio;
-
 import java.util.concurrent.CompletableFuture;
 
 /**

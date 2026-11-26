@@ -1,19 +1,18 @@
 package io.github.yvasyliev.dz4j.databind.json;
 
-import io.github.yvasyliev.dz4j.databind.cfg.DeezerHandlerInstantiator;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import tools.jackson.databind.DeserializationFeature;
-import tools.jackson.databind.json.JsonMapper;
-import tools.jackson.databind.module.SimpleModule;
-
-import java.util.function.Consumer;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Mockito.verify;
+
+import io.github.yvasyliev.dz4j.databind.cfg.DeezerHandlerInstantiator;
+import java.util.function.Consumer;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.module.SimpleModule;
 
 class DeezerJsonMapperBuilderTest {
     @Test

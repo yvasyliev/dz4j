@@ -3,13 +3,12 @@ package io.github.yvasyliev.dz4j.feign.codec;
 import feign.RequestTemplate;
 import feign.codec.EncodeException;
 import feign.codec.Encoder;
-import lombok.RequiredArgsConstructor;
-
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 
 /**
  * A custom Feign encoder that transforms collection values into CSV strings for form URL-encoded requests.
@@ -23,21 +22,21 @@ public class DeezerFormEncoder implements Encoder {
     }
 
     private static Map<?, Object> transform(Map<?, ?> source) {
-        return source.entrySet()
-                .stream()
+        return source.entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, entry -> transform(entry.getValue())));
     }
 
     private static Object transform(Object value) {
         return value instanceof Collection<?> collection
-                ? collection.stream().filter(Objects::nonNull).map(String::valueOf).collect(Collectors.joining(","))
+                ? collection.stream()
+                        .filter(Objects::nonNull)
+                        .map(String::valueOf)
+                        .collect(Collectors.joining(","))
                 : value;
     }
 
     private static boolean isFormUrlEncoded(RequestTemplate template) {
-        return template.headers()
-                .entrySet()
-                .stream()
+        return template.headers().entrySet().stream()
                 .filter(header -> "Content-Type".equalsIgnoreCase(header.getKey()))
                 .flatMap(header -> header.getValue().stream())
                 .anyMatch(value -> value.startsWith("application/x-www-form-urlencoded"));

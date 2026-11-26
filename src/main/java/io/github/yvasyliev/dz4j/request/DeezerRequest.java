@@ -1,7 +1,6 @@
 package io.github.yvasyliev.dz4j.request;
 
 import io.github.yvasyliev.dz4j.exception.DeezerException;
-
 import java.util.concurrent.CompletableFuture;
 
 /**

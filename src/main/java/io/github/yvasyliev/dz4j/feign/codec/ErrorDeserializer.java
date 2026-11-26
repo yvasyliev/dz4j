@@ -1,13 +1,12 @@
 package io.github.yvasyliev.dz4j.feign.codec;
 
 import io.github.yvasyliev.dz4j.exception.AbstractDeezerApiException;
+import java.lang.reflect.Type;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.Nullable;
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;
-
-import java.lang.reflect.Type;
-import java.util.Objects;
 
 /**
  * A {@link JsonNode} deserializer that throws an {@link AbstractDeezerApiException} if the node contains an
@@ -39,9 +38,7 @@ public class ErrorDeserializer implements JsonNodeDeserializer {
     }
 
     private AbstractDeezerApiException deserialize(JsonNode error) {
-        return (AbstractDeezerApiException) Objects.requireNonNull(delegate.deserialize(
-                error,
-                AbstractDeezerApiException.class
-        ));
+        return (AbstractDeezerApiException)
+                Objects.requireNonNull(delegate.deserialize(error, AbstractDeezerApiException.class));
     }
 }

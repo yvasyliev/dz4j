@@ -4,10 +4,9 @@ import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 import io.github.yvasyliev.dz4j.model.OEmbed;
-import org.jspecify.annotations.Nullable;
-
 import java.net.URL;
 import java.util.concurrent.CompletableFuture;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Service for retrieving oEmbed information from Deezer.
@@ -38,6 +37,5 @@ public interface OEmbedService {
             @Param("maxWidth") @Nullable Integer maxWidth,
             @Param("maxHeight") @Nullable Integer maxHeight,
             @Param("radius") @Nullable Boolean radius,
-            @Param("tracklist") @Nullable Boolean tracklist
-    );
+            @Param("tracklist") @Nullable Boolean tracklist);
 }

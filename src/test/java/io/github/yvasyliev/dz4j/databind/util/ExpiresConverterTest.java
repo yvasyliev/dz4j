@@ -1,9 +1,7 @@
 package io.github.yvasyliev.dz4j.databind.util;
 
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.FieldSource;
-import tools.jackson.databind.util.StdConverter;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import java.time.Clock;
 import java.time.Duration;
@@ -11,9 +9,10 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.FieldSource;
+import tools.jackson.databind.util.StdConverter;
 
 class ExpiresConverterTest {
     private static final Clock CLOCK = Clock.fixed(Instant.now(), ZoneId.systemDefault());
@@ -23,10 +22,7 @@ class ExpiresConverterTest {
     private static final Supplier<Stream<Arguments>> testConvert = () -> {
         var duration = Duration.ofSeconds(10);
 
-        return Stream.of(
-                arguments(duration, Instant.now(CLOCK).plus(duration)),
-                arguments(Duration.ZERO, Instant.MAX)
-        );
+        return Stream.of(arguments(duration, Instant.now(CLOCK).plus(duration)), arguments(Duration.ZERO, Instant.MAX));
     };
 
     @ParameterizedTest

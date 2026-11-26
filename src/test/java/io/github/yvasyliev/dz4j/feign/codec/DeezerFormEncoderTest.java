@@ -1,7 +1,12 @@
 package io.github.yvasyliev.dz4j.feign.codec;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
 import feign.RequestTemplate;
 import feign.codec.Encoder;
+import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -9,16 +14,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tools.jackson.core.type.TypeReference;
 
-import java.util.List;
-import java.util.Map;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
 @ExtendWith(MockitoExtension.class)
 class DeezerFormEncoderTest {
-    @InjectMocks private DeezerFormEncoder encoder;
-    @Mock private Encoder delegate;
+    @InjectMocks
+    private DeezerFormEncoder encoder;
+
+    @Mock
+    private Encoder delegate;
 
     @Test
     void shouldDoNothingIfTheBodyIsNotMap() {
@@ -44,16 +46,12 @@ class DeezerFormEncoderTest {
 
     @Test
     void shouldTransformBody() {
-        var body = Map.of(
-                "key1", "single value",
-                "key2", List.of("value1", "value2")
-        );
+        var body = Map.of("key1", "single value", "key2", List.of("value1", "value2"));
         var bodyType = new TypeReference<Map<String, Object>>() {}.getType();
         var requestTemplate = new RequestTemplate().header("Content-Type", "application/x-www-form-urlencoded");
         var expected = Map.of(
                 "key1", "single value",
-                "key2", "value1,value2"
-        );
+                "key2", "value1,value2");
 
         encoder.encode(body, bodyType, requestTemplate);
 

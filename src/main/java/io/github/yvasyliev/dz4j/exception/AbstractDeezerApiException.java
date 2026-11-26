@@ -10,17 +10,16 @@ import lombok.ToString;
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = DeezerApiResponseException.class, name = "Exception"),
-        @JsonSubTypes.Type(value = OAuthException.class, name = "OAuthException"),
-        @JsonSubTypes.Type(value = ParameterException.class, name = "ParameterException"),
-        @JsonSubTypes.Type(value = MissingParameterException.class, name = "MissingParameterException"),
-        @JsonSubTypes.Type(value = InvalidQueryException.class, name = "InvalidQueryException"),
-        @JsonSubTypes.Type(value = DataException.class, name = "DataException"),
-        @JsonSubTypes.Type(
-                value = IndividualAccountChangedNotAllowedException.class,
-                name = "IndividualAccountChangedNotAllowedException"
-        ),
-        @JsonSubTypes.Type(value = SimpleApiHttpException.class, name = "SimpleApiHttpException")
+    @JsonSubTypes.Type(value = DeezerApiResponseException.class, name = "Exception"),
+    @JsonSubTypes.Type(value = OAuthException.class, name = "OAuthException"),
+    @JsonSubTypes.Type(value = ParameterException.class, name = "ParameterException"),
+    @JsonSubTypes.Type(value = MissingParameterException.class, name = "MissingParameterException"),
+    @JsonSubTypes.Type(value = InvalidQueryException.class, name = "InvalidQueryException"),
+    @JsonSubTypes.Type(value = DataException.class, name = "DataException"),
+    @JsonSubTypes.Type(
+            value = IndividualAccountChangedNotAllowedException.class,
+            name = "IndividualAccountChangedNotAllowedException"),
+    @JsonSubTypes.Type(value = SimpleApiHttpException.class, name = "SimpleApiHttpException")
 })
 @Getter
 @ToString(callSuper = true)

@@ -1,5 +1,9 @@
 package io.github.yvasyliev.dz4j.factory;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
 import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Page;
@@ -7,25 +11,25 @@ import io.github.yvasyliev.dz4j.model.Playlist;
 import io.github.yvasyliev.dz4j.model.Track;
 import io.github.yvasyliev.dz4j.model.User;
 import io.github.yvasyliev.dz4j.service.PlaylistService;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
-
 @ExtendWith(MockitoExtension.class)
 class PlaylistRequestFactoryTest {
-    @InjectMocks private PlaylistRequestFactory playlistRequestFactory;
-    @Mock private PlaylistService playlistService;
-    @Mock private AuthorizationManager authorizationManager;
+    @InjectMocks
+    private PlaylistRequestFactory playlistRequestFactory;
+
+    @Mock
+    private PlaylistService playlistService;
+
+    @Mock
+    private AuthorizationManager authorizationManager;
 
     @Test
     void testAddTracksWithCollection() {
@@ -53,7 +57,9 @@ class PlaylistRequestFactoryTest {
         when(playlistService.addTracks(playlistId, accessToken, trackIds))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
-        var actual = playlistRequestFactory.addTracks(playlistId, trackIds.toArray(Long[]::new)).execute();
+        var actual = playlistRequestFactory
+                .addTracks(playlistId, trackIds.toArray(Long[]::new))
+                .execute();
 
         assertThat(actual).isTrue();
     }
@@ -97,7 +103,9 @@ class PlaylistRequestFactoryTest {
         when(playlistService.deleteTracks(playlistId, accessToken, trackIds))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
-        var actual = playlistRequestFactory.deleteTracks(playlistId, trackIds.toArray(Long[]::new)).execute();
+        var actual = playlistRequestFactory
+                .deleteTracks(playlistId, trackIds.toArray(Long[]::new))
+                .execute();
 
         assertThat(actual).isTrue();
     }
@@ -105,9 +113,8 @@ class PlaylistRequestFactoryTest {
     @Test
     void testGetFans() {
         var playlistId = 123L;
-        var expected = Page.<User>builder()
-                .data(User.builder().id(456L).build())
-                .build();
+        var expected =
+                Page.<User>builder().data(User.builder().id(456L).build()).build();
 
         when(playlistService.getFans(playlistId, null, null)).thenReturn(CompletableFuture.completedFuture(expected));
 
@@ -131,12 +138,10 @@ class PlaylistRequestFactoryTest {
     @Test
     void testGetRadio() {
         var playlistId = 123L;
-        var expected = Optional.of(Page.<Track>builder()
-                .data(Track.builder().id(456L).build())
-                .build());
+        var expected = Optional.of(
+                Page.<Track>builder().data(Track.builder().id(456L).build()).build());
 
-        when(playlistService.getRadio(playlistId, null, null))
-                .thenReturn(CompletableFuture.completedFuture(expected));
+        when(playlistService.getRadio(playlistId, null, null)).thenReturn(CompletableFuture.completedFuture(expected));
 
         var actual = playlistRequestFactory.getRadio(playlistId).execute();
 
@@ -146,9 +151,8 @@ class PlaylistRequestFactoryTest {
     @Test
     void testGetTracks() {
         var playlistId = 123L;
-        var expected = Page.<Track>builder()
-                .data(Track.builder().id(456L).build())
-                .build();
+        var expected =
+                Page.<Track>builder().data(Track.builder().id(456L).build()).build();
 
         when(playlistService.getTracks(playlistId, null, null)).thenReturn(CompletableFuture.completedFuture(expected));
 
@@ -195,7 +199,9 @@ class PlaylistRequestFactoryTest {
         when(playlistService.orderTracks(playlistId, accessToken, trackIds))
                 .thenReturn(CompletableFuture.completedFuture(true));
 
-        var actual = playlistRequestFactory.orderTracks(playlistId, trackIds.toArray(Long[]::new)).execute();
+        var actual = playlistRequestFactory
+                .orderTracks(playlistId, trackIds.toArray(Long[]::new))
+                .execute();
 
         assertThat(actual).isTrue();
     }

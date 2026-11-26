@@ -12,9 +12,8 @@ import io.github.yvasyliev.dz4j.request.IdDeezerRequest;
 import io.github.yvasyliev.dz4j.request.PagingDeezerRequest;
 import io.github.yvasyliev.dz4j.service.ArtistService;
 import io.github.yvasyliev.dz4j.util.TriFunction;
-import lombok.RequiredArgsConstructor;
-
 import java.util.concurrent.CompletableFuture;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Factory for creating requests related to artists.
@@ -24,9 +23,7 @@ public class ArtistRequestFactory {
     private final ArtistService artistService;
 
     private static <T> PagingDeezerRequest<Page<T>> createPagingDeezerRequest(
-            long artistId,
-            TriFunction<Long, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod
-    ) {
+            long artistId, TriFunction<Long, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod) {
         return new GetByIdPagingDeezerRequest<>(artistId, asyncMethod);
     }
 

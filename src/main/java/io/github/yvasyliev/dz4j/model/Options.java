@@ -1,9 +1,8 @@
 package io.github.yvasyliev.dz4j.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
-
 import java.time.Duration;
+import lombok.Builder;
 
 /**
  * Get the user's options.
@@ -34,5 +33,4 @@ public record Options(
         @JsonProperty("radio_skips") Integer radioSkips,
         @JsonProperty("lossless") Boolean lossless,
         @JsonProperty("preview") Boolean preview,
-        @JsonProperty("radio") Boolean radio
-) {}
+        @JsonProperty("radio") Boolean radio) {}

@@ -2,6 +2,9 @@ package io.github.yvasyliev.dz4j.databind.cfg;
 
 import io.github.yvasyliev.dz4j.databind.util.ExpiresConverter;
 import io.github.yvasyliev.dz4j.util.Customizer;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Consumer;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.Nullable;
@@ -17,10 +20,6 @@ import tools.jackson.databind.jsontype.TypeIdResolver;
 import tools.jackson.databind.jsontype.TypeResolverBuilder;
 import tools.jackson.databind.util.Converter;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Consumer;
-
 /**
  * A custom {@link HandlerInstantiator} that provides custom converters for Jackson.
  */
@@ -31,13 +30,12 @@ public class DeezerHandlerInstantiator extends HandlerInstantiator {
     @Builder
     private DeezerHandlerInstantiator(
             Consumer<ExpiresConverter.ExpiresConverterBuilder> expiresConverter,
-            @Nullable Consumer<Map<Class<?>, Converter<?, ?>>> converters
-    ) {
+            @Nullable Consumer<Map<Class<?>, Converter<?, ?>>> converters) {
         this(new HashMap<>());
         this.converters.put(
                 ExpiresConverter.class,
-                Customizer.customize(ExpiresConverter.builder(), expiresConverter).build()
-        );
+                Customizer.customize(ExpiresConverter.builder(), expiresConverter)
+                        .build());
         Customizer.customize(this.converters, converters);
     }
 
@@ -51,14 +49,11 @@ public class DeezerHandlerInstantiator extends HandlerInstantiator {
      */
     @Override
     public @Nullable Converter<?, ?> converterInstance(
-            MapperConfig<?> config,
-            Annotated annotated,
-            Class<?> implClass
-    ) {
+            MapperConfig<?> config, Annotated annotated, Class<?> implClass) {
         return converters.get(implClass);
     }
 
-    //region ignored
+    // region ignored
 
     /**
      * {@inheritDoc}
@@ -70,10 +65,7 @@ public class DeezerHandlerInstantiator extends HandlerInstantiator {
      */
     @Override
     public @Nullable ValueDeserializer<?> deserializerInstance(
-            DeserializationConfig config,
-            Annotated annotated,
-            Class<?> deserClass
-    ) {
+            DeserializationConfig config, Annotated annotated, Class<?> deserClass) {
         return null;
     }
 
@@ -87,10 +79,7 @@ public class DeezerHandlerInstantiator extends HandlerInstantiator {
      */
     @Override
     public @Nullable KeyDeserializer keyDeserializerInstance(
-            DeserializationConfig config,
-            Annotated annotated,
-            Class<?> keyDeserClass
-    ) {
+            DeserializationConfig config, Annotated annotated, Class<?> keyDeserClass) {
         return null;
     }
 
@@ -104,10 +93,7 @@ public class DeezerHandlerInstantiator extends HandlerInstantiator {
      */
     @Override
     public @Nullable ValueSerializer<?> serializerInstance(
-            SerializationConfig config,
-            Annotated annotated,
-            Class<?> serClass
-    ) {
+            SerializationConfig config, Annotated annotated, Class<?> serClass) {
         return null;
     }
 
@@ -121,10 +107,7 @@ public class DeezerHandlerInstantiator extends HandlerInstantiator {
      */
     @Override
     public @Nullable TypeResolverBuilder<?> typeResolverBuilderInstance(
-            MapperConfig<?> config,
-            Annotated annotated,
-            Class<?> builderClass
-    ) {
+            MapperConfig<?> config, Annotated annotated, Class<?> builderClass) {
         return null;
     }
 
@@ -138,12 +121,9 @@ public class DeezerHandlerInstantiator extends HandlerInstantiator {
      */
     @Override
     public @Nullable TypeIdResolver typeIdResolverInstance(
-            MapperConfig<?> config,
-            Annotated annotated,
-            Class<?> resolverClass
-    ) {
+            MapperConfig<?> config, Annotated annotated, Class<?> resolverClass) {
         return null;
     }
 
-    //endregion
+    // endregion
 }

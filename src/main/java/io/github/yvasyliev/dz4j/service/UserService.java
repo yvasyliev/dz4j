@@ -16,10 +16,9 @@ import io.github.yvasyliev.dz4j.model.Playlist;
 import io.github.yvasyliev.dz4j.model.Radio;
 import io.github.yvasyliev.dz4j.model.Track;
 import io.github.yvasyliev.dz4j.model.User;
-import org.jspecify.annotations.Nullable;
-
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Service for interacting with users on Deezer.
@@ -40,8 +39,7 @@ public interface UserService {
     CompletableFuture<Boolean> addAlbums(
             @Param("userId") String userId,
             @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
-            @Param("album_ids") @Experimental Collection<Long> albumIds
-    );
+            @Param("album_ids") @Experimental Collection<Long> albumIds);
 
     /**
      * Adds artist(s) to the user's favorites.
@@ -56,8 +54,7 @@ public interface UserService {
     CompletableFuture<Boolean> addArtists(
             @Param("userId") String userId,
             @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
-            @Param("artist_ids") @Experimental Collection<Long> artistIds
-    );
+            @Param("artist_ids") @Experimental Collection<Long> artistIds);
 
     /**
      * Adds a notification to the user's feed.
@@ -72,8 +69,7 @@ public interface UserService {
     CompletableFuture<NotificationResult> addNotification(
             @Param("userId") String userId,
             @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
-            @Param("message") String message
-    );
+            @Param("message") String message);
 
     /**
      * Adds playlist(s) to the user's favorites.
@@ -88,8 +84,7 @@ public interface UserService {
     CompletableFuture<Boolean> addPlaylists(
             @Param("userId") String userId,
             @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
-            @Param("playlist_ids") Collection<Long> playlistIds
-    );
+            @Param("playlist_ids") Collection<Long> playlistIds);
 
     /**
      * Adds a podcast to the user's favorites.
@@ -104,8 +99,7 @@ public interface UserService {
     CompletableFuture<Boolean> addPodcast(
             @Param("userId") String userId,
             @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
-            @Param("podcast_id") long podcastId
-    );
+            @Param("podcast_id") long podcastId);
 
     /**
      * Adds a radio to the user's favorites.
@@ -120,8 +114,7 @@ public interface UserService {
     CompletableFuture<Boolean> addRadio(
             @Param("userId") String userId,
             @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
-            @Param("radio_id") long radioId
-    );
+            @Param("radio_id") long radioId);
 
     /**
      * Adds track(s) to the user's favorites.
@@ -136,8 +129,7 @@ public interface UserService {
     CompletableFuture<Boolean> addTracks(
             @Param("userId") String userId,
             @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
-            @Param("track_ids") Collection<Long> trackIds
-    );
+            @Param("track_ids") Collection<Long> trackIds);
 
     /**
      * Creates a new playlist for the user.
@@ -154,8 +146,7 @@ public interface UserService {
             @Param("userId") String userId,
             @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("title") String title,
-            @Param("description") @Experimental @Nullable String description
-    );
+            @Param("description") @Experimental @Nullable String description);
 
     /**
      * Follows another user.
@@ -170,8 +161,7 @@ public interface UserService {
     CompletableFuture<Boolean> followUser(
             @Param("userId") String userId,
             @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
-            @Param("user_id") long followeeId
-    );
+            @Param("user_id") long followeeId);
 
     /**
      * Returns a list of the user's top albums.
@@ -187,8 +177,7 @@ public interface UserService {
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of albums recommendations.
@@ -200,14 +189,12 @@ public interface UserService {
      * @return a page of album recommendations
      */
     @RequestLine(
-            "GET /user/{userId:\\d+|me}/recommendations/albums?access_token={accessToken}&index={index}&limit={limit}"
-    )
+            "GET /user/{userId:\\d+|me}/recommendations/albums?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Album>> getAlbumRecommendations(
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of the user's top artists.
@@ -223,8 +210,7 @@ public interface UserService {
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of artists recommendations.
@@ -236,14 +222,12 @@ public interface UserService {
      * @return a page of artist recommendations
      */
     @RequestLine(
-            "GET /user/{userId:\\d+|me}/recommendations/artists?access_token={accessToken}&index={index}&limit={limit}"
-    )
+            "GET /user/{userId:\\d+|me}/recommendations/artists?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Artist>> getArtistRecommendations(
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of the user's favorite artists.
@@ -259,8 +243,7 @@ public interface UserService {
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of the user's top tracks.
@@ -276,8 +259,7 @@ public interface UserService {
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of user's flow tracks.
@@ -289,8 +271,7 @@ public interface UserService {
     @RequestLine("GET /user/{userId:\\d+|me}/flow?access_token={accessToken}")
     CompletableFuture<Page<Track>> getFlow(
             @Param("userId") String userId,
-            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken
-    );
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken);
 
     /**
      * Returns a list of the user's followers.
@@ -306,8 +287,7 @@ public interface UserService {
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of users followed by the user.
@@ -323,8 +303,7 @@ public interface UserService {
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of the user's listening history.
@@ -340,8 +319,7 @@ public interface UserService {
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Gets the user's options.
@@ -353,8 +331,7 @@ public interface UserService {
     @RequestLine("GET /user/{userId:\\d+|me}/options?access_token={accessToken}")
     CompletableFuture<Options> getOptions(
             @Param("userId") String userId,
-            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken
-    );
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken);
 
     /**
      * Returns the user's {@link PermissionsResponse} granted to the application.
@@ -366,8 +343,7 @@ public interface UserService {
     @RequestLine("GET /user/{userId:\\d+|me}/permissions?access_token={accessToken}")
     CompletableFuture<PermissionsResponse> getPermissions(
             @Param("userId") String userId,
-            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken
-    );
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken);
 
     /**
      * Returns a list of the user's personal songs.
@@ -383,8 +359,7 @@ public interface UserService {
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of the user's top playlists.
@@ -400,8 +375,7 @@ public interface UserService {
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of playlists recommendations.
@@ -418,8 +392,7 @@ public interface UserService {
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of user's public {@link Playlist}.
@@ -435,8 +408,7 @@ public interface UserService {
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of radio recommendations.
@@ -448,14 +420,12 @@ public interface UserService {
      * @return a page of radio recommendations
      */
     @RequestLine(
-            "GET /user/{userId:\\d+|me}/recommendations/radios?access_token={accessToken}&index={index}&limit={limit}"
-    )
+            "GET /user/{userId:\\d+|me}/recommendations/radios?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Radio>> getRadioRecommendations(
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of the user's favorite radios.
@@ -471,8 +441,7 @@ public interface UserService {
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of release recommendations.
@@ -483,15 +452,13 @@ public interface UserService {
      * @param limit       maximum number of items to return
      * @return a page of release recommendations
      */
-    @RequestLine(
-            "GET /user/{userId:\\d+|me}/recommendations/releases?access_token={accessToken}&index={index}&limit={limit}"
-    )
+    @RequestLine("GET "
+            + "/user/{userId:\\d+|me}/recommendations/releases?access_token={accessToken}&index={index}&limit={limit}")
     CompletableFuture<Page<Album>> getReleaseRecommendations(
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of the user's top tracks.
@@ -507,8 +474,7 @@ public interface UserService {
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of track recommendations.
@@ -520,8 +486,7 @@ public interface UserService {
     @RequestLine("GET /user/{userId:\\d+|me}/recommendations/tracks?access_token={accessToken}")
     CompletableFuture<Page<Track>> getTrackRecommendations(
             @Param("userId") String userId,
-            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken
-    );
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken);
 
     /**
      * Returns a list of user's favorite tracks.
@@ -537,8 +502,7 @@ public interface UserService {
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Gets the user information.
@@ -550,8 +514,7 @@ public interface UserService {
     @RequestLine("GET /user/{userId:\\d+|me}?access_token={accessToken}")
     CompletableFuture<User> getUser(
             @Param("userId") String userId,
-            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken
-    );
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken);
 
     /**
      * Returns a list of the user's favorite albums.
@@ -567,8 +530,7 @@ public interface UserService {
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Removes an album from the user's library.
@@ -582,8 +544,7 @@ public interface UserService {
     CompletableFuture<Boolean> removeAlbum(
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
-            @Param("albumId") long albumId
-    );
+            @Param("albumId") long albumId);
 
     /**
      * Removes an artist from the user's favorites.
@@ -597,8 +558,7 @@ public interface UserService {
     CompletableFuture<Boolean> removeArtist(
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
-            @Param("artistId") long artistId
-    );
+            @Param("artistId") long artistId);
 
     /**
      * Removes a playlist from the user's favorites.
@@ -612,8 +572,7 @@ public interface UserService {
     CompletableFuture<Boolean> removePlaylist(
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
-            @Param("playlistId") long playlistId
-    );
+            @Param("playlistId") long playlistId);
 
     /**
      * Removes a podcast from the user's favorites.
@@ -627,8 +586,7 @@ public interface UserService {
     CompletableFuture<Boolean> removePodcast(
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
-            @Param("podcastId") long podcastId
-    );
+            @Param("podcastId") long podcastId);
 
     /**
      * Removes a radio from the user's favorites.
@@ -642,8 +600,7 @@ public interface UserService {
     CompletableFuture<Boolean> removeRadio(
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
-            @Param("radioId") long radioId
-    );
+            @Param("radioId") long radioId);
 
     /**
      * Removes a track from the user's favorites.
@@ -657,8 +614,7 @@ public interface UserService {
     CompletableFuture<Boolean> removeTrack(
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
-            @Param("trackId") long trackId
-    );
+            @Param("trackId") long trackId);
 
     /**
      * Unfollows another user.
@@ -672,6 +628,5 @@ public interface UserService {
     CompletableFuture<Boolean> unfollowUser(
             @Param("userId") String userId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
-            @Param("followeeId") long followeeId
-    );
+            @Param("followeeId") long followeeId);
 }

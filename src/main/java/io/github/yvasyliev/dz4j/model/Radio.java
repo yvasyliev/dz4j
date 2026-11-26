@@ -2,9 +2,8 @@ package io.github.yvasyliev.dz4j.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.yvasyliev.dz4j.annotation.Experimental;
-import lombok.Builder;
-
 import java.net.URL;
+import lombok.Builder;
 
 /**
  * A radio object.
@@ -34,5 +33,4 @@ public record Radio(
         @JsonProperty("picture_big") URL pictureBig,
         @JsonProperty("picture_xl") URL pictureXl,
         @JsonProperty("tracklist") URL tracklist,
-        @JsonProperty("md5_image") @Experimental String md5Image
-) {}
+        @JsonProperty("md5_image") @Experimental String md5Image) {}

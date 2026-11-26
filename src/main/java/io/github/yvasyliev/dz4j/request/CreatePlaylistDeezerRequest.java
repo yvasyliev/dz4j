@@ -3,12 +3,11 @@ package io.github.yvasyliev.dz4j.request;
 import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.model.Playlist;
 import io.github.yvasyliev.dz4j.service.UserService;
+import java.util.concurrent.CompletableFuture;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.jspecify.annotations.Nullable;
-
-import java.util.concurrent.CompletableFuture;
 
 /**
  * A request to create a new playlist for a user on Deezer.
@@ -25,7 +24,8 @@ public class CreatePlaylistDeezerRequest extends AbstractDeezerRequest<Playlist>
 
     @Override
     protected CompletableFuture<Playlist> doExecuteAsync() {
-        return authorizationManager.getToken()
+        return authorizationManager
+                .getToken()
                 .thenCompose(accessToken -> userService.createPlaylist(userId, accessToken, title, description));
     }
 }

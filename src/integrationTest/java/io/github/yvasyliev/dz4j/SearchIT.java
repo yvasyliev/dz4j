@@ -1,5 +1,10 @@
 package io.github.yvasyliev.dz4j;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
+
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
 import io.github.yvasyliev.dz4j.model.AdvancedQuery;
 import io.github.yvasyliev.dz4j.model.Album;
@@ -10,16 +15,10 @@ import io.github.yvasyliev.dz4j.model.Playlist;
 import io.github.yvasyliev.dz4j.model.Radio;
 import io.github.yvasyliev.dz4j.model.Track;
 import io.github.yvasyliev.dz4j.model.User;
+import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tools.jackson.core.type.TypeReference;
-
-import java.io.IOException;
-
-import static com.github.tomakehurst.wiremock.client.WireMock.get;
-import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
-import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
 
 @SuppressWarnings("IdentifierName")
 class SearchIT extends AbstractIT {
@@ -40,8 +39,7 @@ class SearchIT extends AbstractIT {
 
         stubFor(get(urlPathTemplate("/search"))
                 .withQueryParam("q", equalTo(query))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.search().search(query));
     }
@@ -62,13 +60,17 @@ class SearchIT extends AbstractIT {
                 .withQueryParam("order", equalTo(order))
                 .withQueryParam("index", equalTo(index))
                 .withQueryParam("limit", equalTo(limit))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(
                 expected,
-                deezerClient.search().search(query).strict(true).order(order).index(index).limit(limit)
-        );
+                deezerClient
+                        .search()
+                        .search(query)
+                        .strict(true)
+                        .order(order)
+                        .index(index)
+                        .limit(limit));
     }
 
     @Test
@@ -79,8 +81,7 @@ class SearchIT extends AbstractIT {
 
         stubFor(get(urlPathTemplate("/search/album"))
                 .withQueryParam("q", equalTo(query))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.search().searchAlbum(query));
     }
@@ -101,13 +102,17 @@ class SearchIT extends AbstractIT {
                 .withQueryParam("order", equalTo(order))
                 .withQueryParam("index", equalTo(index))
                 .withQueryParam("limit", equalTo(limit))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(
                 expected,
-                deezerClient.search().searchAlbum(query).strict(true).order(order).index(index).limit(limit)
-        );
+                deezerClient
+                        .search()
+                        .searchAlbum(query)
+                        .strict(true)
+                        .order(order)
+                        .index(index)
+                        .limit(limit));
     }
 
     @Test
@@ -118,8 +123,7 @@ class SearchIT extends AbstractIT {
 
         stubFor(get(urlPathTemplate("/search/artist"))
                 .withQueryParam("q", equalTo(query))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.search().searchArtist(query));
     }
@@ -140,13 +144,17 @@ class SearchIT extends AbstractIT {
                 .withQueryParam("order", equalTo(order))
                 .withQueryParam("index", equalTo(index))
                 .withQueryParam("limit", equalTo(limit))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(
                 expected,
-                deezerClient.search().searchArtist(query).strict(true).order(order).index(index).limit(limit)
-        );
+                deezerClient
+                        .search()
+                        .searchArtist(query)
+                        .strict(true)
+                        .order(order)
+                        .index(index)
+                        .limit(limit));
     }
 
     @Test
@@ -157,8 +165,7 @@ class SearchIT extends AbstractIT {
 
         stubFor(get(urlPathTemplate("/search/playlist"))
                 .withQueryParam("q", equalTo(query))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.search().searchPlaylist(query));
     }
@@ -179,13 +186,17 @@ class SearchIT extends AbstractIT {
                 .withQueryParam("order", equalTo(order))
                 .withQueryParam("index", equalTo(index))
                 .withQueryParam("limit", equalTo(limit))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(
                 expected,
-                deezerClient.search().searchPlaylist(query).strict(true).order(order).index(index).limit(limit)
-        );
+                deezerClient
+                        .search()
+                        .searchPlaylist(query)
+                        .strict(true)
+                        .order(order)
+                        .index(index)
+                        .limit(limit));
     }
 
     @Test
@@ -196,8 +207,7 @@ class SearchIT extends AbstractIT {
 
         stubFor(get(urlPathTemplate("/search/radio"))
                 .withQueryParam("q", equalTo(query))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.search().searchRadio(query));
     }
@@ -218,13 +228,17 @@ class SearchIT extends AbstractIT {
                 .withQueryParam("order", equalTo(order))
                 .withQueryParam("index", equalTo(index))
                 .withQueryParam("limit", equalTo(limit))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(
                 expected,
-                deezerClient.search().searchRadio(query).strict(true).order(order).index(index).limit(limit)
-        );
+                deezerClient
+                        .search()
+                        .searchRadio(query)
+                        .strict(true)
+                        .order(order)
+                        .index(index)
+                        .limit(limit));
     }
 
     @Test
@@ -235,8 +249,7 @@ class SearchIT extends AbstractIT {
 
         stubFor(get(urlPathTemplate("/search/track"))
                 .withQueryParam("q", equalTo(query))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.search().searchTrack(query));
     }
@@ -257,13 +270,17 @@ class SearchIT extends AbstractIT {
                 .withQueryParam("order", equalTo(order))
                 .withQueryParam("index", equalTo(index))
                 .withQueryParam("limit", equalTo(limit))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(
                 expected,
-                deezerClient.search().searchTrack(query).strict(true).order(order).index(index).limit(limit)
-        );
+                deezerClient
+                        .search()
+                        .searchTrack(query)
+                        .strict(true)
+                        .order(order)
+                        .index(index)
+                        .limit(limit));
     }
 
     @Test
@@ -274,8 +291,7 @@ class SearchIT extends AbstractIT {
 
         stubFor(get(urlPathTemplate("/search/user"))
                 .withQueryParam("q", equalTo(query))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.search().searchUser(query));
     }
@@ -296,12 +312,16 @@ class SearchIT extends AbstractIT {
                 .withQueryParam("order", equalTo(order))
                 .withQueryParam("index", equalTo(index))
                 .withQueryParam("limit", equalTo(limit))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(
                 expected,
-                deezerClient.search().searchUser(query).strict(true).order(order).index(index).limit(limit)
-        );
+                deezerClient
+                        .search()
+                        .searchUser(query)
+                        .strict(true)
+                        .order(order)
+                        .index(index)
+                        .limit(limit));
     }
 }

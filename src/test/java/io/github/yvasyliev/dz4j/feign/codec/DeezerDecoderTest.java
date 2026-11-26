@@ -1,9 +1,23 @@
 package io.github.yvasyliev.dz4j.feign.codec;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import feign.Response;
 import feign.codec.Decoder;
 import io.github.yvasyliev.dz4j.exception.DeezerException;
 import io.github.yvasyliev.dz4j.exception.ResponseException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Type;
+import java.util.List;
+import java.util.function.Consumer;
 import lombok.Cleanup;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,26 +29,17 @@ import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.json.JsonMapper;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Type;
-import java.util.List;
-import java.util.function.Consumer;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 @ExtendWith(MockitoExtension.class)
 class DeezerDecoderTest {
-    @Mock private ResponseValidator responseValidator;
-    @Mock private JsonNodeDeserializer jsonNodeDeserializer;
-    @Mock private JsonMapper jsonMapper;
+    @Mock
+    private ResponseValidator responseValidator;
+
+    @Mock
+    private JsonNodeDeserializer jsonNodeDeserializer;
+
+    @Mock
+    private JsonMapper jsonMapper;
+
     private Decoder decoder;
 
     @BeforeEach

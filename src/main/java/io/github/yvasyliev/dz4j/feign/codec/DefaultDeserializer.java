@@ -1,11 +1,10 @@
 package io.github.yvasyliev.dz4j.feign.codec;
 
+import java.lang.reflect.Type;
 import lombok.RequiredArgsConstructor;
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.json.JsonMapper;
-
-import java.lang.reflect.Type;
 
 /**
  * Default implementation of {@link JsonNodeDeserializer} that uses {@link JsonMapper} to deserialize JSON nodes.

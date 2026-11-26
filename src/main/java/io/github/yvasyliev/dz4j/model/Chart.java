@@ -18,5 +18,4 @@ public record Chart(
         @JsonProperty("albums") Page<Album> albums,
         @JsonProperty("artists") Page<Artist> artists,
         @JsonProperty("playlists") Page<Playlist> playlists,
-        @JsonProperty("podcasts") Page<Podcast> podcasts
-) {}
+        @JsonProperty("podcasts") Page<Podcast> podcasts) {}

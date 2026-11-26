@@ -9,10 +9,9 @@ import io.github.yvasyliev.dz4j.request.DeezerRequest;
 import io.github.yvasyliev.dz4j.request.SimpleDeezerRequest;
 import io.github.yvasyliev.dz4j.service.UploadService;
 import io.github.yvasyliev.dz4j.util.QuadFunction;
-import lombok.RequiredArgsConstructor;
-
 import java.io.File;
 import java.util.concurrent.CompletableFuture;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Factory for creating requests related to uploading content.
@@ -49,12 +48,10 @@ public class UploadRequestFactory {
     private <T> DeezerRequest<Boolean> uploadPlaylistCover(
             long playlistId,
             T cover,
-            QuadFunction<Long, AccessToken, Infos, T, CompletableFuture<Boolean>> asyncMethod
-    ) {
+            QuadFunction<Long, AccessToken, Infos, T, CompletableFuture<Boolean>> asyncMethod) {
         return new SimpleDeezerRequest<>(
                 authorizationManager,
                 uploadTokenManager,
-                (accessToken, infos) -> asyncMethod.apply(playlistId, accessToken, infos, cover)
-        );
+                (accessToken, infos) -> asyncMethod.apply(playlistId, accessToken, infos, cover));
     }
 }

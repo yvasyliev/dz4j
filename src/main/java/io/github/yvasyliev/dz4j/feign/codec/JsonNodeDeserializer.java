@@ -1,11 +1,10 @@
 package io.github.yvasyliev.dz4j.feign.codec;
 
 import io.github.yvasyliev.dz4j.exception.AbstractDeezerApiException;
+import java.lang.reflect.Type;
 import org.jspecify.annotations.Nullable;
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;
-
-import java.lang.reflect.Type;
 
 /**
  * Functional interface for deserializing a {@link JsonNode} into a Java object of a specified type.

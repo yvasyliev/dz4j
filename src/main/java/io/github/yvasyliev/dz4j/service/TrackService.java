@@ -6,9 +6,8 @@ import feign.RequestLine;
 import io.github.yvasyliev.dz4j.feign.AccessTokenExpander;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Track;
-import org.jspecify.annotations.Nullable;
-
 import java.util.concurrent.CompletableFuture;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Service for managing tracks on Deezer.
@@ -50,6 +49,5 @@ public interface TrackService {
             @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param("title") @Nullable String title,
             @Param("artist") @Nullable String artist,
-            @Param("album") @Nullable String album
-    );
+            @Param("album") @Nullable String album);
 }

@@ -1,5 +1,14 @@
 package io.github.yvasyliev.dz4j.databind.deser.std;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import lombok.Cleanup;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,19 +22,12 @@ import tools.jackson.databind.DeserializationContext;
 import tools.jackson.databind.ValueDeserializer;
 import tools.jackson.databind.deser.std.DelegatingDeserializer;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 @ExtendWith(MockitoExtension.class)
 @SuppressWarnings("UnnecessarilyFullyQualified")
 class FalseToNullDelegatingDeserializerTest {
-    @Mock private ValueDeserializer<?> delegatee;
+    @Mock
+    private ValueDeserializer<?> delegatee;
+
     private DelegatingDeserializer deserializer;
 
     @BeforeEach

@@ -1,15 +1,14 @@
 package io.github.yvasyliev.dz4j.request;
 
-import io.github.yvasyliev.dz4j.model.Page;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
+import io.github.yvasyliev.dz4j.model.Page;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class SimplePagingDeezerRequestTest {
     @Test

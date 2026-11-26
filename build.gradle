@@ -8,8 +8,10 @@ plugins {
     alias libs.plugins.lombok
     alias libs.plugins.errorprone
     alias libs.plugins.maven.publish
+    alias libs.plugins.open.java.format
     alias libs.plugins.shadow
     alias libs.plugins.sonarqube
+    alias libs.plugins.spotless
 }
 
 group = 'io.github.yvasyliev'
@@ -40,6 +42,33 @@ dependencies {
 checkstyle {
     maxWarnings = 0
 }
+
+//spotless {
+//    format 'misc', {
+//        target '**/*.html',
+//                '**/*.json',
+//                '**/*.properties',
+//                '**/*.toml',
+//                '**/*.xml',
+//                '**/*.yml',
+//                '*.gradle',
+//                '*.md',
+//                '.gitignore',
+//                'LICENSE',
+//                'NOTICE'
+//
+//        endWithNewline()
+//        trimTrailingWhitespace()
+//    }
+//
+//    java {
+////        replaceStaticImports()
+//        removeUnusedImports()
+//        forbidWildcardImports()
+//        shortenFullyQualifiedTypes()
+//        formatAnnotations()
+//    }
+//}
 
 testing {
     suites {

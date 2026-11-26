@@ -1,17 +1,5 @@
 package io.github.yvasyliev.dz4j;
 
-import com.github.tomakehurst.wiremock.common.ContentTypes;
-import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
-import io.github.yvasyliev.dz4j.authorization.Authorization;
-import io.github.yvasyliev.dz4j.model.AccessToken;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-
 import static com.github.tomakehurst.wiremock.client.WireMock.aMultipart;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
@@ -20,35 +8,37 @@ import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
 
+import com.github.tomakehurst.wiremock.common.ContentTypes;
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
+import io.github.yvasyliev.dz4j.authorization.Authorization;
+import io.github.yvasyliev.dz4j.model.AccessToken;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 @SuppressWarnings("IdentifierName")
 class UploadIT extends AbstractIT {
     private static final String UPLOAD_TOKEN = "dyq9m5jxfh2bgh966v2npj2kevcdw6pw";
     private DeezerClient deezerClient;
 
     private static void stubUploadPlaylistCover(
-            long playlistId,
-            String fileName,
-            String fileContent,
-            String responseBody
-    ) throws IOException {
+            long playlistId, String fileName, String fileContent, String responseBody) throws IOException {
         stubFor(get(urlPathEqualTo("/infos"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
                 .willReturn(okJson(read("/response/infos/get-infos.json"))));
         stubFor(post(urlPathTemplate("/playlist/{playlistId}"))
                 .withPathParam("playlistId", equalTo(playlistId))
-                .withMultipartRequestBody(aMultipart()
-                        .withName("access_token")
-                        .withBody(equalTo(ACCESS_TOKEN)))
-                .withMultipartRequestBody(aMultipart()
-                        .withName("upload_token")
-                        .withBody(equalTo(UPLOAD_TOKEN)))
+                .withMultipartRequestBody(aMultipart().withName("access_token").withBody(equalTo(ACCESS_TOKEN)))
+                .withMultipartRequestBody(aMultipart().withName("upload_token").withBody(equalTo(UPLOAD_TOKEN)))
                 .withMultipartRequestBody(aMultipart()
                         .withHeader(ContentTypes.CONTENT_TYPE, equalTo("image/jpeg"))
                         .withName("file")
                         .withFileName(fileName)
                         .withBody(equalTo(fileContent)))
-                .willReturn(okJson(responseBody))
-        );
+                .willReturn(okJson(responseBody)));
     }
 
     private static File createTempFile(String content) throws IOException {
@@ -63,9 +53,8 @@ class UploadIT extends AbstractIT {
     @BeforeEach
     void setUp(WireMockRuntimeInfo wmRuntimeInfo) {
         deezerClient = DeezerClient.builder()
-                .baseUrl(baseUrls -> baseUrls.api(wmRuntimeInfo.getHttpBaseUrl())
-                        .upload(wmRuntimeInfo.getHttpBaseUrl())
-                )
+                .baseUrl(
+                        baseUrls -> baseUrls.api(wmRuntimeInfo.getHttpBaseUrl()).upload(wmRuntimeInfo.getHttpBaseUrl()))
                 .authorization(Authorization.of(new AccessToken(ACCESS_TOKEN)))
                 .build();
     }
@@ -95,7 +84,8 @@ class UploadIT extends AbstractIT {
 
         assertEquals(
                 expected,
-                deezerClient.upload().uploadPlaylistCover(playlistId, cover.getBytes(StandardCharsets.UTF_8), fileName)
-        );
+                deezerClient
+                        .upload()
+                        .uploadPlaylistCover(playlistId, cover.getBytes(StandardCharsets.UTF_8), fileName));
     }
 }

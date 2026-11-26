@@ -1,22 +1,21 @@
 package io.github.yvasyliev.dz4j.feign;
 
-import feign.DefaultContract;
-import feign.Param;
-import feign.RequestLine;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import tools.jackson.databind.json.JsonMapper;
-
-import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+
+import feign.DefaultContract;
+import feign.Param;
+import feign.RequestLine;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import tools.jackson.databind.json.JsonMapper;
 
 class DeezerContractTest {
     @Test

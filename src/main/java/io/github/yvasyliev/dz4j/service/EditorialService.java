@@ -7,9 +7,8 @@ import io.github.yvasyliev.dz4j.model.Album;
 import io.github.yvasyliev.dz4j.model.Chart;
 import io.github.yvasyliev.dz4j.model.Editorial;
 import io.github.yvasyliev.dz4j.model.Page;
-import org.jspecify.annotations.Nullable;
-
 import java.util.concurrent.CompletableFuture;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Service for accessing editorials on Deezer.
@@ -25,9 +24,7 @@ public interface EditorialService {
      */
     @RequestLine("GET /editorial?index={index}&limit={limit}")
     CompletableFuture<Page<Editorial>> getEditorials(
-            @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("index") @Nullable Integer index, @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns an editorial for a specific genre.
@@ -59,8 +56,7 @@ public interface EditorialService {
     CompletableFuture<Page<Album>> getEditorialReleases(
             @Param("genreId") long genreId,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns the top tracks, albums, artists, playlists and podcasts per genre for the current country.
@@ -74,6 +70,5 @@ public interface EditorialService {
     CompletableFuture<Page<Chart>> getEditorialCharts(
             @Param("genreId") long genreId,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 }

@@ -7,9 +7,8 @@ import io.github.yvasyliev.dz4j.feign.AccessTokenExpander;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.BookmarkResponse;
 import io.github.yvasyliev.dz4j.model.Episode;
-import org.jspecify.annotations.Nullable;
-
 import java.util.concurrent.CompletableFuture;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Service for managing episodes on Deezer.
@@ -29,8 +28,7 @@ public interface EpisodeService {
     CompletableFuture<BookmarkResponse> bookmarkEpisode(
             @Param("episodeId") long episodeId,
             @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
-            @Param("offset") int offset
-    );
+            @Param("offset") int offset);
 
     /**
      * Returns an episode.
@@ -42,8 +40,7 @@ public interface EpisodeService {
     @RequestLine("GET /episode/{episodeId}?access_token={accessToken}")
     CompletableFuture<Episode> getEpisode(
             @Param("episodeId") long episodeId,
-            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken
-    );
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken);
 
     /**
      * Unbookmarks an episode.
@@ -55,6 +52,5 @@ public interface EpisodeService {
     @RequestLine("DELETE /episode/{episodeId}/bookmark?access_token={accessToken}")
     CompletableFuture<BookmarkResponse> unbookmarkEpisode(
             @Param("episodeId") long episodeId,
-            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken
-    );
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken);
 }

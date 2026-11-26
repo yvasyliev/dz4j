@@ -1,5 +1,12 @@
 package io.github.yvasyliev.dz4j;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.delete;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
+import static com.github.tomakehurst.wiremock.client.WireMock.post;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
+
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
 import io.github.yvasyliev.dz4j.authorization.Authorization;
 import io.github.yvasyliev.dz4j.model.AccessToken;
@@ -7,19 +14,11 @@ import io.github.yvasyliev.dz4j.model.Page;
 import io.github.yvasyliev.dz4j.model.Playlist;
 import io.github.yvasyliev.dz4j.model.Track;
 import io.github.yvasyliev.dz4j.model.User;
+import java.io.IOException;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tools.jackson.core.type.TypeReference;
-
-import java.io.IOException;
-import java.util.Optional;
-
-import static com.github.tomakehurst.wiremock.client.WireMock.delete;
-import static com.github.tomakehurst.wiremock.client.WireMock.get;
-import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
-import static com.github.tomakehurst.wiremock.client.WireMock.post;
-import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
 
 @SuppressWarnings("IdentifierName")
 class PlaylistIT extends AbstractIT {
@@ -44,8 +43,7 @@ class PlaylistIT extends AbstractIT {
                 .withPathParam("playlistId", equalTo(playlistId))
                 .withFormParam("access_token", equalTo(ACCESS_TOKEN))
                 .withFormParam("songs", equalTo(songs))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.playlist().addTracks(playlistId, 1807705517L, 1808237467L));
     }
@@ -59,8 +57,7 @@ class PlaylistIT extends AbstractIT {
         stubFor(delete(urlPathTemplate("/playlist/{playlistId}"))
                 .withPathParam("playlistId", equalTo(playlistId))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.playlist().deletePlaylist(playlistId));
     }
@@ -76,8 +73,7 @@ class PlaylistIT extends AbstractIT {
                 .withPathParam("playlistId", equalTo(playlistId))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
                 .withQueryParam("songs", equalTo(songs))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.playlist().deleteTracks(playlistId, 1807705517L, 1808237467L));
     }
@@ -90,8 +86,7 @@ class PlaylistIT extends AbstractIT {
 
         stubFor(get(urlPathTemplate("/playlist/{playlistId}/fans"))
                 .withPathParam("playlistId", equalTo(playlistId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.playlist().getFans(playlistId));
     }
@@ -108,10 +103,11 @@ class PlaylistIT extends AbstractIT {
                 .withPathParam("playlistId", equalTo(playlistId))
                 .withQueryParam("index", equalTo(index))
                 .withQueryParam("limit", equalTo(limit))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
-        assertEquals(expected, deezerClient.playlist().getFans(playlistId).index(index).limit(limit));
+        assertEquals(
+                expected,
+                deezerClient.playlist().getFans(playlistId).index(index).limit(limit));
     }
 
     @Test
@@ -122,8 +118,7 @@ class PlaylistIT extends AbstractIT {
 
         stubFor(get(urlPathTemplate("/playlist/{playlistId}"))
                 .withPathParam("playlistId", equalTo(playlistId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.playlist().getPlaylist(playlistId));
     }
@@ -136,8 +131,7 @@ class PlaylistIT extends AbstractIT {
 
         stubFor(get(urlPathTemplate("/playlist/{playlistId}/radio"))
                 .withPathParam("playlistId", equalTo(playlistId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.playlist().getRadio(playlistId));
     }
@@ -154,10 +148,11 @@ class PlaylistIT extends AbstractIT {
                 .withPathParam("playlistId", equalTo(playlistId))
                 .withQueryParam("index", equalTo(index))
                 .withQueryParam("limit", equalTo(limit))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
-        assertEquals(expected, deezerClient.playlist().getRadio(playlistId).index(index).limit(limit));
+        assertEquals(
+                expected,
+                deezerClient.playlist().getRadio(playlistId).index(index).limit(limit));
     }
 
     @Test
@@ -168,8 +163,7 @@ class PlaylistIT extends AbstractIT {
 
         stubFor(get(urlPathTemplate("/playlist/{playlistId}/tracks"))
                 .withPathParam("playlistId", equalTo(playlistId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.playlist().getTracks(playlistId));
     }
@@ -186,10 +180,11 @@ class PlaylistIT extends AbstractIT {
                 .withPathParam("playlistId", equalTo(playlistId))
                 .withQueryParam("index", equalTo(index))
                 .withQueryParam("limit", equalTo(limit))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
-        assertEquals(expected, deezerClient.playlist().getTracks(playlistId).index(index).limit(limit));
+        assertEquals(
+                expected,
+                deezerClient.playlist().getTracks(playlistId).index(index).limit(limit));
     }
 
     @Test
@@ -201,8 +196,7 @@ class PlaylistIT extends AbstractIT {
         stubFor(post(urlPathTemplate("/playlist/{playlistId}/seen"))
                 .withPathParam("playlistId", equalTo(playlistId))
                 .withFormParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.playlist().markAsSeen(playlistId));
     }
@@ -218,8 +212,7 @@ class PlaylistIT extends AbstractIT {
                 .withPathParam("playlistId", equalTo(playlistId))
                 .withFormParam("access_token", equalTo(ACCESS_TOKEN))
                 .withFormParam("order", equalTo(order))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.playlist().orderTracks(playlistId, 1808237467L, 1807705517L));
     }
@@ -233,8 +226,7 @@ class PlaylistIT extends AbstractIT {
         stubFor(post(urlPathTemplate("/playlist/{playlistId}"))
                 .withPathParam("playlistId", equalTo(playlistId))
                 .withFormParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.playlist().updatePlaylist(playlistId));
     }

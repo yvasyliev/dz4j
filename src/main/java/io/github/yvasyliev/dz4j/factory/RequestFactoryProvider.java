@@ -21,12 +21,11 @@ import io.github.yvasyliev.dz4j.service.SearchService;
 import io.github.yvasyliev.dz4j.service.TrackService;
 import io.github.yvasyliev.dz4j.service.UploadService;
 import io.github.yvasyliev.dz4j.service.UserService;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
-
-import java.util.function.BiFunction;
-import java.util.function.Function;
 
 /**
  * Provider of request factories for different Deezer API endpoints.
@@ -61,15 +60,8 @@ public class RequestFactoryProvider {
      * @param authorizationManager the authorization manager
      */
     public RequestFactoryProvider(
-            AsyncFeign.AsyncBuilder<Object> builder,
-            BaseUrls baseUrls,
-            AuthorizationManager authorizationManager
-    ) {
-        var assembler = new RequestFactoryAssembler(
-                builder,
-                baseUrls.api(),
-                authorizationManager
-        );
+            AsyncFeign.AsyncBuilder<Object> builder, BaseUrls baseUrls, AuthorizationManager authorizationManager) {
+        var assembler = new RequestFactoryAssembler(builder, baseUrls.api(), authorizationManager);
 
         album = assembler.assemble(AlbumRequestFactory::new, AlbumService.class);
         artist = assembler.assemble(ArtistRequestFactory::new, ArtistService.class);
@@ -108,8 +100,7 @@ public class RequestFactoryProvider {
             return assemble(
                     t -> new UploadRequestFactory(t, authorizationManager, new UploadTokenManager(infos)),
                     UploadService.class,
-                    url
-            );
+                    url);
         }
 
         private <T, R> R assemble(Function<T, R> factory, Class<T> target, String url) {

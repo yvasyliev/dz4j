@@ -1,21 +1,20 @@
 package io.github.yvasyliev.dz4j;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
+
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
 import io.github.yvasyliev.dz4j.authorization.Authorization;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Episode;
 import io.github.yvasyliev.dz4j.model.Page;
 import io.github.yvasyliev.dz4j.model.Podcast;
+import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tools.jackson.core.type.TypeReference;
-
-import java.io.IOException;
-
-import static com.github.tomakehurst.wiremock.client.WireMock.get;
-import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
-import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
 
 @SuppressWarnings("IdentifierName")
 class PodcastIT extends AbstractIT {
@@ -38,8 +37,7 @@ class PodcastIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/podcast/{podcastId}/episodes"))
                 .withPathParam("podcastId", equalTo(podcastId))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.podcast().getEpisodes(podcastId));
     }
@@ -53,8 +51,7 @@ class PodcastIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/podcast/{podcastId}"))
                 .withPathParam("podcastId", equalTo(podcastId))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.podcast().getPodcast(podcastId));
     }

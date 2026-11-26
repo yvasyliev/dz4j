@@ -4,13 +4,12 @@ import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.authorization.UploadTokenManager;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Infos;
-import lombok.RequiredArgsConstructor;
-import org.jspecify.annotations.Nullable;
-
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A simple request to the Deezer API that executes a provided asynchronous method.
@@ -31,9 +30,7 @@ public class SimpleDeezerRequest<T> extends AbstractDeezerRequest<T> {
      *                             API
      */
     public SimpleDeezerRequest(
-            AuthorizationManager authorizationManager,
-            Function<AccessToken, CompletableFuture<T>> asyncMethod
-    ) {
+            AuthorizationManager authorizationManager, Function<AccessToken, CompletableFuture<T>> asyncMethod) {
         this(() -> authorizationManager.getToken().thenCompose(asyncMethod));
     }
 
@@ -51,8 +48,7 @@ public class SimpleDeezerRequest<T> extends AbstractDeezerRequest<T> {
     public SimpleDeezerRequest(
             AuthorizationManager authorizationManager,
             UploadTokenManager uploadTokenManager,
-            BiFunction<@Nullable AccessToken, Infos, CompletableFuture<T>> asyncMethod
-    ) {
+            BiFunction<@Nullable AccessToken, Infos, CompletableFuture<T>> asyncMethod) {
         this(() -> {
             var accessTokenFuture = authorizationManager.getToken();
             var uploadTokenFuture = uploadTokenManager.getUploadToken();

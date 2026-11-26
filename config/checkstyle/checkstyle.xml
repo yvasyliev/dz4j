@@ -73,9 +73,9 @@
         <module name="ConstructorsDeclarationGrouping">
             <property name="orderByIncreasingParameterCount" value="true"/>
         </module>
-        <module name="CustomImportOrder">
-            <property name="customImportOrderRules" value="THIRD_PARTY_PACKAGE, STANDARD_JAVA_PACKAGE, STATIC"/>
-        </module>
+<!--        <module name="CustomImportOrder">-->
+<!--            <property name="customImportOrderRules" value="THIRD_PARTY_PACKAGE, STANDARD_JAVA_PACKAGE, STATIC"/>-->
+<!--        </module>-->
         <module name="CyclomaticComplexity"/>
         <module name="DeclarationOrder"/>
         <module name="DefaultComesLast"/>

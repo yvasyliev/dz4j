@@ -1,25 +1,31 @@
 package io.github.yvasyliev.dz4j.feign;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+
 import feign.AsyncFeign;
 import io.github.yvasyliev.dz4j.databind.json.DeezerJsonMapperBuilder;
 import io.github.yvasyliev.dz4j.feign.codec.DeezerDecoder;
+import java.util.function.Consumer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.function.Consumer;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-
 @ExtendWith(MockitoExtension.class)
 class DeezerFeignBuilderTest {
-    @Mock private Consumer<DeezerJsonMapperBuilder> jsonMapperCustomizer;
-    @Mock private Consumer<DeezerDecoder.DeezerDecoderBuilder> decoderCustomizer;
-    @Mock private Consumer<DeezerContract.DeezerContractBuilder> contractCustomizer;
-    @Mock private Consumer<AsyncFeign.AsyncBuilder<Object>> feignCustomizer;
+    @Mock
+    private Consumer<DeezerJsonMapperBuilder> jsonMapperCustomizer;
+
+    @Mock
+    private Consumer<DeezerDecoder.DeezerDecoderBuilder> decoderCustomizer;
+
+    @Mock
+    private Consumer<DeezerContract.DeezerContractBuilder> contractCustomizer;
+
+    @Mock
+    private Consumer<AsyncFeign.AsyncBuilder<Object>> feignCustomizer;
 
     @Test
     void testBuild() {

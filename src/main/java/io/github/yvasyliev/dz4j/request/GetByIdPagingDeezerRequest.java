@@ -4,12 +4,11 @@ import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.util.QuadFunction;
 import io.github.yvasyliev.dz4j.util.TriFunction;
+import java.util.concurrent.CompletableFuture;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.jspecify.annotations.Nullable;
-
-import java.util.concurrent.CompletableFuture;
 
 /**
  * A request to retrieve a paginated resource from the Deezer API by its ID.
@@ -39,13 +38,12 @@ public class GetByIdPagingDeezerRequest<T, R> extends AbstractDeezerRequest<R> i
     public GetByIdPagingDeezerRequest(
             T id,
             AuthorizationManager authorizationManager,
-            QuadFunction<T, @Nullable AccessToken, Integer, Integer, CompletableFuture<R>> asyncMethod
-    ) {
+            QuadFunction<T, @Nullable AccessToken, Integer, Integer, CompletableFuture<R>> asyncMethod) {
         this(
                 id,
-                (objId, idx, lmt) -> authorizationManager.getToken()
-                        .thenCompose(accessToken -> asyncMethod.apply(id, accessToken, idx, lmt))
-        );
+                (objId, idx, lmt) -> authorizationManager
+                        .getToken()
+                        .thenCompose(accessToken -> asyncMethod.apply(id, accessToken, idx, lmt)));
     }
 
     @Override

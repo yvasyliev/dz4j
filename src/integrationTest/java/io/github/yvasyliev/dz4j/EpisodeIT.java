@@ -1,21 +1,20 @@
 package io.github.yvasyliev.dz4j;
 
-import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
-import io.github.yvasyliev.dz4j.authorization.Authorization;
-import io.github.yvasyliev.dz4j.model.AccessToken;
-import io.github.yvasyliev.dz4j.model.BookmarkResponse;
-import io.github.yvasyliev.dz4j.model.Episode;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-
 import static com.github.tomakehurst.wiremock.client.WireMock.delete;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
+
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
+import io.github.yvasyliev.dz4j.authorization.Authorization;
+import io.github.yvasyliev.dz4j.model.AccessToken;
+import io.github.yvasyliev.dz4j.model.BookmarkResponse;
+import io.github.yvasyliev.dz4j.model.Episode;
+import java.io.IOException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("IdentifierName")
 class EpisodeIT extends AbstractIT {
@@ -38,8 +37,7 @@ class EpisodeIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/episode/{episodeId}"))
                 .withPathParam("episodeId", equalTo(episodeId))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.episode().getEpisode(episodeId));
     }
@@ -55,8 +53,7 @@ class EpisodeIT extends AbstractIT {
                 .withPathParam("episodeId", equalTo(episodeId))
                 .withFormParam("access_token", equalTo(ACCESS_TOKEN))
                 .withFormParam("offset", equalTo(offset))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.episode().bookmarkEpisode(episodeId, offset));
     }
@@ -70,8 +67,7 @@ class EpisodeIT extends AbstractIT {
         stubFor(delete(urlPathTemplate("/episode/{episodeId}/bookmark"))
                 .withPathParam("episodeId", equalTo(episodeId))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.episode().unbookmarkEpisode(episodeId));
     }

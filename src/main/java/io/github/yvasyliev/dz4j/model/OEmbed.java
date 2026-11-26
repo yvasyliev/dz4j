@@ -1,9 +1,8 @@
 package io.github.yvasyliev.dz4j.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
-
 import java.net.URL;
+import lombok.Builder;
 
 /**
  * An oEmbed object.
@@ -42,8 +41,7 @@ public record OEmbed(
         @JsonProperty("thumbnail_height") Integer thumbnailHeight,
         @JsonProperty("width") Integer width,
         @JsonProperty("height") Integer height,
-        @JsonProperty("html") String html
-) {
+        @JsonProperty("html") String html) {
     /**
      * The oEmbed resource type.
      */
@@ -51,7 +49,8 @@ public record OEmbed(
         /**
          * Rich oEmbed resource.
          */
-        @JsonProperty("rich") RICH
+        @JsonProperty("rich")
+        RICH
     }
 
     /**
@@ -61,26 +60,31 @@ public record OEmbed(
         /**
          * Album resource.
          */
-        @JsonProperty("album") ALBUM,
+        @JsonProperty("album")
+        ALBUM,
 
         /**
          * Episode resource.
          */
-        @JsonProperty("episode") EPISODE,
+        @JsonProperty("episode")
+        EPISODE,
 
         /**
          * Playlist resource.
          */
-        @JsonProperty("playlist") PLAYLIST,
+        @JsonProperty("playlist")
+        PLAYLIST,
 
         /**
          * Show resource.
          */
-        @JsonProperty("show") SHOW,
+        @JsonProperty("show")
+        SHOW,
 
         /**
          * Track resource.
          */
-        @JsonProperty("track") TRACK
+        @JsonProperty("track")
+        TRACK
     }
 }

@@ -2,9 +2,8 @@ package io.github.yvasyliev.dz4j.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.yvasyliev.dz4j.annotation.Experimental;
-import lombok.Builder;
-
 import java.net.URL;
+import lombok.Builder;
 
 /**
  * An artist object.
@@ -39,8 +38,7 @@ public record Artist(
         @JsonProperty("nb_fan") Integer nbFan,
         @JsonProperty("radio") Boolean radio,
         @JsonProperty("tracklist") URL tracklist,
-        @JsonProperty("role") Role role
-) {
+        @JsonProperty("role") Role role) {
     /**
      * The role of the artist in the context of a track contribution.
      */
@@ -61,26 +59,31 @@ public record Artist(
         /**
          * Remixer.
          */
-        @JsonProperty("Remixer") REMIXER,
+        @JsonProperty("Remixer")
+        REMIXER,
 
         /**
          * Composer.
          */
-        @JsonProperty("Composer") COMPOSER,
+        @JsonProperty("Composer")
+        COMPOSER,
 
         /**
          * Author.
          */
-        @JsonProperty("Author") AUTHOR,
+        @JsonProperty("Author")
+        AUTHOR,
 
         /**
          * Producer.
          */
-        @JsonProperty("Producer") PRODUCER,
+        @JsonProperty("Producer")
+        PRODUCER,
 
         /**
          * Guest.
          */
-        @JsonProperty("Guest") GUEST
+        @JsonProperty("Guest")
+        GUEST
     }
 }

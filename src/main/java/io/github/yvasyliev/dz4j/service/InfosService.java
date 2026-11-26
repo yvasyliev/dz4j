@@ -6,9 +6,8 @@ import feign.RequestLine;
 import io.github.yvasyliev.dz4j.feign.AccessTokenExpander;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Infos;
-import org.jspecify.annotations.Nullable;
-
 import java.util.concurrent.CompletableFuture;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Service for getting the information about the API in the current country.
@@ -23,6 +22,5 @@ public interface InfosService {
      */
     @RequestLine("GET /infos?access_token={accessToken}")
     CompletableFuture<Infos> getInfos(
-            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken
-    );
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken);
 }

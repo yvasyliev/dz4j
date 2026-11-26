@@ -1,9 +1,9 @@
 package io.github.yvasyliev.dz4j.configuration;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.Test;
 
 class BaseUrlsTest {
     private static void assertBaseUrls(BaseUrls baseUrls, String api, String oauth, String upload) {
@@ -35,11 +35,7 @@ class BaseUrlsTest {
         var api = "https://api.example.com";
         var oauth = "https://connect.example.com";
         var upload = "https://upload.example.com";
-        var baseUrls = BaseUrls.builder()
-                .api(api)
-                .oauth(oauth)
-                .upload(upload)
-                .build();
+        var baseUrls = BaseUrls.builder().api(api).oauth(oauth).upload(upload).build();
 
         assertBaseUrls(baseUrls, api, oauth, upload);
     }

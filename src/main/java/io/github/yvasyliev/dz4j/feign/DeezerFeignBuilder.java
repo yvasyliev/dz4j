@@ -6,12 +6,11 @@ import io.github.yvasyliev.dz4j.databind.json.DeezerJsonMapperBuilder;
 import io.github.yvasyliev.dz4j.feign.codec.DeezerDecoder;
 import io.github.yvasyliev.dz4j.feign.codec.DeezerFormEncoder;
 import io.github.yvasyliev.dz4j.util.Customizer;
+import java.util.function.Consumer;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.jspecify.annotations.Nullable;
 import tools.jackson.databind.json.JsonMapper;
-
-import java.util.function.Consumer;
 
 /**
  * Builder for creating a Feign client for the Deezer API.
@@ -45,10 +44,12 @@ public class DeezerFeignBuilder {
     }
 
     private DeezerDecoder buildDecoder(JsonMapper mapper) {
-        return Customizer.customize(DeezerDecoder.builder().jsonMapper(mapper), decoder).build();
+        return Customizer.customize(DeezerDecoder.builder().jsonMapper(mapper), decoder)
+                .build();
     }
 
     private DeezerContract buildContract(JsonMapper mapper) {
-        return Customizer.customize(DeezerContract.builder().jsonMapper(mapper), contract).build();
+        return Customizer.customize(DeezerContract.builder().jsonMapper(mapper), contract)
+                .build();
     }
 }

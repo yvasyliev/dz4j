@@ -8,10 +8,9 @@ import io.github.yvasyliev.dz4j.feign.AccessTokenExpander;
 import io.github.yvasyliev.dz4j.feign.UploadTokenExpander;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Infos;
-import org.jspecify.annotations.Nullable;
-
 import java.io.File;
 import java.util.concurrent.CompletableFuture;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Service for uploading content to Deezer, such as playlist cover images.
@@ -33,8 +32,7 @@ public interface UploadService {
             @Param("playlistId") long playlistId,
             @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param(value = "upload_token", expander = UploadTokenExpander.class) Infos infos,
-            @Param("file") File cover
-    );
+            @Param("file") File cover);
 
     /**
      * Uploads a cover image for the specified playlist.
@@ -51,6 +49,5 @@ public interface UploadService {
             @Param("playlistId") long playlistId,
             @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
             @Param(value = "upload_token", expander = UploadTokenExpander.class) Infos infos,
-            @Param("file") FormData cover
-    );
+            @Param("file") FormData cover);
 }

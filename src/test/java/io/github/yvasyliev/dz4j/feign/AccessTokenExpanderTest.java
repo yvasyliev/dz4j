@@ -1,9 +1,9 @@
 package io.github.yvasyliev.dz4j.feign;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AccessTokenExpanderTest {
     @Test
