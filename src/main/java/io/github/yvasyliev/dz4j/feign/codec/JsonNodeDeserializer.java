@@ -21,6 +21,5 @@ public interface JsonNodeDeserializer {
      * @throws AbstractDeezerApiException if the API response indicates an error (e.g., contains an {@code error}
      *                                    field)
      */
-    @Nullable
-    Object deserialize(JsonNode body, Type type);
+    @Nullable Object deserialize(JsonNode body, Type type);
 }
