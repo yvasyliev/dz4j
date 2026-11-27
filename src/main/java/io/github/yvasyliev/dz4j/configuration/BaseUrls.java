@@ -12,6 +12,7 @@ import lombok.experimental.Accessors;
 @Getter
 @Accessors(fluent = true)
 @Builder
+@SuppressWarnings("UnnecessarilyFullyQualified")
 public class BaseUrls {
     @Builder.Default private final String api = "https://api.deezer.com";
     @Builder.Default private final String oauth = "https://connect.deezer.com";

@@ -50,8 +50,11 @@ public class DeezerHandlerInstantiator extends HandlerInstantiator {
      * @return a converter instance or {@code null}
      */
     @Override
-    @Nullable
-    public Converter<?, ?> converterInstance(MapperConfig<?> config, Annotated annotated, Class<?> implClass) {
+    public @Nullable Converter<?, ?> converterInstance(
+            MapperConfig<?> config,
+            Annotated annotated,
+            Class<?> implClass
+    ) {
         return converters.get(implClass);
     }
 
@@ -66,8 +69,7 @@ public class DeezerHandlerInstantiator extends HandlerInstantiator {
      * @return {@inheritDoc}
      */
     @Override
-    @Nullable
-    public ValueDeserializer<?> deserializerInstance(
+    public @Nullable ValueDeserializer<?> deserializerInstance(
             DeserializationConfig config,
             Annotated annotated,
             Class<?> deserClass
@@ -84,8 +86,7 @@ public class DeezerHandlerInstantiator extends HandlerInstantiator {
      * @return {@inheritDoc}
      */
     @Override
-    @Nullable
-    public KeyDeserializer keyDeserializerInstance(
+    public @Nullable KeyDeserializer keyDeserializerInstance(
             DeserializationConfig config,
             Annotated annotated,
             Class<?> keyDeserClass
@@ -102,8 +103,11 @@ public class DeezerHandlerInstantiator extends HandlerInstantiator {
      * @return {@inheritDoc}
      */
     @Override
-    @Nullable
-    public ValueSerializer<?> serializerInstance(SerializationConfig config, Annotated annotated, Class<?> serClass) {
+    public @Nullable ValueSerializer<?> serializerInstance(
+            SerializationConfig config,
+            Annotated annotated,
+            Class<?> serClass
+    ) {
         return null;
     }
 
@@ -116,8 +120,7 @@ public class DeezerHandlerInstantiator extends HandlerInstantiator {
      * @return {@inheritDoc}
      */
     @Override
-    @Nullable
-    public TypeResolverBuilder<?> typeResolverBuilderInstance(
+    public @Nullable TypeResolverBuilder<?> typeResolverBuilderInstance(
             MapperConfig<?> config,
             Annotated annotated,
             Class<?> builderClass
@@ -134,8 +137,11 @@ public class DeezerHandlerInstantiator extends HandlerInstantiator {
      * @return {@inheritDoc}
      */
     @Override
-    @Nullable
-    public TypeIdResolver typeIdResolverInstance(MapperConfig<?> config, Annotated annotated, Class<?> resolverClass) {
+    public @Nullable TypeIdResolver typeIdResolverInstance(
+            MapperConfig<?> config,
+            Annotated annotated,
+            Class<?> resolverClass
+    ) {
         return null;
     }
 

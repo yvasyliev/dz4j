@@ -11,6 +11,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
 
+@SuppressWarnings("IdentifierName")
 class OptionsIT extends AbstractIT {
     @Test
     void shouldReturnOptions(WireMockRuntimeInfo wmRuntimeInfo) throws IOException {

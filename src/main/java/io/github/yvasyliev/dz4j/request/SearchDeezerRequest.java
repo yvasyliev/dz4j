@@ -22,16 +22,14 @@ import java.util.concurrent.CompletableFuture;
 public class SearchDeezerRequest<T> extends AbstractDeezerRequest<Page<T>> implements PagingDeezerRequest<Page<T>> {
     private final Query query;
     private final QuinaryFunction<Query, Boolean, Order, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod;
-    @Nullable private Boolean strict;
-    @Nullable private Order order;
+    private @Nullable Boolean strict;
+    private @Nullable Order order;
 
     @Setter(onMethod_ = @Override)
-    @Nullable
-    private Integer index;
+    private @Nullable Integer index;
 
     @Setter(onMethod_ = @Override)
-    @Nullable
-    private Integer limit;
+    private @Nullable Integer limit;
 
     @Override
     protected CompletableFuture<Page<T>> doExecuteAsync() {

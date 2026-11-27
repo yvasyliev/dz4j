@@ -28,8 +28,7 @@ class AbstractDeezerRequestTest {
     void setUp() {
         request = new AbstractDeezerRequest<>() {
             @Override
-            @NonNull
-            protected CompletableFuture<String> doExecuteAsync() {
+            protected @NonNull CompletableFuture<String> doExecuteAsync() {
                 return asyncMethod.get();
             }
         };

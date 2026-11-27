@@ -19,6 +19,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
 
+@SuppressWarnings("IdentifierName")
 class ChartIT extends AbstractIT {
     private DeezerClient deezerClient;
 

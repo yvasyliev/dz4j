@@ -61,13 +61,13 @@ public class DeezerDecoder implements Decoder {
      *                          the response body
      */
     @Override
-    public Object decode(Response response, Type type) throws IOException, JacksonException, DeezerException {
+    public Object decode(Response response, Type type) throws IOException {
         responseValidators.forEach(validator -> validator.validate(response, type));
 
         return deserializeBody(response, type);
     }
 
-    private Object deserializeBody(Response response, Type type) throws IOException, JacksonException, DeezerException {
+    private Object deserializeBody(Response response, Type type) throws IOException {
         try {
             return deserializeBody(readBody(response), type);
         } catch (JacksonException e) {
@@ -79,7 +79,7 @@ public class DeezerDecoder implements Decoder {
         }
     }
 
-    private Object deserializeBody(JsonNode body, Type type) throws JacksonException, DeezerException {
+    private Object deserializeBody(JsonNode body, Type type) {
         return jsonNodeDeserializers.stream()
                 .map(deserializer -> deserializer.deserialize(body, type))
                 .filter(Objects::nonNull)

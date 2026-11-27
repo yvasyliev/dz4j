@@ -47,6 +47,7 @@ public class SimpleDeezerRequest<T> extends AbstractDeezerRequest<T> {
      *                             {@link CompletableFuture} that will be completed with the response from the Deezer
      *                             API
      */
+    @SuppressWarnings("InconsistentOverloads")
     public SimpleDeezerRequest(
             AuthorizationManager authorizationManager,
             UploadTokenManager uploadTokenManager,

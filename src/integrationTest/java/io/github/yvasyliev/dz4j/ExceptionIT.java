@@ -16,8 +16,13 @@ import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 
+@SuppressWarnings("IdentifierName")
 class ExceptionIT extends AbstractIT {
     private DeezerClient deezerClient;
+
+    private static AbstractDeezerApiException readError(String json) {
+        return MAPPER.treeToValue(MAPPER.readTree(json).path("error"), AbstractDeezerApiException.class);
+    }
 
     @BeforeEach
     void setUp(WireMockRuntimeInfo wmRuntimeInfo) {
@@ -54,9 +59,5 @@ class ExceptionIT extends AbstractIT {
         stubFor(get(urlEqualTo("/options")).willReturn(jsonResponse(body, HttpURLConnection.HTTP_NOT_FOUND)));
 
         assertThrows(expected, deezerClient.options().getOptions());
-    }
-
-    private AbstractDeezerApiException readError(String json) {
-        return MAPPER.treeToValue(MAPPER.readTree(json).path("error"), AbstractDeezerApiException.class);
     }
 }

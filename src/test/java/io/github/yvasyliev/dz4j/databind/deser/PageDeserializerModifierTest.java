@@ -5,6 +5,7 @@ import io.github.yvasyliev.dz4j.model.Page;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.FieldSource;
+import org.mockito.Mockito;
 import tools.jackson.databind.BeanDescription;
 import tools.jackson.databind.ValueDeserializer;
 import tools.jackson.databind.deser.ValueDeserializerModifier;
@@ -14,7 +15,6 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -25,7 +25,7 @@ class PageDeserializerModifierTest {
     private static final Supplier<Stream<Arguments>> testModifyDeserializer = () -> {
         var deserializer = mock(ValueDeserializer.class);
 
-        doReturn(Object.class).when(deserializer).handledType();
+        when(deserializer.handledType()).thenReturn(Object.class);
 
         //region tc1
 
@@ -34,7 +34,7 @@ class PageDeserializerModifierTest {
         var expected1 = new FalseToNullDelegatingDeserializer(deserializer);
 
         when(beanDescRef1.get()).thenReturn(beanDescription1);
-        doReturn(Page.class).when(beanDescription1).getBeanClass();
+        Mockito.<Class<?>>when(beanDescription1.getBeanClass()).thenReturn(Page.class);
 
         //endregion
 
@@ -44,7 +44,7 @@ class PageDeserializerModifierTest {
         var beanDescription2 = mock(BeanDescription.class);
 
         when(beanDescRef2.get()).thenReturn(beanDescription2);
-        doReturn(String.class).when(beanDescription2).getBeanClass();
+        Mockito.<Class<?>>when(beanDescription2.getBeanClass()).thenReturn(String.class);
 
         //endregion
 

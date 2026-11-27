@@ -19,10 +19,10 @@ public class UpdatePlaylistDeezerRequest extends AbstractDeezerRequest<Boolean> 
     private final long playlistId;
     private final AuthorizationManager authorizationManager;
     private final PlaylistService playlistService;
-    @Nullable private String title;
-    @Nullable private String description;
-    @Nullable private Boolean isPublic;
-    @Nullable private Boolean collaborative;
+    private @Nullable String title;
+    private @Nullable String description;
+    private @Nullable Boolean isPublic;
+    private @Nullable Boolean collaborative;
 
     @Override
     protected CompletableFuture<Boolean> doExecuteAsync() {

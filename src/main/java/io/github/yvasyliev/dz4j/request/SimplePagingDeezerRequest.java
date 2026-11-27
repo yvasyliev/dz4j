@@ -20,8 +20,8 @@ import java.util.function.BiFunction;
 public class SimplePagingDeezerRequest<T> extends AbstractDeezerRequest<Page<T>>
         implements PagingDeezerRequest<Page<T>> {
     private final BiFunction<@Nullable Integer, @Nullable Integer, CompletableFuture<Page<T>>> asyncMethod;
-    @Nullable private Integer index;
-    @Nullable private Integer limit;
+    private @Nullable Integer index;
+    private @Nullable Integer limit;
 
     @Override
     protected CompletableFuture<Page<T>> doExecuteAsync() {

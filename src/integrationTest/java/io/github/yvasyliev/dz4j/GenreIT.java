@@ -17,6 +17,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
 
+@SuppressWarnings("IdentifierName")
 class GenreIT extends AbstractIT {
     private DeezerClient deezerClient;
 

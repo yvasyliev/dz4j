@@ -29,6 +29,13 @@ public class PlaylistRequestFactory {
     private final PlaylistService playlistService;
     private final AuthorizationManager authorizationManager;
 
+    private static <T> PagingDeezerRequest<T> createPagingDeezerRequest(
+            long playlistId,
+            TriFunction<Long, Integer, Integer, CompletableFuture<T>> asyncMethod
+    ) {
+        return new GetByIdPagingDeezerRequest<>(playlistId, asyncMethod);
+    }
+
     /**
      * Creates a request to add tracks to the playlist.
      *
@@ -165,13 +172,6 @@ public class PlaylistRequestFactory {
         return new UpdatePlaylistDeezerRequest(playlistId, authorizationManager, playlistService);
     }
 
-    private <T> PagingDeezerRequest<T> createPagingDeezerRequest(
-            long playlistId,
-            TriFunction<Long, Integer, Integer, CompletableFuture<T>> asyncMethod
-    ) {
-        return new GetByIdPagingDeezerRequest<>(playlistId, asyncMethod);
-    }
-
     private DeezerRequest<Boolean> createDeezerRequest(
             long playlistId,
             BiFunction<Long, AccessToken, CompletableFuture<Boolean>> asyncMethod
@@ -182,6 +182,7 @@ public class PlaylistRequestFactory {
         );
     }
 
+    @SuppressWarnings("InconsistentOverloads")
     private DeezerRequest<Boolean> createDeezerRequest(
             long playlistId,
             Collection<Long> trackIds,

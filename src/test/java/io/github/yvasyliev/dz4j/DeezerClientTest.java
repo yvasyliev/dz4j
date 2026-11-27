@@ -43,6 +43,13 @@ class DeezerClientTest {
         );
     };
 
+    private static void assertAccessToken(DeezerClient deezerClient, @Nullable AccessToken expected) {
+        assertThat(deezerClient)
+                .extracting("authorizationManager", type(AuthorizationManager.class))
+                .extracting(AuthorizationManager::getToken, COMPLETABLE_FUTURE)
+                .isCompletedWithValue(expected);
+    }
+
     @ParameterizedTest(name = "should create default DeezerClient by {0}")
     @FieldSource
     void shouldCreateDefaultDeezerClient(String ignored, DeezerClient deezerClient) {
@@ -63,12 +70,5 @@ class DeezerClientTest {
         deezerClient.removeAuthorization();
 
         assertAccessToken(deezerClient, null);
-    }
-
-    private void assertAccessToken(DeezerClient deezerClient, @Nullable AccessToken expected) {
-        assertThat(deezerClient)
-                .extracting("authorizationManager", type(AuthorizationManager.class))
-                .extracting(AuthorizationManager::getToken, COMPLETABLE_FUTURE)
-                .isCompletedWithValue(expected);
     }
 }

@@ -21,7 +21,7 @@ public class CreatePlaylistDeezerRequest extends AbstractDeezerRequest<Playlist>
     private final AuthorizationManager authorizationManager;
     private final String title;
     private final UserService userService;
-    @Nullable private String description;
+    private @Nullable String description;
 
     @Override
     protected CompletableFuture<Playlist> doExecuteAsync() {

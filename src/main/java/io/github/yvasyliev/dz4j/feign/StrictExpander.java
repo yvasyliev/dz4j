@@ -15,8 +15,7 @@ public class StrictExpander implements Param.Expander {
      * @return {@code on} if the value is {@code true}, and {@code null} if the value is {@code false}
      */
     @Override
-    @Nullable
-    public String expand(Object value) {
+    public @Nullable String expand(Object value) {
         return Boolean.TRUE.equals(value) ? "on" : null;
     }
 }

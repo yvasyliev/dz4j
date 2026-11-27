@@ -21,11 +21,11 @@ import java.util.concurrent.CompletableFuture;
 public class OEmbedDeezerRequest extends AbstractDeezerRequest<OEmbed> {
     private final String url;
     private final OEmbedService oEmbedService;
-    @Nullable private Boolean autoplay;
-    @Nullable private Integer maxWidth;
-    @Nullable private Integer maxHeight;
-    @Nullable private Boolean radius;
-    @Nullable private Boolean tracklist;
+    private @Nullable Boolean autoplay;
+    private @Nullable Integer maxWidth;
+    private @Nullable Integer maxHeight;
+    private @Nullable Boolean radius;
+    private @Nullable Boolean tracklist;
 
     @Override
     protected CompletableFuture<OEmbed> doExecuteAsync() {

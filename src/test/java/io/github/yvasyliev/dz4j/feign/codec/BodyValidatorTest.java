@@ -15,6 +15,7 @@ class BodyValidatorTest {
     private static final ResponseValidator VALIDATOR = new BodyValidator();
 
     @Test
+    @SuppressWarnings("UnnecessarilyFullyQualified")
     void shouldPassValidation() {
         @Cleanup var response = Response.builder()
                 .request(mock())
@@ -25,6 +26,7 @@ class BodyValidatorTest {
     }
 
     @Test
+    @SuppressWarnings("UnnecessarilyFullyQualified")
     void shouldFailValidation() {
         var type = mock(Type.class);
         @Cleanup var response = Response.builder()

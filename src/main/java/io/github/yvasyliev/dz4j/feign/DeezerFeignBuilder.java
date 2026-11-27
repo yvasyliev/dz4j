@@ -19,10 +19,10 @@ import java.util.function.Consumer;
 @Setter
 @Accessors(fluent = true)
 public class DeezerFeignBuilder {
-    @Nullable private Consumer<DeezerJsonMapperBuilder> jsonMapper;
-    @Nullable private Consumer<DeezerDecoder.DeezerDecoderBuilder> decoder;
-    @Nullable private Consumer<DeezerContract.DeezerContractBuilder> contract;
-    @Nullable private Consumer<AsyncFeign.AsyncBuilder<Object>> feign;
+    private @Nullable Consumer<DeezerJsonMapperBuilder> jsonMapper;
+    private @Nullable Consumer<DeezerDecoder.DeezerDecoderBuilder> decoder;
+    private @Nullable Consumer<DeezerContract.DeezerContractBuilder> contract;
+    private @Nullable Consumer<AsyncFeign.AsyncBuilder<Object>> feign;
 
     /**
      * Builds a Feign client for the Deezer API using the configured JSON mapper, decoder, contract, and Feign builder.

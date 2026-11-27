@@ -14,8 +14,7 @@ import java.util.concurrent.CompletableFuture;
 public class AuthorizationManager {
     private static final CompletableFuture<AccessToken> DEFAULT_TOKEN = CompletableFuture.completedFuture(null);
 
-    @Nullable
-    private volatile Authorization authorization;
+    private volatile @Nullable Authorization authorization;
 
     @SuppressWarnings("NullAway.Init")
     private OAuthRequestFactory auth;

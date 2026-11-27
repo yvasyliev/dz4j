@@ -23,6 +23,20 @@ import java.util.function.Function;
 public class EditorialRequestFactory {
     private final EditorialService editorialService;
 
+    private static <T> DeezerRequest<T> createDeezerRequest(
+            long genreId,
+            Function<Long, CompletableFuture<T>> asyncMethod
+    ) {
+        return new IdDeezerRequest<>(genreId, asyncMethod);
+    }
+
+    private static <T> PagingDeezerRequest<Page<T>> createPagingDeezerRequest(
+            long genreId,
+            TriFunction<Long, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod
+    ) {
+        return new GetByIdPagingDeezerRequest<>(genreId, asyncMethod);
+    }
+
     /**
      * Creates a request to retrieve a list of editorials for the current country.
      *
@@ -72,16 +86,5 @@ public class EditorialRequestFactory {
      */
     public PagingDeezerRequest<Page<Chart>> getEditorialCharts(long genreId) {
         return createPagingDeezerRequest(genreId, editorialService::getEditorialCharts);
-    }
-
-    private <T> DeezerRequest<T> createDeezerRequest(long genreId, Function<Long, CompletableFuture<T>> asyncMethod) {
-        return new IdDeezerRequest<>(genreId, asyncMethod);
-    }
-
-    private <T> PagingDeezerRequest<Page<T>> createPagingDeezerRequest(
-            long genreId,
-            TriFunction<Long, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod
-    ) {
-        return new GetByIdPagingDeezerRequest<>(genreId, asyncMethod);
     }
 }

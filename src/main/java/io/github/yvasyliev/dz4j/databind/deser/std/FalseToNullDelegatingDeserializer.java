@@ -31,8 +31,7 @@ public class FalseToNullDelegatingDeserializer extends DelegatingDeserializer {
      * @throws JacksonException if deserialization error occurs
      */
     @Override
-    @Nullable
-    public Object deserialize(JsonParser p, DeserializationContext ctxt) throws JacksonException {
+    public @Nullable Object deserialize(JsonParser p, DeserializationContext ctxt) {
         return JsonToken.VALUE_FALSE.equals(p.currentToken()) ? null : super.deserialize(p, ctxt);
     }
 }

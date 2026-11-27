@@ -23,5 +23,5 @@ public interface JsonNodeDeserializer {
      *                                    field)
      */
     @Nullable
-    Object deserialize(JsonNode body, Type type) throws JacksonException, AbstractDeezerApiException;
+    Object deserialize(JsonNode body, Type type);
 }

@@ -20,9 +20,9 @@ public class UpdateTrackDeezerRequest extends AbstractDeezerRequest<Boolean> {
     private final long trackId;
     private final AuthorizationManager authorizationManager;
     private final TrackService trackService;
-    @Nullable private String title;
-    @Nullable private String artist;
-    @Nullable private String album;
+    private @Nullable String title;
+    private @Nullable String artist;
+    private @Nullable String album;
 
     @Override
     protected CompletableFuture<Boolean> doExecuteAsync() {
