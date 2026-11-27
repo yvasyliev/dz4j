@@ -234,11 +234,9 @@ public class OAuthExample {
                 "Enter a `code` from your browser URL bar when the login is completed: "
         );
 
-        try (var scanner = new Scanner(System.in)) {
-            var code = scanner.next();
+        var code = new Scanner(System.in).next();
 
-            deezerClient.authorization(new AuthorizationCodeFlow(appId, secret, code));
-        }
+        deezerClient.authorization(new AuthorizationCodeFlow(appId, secret, code));
 
         // Now deezerClient is authorized and you can make authorized requests
         var me = deezerClient.user().getUser().execute();
