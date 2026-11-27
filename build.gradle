@@ -56,14 +56,23 @@ spotless {
                 '.gitignore',
                 'LICENSE',
                 'NOTICE'
-        targetExclude '.git', '.idea/**'
+        targetExclude '.idea/**'
 
         endWithNewline()
         trimTrailingWhitespace()
     }
 
     java {
-//        replaceStaticImports()
+        replaceStaticImports(
+                'com.github.tomakehurst.wiremock.client.WireMock.*',
+                'com.github.tomakehurst.wiremock.common.ContentTypes.*',
+                'org.assertj.core.api.Assertions.*',
+                'org.assertj.core.api.InstanceOfAssertFactories.*',
+                'org.junit.jupiter.api.Assertions.*',
+                'org.junit.jupiter.params.provider.Arguments.*',
+                'org.mockito.ArgumentMatchers.*',
+                'org.mockito.Mockito.*'
+        )
         removeUnusedImports()
         forbidWildcardImports()
         shortenFullyQualifiedTypes()

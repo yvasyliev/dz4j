@@ -15,7 +15,7 @@ openJavaFormat = "21.1.1"
 sevntuCheckstyle = "1.44.1"
 shadow = "9.6.1"
 sonarqube = "7.6.0.18749"
-spotless = "8.10.2"
+spotless = "8.12.0"
 wiremock = "3.13.2"
 
 [plugins]
