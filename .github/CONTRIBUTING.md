@@ -28,7 +28,10 @@ disclose them responsibly.
 * This project requires JDK 21 to build. We recommend using the Gradle Wrapper (included in the repository), which
   automatically downloads the required JDK version if it is not already installed. Published binaries target Java 17
   for runtime compatibility.
-* Please respect the project's code style. The project primarily follows IntelliJ IDEA's default style conventions.
+* Please respect the project's code style. Code formatting is enforced by Spotless using
+  [open-java-format](https://github.com/open-java-format/open-java-format). Run `./gradlew spotlessApply` (or
+  `./gradlew formatDiff` to format only the files in your git diff) before committing, as the build fails on
+  formatting violations.
 * Make sure that your contribution embeds well into the already existing code. For example, the unified folder/package
   structure must be used wherever possible.
 * Document your source code thoroughly. This is a requirement to keep the Javadoc complete and accessible to developers.
