@@ -7,7 +7,6 @@ import feign.Response;
 import io.github.yvasyliev.dz4j.exception.ResponseException;
 import java.util.List;
 import java.util.Map;
-import lombok.Cleanup;
 import org.junit.jupiter.api.Test;
 
 class HeadersValidatorTest {
@@ -16,20 +15,19 @@ class HeadersValidatorTest {
     @Test
     @SuppressWarnings("UnnecessarilyFullyQualified")
     void shouldThrowResponseExceptionIfContentTypeHeaderIsMissing() {
-        @Cleanup var response = Response.builder().request(mock()).build();
-
-        assertThrows(ResponseException.class, () -> VALIDATOR.validate(response, Boolean.class));
+        try (var response = Response.builder().request(mock()).build()) {
+            assertThrows(ResponseException.class, () -> VALIDATOR.validate(response, Boolean.class));
+        }
     }
 
     @Test
     @SuppressWarnings("UnnecessarilyFullyQualified")
     void shouldPassValidation() {
-        @Cleanup
-        var response = Response.builder()
+        try (var response = Response.builder()
                 .request(mock())
                 .headers(Map.of("content-type", List.of("application/json")))
-                .build();
-
-        VALIDATOR.validate(response, Boolean.class);
+                .build()) {
+            VALIDATOR.validate(response, Boolean.class);
+        }
     }
 }

@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
-import lombok.Cleanup;
 import org.junit.jupiter.api.Test;
 
 class AccessTokenValidatorTest {
@@ -23,52 +22,50 @@ class AccessTokenValidatorTest {
     @Test
     @SuppressWarnings("UnnecessarilyFullyQualified")
     void shouldPassValidationIfTypeIsNotAccessToken() {
-        @Cleanup var response = mock(Response.class);
-
-        assertDoesNotThrow(() -> VALIDATOR.validate(response, Boolean.class));
+        try (var response = mock(Response.class)) {
+            assertDoesNotThrow(() -> VALIDATOR.validate(response, Boolean.class));
+        }
     }
 
     @Test
     @SuppressWarnings("UnnecessarilyFullyQualified")
     void shouldPassValidationIfContentTypeIsNotTextHtml() {
-        @Cleanup
-        var response = Response.builder()
+        try (var response = Response.builder()
                 .request(mock())
                 .headers(Map.of("content-type", List.of("application/json")))
-                .build();
-
-        assertDoesNotThrow(() -> VALIDATOR.validate(response, AccessToken.class));
+                .build()) {
+            assertDoesNotThrow(() -> VALIDATOR.validate(response, AccessToken.class));
+        }
     }
 
     @Test
     @SuppressWarnings("UnnecessarilyFullyQualified")
     void shouldFailValidationNormally() {
-        @Cleanup
-        var response = Response.builder()
+        try (var response = Response.builder()
                 .request(mock())
                 .headers(Map.of("content-type", List.of("text/html; charset=UTF-8")))
                 .body("<html><body>Invalid token</body></html>", StandardCharsets.UTF_8)
-                .build();
-
-        assertThrows(AccessTokenResponseException.class, () -> VALIDATOR.validate(response, AccessToken.class));
+                .build()) {
+            assertThrows(AccessTokenResponseException.class, () -> VALIDATOR.validate(response, AccessToken.class));
+        }
     }
 
     @Test
     @SuppressWarnings("UnnecessarilyFullyQualified")
     void shouldFailValidationWithSuppressedException() throws IOException {
         var e = new IOException("Failed to read body");
-        @Cleanup var body = mock(Response.Body.class);
-        @Cleanup
-        var response = Response.builder()
-                .request(mock())
-                .headers(Map.of("content-type", List.of("text/html; charset=UTF-8")))
-                .body(body)
-                .build();
 
-        when(body.asReader(any())).thenThrow(e);
+        try (var body = mock(Response.Body.class);
+                var response = Response.builder()
+                        .request(mock())
+                        .headers(Map.of("content-type", List.of("text/html; charset=UTF-8")))
+                        .body(body)
+                        .build()) {
+            when(body.asReader(any())).thenThrow(e);
 
-        assertThatThrownBy(() -> VALIDATOR.validate(response, AccessToken.class))
-                .isInstanceOf(AccessTokenResponseException.class)
-                .hasSuppressedException(e);
+            assertThatThrownBy(() -> VALIDATOR.validate(response, AccessToken.class))
+                    .isInstanceOf(AccessTokenResponseException.class)
+                    .hasSuppressedException(e);
+        }
     }
 }

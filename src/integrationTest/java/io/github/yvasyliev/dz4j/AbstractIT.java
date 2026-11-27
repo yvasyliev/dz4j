@@ -17,7 +17,6 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Objects;
-import lombok.Cleanup;
 import org.junit.jupiter.api.Assertions;
 import tools.jackson.databind.json.JsonMapper;
 
@@ -64,8 +63,8 @@ abstract class AbstractIT {
 
     @SuppressWarnings("UnnecessarilyFullyQualified")
     protected static String read(String file) throws IOException {
-        @Cleanup var inputStream = Objects.requireNonNull(AbstractIT.class.getResourceAsStream(file));
-
-        return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+        try (var inputStream = Objects.requireNonNull(AbstractIT.class.getResourceAsStream(file))) {
+            return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+        }
     }
 }

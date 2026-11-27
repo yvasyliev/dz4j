@@ -20,7 +20,6 @@ import java.net.URL;
 import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import lombok.Cleanup;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -57,12 +56,13 @@ class OAuthRequestFactoryTest {
         var appId = 123;
         var redirectUri = URI.create("https://example.com/callback");
         var loginUri = mock(URI.class);
-        @Cleanup var uri = mockStatic(URI.class);
 
-        uri.when(() -> URI.create(any())).thenReturn(loginUri);
-        when(loginUri.toURL()).thenThrow(MalformedURLException.class);
+        try (var uri = mockStatic(URI.class)) {
+            uri.when(() -> URI.create(any())).thenReturn(loginUri);
+            when(loginUri.toURL()).thenThrow(MalformedURLException.class);
 
-        assertThrows(DeezerException.class, () -> method.apply(appId, redirectUri, Permission.BASIC_ACCESS));
+            assertThrows(DeezerException.class, () -> method.apply(appId, redirectUri, Permission.BASIC_ACCESS));
+        }
     }
 
     @Test
