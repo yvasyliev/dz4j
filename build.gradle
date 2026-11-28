@@ -8,8 +8,10 @@ plugins {
     alias libs.plugins.lombok
     alias libs.plugins.errorprone
     alias libs.plugins.maven.publish
+    alias libs.plugins.open.java.format
     alias libs.plugins.shadow
     alias libs.plugins.sonarqube
+    alias libs.plugins.spotless
 }
 
 group = 'io.github.yvasyliev'
@@ -39,6 +41,43 @@ dependencies {
 
 checkstyle {
     maxWarnings = 0
+}
+
+spotless {
+    format 'misc', {
+        target '**/*.html',
+                '**/*.json',
+                '**/*.properties',
+                '**/*.toml',
+                '**/*.xml',
+                '**/*.yml',
+                '*.gradle',
+                '*.md',
+                '.gitignore',
+                'LICENSE',
+                'NOTICE'
+        targetExclude '.idea/**'
+
+        endWithNewline()
+        trimTrailingWhitespace()
+    }
+
+    java {
+        replaceStaticImports(
+                'com.github.tomakehurst.wiremock.client.WireMock.*',
+                'com.github.tomakehurst.wiremock.common.ContentTypes.*',
+                'org.assertj.core.api.Assertions.*',
+                'org.assertj.core.api.InstanceOfAssertFactories.*',
+                'org.junit.jupiter.api.Assertions.*',
+                'org.junit.jupiter.params.provider.Arguments.*',
+                'org.mockito.ArgumentMatchers.*',
+                'org.mockito.Mockito.*'
+        )
+        removeUnusedImports()
+        forbidWildcardImports()
+        shortenFullyQualifiedTypes()
+        formatAnnotations()
+    }
 }
 
 testing {
@@ -115,7 +154,7 @@ tasks.withType(JavaCompile).configureEach {
                 'VarWithPrimitive',
                 'YodaCondition',
         )
-        excludedPaths = '.*model/package-info[.]java'
+        excludedPaths = /.*model[\/\\]package-info[.]java/
         option 'NullAway:OnlyNullMarked', 'true'
         error 'NullAway'
     }

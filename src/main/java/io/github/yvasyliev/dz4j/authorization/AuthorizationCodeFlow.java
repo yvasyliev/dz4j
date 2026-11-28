@@ -2,9 +2,8 @@ package io.github.yvasyliev.dz4j.authorization;
 
 import io.github.yvasyliev.dz4j.factory.OAuthRequestFactory;
 import io.github.yvasyliev.dz4j.model.AccessToken;
-import lombok.RequiredArgsConstructor;
-
 import java.util.concurrent.CompletableFuture;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Implementation of the authorization code flow for obtaining an access token.

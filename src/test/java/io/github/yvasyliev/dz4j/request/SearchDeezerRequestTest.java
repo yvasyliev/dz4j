@@ -1,25 +1,26 @@
 package io.github.yvasyliev.dz4j.request;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
 import io.github.yvasyliev.dz4j.model.Order;
 import io.github.yvasyliev.dz4j.model.Page;
 import io.github.yvasyliev.dz4j.model.Query;
 import io.github.yvasyliev.dz4j.model.SimpleQuery;
 import io.github.yvasyliev.dz4j.util.QuinaryFunction;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class SearchDeezerRequestTest {
     @Test
     void shouldReturnPage() {
         var query = new SimpleQuery("test");
-        var asyncMethod = Mockito
-                .<QuinaryFunction<Query, Boolean, Order, Integer, Integer, CompletableFuture<Page<String>>>>mock();
+        var asyncMethod =
+                Mockito
+                        .<QuinaryFunction<Query, Boolean, Order, Integer, Integer, CompletableFuture<Page<String>>>>
+                                mock();
         var strict = true;
         var order = Order.TRACK_DESC;
         var index = 5;

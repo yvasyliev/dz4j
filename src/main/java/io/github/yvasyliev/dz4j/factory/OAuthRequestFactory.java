@@ -8,14 +8,13 @@ import io.github.yvasyliev.dz4j.model.Permission;
 import io.github.yvasyliev.dz4j.request.DeezerRequest;
 import io.github.yvasyliev.dz4j.request.SimpleDeezerRequest;
 import io.github.yvasyliev.dz4j.service.OAuthService;
-import lombok.RequiredArgsConstructor;
-
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Factory for creating OAuth-related requests.
@@ -66,8 +65,7 @@ public class OAuthRequestFactory {
                 .resolve(Map.of(
                         "app-id", appId,
                         "redirect-uri", redirectUri,
-                        "perms", permissions.stream().map(Permission::getValue).toList()
-                ))
+                        "perms", permissions.stream().map(Permission::getValue).toList()))
                 .url();
 
         try {

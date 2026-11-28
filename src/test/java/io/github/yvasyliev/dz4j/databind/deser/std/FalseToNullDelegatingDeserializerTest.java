@@ -1,6 +1,14 @@
 package io.github.yvasyliev.dz4j.databind.deser.std;
 
-import lombok.Cleanup;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,19 +21,12 @@ import tools.jackson.databind.DeserializationContext;
 import tools.jackson.databind.ValueDeserializer;
 import tools.jackson.databind.deser.std.DelegatingDeserializer;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 @ExtendWith(MockitoExtension.class)
 @SuppressWarnings("UnnecessarilyFullyQualified")
 class FalseToNullDelegatingDeserializerTest {
-    @Mock private ValueDeserializer<?> delegatee;
+    @Mock
+    private ValueDeserializer<?> delegatee;
+
     private DelegatingDeserializer deserializer;
 
     @BeforeEach
@@ -37,28 +38,29 @@ class FalseToNullDelegatingDeserializerTest {
 
     @Test
     void shouldDeserializeFalseAsNull() {
-        @Cleanup var jsonParser = mock(JsonParser.class);
+        try (var jsonParser = mock(JsonParser.class)) {
+            when(jsonParser.currentToken()).thenReturn(JsonToken.VALUE_FALSE);
 
-        when(jsonParser.currentToken()).thenReturn(JsonToken.VALUE_FALSE);
+            var actual = deserializer.deserialize(jsonParser, null);
 
-        var actual = deserializer.deserialize(jsonParser, null);
-
-        assertNull(actual);
-        verify(delegatee, never()).deserialize(any(), any());
+            assertNull(actual);
+            verify(delegatee, never()).deserialize(any(), any());
+        }
     }
 
     @Test
     void shouldDelegateDeserialization() {
-        @Cleanup var jsonParser = mock(JsonParser.class);
-        var ctxt = mock(DeserializationContext.class);
-        var expected = mock(Object.class);
+        try (var jsonParser = mock(JsonParser.class)) {
+            var ctxt = mock(DeserializationContext.class);
+            var expected = mock(Object.class);
 
-        when(jsonParser.currentToken()).thenReturn(JsonToken.VALUE_TRUE);
-        when(delegatee.deserialize(jsonParser, ctxt)).thenReturn(expected);
+            when(jsonParser.currentToken()).thenReturn(JsonToken.VALUE_TRUE);
+            when(delegatee.deserialize(jsonParser, ctxt)).thenReturn(expected);
 
-        var actual = deserializer.deserialize(jsonParser, ctxt);
+            var actual = deserializer.deserialize(jsonParser, ctxt);
 
-        assertEquals(expected, actual);
+            assertEquals(expected, actual);
+        }
     }
 
     @Test

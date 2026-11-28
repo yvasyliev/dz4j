@@ -2,7 +2,6 @@ package io.github.yvasyliev.dz4j.authorization;
 
 import io.github.yvasyliev.dz4j.factory.OAuthRequestFactory;
 import io.github.yvasyliev.dz4j.model.AccessToken;
-
 import java.util.concurrent.CompletableFuture;
 
 /**

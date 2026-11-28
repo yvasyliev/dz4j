@@ -1,5 +1,10 @@
 package io.github.yvasyliev.dz4j.feign.codec;
 
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import io.github.yvasyliev.dz4j.exception.AbstractDeezerApiException;
 import io.github.yvasyliev.dz4j.exception.DeezerApiResponseException;
 import org.junit.jupiter.api.Test;
@@ -10,15 +15,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import tools.jackson.databind.node.JsonNodeFactory;
 import tools.jackson.databind.node.MissingNode;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 @ExtendWith(MockitoExtension.class)
 class ErrorDeserializerTest {
-    @InjectMocks private ErrorDeserializer deserializer;
-    @Mock private JsonNodeDeserializer delegate;
+    @InjectMocks
+    private ErrorDeserializer deserializer;
+
+    @Mock
+    private JsonNodeDeserializer delegate;
 
     @Test
     void shouldReturnNullIfErrorIsMissing() {
@@ -45,7 +48,8 @@ class ErrorDeserializerTest {
 
         node.putObject("error");
 
-        when(delegate.deserialize(node.path("error"), AbstractDeezerApiException.class)).thenReturn(e);
+        when(delegate.deserialize(node.path("error"), AbstractDeezerApiException.class))
+                .thenReturn(e);
 
         assertThrows(AbstractDeezerApiException.class, () -> deserializer.deserialize(node, Object.class));
     }

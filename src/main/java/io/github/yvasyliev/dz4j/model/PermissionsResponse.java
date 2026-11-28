@@ -8,7 +8,8 @@ import lombok.Builder;
  *
  * @param permissions the permissions granted by the user
  */
-public record PermissionsResponse(@JsonProperty("permissions") Permissions permissions) {
+public record PermissionsResponse(
+        @JsonProperty("permissions") Permissions permissions) {
     /**
      * A {@code Permissions} record with the specified permission values.
      *
@@ -28,6 +29,5 @@ public record PermissionsResponse(@JsonProperty("permissions") Permissions permi
             @JsonProperty("manage_library") Boolean manageLibrary,
             @JsonProperty("manage_community") Boolean manageCommunity,
             @JsonProperty("delete_library") Boolean deleteLibrary,
-            @JsonProperty("listening_history") Boolean listeningHistory
-    ) {}
+            @JsonProperty("listening_history") Boolean listeningHistory) {}
 }

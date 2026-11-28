@@ -1,26 +1,30 @@
 package io.github.yvasyliev.dz4j.factory;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
 import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Track;
 import io.github.yvasyliev.dz4j.service.TrackService;
+import java.util.concurrent.CompletableFuture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.concurrent.CompletableFuture;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
-
 @ExtendWith(MockitoExtension.class)
 class TrackRequestFactoryTest {
-    @InjectMocks private TrackRequestFactory trackRequestFactory;
-    @Mock private TrackService trackService;
-    @Mock private AuthorizationManager authorizationManager;
+    @InjectMocks
+    private TrackRequestFactory trackRequestFactory;
+
+    @Mock
+    private TrackService trackService;
+
+    @Mock
+    private AuthorizationManager authorizationManager;
 
     @Test
     void testGetTrack() {

@@ -7,13 +7,12 @@ import io.github.yvasyliev.dz4j.configuration.BaseUrls;
 import io.github.yvasyliev.dz4j.factory.RequestFactoryProvider;
 import io.github.yvasyliev.dz4j.feign.DeezerFeignBuilder;
 import io.github.yvasyliev.dz4j.util.Customizer;
+import java.util.function.Consumer;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Delegate;
 import org.jspecify.annotations.Nullable;
-
-import java.util.function.Consumer;
 
 /**
  * The main client class for interacting with the Deezer API.
@@ -25,10 +24,12 @@ import java.util.function.Consumer;
  */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class DeezerClient {
-    @Delegate private final RequestFactoryProvider requestFactoryProvider;
+    @Delegate
+    private final RequestFactoryProvider requestFactoryProvider;
+
     private final AuthorizationManager authorizationManager;
 
-    //region constructors
+    // region constructors
 
     /**
      * Creates a new instance of {@link DeezerClient} without any authorization.
@@ -51,26 +52,21 @@ public class DeezerClient {
     private DeezerClient(
             @Nullable Consumer<DeezerFeignBuilder> config,
             @Nullable Consumer<BaseUrls.BaseUrlsBuilder> baseUrl,
-            @Nullable Authorization authorization
-    ) {
+            @Nullable Authorization authorization) {
         this(
                 Customizer.customize(new DeezerFeignBuilder(), config).build(),
                 Customizer.customize(BaseUrls.builder(), baseUrl).build(),
-                new AuthorizationManager()
-        );
+                new AuthorizationManager());
         authorizationManager.setAuth(requestFactoryProvider.oauth());
         authorizationManager.setAuthorization(authorization);
     }
 
     private DeezerClient(
-            AsyncFeign.AsyncBuilder<Object> feign,
-            BaseUrls baseUrls,
-            AuthorizationManager authorizationManager
-    ) {
+            AsyncFeign.AsyncBuilder<Object> feign, BaseUrls baseUrls, AuthorizationManager authorizationManager) {
         this(new RequestFactoryProvider(feign, baseUrls, authorizationManager), authorizationManager);
     }
 
-    //endregion
+    // endregion
 
     /**
      * Sets the authorization for the client, allowing it to make authorized requests to the Deezer API.

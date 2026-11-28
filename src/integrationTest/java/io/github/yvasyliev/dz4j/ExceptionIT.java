@@ -1,20 +1,19 @@
 package io.github.yvasyliev.dz4j;
 
-import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
-import io.github.yvasyliev.dz4j.exception.AbstractDeezerApiException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-
-import java.io.IOException;
-import java.net.HttpURLConnection;
-
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.jsonResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
+import io.github.yvasyliev.dz4j.exception.AbstractDeezerApiException;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 @SuppressWarnings("IdentifierName")
 class ExceptionIT extends AbstractIT {
@@ -33,15 +32,15 @@ class ExceptionIT extends AbstractIT {
 
     @ParameterizedTest(name = "should throw {0}Exception")
     @CsvSource(textBlock = """
-                           Data, data-exception.json
-                           '', exception.json
-                           IndividualAccountChangedNotAllowed, individual-account-changed-not-allowed-exception.json
-                           InvalidQuery, invalid-query-exception.json
-                           MissingParameter, missing-parameter-exception.json
-                           OAuth, oauth-exception.json
-                           Parameter, parameter-exception.json
-                           SimpleApiHttp, simple-api-http-exception.json
-                           """)
+        Data, data-exception.json
+        '', exception.json
+        IndividualAccountChangedNotAllowed, individual-account-changed-not-allowed-exception.json
+        InvalidQuery, invalid-query-exception.json
+        MissingParameter, missing-parameter-exception.json
+        OAuth, oauth-exception.json
+        Parameter, parameter-exception.json
+        SimpleApiHttp, simple-api-http-exception.json
+        """)
     void shouldThrowDeezerApiException(String name, String json) throws IOException {
         var body = read("/response/exception/" + json);
         var expected = readError(body);

@@ -2,12 +2,11 @@ package io.github.yvasyliev.dz4j.request;
 
 import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.service.PlaylistService;
+import java.util.concurrent.CompletableFuture;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.jspecify.annotations.Nullable;
-
-import java.util.concurrent.CompletableFuture;
 
 /**
  * A request to update an existing playlist on Deezer.
@@ -26,13 +25,9 @@ public class UpdatePlaylistDeezerRequest extends AbstractDeezerRequest<Boolean> 
 
     @Override
     protected CompletableFuture<Boolean> doExecuteAsync() {
-        return authorizationManager.getToken().thenCompose(accessToken -> playlistService.updatePlaylist(
-                playlistId,
-                accessToken,
-                title,
-                description,
-                isPublic,
-                collaborative
-        ));
+        return authorizationManager
+                .getToken()
+                .thenCompose(accessToken -> playlistService.updatePlaylist(
+                        playlistId, accessToken, title, description, isPublic, collaborative));
     }
 }

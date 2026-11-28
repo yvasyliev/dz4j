@@ -8,10 +8,9 @@ import io.github.yvasyliev.dz4j.request.DeezerRequest;
 import io.github.yvasyliev.dz4j.request.IdDeezerRequest;
 import io.github.yvasyliev.dz4j.request.SimpleDeezerRequest;
 import io.github.yvasyliev.dz4j.service.GenreService;
-import lombok.RequiredArgsConstructor;
-
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Factory for creating requests related to genres.
@@ -21,9 +20,7 @@ public class GenreRequestFactory {
     private final GenreService genreService;
 
     private static <T> DeezerRequest<T> createDeezerRequest(
-            long genreId,
-            Function<Long, CompletableFuture<T>> asyncMethod
-    ) {
+            long genreId, Function<Long, CompletableFuture<T>> asyncMethod) {
         return new IdDeezerRequest<>(genreId, asyncMethod);
     }
 

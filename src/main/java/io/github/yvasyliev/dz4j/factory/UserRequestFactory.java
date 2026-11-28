@@ -20,12 +20,11 @@ import io.github.yvasyliev.dz4j.request.SimpleDeezerRequest;
 import io.github.yvasyliev.dz4j.service.UserService;
 import io.github.yvasyliev.dz4j.util.QuadFunction;
 import io.github.yvasyliev.dz4j.util.TriFunction;
-import lombok.RequiredArgsConstructor;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Factory for creating requests related to users.
@@ -37,7 +36,7 @@ public class UserRequestFactory {
     private final UserService userService;
     private final AuthorizationManager authorizationManager;
 
-    //region addAlbums
+    // region addAlbums
 
     /**
      * Creates a request to add album(s) to the user's library.
@@ -85,9 +84,9 @@ public class UserRequestFactory {
         return createDeezerRequest(userId, albumIds, userService::addAlbums);
     }
 
-    //endregion
+    // endregion
 
-    //region addArtists
+    // region addArtists
 
     /**
      * Creates a request to add artist(s) to the user's favorites.
@@ -135,9 +134,9 @@ public class UserRequestFactory {
         return createDeezerRequest(userId, artistIds, userService::addArtists);
     }
 
-    //endregion
+    // endregion
 
-    //region addNotification
+    // region addNotification
 
     /**
      * Creates a request to add a notification to the user's feed.
@@ -164,9 +163,9 @@ public class UserRequestFactory {
         return createDeezerRequest(userId, message, userService::addNotification);
     }
 
-    //endregion
+    // endregion
 
-    //region addPlaylists
+    // region addPlaylists
 
     /**
      * Creates a request to add playlist(s) to the user's favorites.
@@ -214,9 +213,9 @@ public class UserRequestFactory {
         return createDeezerRequest(userId, playlistIds, userService::addPlaylists);
     }
 
-    //endregion
+    // endregion
 
-    //region addPodcast
+    // region addPodcast
 
     /**
      * Creates a request to add a podcast to the user's favorites.
@@ -243,9 +242,9 @@ public class UserRequestFactory {
         return createDeezerRequest(userId, podcastId, userService::addPodcast);
     }
 
-    //endregion
+    // endregion
 
-    //region addRadio
+    // region addRadio
 
     /**
      * Creates a request to add a radio to the user's favorites.
@@ -272,9 +271,9 @@ public class UserRequestFactory {
         return createDeezerRequest(userId, radioId, userService::addRadio);
     }
 
-    //endregion
+    // endregion
 
-    //region addTracks
+    // region addTracks
 
     /**
      * Creates a request to add track(s) to the user's favorites.
@@ -322,9 +321,9 @@ public class UserRequestFactory {
         return createDeezerRequest(userId, trackIds, userService::addTracks);
     }
 
-    //endregion
+    // endregion
 
-    //region createPlaylist
+    // region createPlaylist
 
     /**
      * Creates a request to create a new playlist for the user.
@@ -351,9 +350,9 @@ public class UserRequestFactory {
         return new CreatePlaylistDeezerRequest(userId, authorizationManager, title, userService);
     }
 
-    //endregion
+    // endregion
 
-    //region followUser
+    // region followUser
 
     /**
      * Creates a request to follow another user.
@@ -380,9 +379,9 @@ public class UserRequestFactory {
         return createDeezerRequest(userId, followeeId, userService::followUser);
     }
 
-    //endregion
+    // endregion
 
-    //region getAlbumChart
+    // region getAlbumChart
 
     /**
      * Creates a request to get the user's top albums.
@@ -407,9 +406,9 @@ public class UserRequestFactory {
         return createPagingDeezerRequest(userId, userService::getAlbumChart);
     }
 
-    //endregion
+    // endregion
 
-    //region getAlbumRecommendations
+    // region getAlbumRecommendations
 
     /**
      * Creates a request to return a list of album recommendations.
@@ -434,9 +433,9 @@ public class UserRequestFactory {
         return createPagingDeezerRequest(userId, userService::getAlbumRecommendations);
     }
 
-    //endregion
+    // endregion
 
-    //region getArtistChart
+    // region getArtistChart
 
     /**
      * Creates a request to return a list of the user's top artists.
@@ -461,9 +460,9 @@ public class UserRequestFactory {
         return createPagingDeezerRequest(userId, userService::getArtistChart);
     }
 
-    //endregion
+    // endregion
 
-    //region getArtistRecommendations
+    // region getArtistRecommendations
 
     /**
      * Creates a request to return a list of artists recommendations.
@@ -488,9 +487,9 @@ public class UserRequestFactory {
         return createPagingDeezerRequest(userId, userService::getArtistRecommendations);
     }
 
-    //endregion
+    // endregion
 
-    //region getArtists
+    // region getArtists
 
     /**
      * Creates a request to return a list of the user's favorite artists.
@@ -515,9 +514,9 @@ public class UserRequestFactory {
         return createPagingDeezerRequest(userId, userService::getArtists);
     }
 
-    //endregion
+    // endregion
 
-    //region getChart
+    // region getChart
 
     /**
      * Creates a request to return a list of the user's top tracks.
@@ -542,9 +541,9 @@ public class UserRequestFactory {
         return createPagingDeezerRequest(userId, userService::getChart);
     }
 
-    //endregion
+    // endregion
 
-    //region getFlow
+    // region getFlow
 
     /**
      * Creates a request to return a list of user's flow tracks.
@@ -569,9 +568,9 @@ public class UserRequestFactory {
         return createDeezerRequest(userId, userService::getFlow);
     }
 
-    //endregion
+    // endregion
 
-    //region getFollowers
+    // region getFollowers
 
     /**
      * Creates a request to return a list of the user's followers.
@@ -596,9 +595,9 @@ public class UserRequestFactory {
         return createPagingDeezerRequest(userId, userService::getFollowers);
     }
 
-    //endregion
+    // endregion
 
-    //region getFollowings
+    // region getFollowings
 
     /**
      * Creates a request to return a list of users followed by the user.
@@ -623,9 +622,9 @@ public class UserRequestFactory {
         return createPagingDeezerRequest(userId, userService::getFollowings);
     }
 
-    //endregion
+    // endregion
 
-    //region getHistory
+    // region getHistory
 
     /**
      * Creates a request to return a list of the user's listening history.
@@ -650,9 +649,9 @@ public class UserRequestFactory {
         return createPagingDeezerRequest(userId, userService::getHistory);
     }
 
-    //endregion
+    // endregion
 
-    //region getOptions
+    // region getOptions
 
     /**
      * Creates a request to get the user's options.
@@ -677,9 +676,9 @@ public class UserRequestFactory {
         return createDeezerRequest(userId, userService::getOptions);
     }
 
-    //endregion
+    // endregion
 
-    //region getPermissions
+    // region getPermissions
 
     /**
      * Creates a request to get the user's permissions.
@@ -704,9 +703,9 @@ public class UserRequestFactory {
         return createDeezerRequest(userId, userService::getPermissions);
     }
 
-    //endregion
+    // endregion
 
-    //region getPersonalSongs
+    // region getPersonalSongs
 
     /**
      * Creates a request to return a list of the user's personal songs.
@@ -731,9 +730,9 @@ public class UserRequestFactory {
         return createPagingDeezerRequest(userId, userService::getPersonalSongs);
     }
 
-    //endregion
+    // endregion
 
-    //region getPlaylistChart
+    // region getPlaylistChart
 
     /**
      * Creates a request to return a list of the user's top playlists.
@@ -758,9 +757,9 @@ public class UserRequestFactory {
         return createPagingDeezerRequest(userId, userService::getPlaylistChart);
     }
 
-    //endregion
+    // endregion
 
-    //region getPlaylistRecommendations
+    // region getPlaylistRecommendations
 
     /**
      * Creates a request to return a list of playlists recommendations.
@@ -785,9 +784,9 @@ public class UserRequestFactory {
         return createPagingDeezerRequest(userId, userService::getPlaylistRecommendations);
     }
 
-    //endregion
+    // endregion
 
-    //region getPlaylists
+    // region getPlaylists
 
     /**
      * Creates a request to return a list of user's public playlists.
@@ -812,9 +811,9 @@ public class UserRequestFactory {
         return createPagingDeezerRequest(userId, userService::getPlaylists);
     }
 
-    //endregion
+    // endregion
 
-    //region getRadioRecommendations
+    // region getRadioRecommendations
 
     /**
      * Creates a request to return a list of radio recommendations.
@@ -839,9 +838,9 @@ public class UserRequestFactory {
         return createPagingDeezerRequest(userId, userService::getRadioRecommendations);
     }
 
-    //endregion
+    // endregion
 
-    //region getRadios
+    // region getRadios
 
     /**
      * Creates a request to return a list of the user's favorite radios.
@@ -866,9 +865,9 @@ public class UserRequestFactory {
         return createPagingDeezerRequest(userId, userService::getRadios);
     }
 
-    //endregion
+    // endregion
 
-    //region getReleaseRecommendations
+    // region getReleaseRecommendations
 
     /**
      * Creates a request to return a list of release recommendations.
@@ -893,9 +892,9 @@ public class UserRequestFactory {
         return createPagingDeezerRequest(userId, userService::getReleaseRecommendations);
     }
 
-    //endregion
+    // endregion
 
-    //region getTrackChart
+    // region getTrackChart
 
     /**
      * Creates a request to return a list of the user's top tracks.
@@ -920,9 +919,9 @@ public class UserRequestFactory {
         return createPagingDeezerRequest(userId, userService::getTrackChart);
     }
 
-    //endregion
+    // endregion
 
-    //region getTrackRecommendations
+    // region getTrackRecommendations
 
     /**
      * Creates a request to return a list of track recommendations.
@@ -947,9 +946,9 @@ public class UserRequestFactory {
         return createDeezerRequest(userId, userService::getTrackRecommendations);
     }
 
-    //endregion
+    // endregion
 
-    //region getTracks
+    // region getTracks
 
     /**
      * Creates a request to return a list of user's favorite tracks.
@@ -974,9 +973,9 @@ public class UserRequestFactory {
         return createPagingDeezerRequest(userId, userService::getTracks);
     }
 
-    //endregion
+    // endregion
 
-    //region getUser
+    // region getUser
 
     /**
      * Creates a request to get the user information.
@@ -1001,9 +1000,9 @@ public class UserRequestFactory {
         return createDeezerRequest(userId, userService::getUser);
     }
 
-    //endregion
+    // endregion
 
-    //region getUserAlbums
+    // region getUserAlbums
 
     /**
      * Creates a request to return a list of the user's favorite albums.
@@ -1028,9 +1027,9 @@ public class UserRequestFactory {
         return createPagingDeezerRequest(userId, userService::getAlbums);
     }
 
-    //endregion
+    // endregion
 
-    //region removeAlbum
+    // region removeAlbum
 
     /**
      * Creates a request to remove an album from the user's library.
@@ -1057,9 +1056,9 @@ public class UserRequestFactory {
         return createDeezerRequest(userId, albumId, userService::removeAlbum);
     }
 
-    //endregion
+    // endregion
 
-    //region removeArtist
+    // region removeArtist
 
     /**
      * Creates a request to remove an artist from the user's favorites.
@@ -1086,9 +1085,9 @@ public class UserRequestFactory {
         return createDeezerRequest(userId, artistId, userService::removeArtist);
     }
 
-    //endregion
+    // endregion
 
-    //region removePlaylist
+    // region removePlaylist
 
     /**
      * Creates a request to remove a playlist from the user's favorites.
@@ -1115,9 +1114,9 @@ public class UserRequestFactory {
         return createDeezerRequest(userId, playlistId, userService::removePlaylist);
     }
 
-    //endregion
+    // endregion
 
-    //region removePodcast
+    // region removePodcast
 
     /**
      * Creates a request to remove a podcast from the user's favorites.
@@ -1144,9 +1143,9 @@ public class UserRequestFactory {
         return createDeezerRequest(userId, podcastId, userService::removePodcast);
     }
 
-    //endregion
+    // endregion
 
-    //region removeRadio
+    // region removeRadio
 
     /**
      * Creates a request to remove a radio from the user's favorites.
@@ -1173,9 +1172,9 @@ public class UserRequestFactory {
         return createDeezerRequest(userId, radioId, userService::removeRadio);
     }
 
-    //endregion
+    // endregion
 
-    //region removeTrack
+    // region removeTrack
 
     /**
      * Creates a request to remove a track from the user's favorites.
@@ -1202,9 +1201,9 @@ public class UserRequestFactory {
         return createDeezerRequest(userId, trackId, userService::removeTrack);
     }
 
-    //endregion
+    // endregion
 
-    //region unfollowUser
+    // region unfollowUser
 
     /**
      * Creates a request to unfollow another user.
@@ -1231,30 +1230,21 @@ public class UserRequestFactory {
         return createDeezerRequest(userId, followeeId, userService::unfollowUser);
     }
 
-    //endregion
+    // endregion
 
     private <T> DeezerRequest<T> createDeezerRequest(
-            String userId,
-            BiFunction<String, AccessToken, CompletableFuture<T>> asyncMethod
-    ) {
+            String userId, BiFunction<String, AccessToken, CompletableFuture<T>> asyncMethod) {
         return new SimpleDeezerRequest<>(authorizationManager, accessToken -> asyncMethod.apply(userId, accessToken));
     }
 
     private <T, R> DeezerRequest<R> createDeezerRequest(
-            String userId,
-            T argument,
-            TriFunction<String, AccessToken, T, CompletableFuture<R>> asyncMethod
-    ) {
-        return createDeezerRequest(
-                userId,
-                (id, accessToken) -> asyncMethod.apply(id, accessToken, argument)
-        );
+            String userId, T argument, TriFunction<String, AccessToken, T, CompletableFuture<R>> asyncMethod) {
+        return createDeezerRequest(userId, (id, accessToken) -> asyncMethod.apply(id, accessToken, argument));
     }
 
     private <T> PagingDeezerRequest<Page<T>> createPagingDeezerRequest(
             String userId,
-            QuadFunction<String, AccessToken, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod
-    ) {
+            QuadFunction<String, AccessToken, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod) {
         return new GetByIdPagingDeezerRequest<>(userId, authorizationManager, asyncMethod);
     }
 }

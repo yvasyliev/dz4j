@@ -3,13 +3,12 @@ package io.github.yvasyliev.dz4j.feign;
 import feign.Param;
 import io.github.yvasyliev.dz4j.model.AdvancedQuery;
 import io.github.yvasyliev.dz4j.model.SimpleQuery;
+import java.util.Map;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.Nullable;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.json.JsonMapper;
-
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * {@link io.github.yvasyliev.dz4j.model.Query} expander for Feign clients.
@@ -32,9 +31,7 @@ public class QueryExpander implements Param.Expander {
     }
 
     private String expand(AdvancedQuery query) {
-        return jsonMapper.convertValue(query, QUERY_MAP_TYPE)
-                .entrySet()
-                .stream()
+        return jsonMapper.convertValue(query, QUERY_MAP_TYPE).entrySet().stream()
                 .map(entry -> entry.getKey() + ":" + entry.getValue())
                 .collect(Collectors.joining(" "));
     }

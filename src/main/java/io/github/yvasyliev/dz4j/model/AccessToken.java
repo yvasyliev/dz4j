@@ -2,10 +2,9 @@ package io.github.yvasyliev.dz4j.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.yvasyliev.dz4j.databind.util.ExpiresConverter;
+import java.time.Instant;
 import org.jspecify.annotations.Nullable;
 import tools.jackson.databind.annotation.JsonDeserialize;
-
-import java.time.Instant;
 
 /**
  * An access token for the Deezer API, including the token string and its expiration time.
@@ -15,8 +14,9 @@ import java.time.Instant;
  */
 public record AccessToken(
         @JsonProperty("access_token") String token,
-        @JsonProperty("expires") @JsonDeserialize(converter = ExpiresConverter.class) Instant expiresAt
-) {
+
+        @JsonProperty("expires") @JsonDeserialize(converter = ExpiresConverter.class)
+        Instant expiresAt) {
     /**
      * Constructs an {@code AccessToken} with a {@code null} token and an expiration time set to {@link Instant#MAX}.
      */

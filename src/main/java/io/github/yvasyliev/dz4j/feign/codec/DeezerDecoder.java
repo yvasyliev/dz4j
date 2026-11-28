@@ -4,19 +4,18 @@ import feign.Response;
 import feign.codec.Decoder;
 import io.github.yvasyliev.dz4j.exception.DeezerException;
 import io.github.yvasyliev.dz4j.util.Customizer;
-import lombok.Builder;
-import lombok.RequiredArgsConstructor;
-import org.jspecify.annotations.Nullable;
-import tools.jackson.core.JacksonException;
-import tools.jackson.databind.JsonNode;
-import tools.jackson.databind.json.JsonMapper;
-
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
+import lombok.Builder;
+import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.Nullable;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.json.JsonMapper;
 
 /**
  * Decoder for Deezer API responses.
@@ -31,8 +30,7 @@ public class DeezerDecoder implements Decoder {
     private DeezerDecoder(
             JsonMapper jsonMapper,
             @Nullable Consumer<List<ResponseValidator>> responseValidators,
-            @Nullable Consumer<List<JsonNodeDeserializer>> jsonNodeDeserializers
-    ) {
+            @Nullable Consumer<List<JsonNodeDeserializer>> jsonNodeDeserializers) {
         this(new ArrayList<>(), new ArrayList<>(), jsonMapper);
 
         this.responseValidators.add(new HeadersValidator());
@@ -84,9 +82,8 @@ public class DeezerDecoder implements Decoder {
                 .map(deserializer -> deserializer.deserialize(body, type))
                 .filter(Objects::nonNull)
                 .findFirst()
-                .orElseThrow(() -> new DeezerException(
-                        "No deserializer found for body: %s, type: %s".formatted(body, type)
-                ));
+                .orElseThrow(() ->
+                        new DeezerException("No deserializer found for body: %s, type: %s".formatted(body, type)));
     }
 
     private JsonNode readBody(Response response) throws IOException {

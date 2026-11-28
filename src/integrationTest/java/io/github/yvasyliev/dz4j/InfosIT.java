@@ -1,17 +1,16 @@
 package io.github.yvasyliev.dz4j;
 
-import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
-import io.github.yvasyliev.dz4j.authorization.Authorization;
-import io.github.yvasyliev.dz4j.model.AccessToken;
-import io.github.yvasyliev.dz4j.model.Infos;
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
+
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
+import io.github.yvasyliev.dz4j.authorization.Authorization;
+import io.github.yvasyliev.dz4j.model.AccessToken;
+import io.github.yvasyliev.dz4j.model.Infos;
+import java.io.IOException;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("IdentifierName")
 class InfosIT extends AbstractIT {
@@ -41,8 +40,7 @@ class InfosIT extends AbstractIT {
 
         stubFor(get(urlPathEqualTo("/infos"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.infos().getInfos());
     }

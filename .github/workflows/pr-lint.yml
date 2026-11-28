@@ -26,7 +26,7 @@ jobs:
         run: |
           if [[ "$PR_TITLE" =~ $REGEX ]]; then
             echo "type=${BASH_REMATCH[1]}" >> $GITHUB_OUTPUT
-          
+
             case "${BASH_REMATCH[1]}" in
               feat|fix|docs|ci)
                 echo "label=${BASH_REMATCH[1]}" >> $GITHUB_OUTPUT
@@ -44,14 +44,14 @@ jobs:
             --json labels \
             --jq '.labels[].name'
           )
-          
+
           REMOVALS=()
           ADD_REQUIRED="true"
-          
+
           if [[ -z "$LABEL" ]]; then
             ADD_REQUIRED="false"
           fi
-          
+
           for current in "${CURRENT_LABELS[@]}"; do
             if [[ "$current" == "$LABEL" ]]; then
               ADD_REQUIRED="false"
@@ -59,17 +59,17 @@ jobs:
               REMOVALS+=("$current")
             fi
           done
-          
+
           OPTS=()
           if [[ ${#REMOVALS[@]} -gt 0 ]]; then
             REMOVAL_STR=$(IFS=,; echo "${REMOVALS[*]}")
             OPTS+=(--remove-label "$REMOVAL_STR")
           fi
-          
+
           if [[ "$ADD_REQUIRED" == "true" ]]; then
             OPTS+=(--add-label "$LABEL")
           fi
-          
+
           if [[ ${#OPTS[@]} -gt 0 ]]; then
             gh pr edit "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" "${OPTS[@]}"
           fi

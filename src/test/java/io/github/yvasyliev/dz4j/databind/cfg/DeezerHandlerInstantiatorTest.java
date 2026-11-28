@@ -1,19 +1,5 @@
 package io.github.yvasyliev.dz4j.databind.cfg;
 
-import io.github.yvasyliev.dz4j.databind.util.ExpiresConverter;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.FieldSource;
-import org.mockito.Mockito;
-import tools.jackson.databind.util.Converter;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -22,12 +8,23 @@ import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+import io.github.yvasyliev.dz4j.databind.util.ExpiresConverter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.FieldSource;
+import org.mockito.Mockito;
+import tools.jackson.databind.util.Converter;
+
 class DeezerHandlerInstantiatorTest {
     @SuppressWarnings({"checkstyle:ConstantName", "unused", "UnnecessaryLambda"})
     private static final Supplier<Stream<Arguments>> testConverterInstance = () -> Stream.of(
-            arguments(String.class, null),
-            arguments(DeezerHandlerInstantiatorTest.class, mock(Converter.class))
-    );
+            arguments(String.class, null), arguments(DeezerHandlerInstantiatorTest.class, mock(Converter.class)));
 
     @ParameterizedTest
     @FieldSource
@@ -81,9 +78,8 @@ class DeezerHandlerInstantiatorTest {
     void shouldCreateDeezerHandlerInstantiator() {
         var expiresConverter = Mockito.<Consumer<ExpiresConverter.ExpiresConverterBuilder>>mock();
         var converters = Mockito.<Consumer<Map<Class<?>, Converter<?, ?>>>>mock();
-        var expected = new DeezerHandlerInstantiator(Map.of(
-                ExpiresConverter.class, ExpiresConverter.builder().build())
-        );
+        var expected = new DeezerHandlerInstantiator(
+                Map.of(ExpiresConverter.class, ExpiresConverter.builder().build()));
         var actual = DeezerHandlerInstantiator.builder()
                 .expiresConverter(expiresConverter)
                 .converters(converters)

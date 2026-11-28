@@ -1,11 +1,10 @@
 package io.github.yvasyliev.dz4j.databind.util;
 
-import org.jspecify.annotations.Nullable;
-import tools.jackson.databind.util.StdConverter;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import org.jspecify.annotations.Nullable;
+import tools.jackson.databind.util.StdConverter;
 
 /**
  * A converter that converts a string to a {@link LocalDateTime}, returning {@code null} if the string is

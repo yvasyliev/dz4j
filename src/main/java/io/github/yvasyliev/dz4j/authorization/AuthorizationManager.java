@@ -2,10 +2,9 @@ package io.github.yvasyliev.dz4j.authorization;
 
 import io.github.yvasyliev.dz4j.factory.OAuthRequestFactory;
 import io.github.yvasyliev.dz4j.model.AccessToken;
+import java.util.concurrent.CompletableFuture;
 import lombok.Setter;
 import org.jspecify.annotations.Nullable;
-
-import java.util.concurrent.CompletableFuture;
 
 /**
  * Manages the authorization state and provides access tokens for API requests.

@@ -2,7 +2,6 @@ package io.github.yvasyliev.dz4j.feign.codec;
 
 import feign.Response;
 import io.github.yvasyliev.dz4j.exception.ResponseException;
-
 import java.lang.reflect.Type;
 
 /**

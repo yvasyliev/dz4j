@@ -1,5 +1,12 @@
 package io.github.yvasyliev.dz4j;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.delete;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
+import static com.github.tomakehurst.wiremock.client.WireMock.post;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
+
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
 import io.github.yvasyliev.dz4j.authorization.Authorization;
 import io.github.yvasyliev.dz4j.model.AccessToken;
@@ -13,19 +20,11 @@ import io.github.yvasyliev.dz4j.model.Playlist;
 import io.github.yvasyliev.dz4j.model.Radio;
 import io.github.yvasyliev.dz4j.model.Track;
 import io.github.yvasyliev.dz4j.model.User;
+import java.io.IOException;
+import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tools.jackson.core.type.TypeReference;
-
-import java.io.IOException;
-import java.util.Arrays;
-
-import static com.github.tomakehurst.wiremock.client.WireMock.delete;
-import static com.github.tomakehurst.wiremock.client.WireMock.get;
-import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
-import static com.github.tomakehurst.wiremock.client.WireMock.post;
-import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
 
 @SuppressWarnings("IdentifierName")
 class UserIT extends AbstractIT {
@@ -43,7 +42,7 @@ class UserIT extends AbstractIT {
 
     @Test
     void shouldAddAlbumsForMe() throws IOException {
-        var albumIds = new Long[]{1L, 2L, 3L};
+        var albumIds = new Long[] {1L, 2L, 3L};
         var body = read("/response/user/add-albums.json");
         var expected = MAPPER.readValue(body, Boolean.class);
 
@@ -51,8 +50,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo("me"))
                 .withFormParam("access_token", equalTo(ACCESS_TOKEN))
                 .withFormParam("album_ids", equalTo("1,2,3"))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().addAlbums(albumIds));
         assertEquals(expected, deezerClient.user().addAlbums(Arrays.asList(albumIds)));
@@ -60,7 +58,7 @@ class UserIT extends AbstractIT {
 
     @Test
     void shouldAddAlbums() throws IOException {
-        var albumIds = new Long[]{1L, 2L, 3L};
+        var albumIds = new Long[] {1L, 2L, 3L};
         var body = read("/response/user/add-albums.json");
         var expected = MAPPER.readValue(body, Boolean.class);
 
@@ -68,8 +66,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo(USER_ID))
                 .withFormParam("access_token", equalTo(ACCESS_TOKEN))
                 .withFormParam("album_ids", equalTo("1,2,3"))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().addAlbums(USER_ID, albumIds));
         assertEquals(expected, deezerClient.user().addAlbums(USER_ID, Arrays.asList(albumIds)));
@@ -77,7 +74,7 @@ class UserIT extends AbstractIT {
 
     @Test
     void shouldAddArtistsForMe() throws IOException {
-        var artistIds = new Long[]{1L, 2L, 3L};
+        var artistIds = new Long[] {1L, 2L, 3L};
         var body = read("/response/user/add-artists.json");
         var expected = MAPPER.readValue(body, Boolean.class);
 
@@ -85,8 +82,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo("me"))
                 .withFormParam("access_token", equalTo(ACCESS_TOKEN))
                 .withFormParam("artist_ids", equalTo("1,2,3"))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().addArtists(artistIds));
         assertEquals(expected, deezerClient.user().addArtists(Arrays.asList(artistIds)));
@@ -94,7 +90,7 @@ class UserIT extends AbstractIT {
 
     @Test
     void shouldAddArtists() throws IOException {
-        var artistIds = new Long[]{1L, 2L, 3L};
+        var artistIds = new Long[] {1L, 2L, 3L};
         var body = read("/response/user/add-artists.json");
         var expected = MAPPER.readValue(body, Boolean.class);
 
@@ -102,8 +98,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo(USER_ID))
                 .withFormParam("access_token", equalTo(ACCESS_TOKEN))
                 .withFormParam("artist_ids", equalTo("1,2,3"))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().addArtists(USER_ID, artistIds));
         assertEquals(expected, deezerClient.user().addArtists(USER_ID, Arrays.asList(artistIds)));
@@ -119,8 +114,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo("me"))
                 .withFormParam("access_token", equalTo(ACCESS_TOKEN))
                 .withFormParam("message", equalTo(message))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().addNotification(message));
     }
@@ -135,15 +129,14 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo(USER_ID))
                 .withFormParam("access_token", equalTo(ACCESS_TOKEN))
                 .withFormParam("message", equalTo(message))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().addNotification(USER_ID, message));
     }
 
     @Test
     void shouldAddPlaylistsForMe() throws IOException {
-        var playlistIds = new Long[]{1L, 2L, 3L};
+        var playlistIds = new Long[] {1L, 2L, 3L};
         var body = read("/response/user/add-playlists.json");
         var expected = MAPPER.readValue(body, Boolean.class);
 
@@ -151,8 +144,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo("me"))
                 .withFormParam("access_token", equalTo(ACCESS_TOKEN))
                 .withFormParam("playlist_ids", equalTo("1,2,3"))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().addPlaylists(playlistIds));
         assertEquals(expected, deezerClient.user().addPlaylists(Arrays.asList(playlistIds)));
@@ -160,7 +152,7 @@ class UserIT extends AbstractIT {
 
     @Test
     void shouldAddPlaylists() throws IOException {
-        var playlistIds = new Long[]{1L, 2L, 3L};
+        var playlistIds = new Long[] {1L, 2L, 3L};
         var body = read("/response/user/add-playlists.json");
         var expected = MAPPER.readValue(body, Boolean.class);
 
@@ -168,8 +160,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo(USER_ID))
                 .withFormParam("access_token", equalTo(ACCESS_TOKEN))
                 .withFormParam("playlist_ids", equalTo("1,2,3"))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().addPlaylists(USER_ID, playlistIds));
         assertEquals(expected, deezerClient.user().addPlaylists(USER_ID, Arrays.asList(playlistIds)));
@@ -185,8 +176,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo("me"))
                 .withFormParam("access_token", equalTo(ACCESS_TOKEN))
                 .withFormParam("podcast_id", equalTo(podcastId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().addPodcast(podcastId));
     }
@@ -201,8 +191,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo(USER_ID))
                 .withFormParam("access_token", equalTo(ACCESS_TOKEN))
                 .withFormParam("podcast_id", equalTo(podcastId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().addPodcast(USER_ID, podcastId));
     }
@@ -217,8 +206,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo("me"))
                 .withFormParam("access_token", equalTo(ACCESS_TOKEN))
                 .withFormParam("radio_id", equalTo(radioId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().addRadio(radioId));
     }
@@ -233,15 +221,14 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo(USER_ID))
                 .withFormParam("access_token", equalTo(ACCESS_TOKEN))
                 .withFormParam("radio_id", equalTo(radioId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().addRadio(USER_ID, radioId));
     }
 
     @Test
     void shouldAddTracksForMe() throws IOException {
-        var trackIds = new Long[]{1L, 2L, 3L};
+        var trackIds = new Long[] {1L, 2L, 3L};
         var body = read("/response/user/add-tracks.json");
         var expected = MAPPER.readValue(body, Boolean.class);
 
@@ -249,8 +236,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo("me"))
                 .withFormParam("access_token", equalTo(ACCESS_TOKEN))
                 .withFormParam("track_ids", equalTo("1,2,3"))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().addTracks(trackIds));
         assertEquals(expected, deezerClient.user().addTracks(Arrays.asList(trackIds)));
@@ -258,7 +244,7 @@ class UserIT extends AbstractIT {
 
     @Test
     void shouldAddTracks() throws IOException {
-        var trackIds = new Long[]{1L, 2L, 3L};
+        var trackIds = new Long[] {1L, 2L, 3L};
         var body = read("/response/user/add-tracks.json");
         var expected = MAPPER.readValue(body, Boolean.class);
 
@@ -266,8 +252,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo(USER_ID))
                 .withFormParam("access_token", equalTo(ACCESS_TOKEN))
                 .withFormParam("track_ids", equalTo("1,2,3"))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().addTracks(USER_ID, trackIds));
         assertEquals(expected, deezerClient.user().addTracks(USER_ID, Arrays.asList(trackIds)));
@@ -283,8 +268,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo("me"))
                 .withFormParam("access_token", equalTo(ACCESS_TOKEN))
                 .withFormParam("title", equalTo(title))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().createPlaylist(title));
     }
@@ -299,8 +283,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo(USER_ID))
                 .withFormParam("access_token", equalTo(ACCESS_TOKEN))
                 .withFormParam("title", equalTo(title))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().createPlaylist(USER_ID, title));
     }
@@ -315,8 +298,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo("me"))
                 .withFormParam("access_token", equalTo(ACCESS_TOKEN))
                 .withFormParam("user_id", equalTo(followeeId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().followUser(followeeId));
     }
@@ -331,8 +313,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo(USER_ID))
                 .withFormParam("access_token", equalTo(ACCESS_TOKEN))
                 .withFormParam("user_id", equalTo(followeeId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().followUser(USER_ID, followeeId));
     }
@@ -345,8 +326,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/charts/albums"))
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getAlbumChart());
     }
@@ -359,8 +339,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/charts/albums"))
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getAlbumChart(USER_ID));
     }
@@ -373,8 +352,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/recommendations/albums"))
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getAlbumRecommendations());
     }
@@ -387,8 +365,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/recommendations/albums"))
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getAlbumRecommendations(USER_ID));
     }
@@ -401,8 +378,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/albums"))
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getAlbums());
     }
@@ -415,8 +391,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/albums"))
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getAlbums(USER_ID));
     }
@@ -429,8 +404,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/charts/artists"))
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getArtistChart());
     }
@@ -443,8 +417,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/charts/artists"))
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getArtistChart(USER_ID));
     }
@@ -457,8 +430,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/recommendations/artists"))
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getArtistRecommendations());
     }
@@ -471,8 +443,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/recommendations/artists"))
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getArtistRecommendations(USER_ID));
     }
@@ -485,8 +456,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/artists"))
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getArtists());
     }
@@ -499,8 +469,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/artists"))
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getArtists(USER_ID));
     }
@@ -513,8 +482,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/charts"))
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getChart());
     }
@@ -527,8 +495,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/charts"))
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getChart(USER_ID));
     }
@@ -541,8 +508,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/flow"))
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getFlow());
     }
@@ -555,8 +521,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/flow"))
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getFlow(USER_ID));
     }
@@ -569,8 +534,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/followers"))
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getFollowers());
     }
@@ -583,8 +547,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/followers"))
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getFollowers(USER_ID));
     }
@@ -597,8 +560,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/followings"))
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getFollowings());
     }
@@ -611,8 +573,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/followings"))
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getFollowings(USER_ID));
     }
@@ -625,8 +586,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/history"))
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getHistory());
     }
@@ -639,8 +599,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/history"))
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getHistory(USER_ID));
     }
@@ -653,8 +612,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/options"))
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getOptions());
     }
@@ -667,8 +625,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/options"))
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getOptions(USER_ID));
     }
@@ -681,8 +638,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/permissions"))
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getPermissions());
     }
@@ -695,8 +651,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/permissions"))
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getPermissions(USER_ID));
     }
@@ -709,8 +664,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/personal_songs"))
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getPersonalSongs());
     }
@@ -723,8 +677,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/personal_songs"))
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getPersonalSongs(USER_ID));
     }
@@ -737,8 +690,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/charts/playlists"))
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getPlaylistChart());
     }
@@ -751,8 +703,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/charts/playlists"))
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getPlaylistChart(USER_ID));
     }
@@ -765,8 +716,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/recommendations/playlists"))
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getPlaylistRecommendations());
     }
@@ -779,8 +729,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/recommendations/playlists"))
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getPlaylistRecommendations(USER_ID));
     }
@@ -793,8 +742,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/playlists"))
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getPlaylists());
     }
@@ -807,8 +755,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/playlists"))
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getPlaylists(USER_ID));
     }
@@ -821,8 +768,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/recommendations/radios"))
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getRadioRecommendations());
     }
@@ -835,8 +781,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/recommendations/radios"))
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getRadioRecommendations(USER_ID));
     }
@@ -849,8 +794,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/radios"))
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getRadios());
     }
@@ -863,8 +807,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/radios"))
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getRadios(USER_ID));
     }
@@ -877,8 +820,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/recommendations/releases"))
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getReleaseRecommendations());
     }
@@ -891,8 +833,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/recommendations/releases"))
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getReleaseRecommendations(USER_ID));
     }
@@ -905,8 +846,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/charts/tracks"))
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getTrackChart());
     }
@@ -919,8 +859,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/charts/tracks"))
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getTrackChart(USER_ID));
     }
@@ -933,8 +872,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/recommendations/tracks"))
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getTrackRecommendations());
     }
@@ -947,8 +885,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/recommendations/tracks"))
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getTrackRecommendations(USER_ID));
     }
@@ -961,8 +898,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/tracks"))
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getTracks());
     }
@@ -975,8 +911,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}/tracks"))
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getTracks(USER_ID));
     }
@@ -989,8 +924,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}"))
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getUser());
     }
@@ -1003,8 +937,7 @@ class UserIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/user/{userId}"))
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().getUser(USER_ID));
     }
@@ -1019,8 +952,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
                 .withQueryParam("album_id", equalTo(albumId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().removeAlbum(albumId));
     }
@@ -1035,8 +967,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
                 .withQueryParam("album_id", equalTo(albumId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().removeAlbum(USER_ID, albumId));
     }
@@ -1051,8 +982,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
                 .withQueryParam("artist_id", equalTo(artistId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().removeArtist(artistId));
     }
@@ -1067,8 +997,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
                 .withQueryParam("artist_id", equalTo(artistId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().removeArtist(USER_ID, artistId));
     }
@@ -1083,8 +1012,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
                 .withQueryParam("playlist_id", equalTo(playlistId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().removePlaylist(playlistId));
     }
@@ -1099,8 +1027,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
                 .withQueryParam("playlist_id", equalTo(playlistId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().removePlaylist(USER_ID, playlistId));
     }
@@ -1115,8 +1042,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
                 .withQueryParam("podcast_id", equalTo(podcastId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().removePodcast(podcastId));
     }
@@ -1131,8 +1057,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
                 .withQueryParam("podcast_id", equalTo(podcastId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().removePodcast(USER_ID, podcastId));
     }
@@ -1147,8 +1072,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
                 .withQueryParam("radio_id", equalTo(radioId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().removeRadio(radioId));
     }
@@ -1163,8 +1087,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
                 .withQueryParam("radio_id", equalTo(radioId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().removeRadio(USER_ID, radioId));
     }
@@ -1179,8 +1102,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
                 .withQueryParam("track_id", equalTo(trackId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().removeTrack(trackId));
     }
@@ -1195,8 +1117,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
                 .withQueryParam("track_id", equalTo(trackId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().removeTrack(USER_ID, trackId));
     }
@@ -1211,8 +1132,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo("me"))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
                 .withQueryParam("user_id", equalTo(followeeId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().unfollowUser(followeeId));
     }
@@ -1227,8 +1147,7 @@ class UserIT extends AbstractIT {
                 .withPathParam("userId", equalTo(USER_ID))
                 .withQueryParam("access_token", equalTo(ACCESS_TOKEN))
                 .withQueryParam("user_id", equalTo(followeeId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.user().unfollowUser(USER_ID, followeeId));
     }

@@ -1,21 +1,20 @@
 package io.github.yvasyliev.dz4j;
 
-import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
-import io.github.yvasyliev.dz4j.authorization.Authorization;
-import io.github.yvasyliev.dz4j.model.AccessToken;
-import io.github.yvasyliev.dz4j.model.Track;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-
-import java.io.IOException;
-
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
+
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
+import io.github.yvasyliev.dz4j.authorization.Authorization;
+import io.github.yvasyliev.dz4j.model.AccessToken;
+import io.github.yvasyliev.dz4j.model.Track;
+import java.io.IOException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 @SuppressWarnings("IdentifierName")
 class TrackIT extends AbstractIT {
@@ -31,17 +30,16 @@ class TrackIT extends AbstractIT {
 
     @ParameterizedTest
     @CsvSource(textBlock = """
-                           541999, /response/track/get-track-maneater.json
-                           3135556, /response/track/get-track-harder-better-faster-stronger.json
-                           """)
+        541999, /response/track/get-track-maneater.json
+        3135556, /response/track/get-track-harder-better-faster-stronger.json
+        """)
     void shouldReturnTrack(long trackId, String file) throws IOException {
         var body = read(file);
         var expected = MAPPER.readValue(body, Track.class);
 
         stubFor(get(urlPathTemplate("/track/{trackId}"))
                 .withPathParam("trackId", equalTo(trackId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.track().getTrack(trackId));
     }
@@ -54,8 +52,7 @@ class TrackIT extends AbstractIT {
 
         stubFor(get(urlPathTemplate("/track/isrc:{isrc}"))
                 .withPathParam("isrc", equalTo(isrc))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.track().getTrackByIsrc(isrc));
     }
@@ -75,12 +72,15 @@ class TrackIT extends AbstractIT {
                 .withFormParam("title", equalTo(title))
                 .withFormParam("artist", equalTo(artist))
                 .withFormParam("album", equalTo(album))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(
                 expected,
-                deezerClient.track().updateTrack(trackId).title(title).artist(artist).album(album)
-        );
+                deezerClient
+                        .track()
+                        .updateTrack(trackId)
+                        .title(title)
+                        .artist(artist)
+                        .album(album));
     }
 }

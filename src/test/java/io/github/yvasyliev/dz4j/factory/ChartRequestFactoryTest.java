@@ -1,5 +1,8 @@
 package io.github.yvasyliev.dz4j.factory;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
 import io.github.yvasyliev.dz4j.model.Album;
 import io.github.yvasyliev.dz4j.model.Artist;
 import io.github.yvasyliev.dz4j.model.Chart;
@@ -8,28 +11,26 @@ import io.github.yvasyliev.dz4j.model.Playlist;
 import io.github.yvasyliev.dz4j.model.Podcast;
 import io.github.yvasyliev.dz4j.model.Track;
 import io.github.yvasyliev.dz4j.service.ChartService;
+import java.util.concurrent.CompletableFuture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.concurrent.CompletableFuture;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
-
 @ExtendWith(MockitoExtension.class)
 class ChartRequestFactoryTest {
-    @InjectMocks private ChartRequestFactory chartRequestFactory;
-    @Mock private ChartService chartService;
+    @InjectMocks
+    private ChartRequestFactory chartRequestFactory;
+
+    @Mock
+    private ChartService chartService;
 
     @Test
     void testGetAlbumsChart() {
         var genreId = 123L;
-        var expected = Page.<Album>builder()
-                .data(Album.builder().id(456L).build())
-                .build();
+        var expected =
+                Page.<Album>builder().data(Album.builder().id(456L).build()).build();
 
         when(chartService.getAlbumsChart(genreId, null, null)).thenReturn(CompletableFuture.completedFuture(expected));
 
@@ -41,9 +42,8 @@ class ChartRequestFactoryTest {
     @Test
     void testGetArtistsChart() {
         var genreId = 123L;
-        var expected = Page.<Artist>builder()
-                .data(Artist.builder().id(456L).build())
-                .build();
+        var expected =
+                Page.<Artist>builder().data(Artist.builder().id(456L).build()).build();
 
         when(chartService.getArtistsChart(genreId, null, null)).thenReturn(CompletableFuture.completedFuture(expected));
 
@@ -56,7 +56,9 @@ class ChartRequestFactoryTest {
     void testGetChart() {
         var genreId = 123L;
         var expected = Chart.builder()
-                .tracks(Page.<Track>builder().data(Track.builder().id(456L).build()).build())
+                .tracks(Page.<Track>builder()
+                        .data(Track.builder().id(456L).build())
+                        .build())
                 .build();
 
         when(chartService.getChart(genreId, null, null)).thenReturn(CompletableFuture.completedFuture(expected));
@@ -84,9 +86,8 @@ class ChartRequestFactoryTest {
     @Test
     void testGetPodcastsChart() {
         var genreId = 123L;
-        var expected = Page.<Podcast>builder()
-                .data(Podcast.builder().id(456L).build())
-                .build();
+        var expected =
+                Page.<Podcast>builder().data(Podcast.builder().id(456L).build()).build();
 
         when(chartService.getPodcastsChart(genreId, null, null))
                 .thenReturn(CompletableFuture.completedFuture(expected));
@@ -99,9 +100,8 @@ class ChartRequestFactoryTest {
     @Test
     void testGetTracksChart() {
         var genreId = 123L;
-        var expected = Page.<Track>builder()
-                .data(Track.builder().id(456L).build())
-                .build();
+        var expected =
+                Page.<Track>builder().data(Track.builder().id(456L).build()).build();
 
         when(chartService.getTracksChart(genreId, null, null)).thenReturn(CompletableFuture.completedFuture(expected));
 

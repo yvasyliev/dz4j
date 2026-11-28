@@ -14,9 +14,8 @@ import io.github.yvasyliev.dz4j.model.User;
 import io.github.yvasyliev.dz4j.request.SearchDeezerRequest;
 import io.github.yvasyliev.dz4j.service.SearchService;
 import io.github.yvasyliev.dz4j.util.QuinaryFunction;
-import lombok.RequiredArgsConstructor;
-
 import java.util.concurrent.CompletableFuture;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Factory for creating search requests.
@@ -27,12 +26,11 @@ public class SearchRequestFactory {
 
     private static <T> SearchDeezerRequest<T> createSearchDeezerRequest(
             Query query,
-            QuinaryFunction<Query, Boolean, Order, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod
-    ) {
+            QuinaryFunction<Query, Boolean, Order, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod) {
         return new SearchDeezerRequest<>(query, asyncMethod);
     }
 
-    //region search
+    // region search
 
     /**
      * Creates a request to search for tracks based on a simple query string.
@@ -58,9 +56,9 @@ public class SearchRequestFactory {
         return createSearchDeezerRequest(query, searchService::search);
     }
 
-    //endregion
+    // endregion
 
-    //region searchAlbum
+    // region searchAlbum
 
     /**
      * Creates a request to search for albums based on a simple query string.
@@ -86,9 +84,9 @@ public class SearchRequestFactory {
         return createSearchDeezerRequest(query, searchService::searchAlbum);
     }
 
-    //endregion
+    // endregion
 
-    //region searchArtist
+    // region searchArtist
 
     /**
      * Creates a request to search for artists based on a simple query string.
@@ -114,9 +112,9 @@ public class SearchRequestFactory {
         return createSearchDeezerRequest(query, searchService::searchArtist);
     }
 
-    //endregion
+    // endregion
 
-    //region searchPlaylist
+    // region searchPlaylist
 
     /**
      * Creates a request to search for playlists based on a simple query string.
@@ -142,9 +140,9 @@ public class SearchRequestFactory {
         return createSearchDeezerRequest(query, searchService::searchPlaylist);
     }
 
-    //endregion
+    // endregion
 
-    //region searchTrack
+    // region searchTrack
 
     /**
      * Creates a request to search for tracks based on a simple query string.
@@ -170,9 +168,9 @@ public class SearchRequestFactory {
         return createSearchDeezerRequest(query, searchService::searchTrack);
     }
 
-    //endregion
+    // endregion
 
-    //region searchRadio
+    // region searchRadio
 
     /**
      * Creates a request to search for radios based on a simple query string.
@@ -198,9 +196,9 @@ public class SearchRequestFactory {
         return createSearchDeezerRequest(query, searchService::searchRadio);
     }
 
-    //endregion
+    // endregion
 
-    //region searchUser
+    // region searchUser
 
     /**
      * Creates a request to search for users based on a simple query string.
@@ -226,5 +224,5 @@ public class SearchRequestFactory {
         return createSearchDeezerRequest(query, searchService::searchUser);
     }
 
-    //endregion
+    // endregion
 }

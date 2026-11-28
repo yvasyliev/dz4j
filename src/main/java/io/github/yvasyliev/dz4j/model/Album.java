@@ -2,13 +2,12 @@ package io.github.yvasyliev.dz4j.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.yvasyliev.dz4j.annotation.Experimental;
-import lombok.Builder;
-import lombok.Singular;
-
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
+import lombok.Builder;
+import lombok.Singular;
 
 /**
  * An album object.
@@ -82,8 +81,7 @@ public record Album(
         @JsonProperty("contributors") @Singular List<Artist> contributors,
         @JsonProperty("fallback") Album fallback,
         @JsonProperty("artist") Artist artist,
-        @JsonProperty("tracks") Page<Track> tracks
-) {
+        @JsonProperty("tracks") Page<Track> tracks) {
     /**
      * The record type values.
      */

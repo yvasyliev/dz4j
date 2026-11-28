@@ -1,9 +1,8 @@
 package io.github.yvasyliev.dz4j.util;
 
+import java.util.function.Consumer;
 import lombok.experimental.UtilityClass;
 import org.jspecify.annotations.Nullable;
-
-import java.util.function.Consumer;
 
 /**
  * A utility class for customizing objects using a fluent API.

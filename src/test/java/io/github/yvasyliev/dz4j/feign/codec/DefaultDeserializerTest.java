@@ -1,9 +1,9 @@
 package io.github.yvasyliev.dz4j.feign.codec;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 import tools.jackson.databind.json.JsonMapper;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DefaultDeserializerTest {
     private static final JsonMapper MAPPER = new JsonMapper();

@@ -1,11 +1,10 @@
 package io.github.yvasyliev.dz4j.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
-import lombok.Singular;
-
 import java.net.URL;
 import java.util.List;
+import lombok.Builder;
+import lombok.Singular;
 
 /**
  * A genre object.
@@ -29,5 +28,4 @@ public record Genre(
         @JsonProperty("picture_medium") URL pictureMedium,
         @JsonProperty("picture_big") URL pictureBig,
         @JsonProperty("picture_xl") URL pictureXl,
-        @JsonProperty("radios") @Singular List<Radio> radios
-) {}
+        @JsonProperty("radios") @Singular List<Radio> radios) {}

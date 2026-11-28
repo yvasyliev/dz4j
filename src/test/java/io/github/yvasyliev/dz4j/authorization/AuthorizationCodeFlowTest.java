@@ -1,18 +1,17 @@
 package io.github.yvasyliev.dz4j.authorization;
 
-import io.github.yvasyliev.dz4j.factory.OAuthRequestFactory;
-import io.github.yvasyliev.dz4j.model.AccessToken;
-import io.github.yvasyliev.dz4j.request.DeezerRequest;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import java.util.concurrent.CompletableFuture;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import io.github.yvasyliev.dz4j.factory.OAuthRequestFactory;
+import io.github.yvasyliev.dz4j.model.AccessToken;
+import io.github.yvasyliev.dz4j.request.DeezerRequest;
+import java.util.concurrent.CompletableFuture;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class AuthorizationCodeFlowTest {
     @Test

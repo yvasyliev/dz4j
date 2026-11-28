@@ -8,9 +8,8 @@ import io.github.yvasyliev.dz4j.model.AccessToken;
 import io.github.yvasyliev.dz4j.model.Episode;
 import io.github.yvasyliev.dz4j.model.Page;
 import io.github.yvasyliev.dz4j.model.Podcast;
-import org.jspecify.annotations.Nullable;
-
 import java.util.concurrent.CompletableFuture;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Service for interacting with podcasts on Deezer.
@@ -27,8 +26,7 @@ public interface PodcastService {
     @RequestLine("GET /podcast/{podcastId}/episodes?access_token={accessToken}")
     CompletableFuture<Page<Episode>> getEpisodes(
             @Param("podcastId") long podcastId,
-            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken
-    );
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken);
 
     /**
      * Returns a podcast.
@@ -40,6 +38,5 @@ public interface PodcastService {
     @RequestLine("GET /podcast/{podcastId}?access_token={accessToken}")
     CompletableFuture<Podcast> getPodcast(
             @Param("podcastId") long podcastId,
-            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken
-    );
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken);
 }

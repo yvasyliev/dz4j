@@ -14,9 +14,8 @@ import io.github.yvasyliev.dz4j.model.Query;
 import io.github.yvasyliev.dz4j.model.Radio;
 import io.github.yvasyliev.dz4j.model.Track;
 import io.github.yvasyliev.dz4j.model.User;
-import org.jspecify.annotations.Nullable;
-
 import java.util.concurrent.CompletableFuture;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Service for searching for resources on Deezer based on a query.
@@ -40,8 +39,7 @@ public interface SearchService {
             @Param(value = "strict", expander = StrictExpander.class) @Nullable Boolean strict,
             @Param("order") @Nullable Order order,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Searches for albums matching the given query.
@@ -59,8 +57,7 @@ public interface SearchService {
             @Param(value = "strict", expander = StrictExpander.class) @Nullable Boolean strict,
             @Param("order") @Nullable Order order,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Searches for artists matching the given query.
@@ -78,8 +75,7 @@ public interface SearchService {
             @Param(value = "strict", expander = StrictExpander.class) @Nullable Boolean strict,
             @Param("order") @Nullable Order order,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Searches for playlists matching the given query.
@@ -97,8 +93,7 @@ public interface SearchService {
             @Param(value = "strict", expander = StrictExpander.class) @Nullable Boolean strict,
             @Param("order") @Nullable Order order,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Searches for radios matching the given query.
@@ -116,8 +111,7 @@ public interface SearchService {
             @Param(value = "strict", expander = StrictExpander.class) @Nullable Boolean strict,
             @Param("order") @Nullable Order order,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Searches for tracks matching the given query. An alias for
@@ -136,8 +130,7 @@ public interface SearchService {
             @Param(value = "strict", expander = StrictExpander.class) @Nullable Boolean strict,
             @Param("order") @Nullable Order order,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Searches for users matching the given query.
@@ -155,6 +148,5 @@ public interface SearchService {
             @Param(value = "strict", expander = StrictExpander.class) @Nullable Boolean strict,
             @Param("order") @Nullable Order order,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 }

@@ -1,13 +1,5 @@
 package io.github.yvasyliev.dz4j;
 
-import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
-import io.github.yvasyliev.dz4j.exception.AccessTokenResponseException;
-import io.github.yvasyliev.dz4j.model.AccessToken;
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.time.Duration;
-
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.ok;
 import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
@@ -17,6 +9,13 @@ import static com.github.tomakehurst.wiremock.common.ContentTypes.CONTENT_TYPE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mock;
+
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
+import io.github.yvasyliev.dz4j.exception.AccessTokenResponseException;
+import io.github.yvasyliev.dz4j.model.AccessToken;
+import java.io.IOException;
+import java.time.Duration;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("IdentifierName")
 class OAuthIT extends AbstractIT {
@@ -35,8 +34,7 @@ class OAuthIT extends AbstractIT {
                 .withQueryParam("app_id", equalTo(String.valueOf(appId)))
                 .withQueryParam("secret", equalTo(secret))
                 .withQueryParam("code", equalTo(code))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.oauth().getAccessToken(appId, secret, code));
     }
@@ -57,8 +55,7 @@ class OAuthIT extends AbstractIT {
                 .withQueryParam("app_id", equalTo(String.valueOf(appId)))
                 .withQueryParam("secret", equalTo(secret))
                 .withQueryParam("code", equalTo(code))
-                .willReturn(ok(expected).withHeader(CONTENT_TYPE, "text/html; charset=utf-8"))
-        );
+                .willReturn(ok(expected).withHeader(CONTENT_TYPE, "text/html; charset=utf-8")));
 
         assertThatThrownBy(request::execute)
                 .isInstanceOf(AccessTokenResponseException.class)

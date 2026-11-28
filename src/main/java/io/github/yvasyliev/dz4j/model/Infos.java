@@ -3,11 +3,10 @@ package io.github.yvasyliev.dz4j.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.yvasyliev.dz4j.annotation.Experimental;
 import io.github.yvasyliev.dz4j.databind.util.ExpiresConverter;
-import lombok.Builder;
-import tools.jackson.databind.annotation.JsonDeserialize;
-
 import java.net.URL;
 import java.time.Instant;
+import lombok.Builder;
+import tools.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * Get the information about the API in the current country.
@@ -31,16 +30,13 @@ public record Infos(
         @JsonProperty("pop") @Experimental String pop,
         @JsonProperty("upload_token") @Experimental String uploadToken,
 
-        @JsonProperty("upload_token_lifetime")
-        @JsonDeserialize(converter = ExpiresConverter.class)
-        @Experimental
+        @JsonProperty("upload_token_lifetime") @JsonDeserialize(converter = ExpiresConverter.class) @Experimental
         Instant uploadTokenExpiresAt,
 
         @JsonProperty("user_token") @Experimental String userToken,
         @JsonProperty("hosts") @Experimental Hosts hosts,
         @JsonProperty("ads") @Experimental Ads ads,
-        @JsonProperty("has_podcasts") @Experimental Boolean hasPodcasts
-) {
+        @JsonProperty("has_podcasts") @Experimental Boolean hasPodcasts) {
     /**
      * Checks if the upload token is expired.
      *
@@ -57,7 +53,9 @@ public record Infos(
      * @param images the images host URL
      */
     @Experimental
-    public record Hosts(@JsonProperty("stream") String stream, @JsonProperty("images") URL images) {}
+    public record Hosts(
+            @JsonProperty("stream") String stream,
+            @JsonProperty("images") URL images) {}
 
     /**
      * An ads object.
@@ -70,8 +68,7 @@ public record Infos(
     public record Ads(
             @JsonProperty("audio") Audio audio,
             @JsonProperty("display") Display display,
-            @JsonProperty("big_native_ads_home") BigNativeAdsHome bigNativeAdsHome
-    ) {
+            @JsonProperty("big_native_ads_home") BigNativeAdsHome bigNativeAdsHome) {
         /**
          * An interval object.
          *
@@ -82,8 +79,7 @@ public record Infos(
         public record Interval(
                 @JsonProperty("start") Integer start,
                 @JsonProperty("interval") Integer interval,
-                @JsonProperty("unit") String unit
-        ) {}
+                @JsonProperty("unit") String unit) {}
 
         /**
          * An audio ads object.
@@ -111,8 +107,7 @@ public record Infos(
                 @JsonProperty("iphone") Platform iphone,
                 @JsonProperty("ipad") Platform ipad,
                 @JsonProperty("android") Platform android,
-                @JsonProperty("android_tablet") Platform androidTablet
-        ) {
+                @JsonProperty("android_tablet") Platform androidTablet) {
             /**
              * A platform object.
              *

@@ -3,7 +3,6 @@ package io.github.yvasyliev.dz4j.service;
 import feign.Headers;
 import feign.RequestLine;
 import io.github.yvasyliev.dz4j.model.Options;
-
 import java.util.concurrent.CompletableFuture;
 
 /**

@@ -1,24 +1,26 @@
 package io.github.yvasyliev.dz4j.factory;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
 import io.github.yvasyliev.dz4j.model.OEmbed;
 import io.github.yvasyliev.dz4j.service.OEmbedService;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.concurrent.CompletableFuture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.concurrent.CompletableFuture;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
-
 @ExtendWith(MockitoExtension.class)
 class OEmbedRequestFactoryTest {
-    @InjectMocks private OEmbedRequestFactory oEmbedRequestFactory;
-    @Mock private OEmbedService oEmbedService;
+    @InjectMocks
+    private OEmbedRequestFactory oEmbedRequestFactory;
+
+    @Mock
+    private OEmbedService oEmbedService;
 
     @Test
     void testGetAlbumOEmbed() throws MalformedURLException {

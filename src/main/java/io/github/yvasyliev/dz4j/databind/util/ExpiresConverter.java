@@ -1,11 +1,10 @@
 package io.github.yvasyliev.dz4j.databind.util;
 
-import lombok.Builder;
-import tools.jackson.databind.util.StdConverter;
-
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
+import lombok.Builder;
+import tools.jackson.databind.util.StdConverter;
 
 /**
  * A converter that transforms a {@link Duration} into an {@link Instant} by adding the duration to the current time.

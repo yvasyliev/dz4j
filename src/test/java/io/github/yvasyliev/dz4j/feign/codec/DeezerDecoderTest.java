@@ -1,10 +1,23 @@
 package io.github.yvasyliev.dz4j.feign.codec;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import feign.Response;
 import feign.codec.Decoder;
 import io.github.yvasyliev.dz4j.exception.DeezerException;
 import io.github.yvasyliev.dz4j.exception.ResponseException;
-import lombok.Cleanup;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Type;
+import java.util.List;
+import java.util.function.Consumer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,26 +28,17 @@ import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.json.JsonMapper;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Type;
-import java.util.List;
-import java.util.function.Consumer;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 @ExtendWith(MockitoExtension.class)
 class DeezerDecoderTest {
-    @Mock private ResponseValidator responseValidator;
-    @Mock private JsonNodeDeserializer jsonNodeDeserializer;
-    @Mock private JsonMapper jsonMapper;
+    @Mock
+    private ResponseValidator responseValidator;
+
+    @Mock
+    private JsonNodeDeserializer jsonNodeDeserializer;
+
+    @Mock
+    private JsonMapper jsonMapper;
+
     private Decoder decoder;
 
     @BeforeEach
@@ -61,88 +65,98 @@ class DeezerDecoderTest {
     @SuppressWarnings("UnnecessarilyFullyQualified")
     void testDecode() throws IOException {
         var body = mock(Response.Body.class);
-        @Cleanup var inputStream = mock(InputStream.class);
-        @Cleanup var response = Response.builder().request(mock()).body(body).build();
-        var type = mock(Type.class);
-        var jsonNode = mock(JsonNode.class);
-        var expected = mock(Object.class);
+        try (var inputStream = mock(InputStream.class);
+                var response = Response.builder().request(mock()).body(body).build()) {
+            var type = mock(Type.class);
+            var jsonNode = mock(JsonNode.class);
+            var expected = mock(Object.class);
 
-        when(body.asInputStream()).thenReturn(inputStream);
-        when(jsonMapper.readTree(inputStream)).thenReturn(jsonNode);
-        when(jsonNodeDeserializer.deserialize(jsonNode, type)).thenReturn(expected);
+            when(body.asInputStream()).thenReturn(inputStream);
+            when(jsonMapper.readTree(inputStream)).thenReturn(jsonNode);
+            when(jsonNodeDeserializer.deserialize(jsonNode, type)).thenReturn(expected);
 
-        var actual = decoder.decode(response, type);
+            var actual = decoder.decode(response, type);
 
-        assertEquals(expected, actual);
+            assertEquals(expected, actual);
+        }
     }
 
     @Test
     @SuppressWarnings("UnnecessarilyFullyQualified")
     void shouldThrowResponseException() {
-        @Cleanup var response = mock(Response.class);
-        var type = mock(Type.class);
+        try (var response = mock(Response.class)) {
+            var type = mock(Type.class);
 
-        doThrow(ResponseException.class).when(responseValidator).validate(response, type);
+            doThrow(ResponseException.class).when(responseValidator).validate(response, type);
 
-        assertThrows(ResponseException.class, () -> decoder.decode(response, type));
+            assertThrows(ResponseException.class, () -> decoder.decode(response, type));
+        }
     }
 
     @Test
     @SuppressWarnings("UnnecessarilyFullyQualified")
     void shouldThrowIOExceptionWhenReadingBody() throws IOException {
         var body = mock(Response.Body.class);
-        @Cleanup var response = Response.builder().request(mock()).body(body).build();
-        var type = mock(Type.class);
 
-        when(body.asInputStream()).thenThrow(IOException.class);
+        try (var response = Response.builder().request(mock()).body(body).build()) {
+            var type = mock(Type.class);
 
-        assertThrows(IOException.class, () -> decoder.decode(response, type));
+            when(body.asInputStream()).thenThrow(IOException.class);
+
+            assertThrows(IOException.class, () -> decoder.decode(response, type));
+        }
     }
 
     @Test
     @SuppressWarnings("UnnecessarilyFullyQualified")
     void shouldThrowIOExceptionWhenDeserializingBody() throws IOException {
         var body = mock(Response.Body.class);
-        @Cleanup var inputStream = mock(InputStream.class);
-        @Cleanup var response = Response.builder().request(mock()).body(body).build();
-        var type = mock(Type.class);
-        var e = mock(JacksonException.class);
-        var cause = mock(IOException.class);
 
-        when(body.asInputStream()).thenReturn(inputStream);
-        when(jsonMapper.readTree(inputStream)).thenThrow(e);
-        when(e.getCause()).thenReturn(cause);
+        try (var inputStream = mock(InputStream.class);
+                var response = Response.builder().request(mock()).body(body).build()) {
+            var type = mock(Type.class);
+            var e = mock(JacksonException.class);
+            var cause = mock(IOException.class);
 
-        assertThrows(IOException.class, () -> decoder.decode(response, type));
+            when(body.asInputStream()).thenReturn(inputStream);
+            when(jsonMapper.readTree(inputStream)).thenThrow(e);
+            when(e.getCause()).thenReturn(cause);
+
+            assertThrows(IOException.class, () -> decoder.decode(response, type));
+        }
     }
 
     @Test
     @SuppressWarnings("UnnecessarilyFullyQualified")
     void shouldThrowJacksonExceptionWhenDeserializingBody() throws IOException {
         var body = mock(Response.Body.class);
-        @Cleanup var inputStream = mock(InputStream.class);
-        @Cleanup var response = Response.builder().request(mock()).body(body).build();
-        var type = mock(Type.class);
-        var e = mock(JacksonException.class);
 
-        when(body.asInputStream()).thenReturn(inputStream);
-        when(jsonMapper.readTree(inputStream)).thenThrow(e);
+        try (var inputStream = mock(InputStream.class);
+                var response = Response.builder().request(mock()).body(body).build()) {
+            var type = mock(Type.class);
+            var e = mock(JacksonException.class);
 
-        assertThrows(JacksonException.class, () -> decoder.decode(response, type));
+            when(body.asInputStream()).thenReturn(inputStream);
+            when(jsonMapper.readTree(inputStream)).thenThrow(e);
+
+            assertThrows(JacksonException.class, () -> decoder.decode(response, type));
+        }
     }
 
     @Test
     @SuppressWarnings("UnnecessarilyFullyQualified")
     void shouldThrowDeezerExceptionWhenNoDeserializerFound() throws IOException {
         var body = mock(Response.Body.class);
-        @Cleanup var inputStream = mock(InputStream.class);
-        @Cleanup var response = Response.builder().request(mock()).body(body).build();
-        var type = mock(Type.class);
-        var jsonNode = mock(JsonNode.class);
 
-        when(body.asInputStream()).thenReturn(inputStream);
-        when(jsonMapper.readTree(inputStream)).thenReturn(jsonNode);
+        try (var inputStream = mock(InputStream.class);
+                var response = Response.builder().request(mock()).body(body).build()) {
+            var type = mock(Type.class);
+            var jsonNode = mock(JsonNode.class);
 
-        assertThrows(DeezerException.class, () -> decoder.decode(response, type));
+            when(body.asInputStream()).thenReturn(inputStream);
+            when(jsonMapper.readTree(inputStream)).thenReturn(jsonNode);
+
+            assertThrows(DeezerException.class, () -> decoder.decode(response, type));
+        }
     }
 }

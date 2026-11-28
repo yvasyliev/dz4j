@@ -1,16 +1,15 @@
 package io.github.yvasyliev.dz4j;
 
-import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
-import io.github.yvasyliev.dz4j.model.OEmbed;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
+
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
+import io.github.yvasyliev.dz4j.model.OEmbed;
+import java.io.IOException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("IdentifierName")
 class OEmbedIT extends AbstractIT {
@@ -20,19 +19,11 @@ class OEmbedIT extends AbstractIT {
         stubFor(get(urlPathEqualTo("/oembed"))
                 .withQueryParam("format", equalTo("json"))
                 .withQueryParam("url", equalTo(url))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
     }
 
     private static void stubOEmbedWithOptions(
-            String url,
-            boolean autoplay,
-            int maxWidth,
-            int maxHeight,
-            boolean radius,
-            boolean tracklist,
-            String body
-    ) {
+            String url, boolean autoplay, int maxWidth, int maxHeight, boolean radius, boolean tracklist, String body) {
         stubFor(get(urlPathEqualTo("/oembed"))
                 .withQueryParam("format", equalTo("json"))
                 .withQueryParam("url", equalTo(url))
@@ -41,8 +32,7 @@ class OEmbedIT extends AbstractIT {
                 .withQueryParam("maxheight", equalTo(maxHeight))
                 .withQueryParam("radius", equalTo(radius))
                 .withQueryParam("tracklist", equalTo(tracklist))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
     }
 
     @BeforeEach
@@ -130,21 +120,18 @@ class OEmbedIT extends AbstractIT {
         var expected = MAPPER.readValue(body, OEmbed.class);
 
         stubOEmbedWithOptions(
-                "https://www.deezer.com/album/" + albumId,
-                autoplay,
-                maxWidth,
-                maxHeight,
-                radius,
-                tracklist,
-                body
-        );
+                "https://www.deezer.com/album/" + albumId, autoplay, maxWidth, maxHeight, radius, tracklist, body);
 
-        assertEquals(expected, deezerClient.oEmbed().getAlbumOEmbed(albumId)
-                .autoplay(autoplay)
-                .maxWidth(maxWidth)
-                .maxHeight(maxHeight)
-                .radius(radius)
-                .tracklist(tracklist));
+        assertEquals(
+                expected,
+                deezerClient
+                        .oEmbed()
+                        .getAlbumOEmbed(albumId)
+                        .autoplay(autoplay)
+                        .maxWidth(maxWidth)
+                        .maxHeight(maxHeight)
+                        .radius(radius)
+                        .tracklist(tracklist));
     }
 
     @Test
@@ -159,21 +146,18 @@ class OEmbedIT extends AbstractIT {
         var expected = MAPPER.readValue(body, OEmbed.class);
 
         stubOEmbedWithOptions(
-                "https://www.deezer.com/episode/" + episodeId,
-                autoplay,
-                maxWidth,
-                maxHeight,
-                radius,
-                tracklist,
-                body
-        );
+                "https://www.deezer.com/episode/" + episodeId, autoplay, maxWidth, maxHeight, radius, tracklist, body);
 
-        assertEquals(expected, deezerClient.oEmbed().getEpisodeOEmbed(episodeId)
-                .autoplay(autoplay)
-                .maxWidth(maxWidth)
-                .maxHeight(maxHeight)
-                .radius(radius)
-                .tracklist(tracklist));
+        assertEquals(
+                expected,
+                deezerClient
+                        .oEmbed()
+                        .getEpisodeOEmbed(episodeId)
+                        .autoplay(autoplay)
+                        .maxWidth(maxWidth)
+                        .maxHeight(maxHeight)
+                        .radius(radius)
+                        .tracklist(tracklist));
     }
 
     @Test
@@ -194,15 +178,18 @@ class OEmbedIT extends AbstractIT {
                 maxHeight,
                 radius,
                 tracklist,
-                body
-        );
+                body);
 
-        assertEquals(expected, deezerClient.oEmbed().getPlaylistOEmbed(playlistId)
-                .autoplay(autoplay)
-                .maxWidth(maxWidth)
-                .maxHeight(maxHeight)
-                .radius(radius)
-                .tracklist(tracklist));
+        assertEquals(
+                expected,
+                deezerClient
+                        .oEmbed()
+                        .getPlaylistOEmbed(playlistId)
+                        .autoplay(autoplay)
+                        .maxWidth(maxWidth)
+                        .maxHeight(maxHeight)
+                        .radius(radius)
+                        .tracklist(tracklist));
     }
 
     @Test
@@ -217,21 +204,18 @@ class OEmbedIT extends AbstractIT {
         var expected = MAPPER.readValue(body, OEmbed.class);
 
         stubOEmbedWithOptions(
-                "https://www.deezer.com/show/" + showId,
-                autoplay,
-                maxWidth,
-                maxHeight,
-                radius,
-                tracklist,
-                body
-        );
+                "https://www.deezer.com/show/" + showId, autoplay, maxWidth, maxHeight, radius, tracklist, body);
 
-        assertEquals(expected, deezerClient.oEmbed().getShowOEmbed(showId)
-                .autoplay(autoplay)
-                .maxWidth(maxWidth)
-                .maxHeight(maxHeight)
-                .radius(radius)
-                .tracklist(tracklist));
+        assertEquals(
+                expected,
+                deezerClient
+                        .oEmbed()
+                        .getShowOEmbed(showId)
+                        .autoplay(autoplay)
+                        .maxWidth(maxWidth)
+                        .maxHeight(maxHeight)
+                        .radius(radius)
+                        .tracklist(tracklist));
     }
 
     @Test
@@ -246,21 +230,18 @@ class OEmbedIT extends AbstractIT {
         var expected = MAPPER.readValue(body, OEmbed.class);
 
         stubOEmbedWithOptions(
-                "https://www.deezer.com/track/" + trackId,
-                autoplay,
-                maxWidth,
-                maxHeight,
-                radius,
-                tracklist,
-                body
-        );
+                "https://www.deezer.com/track/" + trackId, autoplay, maxWidth, maxHeight, radius, tracklist, body);
 
-        assertEquals(expected, deezerClient.oEmbed().getTrackOEmbed(trackId)
-                .autoplay(autoplay)
-                .maxWidth(maxWidth)
-                .maxHeight(maxHeight)
-                .radius(radius)
-                .tracklist(tracklist));
+        assertEquals(
+                expected,
+                deezerClient
+                        .oEmbed()
+                        .getTrackOEmbed(trackId)
+                        .autoplay(autoplay)
+                        .maxWidth(maxWidth)
+                        .maxHeight(maxHeight)
+                        .radius(radius)
+                        .tracklist(tracklist));
     }
 
     @Test
@@ -275,20 +256,17 @@ class OEmbedIT extends AbstractIT {
         var expected = MAPPER.readValue(body, OEmbed.class);
 
         stubOEmbedWithOptions(
-                "https://deezer.page.link/" + pageId,
-                autoplay,
-                maxWidth,
-                maxHeight,
-                radius,
-                tracklist,
-                body
-        );
+                "https://deezer.page.link/" + pageId, autoplay, maxWidth, maxHeight, radius, tracklist, body);
 
-        assertEquals(expected, deezerClient.oEmbed().getPageOEmbed(pageId)
-                .autoplay(autoplay)
-                .maxWidth(maxWidth)
-                .maxHeight(maxHeight)
-                .radius(radius)
-                .tracklist(tracklist));
+        assertEquals(
+                expected,
+                deezerClient
+                        .oEmbed()
+                        .getPageOEmbed(pageId)
+                        .autoplay(autoplay)
+                        .maxWidth(maxWidth)
+                        .maxHeight(maxHeight)
+                        .radius(radius)
+                        .tracklist(tracklist));
     }
 }

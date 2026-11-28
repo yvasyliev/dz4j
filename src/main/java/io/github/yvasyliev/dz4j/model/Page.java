@@ -2,11 +2,10 @@ package io.github.yvasyliev.dz4j.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.yvasyliev.dz4j.annotation.Experimental;
-import lombok.Builder;
-import lombok.Singular;
-
 import java.net.URL;
 import java.util.List;
+import lombok.Builder;
+import lombok.Singular;
 
 /**
  * A page of results from the Deezer API, containing a list of data items and pagination information.
@@ -24,5 +23,4 @@ public record Page<T>(
         @JsonProperty("total") Integer total,
         @Experimental @JsonProperty("checksum") String checksum,
         @JsonProperty("next") URL next,
-        @JsonProperty("prev") URL prev
-) {}
+        @JsonProperty("prev") URL prev) {}

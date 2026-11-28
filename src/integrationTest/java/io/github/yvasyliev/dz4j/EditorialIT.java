@@ -1,21 +1,20 @@
 package io.github.yvasyliev.dz4j;
 
-import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
-import io.github.yvasyliev.dz4j.model.Album;
-import io.github.yvasyliev.dz4j.model.Chart;
-import io.github.yvasyliev.dz4j.model.Editorial;
-import io.github.yvasyliev.dz4j.model.Page;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import tools.jackson.core.type.TypeReference;
-
-import java.io.IOException;
-
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
+
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
+import io.github.yvasyliev.dz4j.model.Album;
+import io.github.yvasyliev.dz4j.model.Chart;
+import io.github.yvasyliev.dz4j.model.Editorial;
+import io.github.yvasyliev.dz4j.model.Page;
+import java.io.IOException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import tools.jackson.core.type.TypeReference;
 
 @SuppressWarnings("IdentifierName")
 class EditorialIT extends AbstractIT {
@@ -48,10 +47,10 @@ class EditorialIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/editorial"))
                 .withQueryParam("index", equalTo(index))
                 .withQueryParam("limit", equalTo(limit))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
-        assertEquals(expected, deezerClient.editorial().getEditorials().index(index).limit(limit));
+        assertEquals(
+                expected, deezerClient.editorial().getEditorials().index(index).limit(limit));
     }
 
     @Test
@@ -62,8 +61,7 @@ class EditorialIT extends AbstractIT {
 
         stubFor(get(urlPathTemplate("/editorial/{genreId}"))
                 .withPathParam("genreId", equalTo(genreId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.editorial().getEditorial(genreId));
     }
@@ -76,8 +74,7 @@ class EditorialIT extends AbstractIT {
 
         stubFor(get(urlPathTemplate("/editorial/{genreId}/selection"))
                 .withPathParam("genreId", equalTo(genreId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.editorial().getEditorialSelection(genreId));
     }
@@ -90,8 +87,7 @@ class EditorialIT extends AbstractIT {
 
         stubFor(get(urlPathTemplate("/editorial/{genreId}/releases"))
                 .withPathParam("genreId", equalTo(genreId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.editorial().getEditorialReleases(genreId));
     }
@@ -108,10 +104,15 @@ class EditorialIT extends AbstractIT {
                 .withPathParam("genreId", equalTo(genreId))
                 .withQueryParam("index", equalTo(index))
                 .withQueryParam("limit", equalTo(limit))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
-        assertEquals(expected, deezerClient.editorial().getEditorialReleases(genreId).index(index).limit(limit));
+        assertEquals(
+                expected,
+                deezerClient
+                        .editorial()
+                        .getEditorialReleases(genreId)
+                        .index(index)
+                        .limit(limit));
     }
 
     @Test
@@ -122,8 +123,7 @@ class EditorialIT extends AbstractIT {
 
         stubFor(get(urlPathTemplate("/editorial/{genreId}/charts"))
                 .withPathParam("genreId", equalTo(genreId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.editorial().getEditorialCharts(genreId));
     }
@@ -140,9 +140,14 @@ class EditorialIT extends AbstractIT {
                 .withPathParam("genreId", equalTo(genreId))
                 .withQueryParam("index", equalTo(index))
                 .withQueryParam("limit", equalTo(limit))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
-        assertEquals(expected, deezerClient.editorial().getEditorialCharts(genreId).index(index).limit(limit));
+        assertEquals(
+                expected,
+                deezerClient
+                        .editorial()
+                        .getEditorialCharts(genreId)
+                        .index(index)
+                        .limit(limit));
     }
 }

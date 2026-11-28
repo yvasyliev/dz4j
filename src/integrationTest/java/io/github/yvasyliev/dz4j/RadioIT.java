@@ -1,20 +1,19 @@
 package io.github.yvasyliev.dz4j;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
+
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
 import io.github.yvasyliev.dz4j.model.Genre;
 import io.github.yvasyliev.dz4j.model.Page;
 import io.github.yvasyliev.dz4j.model.Radio;
 import io.github.yvasyliev.dz4j.model.Track;
+import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tools.jackson.core.type.TypeReference;
-
-import java.io.IOException;
-
-import static com.github.tomakehurst.wiremock.client.WireMock.get;
-import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
-import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
 
 @SuppressWarnings("IdentifierName")
 class RadioIT extends AbstractIT {
@@ -57,8 +56,7 @@ class RadioIT extends AbstractIT {
         stubFor(get(urlPathTemplate("/radio/lists"))
                 .withQueryParam("index", equalTo(index))
                 .withQueryParam("limit", equalTo(limit))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.radio().getLists().index(index).limit(limit));
     }
@@ -71,8 +69,7 @@ class RadioIT extends AbstractIT {
 
         stubFor(get(urlPathTemplate("/radio/{radioId}"))
                 .withPathParam("radioId", equalTo(radioId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.radio().getRadio(radioId));
     }
@@ -95,8 +92,7 @@ class RadioIT extends AbstractIT {
 
         stubFor(get(urlPathTemplate("/radio/{radioId}/tracks"))
                 .withPathParam("radioId", equalTo(radioId))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
         assertEquals(expected, deezerClient.radio().getTracks(radioId));
     }
@@ -113,9 +109,9 @@ class RadioIT extends AbstractIT {
                 .withPathParam("radioId", equalTo(radioId))
                 .withQueryParam("index", equalTo(index))
                 .withQueryParam("limit", equalTo(limit))
-                .willReturn(okJson(body))
-        );
+                .willReturn(okJson(body)));
 
-        assertEquals(expected, deezerClient.radio().getTracks(radioId).index(index).limit(limit));
+        assertEquals(
+                expected, deezerClient.radio().getTracks(radioId).index(index).limit(limit));
     }
 }

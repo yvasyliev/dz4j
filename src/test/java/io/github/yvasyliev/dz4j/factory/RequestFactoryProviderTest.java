@@ -1,5 +1,8 @@
 package io.github.yvasyliev.dz4j.factory;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
+
 import feign.AsyncFeign;
 import io.github.yvasyliev.dz4j.authorization.AuthorizationManager;
 import io.github.yvasyliev.dz4j.configuration.BaseUrls;
@@ -25,13 +28,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
-
 @ExtendWith(MockitoExtension.class)
 class RequestFactoryProviderTest {
-    @Mock private AsyncFeign.AsyncBuilder<Object> builder;
-    @Mock private AuthorizationManager authorizationManager;
+    @Mock
+    private AsyncFeign.AsyncBuilder<Object> builder;
+
+    @Mock
+    private AuthorizationManager authorizationManager;
 
     @Test
     void testRequestFactoryProvider() {
@@ -45,8 +48,7 @@ class RequestFactoryProviderTest {
                         .oauth(oauthBaseUrl)
                         .upload(uploadBaseUrl)
                         .build(),
-                authorizationManager
-        );
+                authorizationManager);
 
         assertThat(requestFactoryProvider).hasNoNullFieldsOrProperties();
         verify(builder).target(AlbumService.class, apiBaseUrl);

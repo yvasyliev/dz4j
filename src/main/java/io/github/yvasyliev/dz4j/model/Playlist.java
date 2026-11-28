@@ -2,11 +2,10 @@ package io.github.yvasyliev.dz4j.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.yvasyliev.dz4j.annotation.Experimental;
-import lombok.Builder;
-
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import lombok.Builder;
 
 /**
  * A playlist object.
@@ -66,8 +65,7 @@ public record Playlist(
         @Experimental @JsonProperty("md5_image") String md5Image,
         @Experimental @JsonProperty("picture_type") PictureType pictureType,
         @JsonProperty("creator") User creator,
-        @JsonProperty("tracks") Page<Track> tracks
-) {
+        @JsonProperty("tracks") Page<Track> tracks) {
     /**
      * Type of the picture.
      */
@@ -76,11 +74,13 @@ public record Playlist(
         /**
          * Cover picture type.
          */
-        @JsonProperty("cover") COVER,
+        @JsonProperty("cover")
+        COVER,
 
         /**
          * Playlist picture type.
          */
-        @JsonProperty("playlist") PLAYLIST
+        @JsonProperty("playlist")
+        PLAYLIST
     }
 }

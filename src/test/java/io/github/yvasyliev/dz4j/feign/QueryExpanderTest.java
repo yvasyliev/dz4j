@@ -1,19 +1,18 @@
 package io.github.yvasyliev.dz4j.feign;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
+
 import feign.Param;
 import io.github.yvasyliev.dz4j.model.AdvancedQuery;
 import io.github.yvasyliev.dz4j.model.SimpleQuery;
+import java.time.Duration;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.FieldSource;
 import tools.jackson.databind.json.JsonMapper;
-
-import java.time.Duration;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class QueryExpanderTest {
     private static final Param.Expander EXPANDER = new QueryExpander(new JsonMapper());
@@ -30,13 +29,10 @@ class QueryExpanderTest {
                             Duration.ofMinutes(2),
                             Duration.ofMinutes(3),
                             85,
-                            145
-                    ),
+                            145),
                     """
-                    artist:"test artist" album:"test album" track:"test track" label:"test label" dur_min:120"""
-                            + " dur_max:180 bpm_min:85 bpm_max:145"
-            )
-    );
+                        artist:"test artist" album:"test album" track:"test track" label:"test label" dur_min:120\
+                        """ + " dur_max:180 bpm_min:85 bpm_max:145"));
 
     @ParameterizedTest
     @FieldSource

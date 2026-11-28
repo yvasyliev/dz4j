@@ -1,9 +1,8 @@
 package io.github.yvasyliev.dz4j.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
-
 import java.net.URL;
+import lombok.Builder;
 
 /**
  * An editorial object.
@@ -24,5 +23,4 @@ public record Editorial(
         @JsonProperty("picture_small") URL pictureSmall,
         @JsonProperty("picture_medium") URL pictureMedium,
         @JsonProperty("picture_big") URL pictureBig,
-        @JsonProperty("picture_xl") URL pictureXl
-) {}
+        @JsonProperty("picture_xl") URL pictureXl) {}

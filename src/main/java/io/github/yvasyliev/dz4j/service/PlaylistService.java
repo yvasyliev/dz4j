@@ -11,11 +11,10 @@ import io.github.yvasyliev.dz4j.model.Page;
 import io.github.yvasyliev.dz4j.model.Playlist;
 import io.github.yvasyliev.dz4j.model.Track;
 import io.github.yvasyliev.dz4j.model.User;
-import org.jspecify.annotations.Nullable;
-
 import java.util.Collection;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Service for working with playlists on Deezer.
@@ -35,8 +34,7 @@ public interface PlaylistService {
     CompletableFuture<Boolean> addTracks(
             @Param("playlistId") long playlistId,
             @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
-            @Param("songs") Collection<Long> trackIds
-    );
+            @Param("songs") Collection<Long> trackIds);
 
     /**
      * Deletes the playlist.
@@ -48,8 +46,7 @@ public interface PlaylistService {
     @RequestLine("DELETE /playlist/{playlistId}?access_token={accessToken}")
     CompletableFuture<Boolean> deletePlaylist(
             @Param("playlistId") long playlistId,
-            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken
-    );
+            @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken);
 
     /**
      * Deletes tracks from the playlist.
@@ -61,13 +58,11 @@ public interface PlaylistService {
      */
     @RequestLine(
             value = "DELETE /playlist/{playlistId}/tracks?access_token={accessToken}&songs={songs}",
-            collectionFormat = CollectionFormat.CSV
-    )
+            collectionFormat = CollectionFormat.CSV)
     CompletableFuture<Boolean> deleteTracks(
             @Param("playlistId") long playlistId,
             @Param(value = "accessToken", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
-            @Param("songs") Collection<Long> trackIds
-    );
+            @Param("songs") Collection<Long> trackIds);
 
     /**
      * Returns a list of playlist's fans.
@@ -81,8 +76,7 @@ public interface PlaylistService {
     CompletableFuture<Page<User>> getFans(
             @Param("playlistId") long playlistId,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a playlist.
@@ -105,8 +99,7 @@ public interface PlaylistService {
     CompletableFuture<Optional<Page<Track>>> getRadio(
             @Param("playlistId") long playlistId,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of playlist's tracks.
@@ -120,8 +113,7 @@ public interface PlaylistService {
     CompletableFuture<Page<Track>> getTracks(
             @Param("playlistId") long playlistId,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Marks the playlist as seen.
@@ -134,8 +126,7 @@ public interface PlaylistService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     CompletableFuture<Boolean> markAsSeen(
             @Param("playlistId") long playlistId,
-            @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken
-    );
+            @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken);
 
     /**
      * Orders tracks in the playlist.
@@ -150,8 +141,7 @@ public interface PlaylistService {
     CompletableFuture<Boolean> orderTracks(
             @Param("playlistId") long playlistId,
             @Param(value = "access_token", expander = AccessTokenExpander.class) @Nullable AccessToken accessToken,
-            @Param("order") Collection<Long> trackIds
-    );
+            @Param("order") Collection<Long> trackIds);
 
     /**
      * Updates the playlist.
@@ -172,6 +162,5 @@ public interface PlaylistService {
             @Param("title") @Experimental @Nullable String title,
             @Param("description") @Experimental @Nullable String description,
             @Param("public") @Experimental @Nullable Boolean isPublic,
-            @Param("collaborative") @Experimental @Nullable Boolean collaborative
-    );
+            @Param("collaborative") @Experimental @Nullable Boolean collaborative);
 }

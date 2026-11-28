@@ -1,9 +1,8 @@
 package io.github.yvasyliev.dz4j.databind.util;
 
+import java.time.LocalDate;
 import org.jspecify.annotations.Nullable;
 import tools.jackson.databind.util.StdConverter;
-
-import java.time.LocalDate;
 
 /**
  * A converter that converts a string to a {@link LocalDate}, returning {@code null} if the string is

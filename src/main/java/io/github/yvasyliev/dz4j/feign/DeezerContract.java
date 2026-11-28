@@ -5,16 +5,15 @@ import feign.DefaultContract;
 import feign.MethodMetadata;
 import feign.Param;
 import io.github.yvasyliev.dz4j.util.Customizer;
-import lombok.Builder;
-import lombok.RequiredArgsConstructor;
-import org.jspecify.annotations.Nullable;
-import tools.jackson.databind.json.JsonMapper;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import lombok.Builder;
+import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.Nullable;
+import tools.jackson.databind.json.JsonMapper;
 
 /**
  * Custom Feign contract for Deezer API, allowing for custom parameter expanders.
@@ -27,9 +26,7 @@ public class DeezerContract implements Contract {
 
     @Builder
     private DeezerContract(
-            JsonMapper jsonMapper,
-            @Nullable Consumer<Map<Class<? extends Param.Expander>, Param.Expander>> expanders
-    ) {
+            JsonMapper jsonMapper, @Nullable Consumer<Map<Class<? extends Param.Expander>, Param.Expander>> expanders) {
         this(new DefaultContract(), new HashMap<>());
 
         this.expanders.put(AccessTokenExpander.class, new AccessTokenExpander());
@@ -57,13 +54,9 @@ public class DeezerContract implements Contract {
     }
 
     private void setExpanders(MethodMetadata md) {
-        var indexToExpander = md.indexToExpanderClass()
-                .entrySet()
-                .stream()
+        var indexToExpander = md.indexToExpanderClass().entrySet().stream()
                 .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        entry -> expanders.getOrDefault(entry.getValue(), DEFAULT_EXPANDER)
-                ));
+                        Map.Entry::getKey, entry -> expanders.getOrDefault(entry.getValue(), DEFAULT_EXPANDER)));
 
         md.indexToExpander(indexToExpander);
     }

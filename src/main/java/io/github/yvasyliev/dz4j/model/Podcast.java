@@ -1,9 +1,8 @@
 package io.github.yvasyliev.dz4j.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
-
 import java.net.URL;
+import lombok.Builder;
 
 /**
  * A podcast object.
@@ -36,5 +35,4 @@ public record Podcast(
         @JsonProperty("picture_medium") URL pictureMedium,
         @JsonProperty("picture_big") URL pictureBig,
         @JsonProperty("picture_xl") URL pictureXl,
-        @JsonProperty("position") Integer position
-) {}
+        @JsonProperty("position") Integer position) {}

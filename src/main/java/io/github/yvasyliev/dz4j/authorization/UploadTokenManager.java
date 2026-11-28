@@ -2,11 +2,10 @@ package io.github.yvasyliev.dz4j.authorization;
 
 import io.github.yvasyliev.dz4j.factory.InfosRequestFactory;
 import io.github.yvasyliev.dz4j.model.Infos;
-import lombok.RequiredArgsConstructor;
-import org.jspecify.annotations.Nullable;
-
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
+import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Manages the upload token required for uploading files to Deezer.

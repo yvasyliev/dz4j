@@ -644,7 +644,7 @@ System.out.println("Access token (async): " + accessTokenFuture.join());
 ```java
 var loginUrl = deezerClient.oauth().getLoginUrl(
         123456,
-        URI.create("http://localhost:8080/callback"), 
+        URI.create("http://localhost:8080/callback"),
         Permission.BASIC_ACCESS
 );
 

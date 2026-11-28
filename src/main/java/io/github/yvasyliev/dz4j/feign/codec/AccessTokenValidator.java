@@ -4,7 +4,6 @@ import feign.Response;
 import feign.Util;
 import io.github.yvasyliev.dz4j.exception.AccessTokenResponseException;
 import io.github.yvasyliev.dz4j.model.AccessToken;
-
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -14,9 +13,7 @@ import java.util.List;
  */
 public class AccessTokenValidator implements ResponseValidator {
     private static boolean isTextHtml(Response response) {
-        return response.headers()
-                .getOrDefault("content-type", List.of())
-                .stream()
+        return response.headers().getOrDefault("content-type", List.of()).stream()
                 .anyMatch(ct -> ct.startsWith("text/html"));
     }
 

@@ -7,9 +7,8 @@ import io.github.yvasyliev.dz4j.model.Album;
 import io.github.yvasyliev.dz4j.model.Page;
 import io.github.yvasyliev.dz4j.model.Track;
 import io.github.yvasyliev.dz4j.model.User;
-import org.jspecify.annotations.Nullable;
-
 import java.util.concurrent.CompletableFuture;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Service for interacting with albums on Deezer.
@@ -37,8 +36,7 @@ public interface AlbumService {
     CompletableFuture<Page<User>> getAlbumFans(
             @Param("albumId") long albumId,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of album's tracks.
@@ -52,6 +50,5 @@ public interface AlbumService {
     CompletableFuture<Page<Track>> getAlbumTracks(
             @Param("albumId") long albumId,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 }

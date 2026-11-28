@@ -3,7 +3,6 @@ package io.github.yvasyliev.dz4j.service;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
-import org.jspecify.annotations.Nullable;
 import io.github.yvasyliev.dz4j.model.Album;
 import io.github.yvasyliev.dz4j.model.Artist;
 import io.github.yvasyliev.dz4j.model.Chart;
@@ -11,8 +10,8 @@ import io.github.yvasyliev.dz4j.model.Page;
 import io.github.yvasyliev.dz4j.model.Playlist;
 import io.github.yvasyliev.dz4j.model.Podcast;
 import io.github.yvasyliev.dz4j.model.Track;
-
 import java.util.concurrent.CompletableFuture;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Service for accessing Deezer charts.
@@ -31,8 +30,7 @@ public interface ChartService {
     CompletableFuture<Page<Album>> getAlbumsChart(
             @Param("genreId") long genreId,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of top artists in the specified genre.
@@ -46,8 +44,7 @@ public interface ChartService {
     CompletableFuture<Page<Artist>> getArtistsChart(
             @Param("genreId") long genreId,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns the overall chart for the specified genre.
@@ -61,8 +58,7 @@ public interface ChartService {
     CompletableFuture<Chart> getChart(
             @Param("genreId") long genreId,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of top playlists in the specified genre.
@@ -76,8 +72,7 @@ public interface ChartService {
     CompletableFuture<Page<Playlist>> getPlaylistsChart(
             @Param("genreId") long genreId,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of top podcasts in the specified genre.
@@ -91,8 +86,7 @@ public interface ChartService {
     CompletableFuture<Page<Podcast>> getPodcastsChart(
             @Param("genreId") long genreId,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a list of top tracks in the specified genre.
@@ -106,6 +100,5 @@ public interface ChartService {
     CompletableFuture<Page<Track>> getTracksChart(
             @Param("genreId") long genreId,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 }

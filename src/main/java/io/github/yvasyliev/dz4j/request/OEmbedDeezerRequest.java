@@ -3,14 +3,13 @@ package io.github.yvasyliev.dz4j.request;
 import io.github.yvasyliev.dz4j.exception.DeezerException;
 import io.github.yvasyliev.dz4j.model.OEmbed;
 import io.github.yvasyliev.dz4j.service.OEmbedService;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.concurrent.CompletableFuture;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.jspecify.annotations.Nullable;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * A request to retrieve oEmbed information for a given Deezer URL.

@@ -1,11 +1,11 @@
 package io.github.yvasyliev.dz4j.authorization;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+
 import io.github.yvasyliev.dz4j.factory.OAuthRequestFactory;
 import io.github.yvasyliev.dz4j.model.AccessToken;
 import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
 
 class AuthorizationTest {
     @Test

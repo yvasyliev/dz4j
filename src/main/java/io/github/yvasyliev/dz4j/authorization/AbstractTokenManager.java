@@ -1,10 +1,9 @@
 package io.github.yvasyliev.dz4j.authorization;
 
-import org.jspecify.annotations.Nullable;
-
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
+import org.jspecify.annotations.Nullable;
 
 /**
  * An abstract token manager that provides a thread-safe mechanism for retrieving and caching tokens asynchronously.

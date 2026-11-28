@@ -13,9 +13,7 @@ public class IndividualAccountChangedNotAllowedException extends AbstractDeezerA
      * @param code    the error code associated with the exception
      */
     public IndividualAccountChangedNotAllowedException(
-            @JsonProperty(MESSAGE) String message,
-            @JsonProperty(CODE) ErrorCode code
-    ) {
+            @JsonProperty(MESSAGE) String message, @JsonProperty(CODE) ErrorCode code) {
         super(message, code);
     }
 }

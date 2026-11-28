@@ -1,14 +1,13 @@
 package io.github.yvasyliev.dz4j.authorization;
 
-import io.github.yvasyliev.dz4j.factory.OAuthRequestFactory;
-import io.github.yvasyliev.dz4j.model.AccessToken;
-import org.junit.jupiter.api.Test;
-
-import java.util.concurrent.CompletableFuture;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import io.github.yvasyliev.dz4j.factory.OAuthRequestFactory;
+import io.github.yvasyliev.dz4j.model.AccessToken;
+import java.util.concurrent.CompletableFuture;
+import org.junit.jupiter.api.Test;
 
 class AuthorizationManagerTest {
     @Test

@@ -7,9 +7,8 @@ import io.github.yvasyliev.dz4j.model.Genre;
 import io.github.yvasyliev.dz4j.model.Page;
 import io.github.yvasyliev.dz4j.model.Radio;
 import io.github.yvasyliev.dz4j.model.Track;
-import org.jspecify.annotations.Nullable;
-
 import java.util.concurrent.CompletableFuture;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Service for interacting with Deezer's radio-related endpoints.
@@ -33,9 +32,7 @@ public interface RadioService {
      */
     @RequestLine("GET /radio/lists?index={index}&limit={limit}")
     CompletableFuture<Page<Radio>> getLists(
-            @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("index") @Nullable Integer index, @Param("limit") @Nullable Integer limit);
 
     /**
      * Returns a radio.
@@ -66,6 +63,5 @@ public interface RadioService {
     CompletableFuture<Page<Track>> getTracks(
             @Param("radioId") long radioId,
             @Param("index") @Nullable Integer index,
-            @Param("limit") @Nullable Integer limit
-    );
+            @Param("limit") @Nullable Integer limit);
 }

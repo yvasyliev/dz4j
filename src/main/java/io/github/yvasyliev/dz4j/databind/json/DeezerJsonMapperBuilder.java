@@ -5,6 +5,9 @@ import io.github.yvasyliev.dz4j.databind.deser.PageDeserializerModifier;
 import io.github.yvasyliev.dz4j.databind.util.ZeroToNullLocalDateConverter;
 import io.github.yvasyliev.dz4j.databind.util.ZeroToNullLocalDateTimeConverter;
 import io.github.yvasyliev.dz4j.util.Customizer;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.function.Consumer;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.jspecify.annotations.Nullable;
@@ -14,10 +17,6 @@ import tools.jackson.databind.cfg.HandlerInstantiator;
 import tools.jackson.databind.deser.std.StdConvertingDeserializer;
 import tools.jackson.databind.json.JsonMapper;
 import tools.jackson.databind.module.SimpleModule;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.function.Consumer;
 
 /**
  * A builder for creating a customized {@link JsonMapper} instance for Deezer API responses.
@@ -46,19 +45,15 @@ public class DeezerJsonMapperBuilder {
     private JacksonModule buildModule() {
         var deezerModule = new SimpleModule("deezer-api")
                 .setDeserializerModifier(new PageDeserializerModifier())
+                .addDeserializer(LocalDate.class, new StdConvertingDeserializer<>(new ZeroToNullLocalDateConverter()))
                 .addDeserializer(
-                        LocalDate.class,
-                        new StdConvertingDeserializer<>(new ZeroToNullLocalDateConverter())
-                )
-                .addDeserializer(
-                        LocalDateTime.class,
-                        new StdConvertingDeserializer<>(new ZeroToNullLocalDateTimeConverter())
-                );
+                        LocalDateTime.class, new StdConvertingDeserializer<>(new ZeroToNullLocalDateTimeConverter()));
 
         return Customizer.customize(deezerModule, module);
     }
 
     private HandlerInstantiator buildHandlerInstantiator() {
-        return Customizer.customize(DeezerHandlerInstantiator.builder(), handlerInstantiator).build();
+        return Customizer.customize(DeezerHandlerInstantiator.builder(), handlerInstantiator)
+                .build();
     }
 }

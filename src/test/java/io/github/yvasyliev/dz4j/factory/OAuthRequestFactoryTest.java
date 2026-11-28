@@ -1,25 +1,5 @@
 package io.github.yvasyliev.dz4j.factory;
 
-import io.github.yvasyliev.dz4j.exception.DeezerException;
-import io.github.yvasyliev.dz4j.model.AccessToken;
-import io.github.yvasyliev.dz4j.model.Permission;
-import io.github.yvasyliev.dz4j.service.OAuthService;
-import io.github.yvasyliev.dz4j.util.QuadFunction;
-import io.github.yvasyliev.dz4j.util.TriFunction;
-import lombok.Cleanup;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import java.time.Instant;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -28,10 +8,31 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 
+import io.github.yvasyliev.dz4j.exception.DeezerException;
+import io.github.yvasyliev.dz4j.model.AccessToken;
+import io.github.yvasyliev.dz4j.model.Permission;
+import io.github.yvasyliev.dz4j.service.OAuthService;
+import io.github.yvasyliev.dz4j.util.QuadFunction;
+import io.github.yvasyliev.dz4j.util.TriFunction;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.time.Instant;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
 @ExtendWith(MockitoExtension.class)
 class OAuthRequestFactoryTest {
-    @InjectMocks private OAuthRequestFactory oAuthRequestFactory;
-    @Mock private OAuthService oAuthService;
+    @InjectMocks
+    private OAuthRequestFactory oAuthRequestFactory;
+
+    @Mock
+    private OAuthService oAuthService;
 
     private static void testGetLoginUrl(QuadFunction<Integer, URI, Permission, Permission, URL> method) {
         var appId = 123;
@@ -51,17 +52,17 @@ class OAuthRequestFactoryTest {
 
     @SuppressWarnings("UnnecessarilyFullyQualified")
     private static void shouldThrowDeezerExceptionWhenLoginUrlIsMalformed(
-            TriFunction<Integer, URI, Permission, URL> method
-    ) throws MalformedURLException {
+            TriFunction<Integer, URI, Permission, URL> method) throws MalformedURLException {
         var appId = 123;
         var redirectUri = URI.create("https://example.com/callback");
         var loginUri = mock(URI.class);
-        @Cleanup var uri = mockStatic(URI.class);
 
-        uri.when(() -> URI.create(any())).thenReturn(loginUri);
-        when(loginUri.toURL()).thenThrow(MalformedURLException.class);
+        try (var uri = mockStatic(URI.class)) {
+            uri.when(() -> URI.create(any())).thenReturn(loginUri);
+            when(loginUri.toURL()).thenThrow(MalformedURLException.class);
 
-        assertThrows(DeezerException.class, () -> method.apply(appId, redirectUri, Permission.BASIC_ACCESS));
+            assertThrows(DeezerException.class, () -> method.apply(appId, redirectUri, Permission.BASIC_ACCESS));
+        }
     }
 
     @Test
@@ -81,34 +82,25 @@ class OAuthRequestFactoryTest {
 
     @Test
     void testGetLoginUrlWithPermissionArray() {
-        testGetLoginUrl((appId, redirectUri, permission1, permission2) -> oAuthRequestFactory.getLoginUrl(
-                appId,
-                redirectUri,
-                permission1,
-                permission2
-        ));
+        testGetLoginUrl((appId, redirectUri, permission1, permission2) ->
+                oAuthRequestFactory.getLoginUrl(appId, redirectUri, permission1, permission2));
     }
 
     @Test
     void testGetLoginUrlWithPermissionList() {
-        testGetLoginUrl((appId, redirectUri, permission1, permission2) -> oAuthRequestFactory.getLoginUrl(
-                appId,
-                redirectUri,
-                List.of(permission1, permission2)
-        ));
+        testGetLoginUrl((appId, redirectUri, permission1, permission2) ->
+                oAuthRequestFactory.getLoginUrl(appId, redirectUri, List.of(permission1, permission2)));
     }
 
     @Test
     void shouldThrowDeezerExceptionWhenLoginUrlIsMalformedWithPermissionArray() throws MalformedURLException {
-        shouldThrowDeezerExceptionWhenLoginUrlIsMalformed((appId, redirectUri, permission) ->
-                oAuthRequestFactory.getLoginUrl(appId, redirectUri, permission)
-        );
+        shouldThrowDeezerExceptionWhenLoginUrlIsMalformed(
+                (appId, redirectUri, permission) -> oAuthRequestFactory.getLoginUrl(appId, redirectUri, permission));
     }
 
     @Test
     void shouldThrowDeezerExceptionWhenLoginUrlIsMalformedWithPermissionList() throws MalformedURLException {
         shouldThrowDeezerExceptionWhenLoginUrlIsMalformed((appId, redirectUri, permission) ->
-                oAuthRequestFactory.getLoginUrl(appId, redirectUri, List.of(permission))
-        );
+                oAuthRequestFactory.getLoginUrl(appId, redirectUri, List.of(permission)));
     }
 }

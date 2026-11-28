@@ -11,10 +11,9 @@ import io.github.yvasyliev.dz4j.request.PagingDeezerRequest;
 import io.github.yvasyliev.dz4j.request.SimpleDeezerRequest;
 import io.github.yvasyliev.dz4j.request.SimplePagingDeezerRequest;
 import io.github.yvasyliev.dz4j.service.RadioService;
-import lombok.RequiredArgsConstructor;
-
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Factory for creating requests related to radios.

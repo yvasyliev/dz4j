@@ -73,9 +73,6 @@
         <module name="ConstructorsDeclarationGrouping">
             <property name="orderByIncreasingParameterCount" value="true"/>
         </module>
-        <module name="CustomImportOrder">
-            <property name="customImportOrderRules" value="THIRD_PARTY_PACKAGE, STANDARD_JAVA_PACKAGE, STATIC"/>
-        </module>
         <module name="CyclomaticComplexity"/>
         <module name="DeclarationOrder"/>
         <module name="DefaultComesLast"/>
@@ -133,6 +130,13 @@
         <module name="LocalFinalVariableName"/>
         <module name="LocalVariableName"/>
         <module name="MagicNumber"/>
+        <module name="MatchXpath">
+            <property name="query"
+                      value="//ANNOTATION[IDENT[@text='Cleanup']
+                            or DOT[IDENT[@text='lombok'] and IDENT[@text='Cleanup']]]"/>
+            <message key="matchxpath.match"
+                     value="Do not use lombok @Cleanup; use try-with-resources instead."/>
+        </module>
         <module name="MemberName"/>
         <module name="MethodCount"/>
         <module name="MethodLength"/>

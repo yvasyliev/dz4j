@@ -1,11 +1,10 @@
 package io.github.yvasyliev.dz4j.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
-
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.EnumSet;
+import lombok.Builder;
 
 /**
  * A user object.
@@ -57,8 +56,7 @@ public record User(
         @JsonProperty("is_kid") Boolean isKid,
         @JsonProperty("explicit_content_level") ExplicitContentLevel explicitContentLevel,
         @JsonProperty("explicit_content_levels_available") EnumSet<ExplicitContentLevel> explicitContentLevelsAvailable,
-        @JsonProperty("tracklist") URL tracklist
-) {
+        @JsonProperty("tracklist") URL tracklist) {
     /**
      * The user's explicit content level.
      */
@@ -89,11 +87,13 @@ public record User(
         /**
          * Female.
          */
-        @JsonProperty("F") FEMALE,
+        @JsonProperty("F")
+        FEMALE,
 
         /**
          * Male.
          */
-        @JsonProperty("M") MALE
+        @JsonProperty("M")
+        MALE
     }
 }

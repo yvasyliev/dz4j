@@ -5,14 +5,13 @@ import io.github.yvasyliev.dz4j.model.Page;
 import io.github.yvasyliev.dz4j.model.Track;
 import io.github.yvasyliev.dz4j.model.User;
 import io.github.yvasyliev.dz4j.request.DeezerRequest;
-import io.github.yvasyliev.dz4j.request.IdDeezerRequest;
 import io.github.yvasyliev.dz4j.request.GetByIdPagingDeezerRequest;
+import io.github.yvasyliev.dz4j.request.IdDeezerRequest;
 import io.github.yvasyliev.dz4j.request.PagingDeezerRequest;
 import io.github.yvasyliev.dz4j.service.AlbumService;
 import io.github.yvasyliev.dz4j.util.TriFunction;
-import lombok.RequiredArgsConstructor;
-
 import java.util.concurrent.CompletableFuture;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Factory for creating requests related to albums.
@@ -22,9 +21,7 @@ public class AlbumRequestFactory {
     private final AlbumService albumService;
 
     private static <T> PagingDeezerRequest<Page<T>> createPagingDeezerRequest(
-            long albumId,
-            TriFunction<Long, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod
-    ) {
+            long albumId, TriFunction<Long, Integer, Integer, CompletableFuture<Page<T>>> asyncMethod) {
         return new GetByIdPagingDeezerRequest<>(albumId, asyncMethod);
     }
 
